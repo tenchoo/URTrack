@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoBAccesslogExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoBAccesslog">
+		<id column="ACCESS_ID" jdbcType="DECIMAL" property="accessId" />
+		<result column="CHARGE_ID" jdbcType="DECIMAL" property="chargeId" />
+		<result column="ACCT_BALANCE_ID" jdbcType="DECIMAL" property="acctBalanceId" />
+		<result column="OLD_BALANCE" jdbcType="DECIMAL" property="oldBalance" />
+		<result column="MONEY" jdbcType="DECIMAL" property="money" />
+		<result column="NEW_BALANCE" jdbcType="DECIMAL" property="newBalance" />
+		<result column="INVOICE_FEE" jdbcType="DECIMAL" property="invoiceFee" />
+		<result column="ACCESS_TAG" jdbcType="CHAR" property="accessTag" />
+		<result column="RECV_OPER_ID" jdbcType="VARCHAR" property="recvOperId" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="CANCEL_TAG" jdbcType="CHAR" property="cancelTag" />
+		<result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
+		<result column="CANCEL_OPER_ID" jdbcType="VARCHAR" property="cancelOperId" />
+		<result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="CHECKED_TAG" jdbcType="DECIMAL" property="checkedTag" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ACCESS_ID, CHARGE_ID, ACCT_BALANCE_ID, OLD_BALANCE, MONEY, NEW_BALANCE,
+		INVOICE_FEE,
+		ACCESS_TAG, RECV_OPER_ID, UPDATE_TIME, CANCEL_TAG, CANCEL_TIME, CANCEL_OPER_ID,
+		CHANNEL_CUST_ID,
+		CREATE_DATE, CHECKED_TAG
+	</sql>
+	<select id="selectByBalanceId" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM LAO_B_ACCESSLOG where ACCT_BALANCE_ID = #{balanceId}
+		and UPDATE_TIME between #{startDate} and #{endDate} order by
+		UPDATE_TIME DESC) A
+		WHERE ROWNUM <![CDATA[<=]]>
+		#{end}
+		)
+		WHERE RN <![CDATA[>=]]>
+		#{start}
+	</select>
+	<select id="countByBalanceId" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT count(*) FROM LAO_B_ACCESSLOG where ACCT_BALANCE_ID = #{balanceId}
+		and UPDATE_TIME between #{startDate} and #{endDate}
+	</select>
+
+	<select id="queryPage" resultType="java.util.Map" parameterType="java.util.Map">
+		select *
+		from (select a1.*, ROWNUM RN
+		from (select b.*
+		from Lao_b_Accesslog b
+		where b.channel_cust_id = #{custId}
+        and   b.access_tag=#{accessTag}
+		<if test="startTime != null">
+			AND b.create_date between #{startTime} AND #{endTime}
+		</if>
+		ORDER BY b.create_date DESC
+		) a1
+		where ROWNUM  <![CDATA[<=]]> #{pageSize}
+		)
+		where RN <![CDATA[>=]]> #{pageNo}
+	</select>
+	
+    <select id="pageCount" resultType="java.lang.Integer"  parameterType="java.util.Map" >
+       select count(1)
+		from Lao_b_Accesslog b
+		where b.channel_cust_id = #{custId}
+        and   b.access_tag = #{accessTag}
+		<if test="startTime != null">
+			AND b.create_date between #{startTime} AND #{endTime}
+		</if>
+		ORDER BY b.create_date DESC
+    </select>
+    
+    <select id="queryPageByType" resultType="map" parameterType="map"  >
+        select b.*  from Lao_b_Accesslog b where b.channel_cust_id=#{params.param.channel_cust_id}
+           and  b.access_tag=#{params.param.access_tag}
+         ORDER BY b.create_date DESC
+    </select>
+    
+    
+</mapper>

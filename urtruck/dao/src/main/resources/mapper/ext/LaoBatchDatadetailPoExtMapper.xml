@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoBatchDatadetailPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBatchDatadetailPo" >
+  	<id column="DATADETAIL_ID" property="datadetailId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="FLOW_STATUS" property="flowStatus" jdbcType="VARCHAR" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="PARA_CODE1" property="paraCode1" jdbcType="VARCHAR" />
+    <result column="PARA_CODE2" property="paraCode2" jdbcType="VARCHAR" />
+    <result column="PARA_CODE3" property="paraCode3" jdbcType="VARCHAR" />
+    <result column="PARA_CODE4" property="paraCode4" jdbcType="VARCHAR" />
+    <result column="PARA_CODE5" property="paraCode5" jdbcType="VARCHAR" />
+    <result column="PARA_CODE6" property="paraCode6" jdbcType="VARCHAR" />
+    <result column="PARA_CODE7" property="paraCode7" jdbcType="VARCHAR" />
+    <result column="PARA_CODE8" property="paraCode8" jdbcType="VARCHAR" />
+    <result column="PARA_CODE9" property="paraCode9" jdbcType="VARCHAR" />
+    <result column="PARA_CODE10" property="paraCode10" jdbcType="VARCHAR" />
+    <result column="PARA_CODE11" property="paraCode11" jdbcType="VARCHAR" />
+    <result column="PARA_CODE12" property="paraCode12" jdbcType="VARCHAR" />
+    <result column="PARA_CODE13" property="paraCode13" jdbcType="VARCHAR" />
+    <result column="PARA_CODE14" property="paraCode14" jdbcType="VARCHAR" />
+    <result column="PARA_CODE15" property="paraCode15" jdbcType="VARCHAR" />
+    <result column="PARA_CODE16" property="paraCode16" jdbcType="VARCHAR" />
+    <result column="PARA_CODE17" property="paraCode17" jdbcType="VARCHAR" />
+    <result column="PARA_CODE18" property="paraCode18" jdbcType="VARCHAR" />
+    <result column="PARA_CODE19" property="paraCode19" jdbcType="VARCHAR" />
+    <result column="PARA_CODE20" property="paraCode20" jdbcType="VARCHAR" />
+    <result column="PARA_CODE21" property="paraCode21" jdbcType="VARCHAR" />
+    <result column="PARA_CODE22" property="paraCode22" jdbcType="VARCHAR" />
+    <result column="PARA_CODE23" property="paraCode23" jdbcType="VARCHAR" />
+    <result column="PARA_CODE24" property="paraCode24" jdbcType="VARCHAR" />
+    <result column="PARA_CODE25" property="paraCode25" jdbcType="VARCHAR" />
+    <result column="PARA_CODE26" property="paraCode26" jdbcType="VARCHAR" />
+    <result column="PARA_CODE27" property="paraCode27" jdbcType="VARCHAR" />
+    <result column="PARA_CODE28" property="paraCode28" jdbcType="VARCHAR" />
+    <result column="PARA_CODE29" property="paraCode29" jdbcType="VARCHAR" />
+    <result column="PARA_CODE30" property="paraCode30" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DATADETAIL_ID,BATCH_ID, TRADE_TYPE_CODE, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, ICCID, 
+    GOODS_ID, RECV_TIME, FLOW_STATUS, DEAL_TAG, RESULT_INFO, UPDATE_TIME,TRADE_ID,
+    OPER_ID,PARA_CODE29,PARA_CODE30,REMARK
+  </sql>
+  <select id="queryPageNum" resultType="java.lang.Integer" parameterType="map" >	
+   	 SELECT COUNT(0) 
+   	 FROM LAO_BATCH_DATADETAIL 
+   	 WHERE BATCH_ID = #{param.batchId} AND DEAL_TAG = 3 
+  </select>
+  <!--去重查询  -->
+  <select id="duplicateRemoval" resultMap="BaseResultMap"  >	
+   	 SELECT *
+   	 FROM LAO_BATCH_DATADETAIL 
+   	 WHERE BATCH_ID = #{batchId} AND iccid =#{iccid} 
+  </select>
+  <!--去重查询  根据msisdn-->
+  <select id="duplicateRemovalByMsisdn" resultMap="BaseResultMap"  >	
+   	 SELECT *
+   	 FROM LAO_BATCH_DATADETAIL 
+   	 WHERE DATADETAIL_ID = #{batchId} AND MSISDN =#{msisdn} 
+  </select>
+  
+  <select id="queryFailPageByBatchId" resultMap="BaseResultMap" parameterType="map" >	
+   	 select 
+   	  <include refid="Base_Column_List" />
+     from LAO_BATCH_DATADETAIL 
+     where BATCH_ID = #{params.param.batchId} AND DEAL_TAG = 3
+  </select>
+  <select id="queryFailPage" resultMap="BaseResultMap" >	
+   	 SELECT 
+   	  <include refid="Base_Column_List" />
+     FROM LAO_BATCH_DATADETAIL 
+  </select>
+   <select id="queryFailDataByBatchId" resultMap="BaseResultMap" parameterType="Long">	
+   	 SELECT 
+   	  <include refid="Base_Column_List" />
+     FROM LAO_BATCH_DATADETAIL 
+     where BATCH_ID = #{batchId} AND DEAL_TAG = 3 
+  </select>
+   <select id="queryDataByBatchId" resultMap="BaseResultMap" parameterType="Long">	
+   	 SELECT 
+   	  <include refid="Base_Column_List" />
+     FROM LAO_BATCH_DATADETAIL 
+     where BATCH_ID = #{batchId} AND DEAL_TAG = 2 
+  </select>
+  
+    <insert id="batchInsert"  parameterType="java.util.List">
+   insert into LAO_BATCH_DATADETAIL (DATADETAIL_ID,BATCH_ID, TRADE_TYPE_CODE, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, ICCID, 
+    GOODS_ID, RECV_TIME, FLOW_STATUS, DEAL_TAG, RESULT_INFO, UPDATE_TIME,TRADE_ID,OPER_ID)   
+    <foreach collection="list" item="item" index="index"  separator="union all"  >
+    	(select  #{item.datadetailId,jdbcType=DECIMAL},#{item.batchId,jdbcType=DECIMAL}, #{item.tradeTypeCode,jdbcType=DECIMAL}, #{item.channelCustId,jdbcType=DECIMAL}, 
+      #{item.custId,jdbcType=DECIMAL}, #{item.userId,jdbcType=DECIMAL}, #{item.msisdn,jdbcType=VARCHAR}, 
+      #{item.iccid,jdbcType=VARCHAR}, #{item.goodsId,jdbcType=DECIMAL}, #{item.recvTime,jdbcType=TIMESTAMP}, 
+      #{item.flowStatus,jdbcType=VARCHAR}, #{item.dealTag,jdbcType=CHAR}, #{item.resultInfo,jdbcType=VARCHAR}, 
+      #{item.updateTime,jdbcType=TIMESTAMP}, #{item.tradeId,jdbcType=DECIMAL}, #{item.operId,jdbcType=VARCHAR} from dual)  
+    </foreach>
+   </insert> 
+</mapper>

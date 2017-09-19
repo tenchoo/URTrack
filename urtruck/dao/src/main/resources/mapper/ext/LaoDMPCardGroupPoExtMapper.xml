@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoDMPCardGroupPoExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPCardGroupPo">
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="GROUP_ID" jdbcType="DECIMAL" property="groupId" />
+    <result column="CREATTIME" jdbcType="TIMESTAMP" property="creattime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="FLAG" jdbcType="DECIMAL" property="flag" />
+  </resultMap>
+ 				 <sql id="Base_Column_List" >
+    IMEI,GROUP_ID,FLAG
+  </sql>
+   <insert id="batchInsert"  parameterType="java.util.List">
+   insert into LAO_DMP_CARDGROUP (IMEI,GROUP_ID)
+   		SELECT * from(
+   	<foreach collection="list" item="item" index="index"  separator="union all">
+    	select #{item.imei,jdbcType=VARCHAR}IMEI, #{item.groupId,jdbcType=DECIMAL}GROUP_ID from dual
+    </foreach>)
+
+   </insert>
+     <select id="selectByIm" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_CARDGROUP
+    where IMEI = #{imei,jdbcType=VARCHAR} AND GROUP_ID = #{id,jdbcType=DECIMAL} AND FLAG = 0 and rownum=1
+  </select>
+   <select id="selectByGroupId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_CARDGROUP
+    where GROUP_ID = #{id} AND FLAG = 0 and rownum=1
+  </select>
+   <update id="delCardGroup" parameterType="long">
+    update LAO_DMP_CARDGROUP
+    set FLAG = 1
+    where GROUP_ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectGroupByImei" resultType="String" parameterType="String">
+     select 
+	wm_concat(g.group_name) groupNames from lao_dmp_cardgroup cg
+	left join lao_dmp_group g on g.id = cg.group_id 
+	 where IMEI = #{imei} AND FLAG = 0
+  </select>
+  <select id="getSchemesbyImei" resultType="com.urt.po.LaoDMPStrategyEditPo">
+	select 
+	dse.id,dse.channelcust_id,dse.targittype,dse.scheme_name,dse.scheme_comment,dse.delflag 
+	from lao_dmp_cardgroup dcg 
+	left join lao_dmpscheme_group dsg on dcg.group_id=dsg.group_id and dsg.delflag='1'
+	left join lao_dmpstrategy_edit dse dsg.scheme_id=dse.id on dse.delflag='1'
+	where dcg.flag=0 and dcg.imei=#{imei} 
+  </select>
+   <select id="selectDeviceNum" resultType="Integer" parameterType="Long">
+    select count(card.imei) from lao_dmp_cardgroup card 
+	 where GROUP_ID = #{id} AND FLAG = 0
+  </select>
+   <select id="getGroupIdsByImei" resultType="long">
+     select cg.group_id from lao_dmp_cardgroup cg 
+	 where IMEI = #{imei} AND FLAG = 0
+  </select>
+  
+</mapper>

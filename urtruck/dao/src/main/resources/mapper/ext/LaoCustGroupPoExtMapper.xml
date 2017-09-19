@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustGroupPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustGroupPo" >
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="GROUP_TYPE" property="groupType" jdbcType="CHAR" />
+    <result column="CUST_CLASS_TYPE" property="custClassType" jdbcType="CHAR" />
+    <result column="GROUP_STATUS" property="groupStatus" jdbcType="CHAR" />
+    <result column="GROUP_ADDR" property="groupAddr" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="EPARCHY_CODE" property="eparchyCode" jdbcType="VARCHAR" />
+    <result column="UNIFY_PAY_CODE" property="unifyPayCode" jdbcType="VARCHAR" />
+    <result column="ORG_STRUCT_CODE" property="orgStructCode" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENCE_TYPE" property="busiLicenceType" jdbcType="CHAR" />
+    <result column="BUSI_LICENCE_NO" property="busiLicenceNo" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENCE_VALID_DATE" property="busiLicenceValidDate" jdbcType="TIMESTAMP" />
+    <result column="GROUP_MEMO" property="groupMemo" jdbcType="VARCHAR" />
+    <result column="INTERNATIONAL" property="international" jdbcType="CHAR" />
+    <result column="JURISTIC_PSPT_ID" property="juristicPsptId" jdbcType="VARCHAR" />
+    <result column="JURISTIC_PSPT_TYPE" property="juristicPsptType" jdbcType="CHAR" />
+    <result column="BUSI_TAX_ID" property="busiTaxId" jdbcType="VARCHAR" />
+    <result column="API_KEY" property="apiKey" jdbcType="VARCHAR" />
+    <result column="SELL_TYPE" property="sellType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, PARTITION_ID, GROUP_ID, CUST_NAME, GROUP_TYPE, CUST_CLASS_TYPE, GROUP_STATUS, 
+    GROUP_ADDR, PROVINCE_CODE, EPARCHY_CODE, UNIFY_PAY_CODE, ORG_STRUCT_CODE, BUSI_LICENCE_TYPE, 
+    BUSI_LICENCE_NO, BUSI_LICENCE_VALID_DATE, GROUP_MEMO, INTERNATIONAL, JURISTIC_PSPT_ID, 
+    JURISTIC_PSPT_TYPE, BUSI_TAX_ID<!-- , API_KEY -->
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUST_GROUP
+  </select>
+  <select id="queryChannelCust" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUST_GROUP where SELL_TYPE = #{sellType,jdbcType=CHAR} 
+  </select>
+</mapper>

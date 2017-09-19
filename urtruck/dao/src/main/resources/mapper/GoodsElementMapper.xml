@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.GoodsElementMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.GoodsElement">
+    <id column="ELEMENT_ID" jdbcType="DECIMAL" property="elementId" />
+    <result column="ELEMENT_TYPE" jdbcType="CHAR" property="elementType" />
+    <result column="ORIGINAL_ID" jdbcType="DECIMAL" property="originalId" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="PACKAGE_TYPE" jdbcType="CHAR" property="packageType" />
+    <result column="GOODS_INDEX" jdbcType="DECIMAL" property="goodsIndex" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ELEMENT_ID, ELEMENT_TYPE, ORIGINAL_ID, START_DATE, END_DATE, PACKAGE_TYPE, GOODS_INDEX, 
+    GOODS_ID, PLAN_CLASSIFY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from LAO_GOODS_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.GoodsElement">
+    insert into LAO_GOODS_ELEMENT (ELEMENT_ID, ELEMENT_TYPE, ORIGINAL_ID, 
+      START_DATE, END_DATE, PACKAGE_TYPE, 
+      GOODS_INDEX, GOODS_ID, PLAN_CLASSIFY)
+    values (#{elementId,jdbcType=DECIMAL}, #{elementType,jdbcType=CHAR}, #{originalId,jdbcType=DECIMAL}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{packageType,jdbcType=CHAR}, 
+      #{goodsIndex,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{planClassify,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.GoodsElement">
+    insert into LAO_GOODS_ELEMENT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        ELEMENT_ID,
+      </if>
+      <if test="elementType != null">
+        ELEMENT_TYPE,
+      </if>
+      <if test="originalId != null">
+        ORIGINAL_ID,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE,
+      </if>
+      <if test="goodsIndex != null">
+        GOODS_INDEX,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+       <if test="planClassify != null" >
+        PLAN_CLASSIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="elementId != null">
+        #{elementId,jdbcType=DECIMAL},
+      </if>
+      <if test="elementType != null">
+        #{elementType,jdbcType=CHAR},
+      </if>
+      <if test="originalId != null">
+        #{originalId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageType != null">
+        #{packageType,jdbcType=CHAR},
+      </if>
+      <if test="goodsIndex != null">
+        #{goodsIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+       <if test="planClassify != null" >
+        #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.GoodsElement">
+    update LAO_GOODS_ELEMENT
+    <set>
+      <if test="elementType != null">
+        ELEMENT_TYPE = #{elementType,jdbcType=CHAR},
+      </if>
+      <if test="originalId != null">
+        ORIGINAL_ID = #{originalId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE = #{packageType,jdbcType=CHAR},
+      </if>
+      <if test="goodsIndex != null">
+        GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.GoodsElement">
+    update LAO_GOODS_ELEMENT
+    set ELEMENT_TYPE = #{elementType,jdbcType=CHAR},
+      ORIGINAL_ID = #{originalId,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      PACKAGE_TYPE = #{packageType,jdbcType=CHAR},
+      GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR}
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+ 
+</mapper>

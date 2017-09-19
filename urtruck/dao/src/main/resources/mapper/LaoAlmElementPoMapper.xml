@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoAlmElementPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmElementPo" >
+    <id column="ELEMENT_ID" property="elementId" jdbcType="DECIMAL" />
+    <result column="ELEMENT_TYPE" property="elementType" jdbcType="VARCHAR" />
+    <result column="ELEMENT_NAME" property="elementName" jdbcType="VARCHAR" />
+    <result column="ELEMENT_DESC" property="elementDesc" jdbcType="VARCHAR" />
+    <result column="ELEMENT_LEVEL" property="elementLevel" jdbcType="CHAR" />
+    <result column="ELEM_DISPLAY" property="elemDisplay" jdbcType="VARCHAR" />
+    <result column="ELEMENT_SOURCE" property="elementSource" jdbcType="VARCHAR" />
+    <result column="P_ELEMENT_ID" property="pElementId" jdbcType="DECIMAL" />
+    <result column="DISPLAY_TYPE" property="displayType" jdbcType="VARCHAR" />
+    <result column="ELEMENT_DEFAULT" property="elementDefault" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ELEMENT_ID, ELEMENT_TYPE, ELEMENT_NAME, ELEMENT_DESC, ELEMENT_LEVEL, ELEM_DISPLAY, 
+    ELEMENT_SOURCE, P_ELEMENT_ID, DISPLAY_TYPE, ELEMENT_DEFAULT, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ALM_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ALM_ELEMENT
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoAlmElementPo" >
+    insert into LAO_ALM_ELEMENT (ELEMENT_ID, ELEMENT_TYPE, ELEMENT_NAME, 
+      ELEMENT_DESC, ELEMENT_LEVEL, ELEM_DISPLAY, 
+      ELEMENT_SOURCE, P_ELEMENT_ID, DISPLAY_TYPE, 
+      ELEMENT_DEFAULT, REMARK)
+    values (#{elementId,jdbcType=DECIMAL}, #{elementType,jdbcType=VARCHAR}, #{elementName,jdbcType=VARCHAR}, 
+      #{elementDesc,jdbcType=VARCHAR}, #{elementLevel,jdbcType=CHAR}, #{elemDisplay,jdbcType=VARCHAR}, 
+      #{elementSource,jdbcType=VARCHAR}, #{pElementId,jdbcType=DECIMAL}, #{displayType,jdbcType=VARCHAR}, 
+      #{elementDefault,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAlmElementPo" >
+    insert into LAO_ALM_ELEMENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="elementId != null" >
+        ELEMENT_ID,
+      </if>
+      <if test="elementType != null" >
+        ELEMENT_TYPE,
+      </if>
+      <if test="elementName != null" >
+        ELEMENT_NAME,
+      </if>
+      <if test="elementDesc != null" >
+        ELEMENT_DESC,
+      </if>
+      <if test="elementLevel != null" >
+        ELEMENT_LEVEL,
+      </if>
+      <if test="elemDisplay != null" >
+        ELEM_DISPLAY,
+      </if>
+      <if test="elementSource != null" >
+        ELEMENT_SOURCE,
+      </if>
+      <if test="pElementId != null" >
+        P_ELEMENT_ID,
+      </if>
+      <if test="displayType != null" >
+        DISPLAY_TYPE,
+      </if>
+      <if test="elementDefault != null" >
+        ELEMENT_DEFAULT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="elementId != null" >
+        #{elementId,jdbcType=DECIMAL},
+      </if>
+      <if test="elementType != null" >
+        #{elementType,jdbcType=VARCHAR},
+      </if>
+      <if test="elementName != null" >
+        #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="elementDesc != null" >
+        #{elementDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="elementLevel != null" >
+        #{elementLevel,jdbcType=CHAR},
+      </if>
+      <if test="elemDisplay != null" >
+        #{elemDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="elementSource != null" >
+        #{elementSource,jdbcType=VARCHAR},
+      </if>
+      <if test="pElementId != null" >
+        #{pElementId,jdbcType=DECIMAL},
+      </if>
+      <if test="displayType != null" >
+        #{displayType,jdbcType=VARCHAR},
+      </if>
+      <if test="elementDefault != null" >
+        #{elementDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoAlmElementPo" >
+    update LAO_ALM_ELEMENT
+    <set >
+      <if test="elementType != null" >
+        ELEMENT_TYPE = #{elementType,jdbcType=VARCHAR},
+      </if>
+      <if test="elementName != null" >
+        ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      </if>
+      <if test="elementDesc != null" >
+        ELEMENT_DESC = #{elementDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="elementLevel != null" >
+        ELEMENT_LEVEL = #{elementLevel,jdbcType=CHAR},
+      </if>
+      <if test="elemDisplay != null" >
+        ELEM_DISPLAY = #{elemDisplay,jdbcType=VARCHAR},
+      </if>
+      <if test="elementSource != null" >
+        ELEMENT_SOURCE = #{elementSource,jdbcType=VARCHAR},
+      </if>
+      <if test="pElementId != null" >
+        P_ELEMENT_ID = #{pElementId,jdbcType=DECIMAL},
+      </if>
+      <if test="displayType != null" >
+        DISPLAY_TYPE = #{displayType,jdbcType=VARCHAR},
+      </if>
+      <if test="elementDefault != null" >
+        ELEMENT_DEFAULT = #{elementDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoAlmElementPo" >
+    update LAO_ALM_ELEMENT
+    set ELEMENT_TYPE = #{elementType,jdbcType=VARCHAR},
+      ELEMENT_NAME = #{elementName,jdbcType=VARCHAR},
+      ELEMENT_DESC = #{elementDesc,jdbcType=VARCHAR},
+      ELEMENT_LEVEL = #{elementLevel,jdbcType=CHAR},
+      ELEM_DISPLAY = #{elemDisplay,jdbcType=VARCHAR},
+      ELEMENT_SOURCE = #{elementSource,jdbcType=VARCHAR},
+      P_ELEMENT_ID = #{pElementId,jdbcType=DECIMAL},
+      DISPLAY_TYPE = #{displayType,jdbcType=VARCHAR},
+      ELEMENT_DEFAULT = #{elementDefault,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+</mapper>

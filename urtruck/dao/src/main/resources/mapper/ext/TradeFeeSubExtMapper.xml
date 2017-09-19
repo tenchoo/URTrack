@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.TradeFeeSubExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeFeeSub">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="OLDFEE" jdbcType="VARCHAR" property="oldfee" />
+    <result column="FEE" jdbcType="VARCHAR" property="fee" />
+    <result column="DISCONT_ID" jdbcType="DECIMAL" property="discontId" />
+    <result column="DERATE_REMARK" jdbcType="VARCHAR" property="derateRemark" />
+    <result column="CALCULATE_TAG" jdbcType="CHAR" property="calculateTag" />
+    <result column="PAY_TAG" jdbcType="CHAR" property="payTag" />
+    <result column="PAY_ORDER_ID" jdbcType="VARCHAR" property="payOrderId" />
+    <result column="PAY_DATE" jdbcType="TIMESTAMP" property="payDate" />
+    <result column="FEE_STAFF_ID" jdbcType="CHAR" property="feeStaffId" />
+    <result column="PAY_TYPE" jdbcType="CHAR" property="payType" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, GOODS_ID, OLDFEE, FEE, DISCONT_ID, DERATE_REMARK, CALCULATE_TAG, 
+    PAY_TAG, PAY_ORDER_ID, PAY_DATE, FEE_STAFF_ID, PAY_TYPE, ACCEPT_DATE
+  </sql>
+  <select id="queryTradeFeeSubByTradeId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select *
+    from LAO_TRADEFEE_SUB
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+ <select id="selectTradeInfoByTradeId" resultType="java.util.Map" parameterType="java.lang.Long" >
+    select tfee.fee fee,tfee.pay_date paydate,goods.goods_name goodsname,tfee.pay_tag paytag
+    from lao_tradeFee_sub tfee join lao_goods goods on tfee.goods_id = goods.goods_id
+    Where tfee.trade_id = #{tradeId,jdbcType=DECIMAL}
+  </select>
+  <select id="queryTradeFeeSubByIccid" resultMap="BaseResultMap" parameterType="java.lang.String">
+  SELECT
+	<include refid="Base_Column_List" />
+	FROM (
+  	SELECT tt.*, ROWNUM AS rowno
+	FROM (
+  	select 
+    *
+    from lao_tradeFee_sub
+    <where>
+		<if test="iccid != null and iccid != '' " >
+	      and  TRADE_ID in(select TRADE_ID from lao_trade where iccid = #{iccid,jdbcType=VARCHAR})
+	    </if>
+	    <if test="startTime != null and startTime != '' ">
+	      and pay_date <![CDATA[>=]]> to_date (#{startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	    <if test="endTime != null and endTime != '' ">
+	      and pay_date <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	</where>
+   )tt <![CDATA[
+	where ROWNUM <= #{endRow,jdbcType=DECIMAL})tb
+	WHERE tb.rowno > #{startRow,jdbcType=DECIMAL}  	
+	]]>
+  </select>
+  
+  
+  <resultMap id="TradeFeePoResultMap" type="com.urt.po.TradeFeeSubPo">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="OLDFEE" jdbcType="VARCHAR" property="oldfee" />
+    <result column="FEE" jdbcType="VARCHAR" property="fee" />
+    <result column="DISCONT_ID" jdbcType="DECIMAL" property="discontId" />
+    <result column="DERATE_REMARK" jdbcType="VARCHAR" property="derateRemark" />
+    <result column="CALCULATE_TAG" jdbcType="CHAR" property="calculateTag" />
+    <result column="PAY_TAG" jdbcType="CHAR" property="payTag" />
+    <result column="PAY_ORDER_ID" jdbcType="VARCHAR" property="payOrderId" />
+    <result column="PAY_DATE" jdbcType="TIMESTAMP" property="payDate" />
+    <result column="FEE_STAFF_ID" jdbcType="CHAR" property="feeStaffId" />
+    <result column="PAY_TYPE" jdbcType="CHAR" property="payType" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="login_name" jdbcType="VARCHAR" property="custName" />
+    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="goods_prices" jdbcType="VARCHAR" property="goodsPrices" />
+  </resultMap>
+   <select id="queryTradeFeeSubByCustId" resultMap="TradeFeePoResultMap" parameterType="java.lang.String">
+  SELECT
+	*
+	FROM (
+  	SELECT tt.*, ROWNUM AS rowno
+	FROM (
+		select 
+    s.*, g.goods_name, tra.iccid, g.goods_prices
+    from lao_tradefee_sub s, lao_goods g ,  lao_trade tra
+    <where>
+		<if test="custId != null and custId != '' " >
+	      and s.TRADE_ID in(select TRADE_ID from lao_trade where channal_cust_id = #{custId,jdbcType=VARCHAR}  or cust_id =#{custId,jdbcType=VARCHAR})
+	    </if>
+	    and s.goods_id = g.goods_id
+	    <if test="startTime != null and startTime != '' ">
+	      and s.accept_date <![CDATA[>=]]> to_date (#{startTime,jdbcType=VARCHAR},'yyyy-mm-dd')
+	    </if>
+	    <if test="endTime != null and endTime != '' ">
+	      and s.accept_date <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'yyyy-mm-dd')
+	    </if>
+	    and tra.trade_id = s.trade_id
+	</where>
+   )tt <![CDATA[
+	where ROWNUM <= #{endRow,jdbcType=DECIMAL})tb
+	WHERE tb.rowno > #{startRow,jdbcType=DECIMAL}  	
+	]]>
+  </select>
+  
+  
+   <select id="countToatal" resultType="java.lang.Integer" parameterType="java.lang.String">
+ 	select 
+    count(*)
+    from lao_tradeFee_sub
+    <where>
+		<if test="iccid != null and iccid != '' " >
+	      and  TRADE_ID in(select TRADE_ID from lao_trade where iccid = #{iccid,jdbcType=VARCHAR})
+	    </if>
+	    <if test="startTime != null and startTime != '' ">
+	      and pay_date <![CDATA[>=]]> to_date (#{startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	    <if test="endTime != null and endTime != '' ">
+	      and pay_date <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	</where>
+  </select>
+  <select id="countTotal" resultType="java.lang.Integer" parameterType="java.lang.String">
+ 	select 
+    count(*)
+    from lao_tradeFee_sub
+    <where>
+		<if test="custId != null and custId != '' " >
+	      and  TRADE_ID in(select TRADE_ID from lao_trade where channal_cust_id = #{custId,jdbcType=VARCHAR}  or cust_id =#{custId,jdbcType=VARCHAR})
+	    </if>
+	    <if test="startTime != null and startTime != '' ">
+	      and accept_date <![CDATA[>=]]> to_date (#{startTime,jdbcType=VARCHAR},'yyyy-mm-dd')
+	    </if>
+	    <if test="endTime != null and endTime != '' ">
+	      and accept_date <![CDATA[<=]]> to_date(#{endTime,jdbcType=VARCHAR},'yyyy-mm-dd')
+	    </if>
+	</where>
+  </select>
+</mapper>

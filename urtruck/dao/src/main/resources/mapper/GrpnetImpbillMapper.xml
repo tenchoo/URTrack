@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.GrpnetImpbillMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.GrpnetImpbill" >
+    <id column="BILL_ID" property="billId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="CHAR" />
+    <result column="FILE_SRC" property="fileSrc" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BILL_ID, BATCH_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, ITEM_NAME, CYCLE_ID, USE_COUNT, 
+    DEAL_TAG, RECV_TIME, RESULT_INFO, UPDATE_TIME, UPDATE_STAFF_ID, FILE_SRC, RSRV_INFO1, 
+    RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GRPNET_IMPBILL
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_GRPNET_IMPBILL
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.GrpnetImpbill" >
+    insert into LAO_GRPNET_IMPBILL (BILL_ID, BATCH_ID, USER_ID, 
+      SERIAL_NUMBER, ITEM_ID, ITEM_NAME, 
+      CYCLE_ID, USE_COUNT, DEAL_TAG, 
+      RECV_TIME, RESULT_INFO, UPDATE_TIME, 
+      UPDATE_STAFF_ID, FILE_SRC, RSRV_INFO1, 
+      RSRV_INFO2)
+    values (#{billId,jdbcType=DECIMAL}, #{batchId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{serialNumber,jdbcType=VARCHAR}, #{itemId,jdbcType=DECIMAL}, #{itemName,jdbcType=VARCHAR}, 
+      #{cycleId,jdbcType=DECIMAL}, #{useCount,jdbcType=DECIMAL}, #{dealTag,jdbcType=CHAR}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{resultInfo,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateStaffId,jdbcType=CHAR}, #{fileSrc,jdbcType=VARCHAR}, #{rsrvInfo1,jdbcType=VARCHAR}, 
+      #{rsrvInfo2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.GrpnetImpbill" >
+    insert into LAO_GRPNET_IMPBILL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        BILL_ID,
+      </if>
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID,
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT,
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID,
+      </if>
+      <if test="fileSrc != null" >
+        FILE_SRC,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleId != null" >
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultInfo != null" >
+        #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        #{updateStaffId,jdbcType=CHAR},
+      </if>
+      <if test="fileSrc != null" >
+        #{fileSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.GrpnetImpbill" >
+    update LAO_GRPNET_IMPBILL
+    <set >
+      <if test="batchId != null" >
+        BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID = #{updateStaffId,jdbcType=CHAR},
+      </if>
+      <if test="fileSrc != null" >
+        FILE_SRC = #{fileSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.GrpnetImpbill" >
+    update LAO_GRPNET_IMPBILL
+    set BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_STAFF_ID = #{updateStaffId,jdbcType=CHAR},
+      FILE_SRC = #{fileSrc,jdbcType=VARCHAR},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </update>
+</mapper>

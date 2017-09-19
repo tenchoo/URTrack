@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.ServiceStatusExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.ServiceStatus">
+    <id column="STATE_CODE" jdbcType="VARCHAR" property="stateCode" />
+    <result column="SERVICE_ID" jdbcType="DECIMAL" property="serviceId" />
+    <result column="SERVICE_NAME" jdbcType="VARCHAR" property="serviceName" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="STATECHANGE_ID" jdbcType="VARCHAR" property="statechangeId" />
+    <result column="OUTSIDESTATE" property="outsidestate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STATE_CODE, SERVICE_ID, SERVICE_NAME, CREATEDATE, UPDATEDATE, STARTDATE, ENDDATE, 
+    OPERATORS_ID, STATECHANGE_ID, OUTSIDESTATE
+  </sql>
+  <select id="selectByOperatorId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS
+    where operators_id = #{operatorId,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectByStatechangeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS
+    where STATECHANGE_ID = #{statechangeId,jdbcType=VARCHAR}
+
+  </select>
+  <select id="selectSvcStatusByIdName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS
+    where OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+    <if test="serviceName!=null">
+    AND SERVICE_NAME LIKE '%'||#{serviceName,jdbcType=VARCHAR}||'%'
+    </if>
+  </select>
+  
+  <select id="queryState" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS
+    where SERVICE_ID = #{serviceId,jdbcType=DECIMAL} AND STATE_CODE = #{stateCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

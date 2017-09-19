@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserOperatorPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserOperatorPlan" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <id column="GOODS_INDEX" property="goodsIndex" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="PLAN_TYPE" property="planType" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_RST" property="opeartorsDealRst" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_CODE" property="opeartorsDealCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_NUM" property="opeartorsDealNum" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="START_USE_DATE" property="startUseDate" jdbcType="TIMESTAMP" />
+    <result column="BILL_TAG" property="billTag" jdbcType="CHAR" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, PLAN_ID, START_DATE, GOODS_INDEX, GOODS_ID, OPERATORS_ID, OPERATORS_PID, 
+    END_DATE, PLAN_TYPE, OPEARTORS_DEAL_RST, OPEARTORS_DEAL_CODE, OPEARTORS_DEAL_NUM, 
+    GOODS_RELEASE_ID, START_USE_DATE, BILL_TAG, TRADE_ID, COST_PRICE, 
+    PLAN_CLASSIFY, APN_TYPE, PLAN_CLASSIFY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_OPERATOR_PLAN
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and PLAN_ID = #{planId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_USER_OPERATOR_PLAN
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and PLAN_ID = #{planId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserOperatorPlan" >
+    insert into LAO_USER_OPERATOR_PLAN (USER_ID, PLAN_ID, START_DATE, 
+      GOODS_INDEX, GOODS_ID, OPERATORS_ID, 
+      OPERATORS_PID, END_DATE, PLAN_TYPE, 
+      OPEARTORS_DEAL_RST, OPEARTORS_DEAL_CODE, OPEARTORS_DEAL_NUM, 
+      GOODS_RELEASE_ID, START_USE_DATE, BILL_TAG, 
+      TRADE_ID, COST_PRICE, PLAN_CLASSIFY)
+    values (#{userId,jdbcType=DECIMAL}, #{planId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{goodsIndex,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{operatorsPid,jdbcType=VARCHAR}, #{endDate,jdbcType=TIMESTAMP}, #{planType,jdbcType=VARCHAR}, 
+      #{opeartorsDealRst,jdbcType=VARCHAR}, #{opeartorsDealCode,jdbcType=VARCHAR}, #{opeartorsDealNum,jdbcType=DECIMAL}, 
+      #{goodsReleaseId,jdbcType=DECIMAL}, #{startUseDate,jdbcType=TIMESTAMP}, #{billTag,jdbcType=CHAR}, 
+      #{tradeId,jdbcType=DECIMAL}, #{costPrice,jdbcType=VARCHAR}, #{planClassify,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserOperatorPlan" >
+    insert into LAO_USER_OPERATOR_PLAN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="planId != null" >
+        PLAN_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="goodsIndex != null" >
+        GOODS_INDEX,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="planType != null" >
+        PLAN_TYPE,
+      </if>
+      <if test="opeartorsDealRst != null" >
+        OPEARTORS_DEAL_RST,
+      </if>
+      <if test="opeartorsDealCode != null" >
+        OPEARTORS_DEAL_CODE,
+      </if>
+      <if test="opeartorsDealNum != null" >
+        OPEARTORS_DEAL_NUM,
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="startUseDate != null" >
+        START_USE_DATE,
+      </if>
+      <if test="billTag != null" >
+        BILL_TAG,
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE,
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsIndex != null" >
+        #{goodsIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planType != null" >
+        #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealRst != null" >
+        #{opeartorsDealRst,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealCode != null" >
+        #{opeartorsDealCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealNum != null" >
+        #{opeartorsDealNum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="startUseDate != null" >
+        #{startUseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billTag != null" >
+        #{billTag,jdbcType=CHAR},
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="planClassify != null" >
+        #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserOperatorPlan" >
+    update LAO_USER_OPERATOR_PLAN
+    <set >
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planType != null" >
+        PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealRst != null" >
+        OPEARTORS_DEAL_RST = #{opeartorsDealRst,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealCode != null" >
+        OPEARTORS_DEAL_CODE = #{opeartorsDealCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealNum != null" >
+        OPEARTORS_DEAL_NUM = #{opeartorsDealNum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="startUseDate != null" >
+        START_USE_DATE = #{startUseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billTag != null" >
+        BILL_TAG = #{billTag,jdbcType=CHAR},
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and PLAN_ID = #{planId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserOperatorPlan" >
+    update LAO_USER_OPERATOR_PLAN
+    set GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_RST = #{opeartorsDealRst,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_CODE = #{opeartorsDealCode,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_NUM = #{opeartorsDealNum,jdbcType=DECIMAL},
+      GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      START_USE_DATE = #{startUseDate,jdbcType=TIMESTAMP},
+      BILL_TAG = #{billTag,jdbcType=CHAR},
+      TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and PLAN_ID = #{planId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </update>
+</mapper>

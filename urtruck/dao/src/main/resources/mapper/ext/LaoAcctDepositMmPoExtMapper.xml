@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAcctDepositMmPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAcctDepositMmPo" >
+    <result column="IN_DATE" property="inDate" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_NAME" property="channelCustName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE1_NAME" property="value1Name" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="VALUE2_NAME" property="value2Name" jdbcType="VARCHAR" />
+    <result column="IN_MONEY" property="inMoney" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="VARCHAR" />
+    <result column="LEFT_MONEY" property="leftMoney" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+    <select id="queryPage" resultType="map" parameterType="map">
+    	select
+	ad.channel_cust_name,
+	ad.in_money,
+	ad.fee,
+	ad.left_money,
+	decode(lam.left_money,'',' ',lam.left_money) last_money
+from
+	lao_acct_deposit_mm ad left join lao_acct_deposit_mm lam on lam.channel_cust_id = ad.channel_cust_id and lam.in_date =#{params.indate}
+where
+	ad.in_date = #{params.param.inDate}
+  </select>
+   <select id="selectBalance" resultType="map" parameterType="int">
+ 	select
+	ad.channel_cust_name,
+	ad.in_money,
+	ad.fee,
+	ad.left_money,
+	decode(lam.left_money,'',' ',lam.left_money) last_money
+from
+	lao_acct_deposit_mm ad left join lao_acct_deposit_mm lam on lam.channel_cust_id = ad.channel_cust_id and lam.in_date =#{indate2}
+where
+	ad.in_date = #{indate}
+  </select>
+</mapper>

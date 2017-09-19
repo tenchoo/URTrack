@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoFAcctdepositMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFAcctdeposit" >
+    <id column="ACCT_BALANCE_ID" property="acctBalanceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="INIT_MONEY" property="initMoney" jdbcType="DECIMAL" />
+    <result column="DEPOSIT_MONEY" property="depositMoney" jdbcType="DECIMAL" />
+    <result column="INVOICE_FEE" property="invoiceFee" jdbcType="DECIMAL" />
+    <result column="PRINT_FEE" property="printFee" jdbcType="DECIMAL" />
+    <result column="START_CYC_ID" property="startCycId" jdbcType="DECIMAL" />
+    <result column="END_CYC_ID" property="endCycId" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="CASH_TAG" property="cashTag" jdbcType="CHAR" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_STR2" property="rsrvStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCT_BALANCE_ID, CHANNEL_CUST_ID, INIT_MONEY, DEPOSIT_MONEY, INVOICE_FEE, PRINT_FEE, 
+    START_CYC_ID, END_CYC_ID, START_DATE, END_DATE, CASH_TAG, UPDATE_STAFF_ID, UPDATE_TIME, 
+    OPER_ID, REMARK, RSRV_STR1, RSRV_STR2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_F_ACCTDEPOSIT
+    where ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_F_ACCTDEPOSIT
+    where ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoFAcctdeposit" >
+    insert into LAO_F_ACCTDEPOSIT (ACCT_BALANCE_ID, CHANNEL_CUST_ID, INIT_MONEY, 
+      DEPOSIT_MONEY, INVOICE_FEE, PRINT_FEE, 
+      START_CYC_ID, END_CYC_ID, START_DATE, 
+      END_DATE, CASH_TAG, UPDATE_STAFF_ID, 
+      UPDATE_TIME, OPER_ID, REMARK, 
+      RSRV_STR1, RSRV_STR2)
+    values (#{acctBalanceId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{initMoney,jdbcType=DECIMAL}, 
+      #{depositMoney,jdbcType=DECIMAL}, #{invoiceFee,jdbcType=DECIMAL}, #{printFee,jdbcType=DECIMAL}, 
+      #{startCycId,jdbcType=DECIMAL}, #{endCycId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{cashTag,jdbcType=CHAR}, #{updateStaffId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{operId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{rsrvStr1,jdbcType=VARCHAR}, #{rsrvStr2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoFAcctdeposit" >
+    insert into LAO_F_ACCTDEPOSIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acctBalanceId != null" >
+        ACCT_BALANCE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="initMoney != null" >
+        INIT_MONEY,
+      </if>
+      <if test="depositMoney != null" >
+        DEPOSIT_MONEY,
+      </if>
+      <if test="invoiceFee != null" >
+        INVOICE_FEE,
+      </if>
+      <if test="printFee != null" >
+        PRINT_FEE,
+      </if>
+      <if test="startCycId != null" >
+        START_CYC_ID,
+      </if>
+      <if test="endCycId != null" >
+        END_CYC_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="cashTag != null" >
+        CASH_TAG,
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1,
+      </if>
+      <if test="rsrvStr2 != null" >
+        RSRV_STR2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acctBalanceId != null" >
+        #{acctBalanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="initMoney != null" >
+        #{initMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="depositMoney != null" >
+        #{depositMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceFee != null" >
+        #{invoiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="printFee != null" >
+        #{printFee,jdbcType=DECIMAL},
+      </if>
+      <if test="startCycId != null" >
+        #{startCycId,jdbcType=DECIMAL},
+      </if>
+      <if test="endCycId != null" >
+        #{endCycId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashTag != null" >
+        #{cashTag,jdbcType=CHAR},
+      </if>
+      <if test="updateStaffId != null" >
+        #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr2 != null" >
+        #{rsrvStr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoFAcctdeposit" >
+    update LAO_F_ACCTDEPOSIT
+    <set >
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="initMoney != null" >
+        INIT_MONEY = #{initMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="depositMoney != null" >
+        DEPOSIT_MONEY = #{depositMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceFee != null" >
+        INVOICE_FEE = #{invoiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="printFee != null" >
+        PRINT_FEE = #{printFee,jdbcType=DECIMAL},
+      </if>
+      <if test="startCycId != null" >
+        START_CYC_ID = #{startCycId,jdbcType=DECIMAL},
+      </if>
+      <if test="endCycId != null" >
+        END_CYC_ID = #{endCycId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashTag != null" >
+        CASH_TAG = #{cashTag,jdbcType=CHAR},
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr2 != null" >
+        RSRV_STR2 = #{rsrvStr2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoFAcctdeposit" >
+    update LAO_F_ACCTDEPOSIT
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      INIT_MONEY = #{initMoney,jdbcType=DECIMAL},
+      DEPOSIT_MONEY = #{depositMoney,jdbcType=DECIMAL},
+      INVOICE_FEE = #{invoiceFee,jdbcType=DECIMAL},
+      PRINT_FEE = #{printFee,jdbcType=DECIMAL},
+      START_CYC_ID = #{startCycId,jdbcType=DECIMAL},
+      END_CYC_ID = #{endCycId,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      CASH_TAG = #{cashTag,jdbcType=CHAR},
+      UPDATE_STAFF_ID = #{updateStaffId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      RSRV_STR2 = #{rsrvStr2,jdbcType=VARCHAR}
+    where ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

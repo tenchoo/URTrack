@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPStrategyPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="STRATEGY_NAME" jdbcType="VARCHAR" property="strategyName" />
+    <result column="STATEGY_COMMENT" jdbcType="VARCHAR" property="stategyComment" />
+    <result column="STRATEGYIMPL" jdbcType="VARCHAR" property="strategyimpl" />
+    <result column="DELFLAG" jdbcType="VARCHAR" property="delflag" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="PARAMETER1" jdbcType="VARCHAR" property="parameter1" />
+    <result column="PARAMETER2" jdbcType="VARCHAR" property="parameter2" />
+    <result column="PARAMETER3" jdbcType="VARCHAR" property="parameter3" />
+    <result column="PARAMETER4" jdbcType="VARCHAR" property="parameter4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, STRATEGY_NAME, STATEGY_COMMENT, STRATEGYIMPL, DELFLAG, CREATETIME, UPDATETIME, 
+    PARAMETER1, PARAMETER2, PARAMETER3, PARAMETER4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_STRATEGY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DMP_STRATEGY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPStrategyPo">
+    insert into LAO_DMP_STRATEGY (ID, STRATEGY_NAME, STATEGY_COMMENT, 
+      STRATEGYIMPL, DELFLAG, CREATETIME, 
+      UPDATETIME, PARAMETER1, PARAMETER2, 
+      PARAMETER3, PARAMETER4)
+    values (#{id,jdbcType=DECIMAL}, #{strategyName,jdbcType=VARCHAR}, #{stategyComment,jdbcType=VARCHAR}, 
+      #{strategyimpl,jdbcType=VARCHAR}, #{delflag,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{parameter1,jdbcType=VARCHAR}, #{parameter2,jdbcType=VARCHAR}, 
+      #{parameter3,jdbcType=VARCHAR}, #{parameter4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPStrategyPo">
+    insert into LAO_DMP_STRATEGY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="strategyName != null">
+        STRATEGY_NAME,
+      </if>
+      <if test="stategyComment != null">
+        STATEGY_COMMENT,
+      </if>
+      <if test="strategyimpl != null">
+        STRATEGYIMPL,
+      </if>
+      <if test="delflag != null">
+        DELFLAG,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="parameter1 != null">
+        PARAMETER1,
+      </if>
+      <if test="parameter2 != null">
+        PARAMETER2,
+      </if>
+      <if test="parameter3 != null">
+        PARAMETER3,
+      </if>
+      <if test="parameter4 != null">
+        PARAMETER4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="strategyName != null">
+        #{strategyName,jdbcType=VARCHAR},
+      </if>
+      <if test="stategyComment != null">
+        #{stategyComment,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyimpl != null">
+        #{strategyimpl,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null">
+        #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null">
+        #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null">
+        #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter4 != null">
+        #{parameter4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDMPStrategyPo">
+    update LAO_DMP_STRATEGY
+    <set>
+      <if test="strategyName != null">
+        STRATEGY_NAME = #{strategyName,jdbcType=VARCHAR},
+      </if>
+      <if test="stategyComment != null">
+        STATEGY_COMMENT = #{stategyComment,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyimpl != null">
+        STRATEGYIMPL = #{strategyimpl,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        DELFLAG = #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null">
+        PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null">
+        PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null">
+        PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter4 != null">
+        PARAMETER4 = #{parameter4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDMPStrategyPo">
+    update LAO_DMP_STRATEGY
+    set STRATEGY_NAME = #{strategyName,jdbcType=VARCHAR},
+      STATEGY_COMMENT = #{stategyComment,jdbcType=VARCHAR},
+      STRATEGYIMPL = #{strategyimpl,jdbcType=VARCHAR},
+      DELFLAG = #{delflag,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      PARAMETER4 = #{parameter4,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoValParamMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoValParam" >
+    <id column="ID_VALUE" property="idValue" jdbcType="DECIMAL" />
+    <result column="ID_TYPE" property="idType" jdbcType="VARCHAR" />
+    <result column="PARA_TYPE" property="paraType" jdbcType="VARCHAR" />
+    <result column="PARA_NAME" property="paraName" jdbcType="VARCHAR" />
+    <result column="PARA_DESC" property="paraDesc" jdbcType="VARCHAR" />
+    <result column="PARA_VALUE" property="paraValue" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_VALUE, ID_TYPE, PARA_TYPE, PARA_NAME, PARA_DESC, PARA_VALUE, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_VAL_PARAM
+    where ID_VALUE = #{idValue,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_VAL_PARAM
+    where ID_VALUE = #{idValue,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoValParam" >
+    insert into LAO_VAL_PARAM (ID_VALUE, ID_TYPE, PARA_TYPE, 
+      PARA_NAME, PARA_DESC, PARA_VALUE, 
+      REMARK)
+    values (#{idValue,jdbcType=DECIMAL}, #{idType,jdbcType=VARCHAR}, #{paraType,jdbcType=VARCHAR}, 
+      #{paraName,jdbcType=VARCHAR}, #{paraDesc,jdbcType=VARCHAR}, #{paraValue,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoValParam" >
+    insert into LAO_VAL_PARAM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idValue != null" >
+        ID_VALUE,
+      </if>
+      <if test="idType != null" >
+        ID_TYPE,
+      </if>
+      <if test="paraType != null" >
+        PARA_TYPE,
+      </if>
+      <if test="paraName != null" >
+        PARA_NAME,
+      </if>
+      <if test="paraDesc != null" >
+        PARA_DESC,
+      </if>
+      <if test="paraValue != null" >
+        PARA_VALUE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idValue != null" >
+        #{idValue,jdbcType=DECIMAL},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraType != null" >
+        #{paraType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName != null" >
+        #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="paraDesc != null" >
+        #{paraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraValue != null" >
+        #{paraValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoValParam" >
+    update LAO_VAL_PARAM
+    <set >
+      <if test="idType != null" >
+        ID_TYPE = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraType != null" >
+        PARA_TYPE = #{paraType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName != null" >
+        PARA_NAME = #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="paraDesc != null" >
+        PARA_DESC = #{paraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraValue != null" >
+        PARA_VALUE = #{paraValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_VALUE = #{idValue,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoValParam" >
+    update LAO_VAL_PARAM
+    set ID_TYPE = #{idType,jdbcType=VARCHAR},
+      PARA_TYPE = #{paraType,jdbcType=VARCHAR},
+      PARA_NAME = #{paraName,jdbcType=VARCHAR},
+      PARA_DESC = #{paraDesc,jdbcType=VARCHAR},
+      PARA_VALUE = #{paraValue,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ID_VALUE = #{idValue,jdbcType=DECIMAL}
+  </update>
+</mapper>

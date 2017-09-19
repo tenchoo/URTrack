@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.OperatorPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.OperatorPlan" >
+    <id column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="PLAN_NAME" property="planName" jdbcType="VARCHAR" />
+    <result column="OPERATORS" property="operators" jdbcType="DECIMAL" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="TIME_LENGTH" property="timeLength" jdbcType="DECIMAL" />
+    <result column="TIME_UNIT" property="timeUnit" jdbcType="VARCHAR" />
+    <result column="QUANTITY_MAX" property="quantityMax" jdbcType="DECIMAL" />
+    <result column="QUANTITY_UNIT" property="quantityUnit" jdbcType="CHAR" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="PLAN_STATE" property="planState" jdbcType="CHAR" />
+    <result column="ENABLE_TAG" property="enableTag" jdbcType="VARCHAR" />
+    <result column="INVALID_TYPE" property="invalidType" jdbcType="VARCHAR" />
+    <result column="PLAN_TYPE" property="planType" jdbcType="VARCHAR" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PLAN_ID, PLAN_NAME, OPERATORS, OPERATORS_PID, TIME_LENGTH, TIME_UNIT, QUANTITY_MAX, 
+    QUANTITY_UNIT, EXP_DATE, PLAN_STATE, ENABLE_TAG, INVALID_TYPE, PLAN_TYPE, COST_PRICE,PLAN_CLASSIFY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATOR_PLAN
+    where PLAN_ID = #{planId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_OPERATOR_PLAN
+    where PLAN_ID = #{planId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.OperatorPlan" >
+    insert into LAO_OPERATOR_PLAN (PLAN_ID, PLAN_NAME, OPERATORS, 
+      OPERATORS_PID, TIME_LENGTH, TIME_UNIT, 
+      QUANTITY_MAX, QUANTITY_UNIT, EXP_DATE, 
+      PLAN_STATE, ENABLE_TAG, INVALID_TYPE, 
+      PLAN_TYPE, COST_PRICE, PLAN_CLASSIFY)
+    values (#{planId,jdbcType=DECIMAL}, #{planName,jdbcType=VARCHAR}, #{operators,jdbcType=DECIMAL}, 
+      #{operatorsPid,jdbcType=VARCHAR}, #{timeLength,jdbcType=DECIMAL}, #{timeUnit,jdbcType=VARCHAR}, 
+      #{quantityMax,jdbcType=DECIMAL}, #{quantityUnit,jdbcType=CHAR}, #{expDate,jdbcType=TIMESTAMP}, 
+      #{planState,jdbcType=CHAR}, #{enableTag,jdbcType=VARCHAR}, #{invalidType,jdbcType=VARCHAR}, 
+      #{planType,jdbcType=VARCHAR}, #{costPrice,jdbcType=VARCHAR}, #{planClassify,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.OperatorPlan" >
+    insert into LAO_OPERATOR_PLAN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        PLAN_ID,
+      </if>
+      <if test="planName != null" >
+        PLAN_NAME,
+      </if>
+      <if test="operators != null" >
+        OPERATORS,
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID,
+      </if>
+      <if test="timeLength != null" >
+        TIME_LENGTH,
+      </if>
+      <if test="timeUnit != null" >
+        TIME_UNIT,
+      </if>
+      <if test="quantityMax != null" >
+        QUANTITY_MAX,
+      </if>
+      <if test="quantityUnit != null" >
+        QUANTITY_UNIT,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="planState != null" >
+        PLAN_STATE,
+      </if>
+      <if test="enableTag != null" >
+        ENABLE_TAG,
+      </if>
+      <if test="invalidType != null" >
+        INVALID_TYPE,
+      </if>
+      <if test="planType != null" >
+        PLAN_TYPE,
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE,
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="planName != null" >
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null" >
+        #{timeLength,jdbcType=DECIMAL},
+      </if>
+      <if test="timeUnit != null" >
+        #{timeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantityMax != null" >
+        #{quantityMax,jdbcType=DECIMAL},
+      </if>
+      <if test="quantityUnit != null" >
+        #{quantityUnit,jdbcType=CHAR},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planState != null" >
+        #{planState,jdbcType=CHAR},
+      </if>
+      <if test="enableTag != null" >
+        #{enableTag,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidType != null" >
+        #{invalidType,jdbcType=VARCHAR},
+      </if>
+      <if test="planType != null" >
+        #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="planClassify != null" >
+        #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.OperatorPlan" >
+    update LAO_OPERATOR_PLAN
+    <set >
+      <if test="planName != null" >
+        PLAN_NAME = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        OPERATORS = #{operators,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null" >
+        TIME_LENGTH = #{timeLength,jdbcType=DECIMAL},
+      </if>
+      <if test="timeUnit != null" >
+        TIME_UNIT = #{timeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="quantityMax != null" >
+        QUANTITY_MAX = #{quantityMax,jdbcType=DECIMAL},
+      </if>
+      <if test="quantityUnit != null" >
+        QUANTITY_UNIT = #{quantityUnit,jdbcType=CHAR},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planState != null" >
+        PLAN_STATE = #{planState,jdbcType=CHAR},
+      </if>
+      <if test="enableTag != null" >
+        ENABLE_TAG = #{enableTag,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidType != null" >
+        INVALID_TYPE = #{invalidType,jdbcType=VARCHAR},
+      </if>
+      <if test="planType != null" >
+        PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PLAN_ID = #{planId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.OperatorPlan" >
+    update LAO_OPERATOR_PLAN
+    set PLAN_NAME = #{planName,jdbcType=VARCHAR},
+      OPERATORS = #{operators,jdbcType=DECIMAL},
+      OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      TIME_LENGTH = #{timeLength,jdbcType=DECIMAL},
+      TIME_UNIT = #{timeUnit,jdbcType=VARCHAR},
+      QUANTITY_MAX = #{quantityMax,jdbcType=DECIMAL},
+      QUANTITY_UNIT = #{quantityUnit,jdbcType=CHAR},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      PLAN_STATE = #{planState,jdbcType=CHAR},
+      ENABLE_TAG = #{enableTag,jdbcType=VARCHAR},
+      INVALID_TYPE = #{invalidType,jdbcType=VARCHAR},
+      PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR}
+    where PLAN_ID = #{planId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoOperatorsCycleMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsCycle" >
+    <id column="CYC_ID" property="cycId" jdbcType="DECIMAL" />
+    <result column="ID_TYPE" property="idType" jdbcType="CHAR" />
+    <result column="ID_VALUE" property="idValue" jdbcType="VARCHAR" />
+    <result column="CYCLE_DAY" property="cycleDay" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="MONTH_ACCT_STATUS" property="monthAcctStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CYC_ID, ID_TYPE, ID_VALUE, CYCLE_DAY, START_DATE, END_DATE, UPDATE_TIME, UPDATE_ACCOUNT_ID, 
+    REMARK, MONTH_ACCT_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORS_CYCLE
+    where CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_OPERATORS_CYCLE
+    where CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoOperatorsCycle" >
+    insert into LAO_OPERATORS_CYCLE (CYC_ID, ID_TYPE, ID_VALUE, 
+      CYCLE_DAY, START_DATE, END_DATE, 
+      UPDATE_TIME, UPDATE_ACCOUNT_ID, REMARK, 
+      MONTH_ACCT_STATUS)
+    values (#{cycId,jdbcType=DECIMAL}, #{idType,jdbcType=CHAR}, #{idValue,jdbcType=VARCHAR}, 
+      #{cycleDay,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateAccountId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{monthAcctStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoOperatorsCycle" >
+    insert into LAO_OPERATORS_CYCLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cycId != null" >
+        CYC_ID,
+      </if>
+      <if test="idType != null" >
+        ID_TYPE,
+      </if>
+      <if test="idValue != null" >
+        ID_VALUE,
+      </if>
+      <if test="cycleDay != null" >
+        CYCLE_DAY,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="monthAcctStatus != null" >
+        MONTH_ACCT_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cycId != null" >
+        #{cycId,jdbcType=DECIMAL},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=CHAR},
+      </if>
+      <if test="idValue != null" >
+        #{idValue,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleDay != null" >
+        #{cycleDay,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="monthAcctStatus != null" >
+        #{monthAcctStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoOperatorsCycle" >
+    update LAO_OPERATORS_CYCLE
+    <set >
+      <!-- <if test="idType != null" >
+        ID_TYPE = #{idType,jdbcType=CHAR},
+      </if>
+      <if test="idValue != null" >
+        ID_VALUE = #{idValue,jdbcType=VARCHAR},
+      </if> -->
+      <if test="cycleDay != null" >
+        CYCLE_DAY = #{cycleDay,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="monthAcctStatus != null" >
+        MONTH_ACCT_STATUS = #{monthAcctStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID_TYPE = #{idType,jdbcType=CHAR} and 
+      ID_VALUE = #{idValue,jdbcType=VARCHAR} and 
+    CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoOperatorsCycle" >
+    update LAO_OPERATORS_CYCLE
+    set 
+      CYCLE_DAY = #{cycleDay,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      MONTH_ACCT_STATUS = #{monthAcctStatus,jdbcType=VARCHAR}
+    where ID_TYPE = #{idType,jdbcType=CHAR} and 
+      ID_VALUE = #{idValue,jdbcType=VARCHAR} and 
+    CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </update>
+</mapper>

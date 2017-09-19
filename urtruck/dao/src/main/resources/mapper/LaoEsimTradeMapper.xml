@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimTradeMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimTrade" >
+    <id column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPECODE" property="tradeTypecode" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="ACCEPTDATE" property="acceptdate" jdbcType="TIMESTAMP" />
+    <result column="LENOVOID" property="lenovoid" jdbcType="VARCHAR" />
+    <result column="FINISHDATE" property="finishdate" jdbcType="TIMESTAMP" />
+    <result column="HANDLETAG" property="handletag" jdbcType="DECIMAL" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TRADE_ID, TRADE_TYPECODE, GOODS_ID, COUNTRY_ID, ICCID, EID, ACCEPTDATE, LENOVOID, 
+    FINISHDATE, HANDLETAG, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_TRADE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_TRADE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimTrade" >
+    insert into LAO_ESIM_TRADE (TRADE_ID, TRADE_TYPECODE, GOODS_ID, 
+      COUNTRY_ID, ICCID, EID, 
+      ACCEPTDATE, LENOVOID, FINISHDATE, 
+      HANDLETAG, PARAM1, PARAM2
+      )
+    values (#{tradeId,jdbcType=DECIMAL}, #{tradeTypecode,jdbcType=VARCHAR}, #{goodsId,jdbcType=DECIMAL}, 
+      #{countryId,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{eid,jdbcType=VARCHAR}, 
+      #{acceptdate,jdbcType=TIMESTAMP}, #{lenovoid,jdbcType=VARCHAR}, #{finishdate,jdbcType=TIMESTAMP}, 
+      #{handletag,jdbcType=DECIMAL}, #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimTrade" >
+    insert into LAO_ESIM_TRADE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="tradeTypecode != null" >
+        TRADE_TYPECODE,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="eid != null" >
+        EID,
+      </if>
+      <if test="acceptdate != null" >
+        ACCEPTDATE,
+      </if>
+      <if test="lenovoid != null" >
+        LENOVOID,
+      </if>
+      <if test="finishdate != null" >
+        FINISHDATE,
+      </if>
+      <if test="handletag != null" >
+        HANDLETAG,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypecode != null" >
+        #{tradeTypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptdate != null" >
+        #{acceptdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lenovoid != null" >
+        #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="finishdate != null" >
+        #{finishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handletag != null" >
+        #{handletag,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimTrade" >
+    update LAO_ESIM_TRADE
+    <set >
+      <if test="tradeTypecode != null" >
+        TRADE_TYPECODE = #{tradeTypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        EID = #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptdate != null" >
+        ACCEPTDATE = #{acceptdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lenovoid != null" >
+        LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="finishdate != null" >
+        FINISHDATE = #{finishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="handletag != null" >
+        HANDLETAG = #{handletag,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimTrade" >
+    update LAO_ESIM_TRADE
+    set TRADE_TYPECODE = #{tradeTypecode,jdbcType=VARCHAR},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      EID = #{eid,jdbcType=VARCHAR},
+      ACCEPTDATE = #{acceptdate,jdbcType=TIMESTAMP},
+      LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      FINISHDATE = #{finishdate,jdbcType=TIMESTAMP},
+      HANDLETAG = #{handletag,jdbcType=DECIMAL},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

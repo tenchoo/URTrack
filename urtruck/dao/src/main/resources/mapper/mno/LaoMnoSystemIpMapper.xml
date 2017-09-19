@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.mno.LaoMnoSystemIpMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.mno.LaoMnoSystemIp">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="CREATE_DATE" jdbcType="DATE" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SYSTEM_ID, IP_ADDRESS, CREATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.urt.po.mno.LaoMnoSystemIpExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LAO_MNO_SYSTEM_IP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_MNO_SYSTEM_IP
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_MNO_SYSTEM_IP
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.urt.po.mno.LaoMnoSystemIpExample">
+    delete from LAO_MNO_SYSTEM_IP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.mno.LaoMnoSystemIp">
+    insert into LAO_MNO_SYSTEM_IP (ID, SYSTEM_ID, IP_ADDRESS, 
+      CREATE_DATE)
+    values (#{id,jdbcType=DECIMAL}, #{systemId,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.mno.LaoMnoSystemIp">
+    insert into LAO_MNO_SYSTEM_IP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.urt.po.mno.LaoMnoSystemIpExample" resultType="java.lang.Long">
+    select count(*) from LAO_MNO_SYSTEM_IP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LAO_MNO_SYSTEM_IP
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipAddress != null">
+        IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LAO_MNO_SYSTEM_IP
+    set ID = #{record.id,jdbcType=DECIMAL},
+      SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.mno.LaoMnoSystemIp">
+    update LAO_MNO_SYSTEM_IP
+    <set>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.mno.LaoMnoSystemIp">
+    update LAO_MNO_SYSTEM_IP
+    set SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=DATE}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

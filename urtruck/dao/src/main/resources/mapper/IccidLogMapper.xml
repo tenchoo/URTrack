@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.IccidLogMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidLog">
+    <result column="LOG_ID" jdbcType="DECIMAL" property="logId" />
+    <result column="STEPID" jdbcType="VARCHAR" property="stepid" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="ACTION" jdbcType="DECIMAL" property="action" />
+    <result column="TARGETFLOWSIZE" jdbcType="VARCHAR" property="targetflowsize" />
+    <result column="TARGETAPN" jdbcType="VARCHAR" property="targetapn" />
+    <result column="ACTIONSTATUS" jdbcType="DECIMAL" property="actionstatus" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.IccidLog">
+    insert into LAO_ICCID_LOG (LOG_ID, STEPID, USERID, 
+      ICCID, ACTION, TARGETFLOWSIZE, 
+      TARGETAPN, ACTIONSTATUS, CREATETIME
+      )
+    values (LAO_ICCID_LOG_ID_SEQ.nextval, #{stepid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{action,jdbcType=DECIMAL}, #{targetflowsize,jdbcType=VARCHAR}, 
+      #{targetapn,jdbcType=VARCHAR}, #{actionstatus,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.IccidLog">
+    insert into LAO_ICCID_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        LOG_ID,
+      </if>
+      <if test="stepid != null">
+        STEPID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="action != null">
+        ACTION,
+      </if>
+      <if test="targetflowsize != null">
+        TARGETFLOWSIZE,
+      </if>
+      <if test="targetapn != null">
+        TARGETAPN,
+      </if>
+      <if test="actionstatus != null">
+        ACTIONSTATUS,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=DECIMAL},
+      </if>
+      <if test="stepid != null">
+        #{stepid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=DECIMAL},
+      </if>
+      <if test="targetflowsize != null">
+        #{targetflowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="targetapn != null">
+        #{targetapn,jdbcType=VARCHAR},
+      </if>
+      <if test="actionstatus != null">
+        #{actionstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

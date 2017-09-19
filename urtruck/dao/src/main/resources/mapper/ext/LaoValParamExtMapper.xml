@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoValParamExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoValParam" >
+    <id column="ID_VALUE" property="idValue" jdbcType="DECIMAL" />
+    <result column="ID_TYPE" property="idType" jdbcType="VARCHAR" />
+    <result column="PARA_TYPE" property="paraType" jdbcType="VARCHAR" />
+    <result column="PARA_NAME" property="paraName" jdbcType="VARCHAR" />
+    <result column="PARA_DESC" property="paraDesc" jdbcType="VARCHAR" />
+    <result column="PARA_VALUE" property="paraValue" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID_VALUE, ID_TYPE, PARA_TYPE, PARA_NAME, PARA_DESC, PARA_VALUE, REMARK
+  </sql>
+  <select id="selectAllParamsByRuleId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_VAL_PARAM where id_value = #{ruleId}
+  </select>
+</mapper>

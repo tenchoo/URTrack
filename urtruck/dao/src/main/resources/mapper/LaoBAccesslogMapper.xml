@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBAccesslogMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBAccesslog" >
+    <id column="ACCESS_ID" jdbcType="DECIMAL" property="accessId" />
+    <result column="CHARGE_ID" jdbcType="DECIMAL" property="chargeId" />
+    <result column="ACCT_BALANCE_ID" jdbcType="DECIMAL" property="acctBalanceId" />
+    <result column="OLD_BALANCE" jdbcType="DECIMAL" property="oldBalance" />
+    <result column="MONEY" jdbcType="DECIMAL" property="money" />
+    <result column="NEW_BALANCE" jdbcType="DECIMAL" property="newBalance" />
+    <result column="INVOICE_FEE" jdbcType="DECIMAL" property="invoiceFee" />
+    <result column="ACCESS_TAG" jdbcType="CHAR" property="accessTag" />
+    <result column="RECV_OPER_ID" jdbcType="VARCHAR" property="recvOperId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="CANCEL_TAG" jdbcType="CHAR" property="cancelTag" />
+    <result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="CANCEL_OPER_ID" jdbcType="VARCHAR" property="cancelOperId" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CHECKED_TAG" jdbcType="DECIMAL" property="checkedTag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ACCESS_ID, CHARGE_ID, ACCT_BALANCE_ID, OLD_BALANCE, MONEY, NEW_BALANCE, INVOICE_FEE, 
+    ACCESS_TAG, RECV_OPER_ID, UPDATE_TIME, CANCEL_TAG, CANCEL_TIME, CANCEL_OPER_ID, CHANNEL_CUST_ID, 
+    CREATE_DATE, CHECKED_TAG
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_B_ACCESSLOG
+    where ACCESS_ID = #{accessId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_B_ACCESSLOG
+    where ACCESS_ID = #{accessId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBAccesslog">
+    insert into LAO_B_ACCESSLOG (ACCESS_ID, CHARGE_ID, ACCT_BALANCE_ID, 
+      OLD_BALANCE, MONEY, NEW_BALANCE, 
+      INVOICE_FEE, ACCESS_TAG, RECV_OPER_ID, 
+      UPDATE_TIME, CANCEL_TAG, CANCEL_TIME, 
+      CANCEL_OPER_ID, CHANNEL_CUST_ID, CREATE_DATE, 
+      CHECKED_TAG)
+    values (#{accessId,jdbcType=DECIMAL}, #{chargeId,jdbcType=DECIMAL}, #{acctBalanceId,jdbcType=DECIMAL}, 
+      #{oldBalance,jdbcType=DECIMAL}, #{money,jdbcType=DECIMAL}, #{newBalance,jdbcType=DECIMAL}, 
+      #{invoiceFee,jdbcType=DECIMAL}, #{accessTag,jdbcType=CHAR}, #{recvOperId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{cancelTag,jdbcType=CHAR}, #{cancelTime,jdbcType=TIMESTAMP}, 
+      #{cancelOperId,jdbcType=VARCHAR}, #{channelCustId,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{checkedTag,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBAccesslog">
+    insert into LAO_B_ACCESSLOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accessId != null">
+        ACCESS_ID,
+      </if>
+      <if test="chargeId != null">
+        CHARGE_ID,
+      </if>
+      <if test="acctBalanceId != null">
+        ACCT_BALANCE_ID,
+      </if>
+      <if test="oldBalance != null">
+        OLD_BALANCE,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="newBalance != null">
+        NEW_BALANCE,
+      </if>
+      <if test="invoiceFee != null">
+        INVOICE_FEE,
+      </if>
+      <if test="accessTag != null">
+        ACCESS_TAG,
+      </if>
+      <if test="recvOperId != null">
+        RECV_OPER_ID,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="cancelTag != null">
+        CANCEL_TAG,
+      </if>
+      <if test="cancelTime != null">
+        CANCEL_TIME,
+      </if>
+      <if test="cancelOperId != null">
+        CANCEL_OPER_ID,
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="checkedTag != null">
+        CHECKED_TAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accessId != null">
+        #{accessId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeId != null">
+        #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctBalanceId != null">
+        #{acctBalanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="oldBalance != null">
+        #{oldBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="newBalance != null">
+        #{newBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceFee != null">
+        #{invoiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="accessTag != null">
+        #{accessTag,jdbcType=CHAR},
+      </if>
+      <if test="recvOperId != null">
+        #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTag != null">
+        #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelTime != null">
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelOperId != null">
+        #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCustId != null">
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkedTag != null">
+        #{checkedTag,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBAccesslog">
+    update LAO_B_ACCESSLOG
+    <set>
+      <if test="chargeId != null">
+        CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctBalanceId != null">
+        ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="oldBalance != null">
+        OLD_BALANCE = #{oldBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="newBalance != null">
+        NEW_BALANCE = #{newBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceFee != null">
+        INVOICE_FEE = #{invoiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="accessTag != null">
+        ACCESS_TAG = #{accessTag,jdbcType=CHAR},
+      </if>
+      <if test="recvOperId != null">
+        RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTag != null">
+        CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelTime != null">
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelOperId != null">
+        CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkedTag != null">
+        CHECKED_TAG = #{checkedTag,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ACCESS_ID = #{accessId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBAccesslog">
+    update LAO_B_ACCESSLOG
+    set CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL},
+      OLD_BALANCE = #{oldBalance,jdbcType=DECIMAL},
+      MONEY = #{money,jdbcType=DECIMAL},
+      NEW_BALANCE = #{newBalance,jdbcType=DECIMAL},
+      INVOICE_FEE = #{invoiceFee,jdbcType=DECIMAL},
+      ACCESS_TAG = #{accessTag,jdbcType=CHAR},
+      RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CHECKED_TAG = #{checkedTag,jdbcType=DECIMAL}
+    where ACCESS_ID = #{accessId,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

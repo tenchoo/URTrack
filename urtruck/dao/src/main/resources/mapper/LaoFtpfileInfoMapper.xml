@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoFtpfileInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFtpfileInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="TRADETYPECODE" property="tradetypecode" jdbcType="VARCHAR" />
+    <result column="ERRORDESC" property="errordesc" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="PROCESSMODE" property="processmode" jdbcType="DECIMAL" />
+    <result column="GOODSRELEASEID" property="goodsreleaseid" jdbcType="DECIMAL" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="DECIMAL" />
+    <result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FILE_NAME, ICCID, MSISDN, CREATEDATE, TRADETYPECODE, ERRORDESC, STATUS, PROCESSMODE, 
+    GOODSRELEASEID, OPERATORS_PID, CUSTID, UPDATEDATE, PARA_NAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_FTPFILE_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_FTPFILE_INFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoFtpfileInfo" >
+    insert into LAO_FTPFILE_INFO (ID, FILE_NAME, ICCID, 
+      MSISDN, CREATEDATE, TRADETYPECODE, 
+      ERRORDESC, STATUS, PROCESSMODE, 
+      GOODSRELEASEID, OPERATORS_PID, CUSTID, 
+      PARA_NAME1, PARA_NAME2)
+    values (#{id,jdbcType=DECIMAL}, #{fileName,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, 
+      #{msisdn,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{tradetypecode,jdbcType=VARCHAR}, 
+      #{errordesc,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{processmode,jdbcType=DECIMAL}, 
+      #{goodsreleaseid,jdbcType=DECIMAL}, #{operatorsPid,jdbcType=DECIMAL}, #{custid,jdbcType=VARCHAR}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{paraName2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoFtpfileInfo" >
+    insert into LAO_FTPFILE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="tradetypecode != null" >
+        TRADETYPECODE,
+      </if>
+      <if test="errordesc != null" >
+        ERRORDESC,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="processmode != null" >
+        PROCESSMODE,
+      </if>
+      <if test="goodsreleaseid != null" >
+        GOODSRELEASEID,
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID,
+      </if>
+      <if test="custid != null" >
+        CUSTID,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradetypecode != null" >
+        #{tradetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="errordesc != null" >
+        #{errordesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="processmode != null" >
+        #{processmode,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsreleaseid != null" >
+        #{goodsreleaseid,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        #{operatorsPid,jdbcType=DECIMAL},
+      </if>
+      <if test="custid != null" >
+        #{custid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraName2 != null" >
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoFtpfileInfo" >
+    update LAO_FTPFILE_INFO
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradetypecode != null" >
+        TRADETYPECODE = #{tradetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="errordesc != null" >
+        ERRORDESC = #{errordesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="processmode != null" >
+        PROCESSMODE = #{processmode,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsreleaseid != null" >
+        GOODSRELEASEID = #{goodsreleaseid,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID = #{operatorsPid,jdbcType=DECIMAL},
+      </if>
+      <if test="custid != null" >
+        CUSTID = #{custid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+       UPDATEDATE= #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoFtpfileInfo" >
+    update LAO_FTPFILE_INFO
+    set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      TRADETYPECODE = #{tradetypecode,jdbcType=VARCHAR},
+      ERRORDESC = #{errordesc,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      PROCESSMODE = #{processmode,jdbcType=DECIMAL},
+      GOODSRELEASEID = #{goodsreleaseid,jdbcType=DECIMAL},
+      OPERATORS_PID = #{operatorsPid,jdbcType=DECIMAL},
+      CUSTID = #{custid,jdbcType=VARCHAR},
+     UPDATEDATE= #{updatedate,jdbcType=TIMESTAMP},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

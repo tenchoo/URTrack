@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoBillResultExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBillResult" >
+    <id column="BALANCE_ID" property="balanceId" jdbcType="DECIMAL" />
+    <result column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="BACK_FEE" property="backFee" jdbcType="DECIMAL" />
+    <result column="BALANCE_TIME" property="balanceTime" jdbcType="TIMESTAMP" />
+    <result column="LEFT_FEE" property="leftFee" jdbcType="DECIMAL" />
+    <result column="CANPAY_TAG" property="canpayTag" jdbcType="VARCHAR" />
+    <result column="CASHBACK_TAG" property="cashbackTag" jdbcType="VARCHAR" />
+    <result column="CASH_TIME" property="cashTime" jdbcType="TIMESTAMP" />
+    <result column="CASH_CHARGE_ID" property="cashChargeId" jdbcType="DECIMAL" />
+    <result column="RECV_OPER_ID" property="recvOperId" jdbcType="VARCHAR" />
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="CANCEL_CHARGE_ID" property="cancelChargeId" jdbcType="DECIMAL" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BALANCE_ID, CHARGE_ID, CHANNEL_CUST_ID, CYCLE_ID, BACK_FEE, BALANCE_TIME, LEFT_FEE, 
+    CANPAY_TAG, CASHBACK_TAG, CASH_TIME, CASH_CHARGE_ID, RECV_OPER_ID, RULE_ID, CANCEL_TAG, 
+    CANCEL_OPER_ID, CANCEL_TIME, CANCEL_CHARGE_ID, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectNeedReturn" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  select (
+    select NVL(sum(BACK_FEE),0) from LAO_BILL_RESULT  where CHANNEL_CUST_ID=#{custId} 
+    and BALANCE_TIME <![CDATA[>]]> #{curMonth}
+    )
+	+
+	( 
+	select  NVL(sum(BACK_FEE),0) from LAO_BILL_RESULT_HIS  where CHANNEL_CUST_ID=#{custId} 
+	and BALANCE_TIME <![CDATA[>]]> #{curMonth}
+	)
+	from dual
+  </select>
+  <select id="selectReturned" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  select (
+    select NVL(sum(BACK_FEE),0) from LAO_BILL_RESULT  where CHANNEL_CUST_ID=#{custId} 
+    and CASH_TIME <![CDATA[>]]> #{curMonth} AND CASHBACK_TAG=1
+    )
+	+ 
+	(
+	select NVL(sum(BACK_FEE),0) from LAO_BILL_RESULT_HIS  where CHANNEL_CUST_ID=#{custId} 
+	and CASH_TIME <![CDATA[>]]> #{curMonth} AND CASHBACK_TAG=1
+	)
+	from dual
+  </select>
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+<!--   select -->
+<!--   <include refid="Base_Column_List"></include> -->
+<!--   from  LAO_BILL_RESULT where CHANNEL_CUST_ID=#{custId} and BALANCE_TIME between #{startDate} and #{endDate} order by BALANCE_TIME DESC -->
+	SELECT * FROM 
+	(
+	SELECT A.*, ROWNUM RN 
+	FROM (SELECT * FROM LAO_BILL_RESULT where CHANNEL_CUST_ID=#{custId} and BALANCE_TIME between #{startDate} and #{endDate} order by BALANCE_TIME DESC) A 
+	WHERE ROWNUM <![CDATA[<=]]> #{end}
+	)
+	WHERE RN <![CDATA[>=]]> #{start} 
+  </select>
+  
+   <select id="selectByCustIdAndCashBackTag" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT * FROM 
+	(
+	SELECT A.*, ROWNUM RN 
+	FROM (SELECT * FROM LAO_BILL_RESULT order by BALANCE_TIME DESC) A 
+	WHERE ROWNUM <![CDATA[<=]]> #{end}
+	<if test="custId!=null">
+    and CHANNEL_CUST_ID=#{custId} 
+	</if>
+	<if test="cashbackTag!=-1">
+	and CASHBACK_TAG = #{cashbackTag}
+	</if>
+	)
+	WHERE RN <![CDATA[>=]]> #{start} 
+  </select>
+  
+  <select id="countBillResByCustId" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    SELECT count(*) FROM LAO_BILL_RESULT where 1=1
+	<if test="custId!=null">
+    and CHANNEL_CUST_ID=#{custId} 
+	</if>
+	<if test="cashbackTag!=-1">
+	and CASHBACK_TAG = #{cashbackTag}
+	</if>
+  </select>
+    <select id="countByCustId" resultType="java.lang.Integer" parameterType="java.util.Map" >
+	SELECT count(*) FROM LAO_BILL_RESULT where CHANNEL_CUST_ID=#{custId} and BALANCE_TIME between #{startDate} and #{endDate}
+  </select>
+  
+   <select id="currentMonthReturnMoneyByCustId"  resultType="Long" parameterType="Long" >
+     select sum(t.back_fee) from Lao_Bill_Result t  
+		where
+	    t.channel_cust_id=#{custId}
+	    and
+		t.balance_time <![CDATA[>=]]>  TRUNC (now(),'MM')
+		and
+		t.balance_time <![CDATA[<=]]>  last_day(now())
+   </select>
+  
+  
+  
+</mapper>

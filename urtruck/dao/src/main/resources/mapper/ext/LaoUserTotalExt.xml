@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoUser">
+		<id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<result column="CHANNEL_CUST_ID" property="channelCustId"
+			jdbcType="DECIMAL" />
+		<result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+		<result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+		<result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+		<result column="SCORE_VALUE" property="scoreValue" jdbcType="DECIMAL" />
+		<result column="CREDIT_CLASS" property="creditClass" jdbcType="DECIMAL" />
+		<result column="BASIC_CREDIT_VALUE" property="basicCreditValue"
+			jdbcType="DECIMAL" />
+		<result column="CREDIT_VALUE" property="creditValue" jdbcType="DECIMAL" />
+		<result column="ACCT_TAG" property="acctTag" jdbcType="CHAR" />
+		<result column="PREPAY_TAG" property="prepayTag" jdbcType="CHAR" />
+		<result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+		<result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" />
+		<result column="REMOVE_TAG" property="removeTag" jdbcType="CHAR" />
+		<result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+		<result column="PRE_DESTROY_TIME" property="preDestroyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="FIRST_CALL_TIME" property="firstCallTime"
+			jdbcType="TIMESTAMP" />
+		<result column="LAST_STOP_TIME" property="lastStopTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+		<result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+		<result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+		<result column="ALIVE_CHECK_TIME" property="aliveCheckTime"
+			jdbcType="DECIMAL" />
+		<result column="IMEI" property="imei" jdbcType="VARCHAR" />
+		<result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+		<result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+		<result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+		<result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+		<result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryUserOperNum" resultType="java.util.Map">
+		select a.operators_id,c.region_name,d.static_name,count(1) number from lao_user a, lao_customer b, lao_staff c , lao_ss_static d where a.channel_cust_id =b.cust_id
+		and b.rsrv_str1= c.staff_id and a.channel_cust_id =d.cust_id and d.static_name in('智能展业','智能互联','智能车联','运营商物联') 
+		group by a.operators_id,c.region_name,d.static_name 
+	</select>
+	<select id="queryUserStateNum" resultType="java.util.Map">
+		<!-- select count(1) from lao_user where state_code
+		in(select state_code from lao_service_status where
+		outsidestate=#{outsidestate}) and channel_cust_id in(select
+		cust_id from lao_customer
+		where 1=1
+		<if test="regionName != null and regionName !=''">
+			and rsrv_str1 in(select staff_id from lao_staff where
+			region_name
+			=#{regionName})
+		</if>) and channel_cust_id in(select cust_id from 
+		lao_ss_static  where static_name=#{staticName}) -->
+		select d.region_name,e.static_name,b.outsidestate,count(1) number from lao_user a,lao_service_status b ,lao_customer c,
+		lao_staff d,lao_ss_static e where a.state_code=b.state_code and b.outsidestate in('1','2','3')
+		 and a.channel_cust_id= c.cust_id and a.channel_cust_id=e.cust_id and c.rsrv_str1=d.staff_id 
+		 and e.static_name in('智能展业','智能互联','智能车联','运营商物联') group by d.region_name,e.static_name,b.outsidestate
+	</select>
+
+	<select id="queryIndustryNum" resultType="java.util.Map">		
+	 select c.region_name,d.static_name,count(1) number from lao_user a, lao_customer b, lao_staff c , lao_ss_static d where a.channel_cust_id =b.cust_id
+		and b.rsrv_str1= c.staff_id and a.channel_cust_id =d.cust_id and d.static_name in('智能展业','智能互联','智能车联','运营商物联') 
+		group by c.region_name,d.static_name 
+	</select>
+</mapper>
+ 

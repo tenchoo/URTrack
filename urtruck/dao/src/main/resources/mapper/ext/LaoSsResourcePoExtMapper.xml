@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsResourcePoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsResourcePo" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="INTEGER" />
+    <result column="RES_CODE" property="resCode" jdbcType="VARCHAR" />
+    <result column="RES_NAME" property="resName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESOURCE_ID, RES_CODE, RES_NAME
+  </sql>
+  <select id="queryResourceByPage" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_RESOURCE
+    <where>
+	    <if test="params.param.resourceId != null" >
+	      and  RESOURCE_ID = #{params.param.resourceId,jdbcType=DECIMAL}
+	    </if>
+    </where>
+  </select>
+  
+  <select id="queryListByUserId" parameterType="map" resultMap="BaseResultMap">
+  	select r.* from LAO_SS_RESOURCE r 
+	join LAO_SS_ROLE_RESOURCE rr on r.RESOURCE_ID = rr.RESOURCE_ID 
+	join LAO_SS_ACCOUNT_ROLE ur on ur.ROLE_ID = rr.ROLE_ID 
+	where ur.USER_ID = #{userId}
+  </select>
+  
+</mapper>

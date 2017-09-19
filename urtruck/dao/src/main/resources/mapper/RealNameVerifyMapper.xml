@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.RealNameVerifyMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.RealNameVerify">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="IDTYPE" jdbcType="DECIMAL" property="idtype" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="realname" />
+    <result column="IDNUM" jdbcType="VARCHAR" property="idnum" />
+    <result column="HANDPICURL" jdbcType="VARCHAR" property="handpicurl" />
+    <result column="FRONTPICURL" jdbcType="VARCHAR" property="frontpicurl" />
+    <result column="BACKPICURL" jdbcType="VARCHAR" property="backpicurl" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="VERIFYSTATUS" jdbcType="DECIMAL" property="verifystatus" />
+    <result column="FAILTIMES" jdbcType="DECIMAL" property="failtimes" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="PHOTOURL" jdbcType="VARCHAR" property="photourl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERID, IDTYPE, REALNAME, IDNUM, HANDPICURL, FRONTPICURL, BACKPICURL, TEL, VERIFYSTATUS, 
+    FAILTIMES, CREATETIME, UPDATETIME, ICCID, PHOTOURL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_REALNAME_VERIFY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <!-- 条件查询 -->
+  <select id="doQueryUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+ 	select 
+    <include refid="Base_Column_List" />
+    from LAO_REALNAME_VERIFY 
+    where userId=#{userId} and ROWNUM =1
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from LAO_REALNAME_VERIFY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.RealNameVerify">
+    insert into LAO_REALNAME_VERIFY (ID, USERID, IDTYPE, 
+      REALNAME, IDNUM, HANDPICURL, 
+      FRONTPICURL, BACKPICURL, TEL, 
+      VERIFYSTATUS, FAILTIMES, CREATETIME, 
+      UPDATETIME, ICCID, PHOTOURL
+      )
+    values (LAO_REALNAME_VERIFY_ID_SEQ.nextval, #{userid,jdbcType=VARCHAR}, #{idtype,jdbcType=DECIMAL}, 
+      #{realname,jdbcType=VARCHAR}, #{idnum,jdbcType=VARCHAR}, #{handpicurl,jdbcType=VARCHAR}, 
+      #{frontpicurl,jdbcType=VARCHAR}, #{backpicurl,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{verifystatus,jdbcType=DECIMAL}, #{failtimes,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{iccid,jdbcType=VARCHAR}, #{photourl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.RealNameVerify">
+    insert into LAO_REALNAME_VERIFY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="idtype != null">
+        IDTYPE,
+      </if>
+      <if test="realname != null">
+        REALNAME,
+      </if>
+      <if test="idnum != null">
+        IDNUM,
+      </if>
+      <if test="handpicurl != null">
+        HANDPICURL,
+      </if>
+      <if test="frontpicurl != null">
+        FRONTPICURL,
+      </if>
+      <if test="backpicurl != null">
+        BACKPICURL,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="verifystatus != null">
+        VERIFYSTATUS,
+      </if>
+      <if test="failtimes != null">
+        FAILTIMES,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="photourl != null">
+        PHOTOURL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="idtype != null">
+        #{idtype,jdbcType=DECIMAL},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="handpicurl != null">
+        #{handpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="frontpicurl != null">
+        #{frontpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="backpicurl != null">
+        #{backpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="verifystatus != null">
+        #{verifystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="failtimes != null">
+        #{failtimes,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="photourl != null">
+        #{photourl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.RealNameVerify">
+    update LAO_REALNAME_VERIFY
+    <set>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="idtype != null">
+        IDTYPE = #{idtype,jdbcType=DECIMAL},
+      </if>
+      <if test="realname != null">
+        REALNAME = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        IDNUM = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="handpicurl != null">
+        HANDPICURL = #{handpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="frontpicurl != null">
+        FRONTPICURL = #{frontpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="backpicurl != null">
+        BACKPICURL = #{backpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="verifystatus != null">
+        VERIFYSTATUS = #{verifystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="failtimes != null">
+        FAILTIMES = #{failtimes,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="photourl != null">
+        PHOTOURL = #{photourl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.RealNameVerify">
+    update LAO_REALNAME_VERIFY
+    set USERID = #{userid,jdbcType=VARCHAR},
+      IDTYPE = #{idtype,jdbcType=DECIMAL},
+      REALNAME = #{realname,jdbcType=VARCHAR},
+      IDNUM = #{idnum,jdbcType=VARCHAR},
+      HANDPICURL = #{handpicurl,jdbcType=VARCHAR},
+      FRONTPICURL = #{frontpicurl,jdbcType=VARCHAR},
+      BACKPICURL = #{backpicurl,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      VERIFYSTATUS = #{verifystatus,jdbcType=DECIMAL},
+      FAILTIMES = #{failtimes,jdbcType=DECIMAL},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      PHOTOURL = #{photourl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

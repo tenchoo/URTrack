@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoOperatordealLogExtMapper" >
+   <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatordealLog" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="RESULT_CODE" property="resultCode" jdbcType="VARCHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="INPUT_PARAMETERS" property="inputParameters" jdbcType="VARCHAR" />
+    <result column="OUTPUT_PARAMETERS" property="outputParameters" jdbcType="VARCHAR" />
+    <result column="OPERATOR_TYPE" property="operatorType" jdbcType="VARCHAR" />
+    <result column="OPERATOR_ID" property="operatorId" jdbcType="VARCHAR" />
+    <result column="SUCCESS" property="success" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="VARCHAR" />
+    <result column="REQUEST_ID" property="requestId" jdbcType="VARCHAR" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getFailOrder" resultMap="BaseResultMap">
+  	select * from lao_operatordeal_log lol where lol.fail_num &gt; 0 and lol.fail_num &lt; 4
+  </select>
+  <select id="getDealLogByRequest" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from lao_operatordeal_log lol where lol.request_id=#{requestId}
+  </select>
+  <select id="updateFailNumByRequestId" parameterType="java.lang.String">
+  	update lao_operatordeal_log l set l.fail_num=(l.fail_num+1) where l.request_id=#{requestId}
+  </select>
+</mapper>

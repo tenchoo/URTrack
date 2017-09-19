@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBusiexcpLogMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBusiexcpLog" >
+    <id column="EXCP_ID" property="excpId" jdbcType="DECIMAL" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="BATCHDETAIL_ID" property="batchdetailId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="EXCP_TYPE_CODE" property="excpTypeCode" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DONE_TIMES" property="doneTimes" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXCP_ID, TRADE_ID, BATCH_ID, BATCHDETAIL_ID, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, 
+    ICCID, GOODS_ID, TRADE_TYPE_CODE, EXCP_TYPE_CODE, DEAL_TAG, RESULT_INFO, RECV_TIME, 
+    UPDATE_TIME, DONE_TIMES, OPER_ID, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BUSIEXCP_LOG
+    where EXCP_ID = #{excpId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_BUSIEXCP_LOG
+    where EXCP_ID = #{excpId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBusiexcpLog" >
+    insert into LAO_BUSIEXCP_LOG (EXCP_ID, TRADE_ID, BATCH_ID, 
+      BATCHDETAIL_ID, CHANNEL_CUST_ID, CUST_ID, 
+      USER_ID, MSISDN, ICCID, 
+      GOODS_ID, TRADE_TYPE_CODE, EXCP_TYPE_CODE, 
+      DEAL_TAG, RESULT_INFO, RECV_TIME, 
+      UPDATE_TIME, DONE_TIMES, OPER_ID, 
+      REMARK)
+    values (#{excpId,jdbcType=DECIMAL}, #{tradeId,jdbcType=DECIMAL}, #{batchId,jdbcType=DECIMAL}, 
+      #{batchdetailId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=DECIMAL}, #{msisdn,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, #{excpTypeCode,jdbcType=DECIMAL}, 
+      #{dealTag,jdbcType=CHAR}, #{resultInfo,jdbcType=VARCHAR}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{doneTimes,jdbcType=DECIMAL}, #{operId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBusiexcpLog" >
+    insert into LAO_BUSIEXCP_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="excpId != null" >
+        EXCP_ID,
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="batchdetailId != null" >
+        BATCHDETAIL_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="excpTypeCode != null" >
+        EXCP_TYPE_CODE,
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG,
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="doneTimes != null" >
+        DONE_TIMES,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="excpId != null" >
+        #{excpId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchdetailId != null" >
+        #{batchdetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="excpTypeCode != null" >
+        #{excpTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null" >
+        #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneTimes != null" >
+        #{doneTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBusiexcpLog" >
+    update LAO_BUSIEXCP_LOG
+    <set >
+      <if test="tradeId != null" >
+        TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchId != null" >
+        BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchdetailId != null" >
+        BATCHDETAIL_ID = #{batchdetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="excpTypeCode != null" >
+        EXCP_TYPE_CODE = #{excpTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="doneTimes != null" >
+        DONE_TIMES = #{doneTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EXCP_ID = #{excpId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBusiexcpLog" >
+    update LAO_BUSIEXCP_LOG
+    set TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      BATCHDETAIL_ID = #{batchdetailId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      EXCP_TYPE_CODE = #{excpTypeCode,jdbcType=DECIMAL},
+      DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DONE_TIMES = #{doneTimes,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where EXCP_ID = #{excpId,jdbcType=DECIMAL}
+  </update>
+</mapper>

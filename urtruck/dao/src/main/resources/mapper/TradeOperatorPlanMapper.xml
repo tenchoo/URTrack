@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.TradeOperatorPlanMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeOperatorPlan">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <id column="GOODS_INDEX" jdbcType="DECIMAL" property="goodsIndex" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="PLAN_ID" jdbcType="DECIMAL" property="planId" />
+    <result column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="OPERATORS_PID" jdbcType="VARCHAR" property="operatorsPid" />
+    <result column="ENABLE_TAG" jdbcType="VARCHAR" property="enableTag" />
+    <result column="INVALID_TYPE" jdbcType="VARCHAR" property="invalidType" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="PACKAGE_TYPE" jdbcType="CHAR" property="packageType" />
+    <result column="PLAN_TYPE" jdbcType="VARCHAR" property="planType" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, USER_ID, GOODS_ID, GOODS_INDEX, MODIFY_TAG, PLAN_ID, OPERATORS_ID, 
+    OPERATORS_PID, ENABLE_TAG, INVALID_TYPE, START_DATE, END_DATE, PACKAGE_TYPE, PLAN_TYPE, 
+    ACCEPT_DATE,PLAN_CLASSIFY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_OPERATOR_PLAN
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from LAO_TRADE_OPERATOR_PLAN
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.TradeOperatorPlan">
+    insert into LAO_TRADE_OPERATOR_PLAN (TRADE_ID, ACCEPT_MONTH, USER_ID, 
+      GOODS_ID, GOODS_INDEX, MODIFY_TAG, 
+      PLAN_ID, OPERATORS_ID, OPERATORS_PID, 
+      ENABLE_TAG, INVALID_TYPE, START_DATE, 
+      END_DATE, PACKAGE_TYPE, PLAN_TYPE, 
+      ACCEPT_DATE,PLAN_CLASSIFY)
+    values (#{tradeId,jdbcType=DECIMAL}, #{acceptMonth,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{goodsId,jdbcType=DECIMAL}, #{goodsIndex,jdbcType=DECIMAL}, #{modifyTag,jdbcType=CHAR}, 
+      #{planId,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, #{operatorsPid,jdbcType=VARCHAR}, 
+      #{enableTag,jdbcType=VARCHAR}, #{invalidType,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{packageType,jdbcType=CHAR}, #{planType,jdbcType=VARCHAR}, 
+      #{acceptDate,jdbcType=TIMESTAMP}, #{planClassify,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.TradeOperatorPlan">
+    insert into LAO_TRADE_OPERATOR_PLAN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        TRADE_ID,
+      </if>
+      <if test="acceptMonth != null">
+        ACCEPT_MONTH,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+      <if test="goodsIndex != null">
+        GOODS_INDEX,
+      </if>
+      <if test="modifyTag != null">
+        MODIFY_TAG,
+      </if>
+      <if test="planId != null">
+        PLAN_ID,
+      </if>
+      <if test="operatorsId != null">
+        OPERATORS_ID,
+      </if>
+      <if test="operatorsPid != null">
+        OPERATORS_PID,
+      </if>
+      <if test="enableTag != null">
+        ENABLE_TAG,
+      </if>
+      <if test="invalidType != null">
+        INVALID_TYPE,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE,
+      </if>
+      <if test="planType != null">
+        PLAN_TYPE,
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE,
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptMonth != null">
+        #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsIndex != null">
+        #{goodsIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="modifyTag != null">
+        #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null">
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null">
+        #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="enableTag != null">
+        #{enableTag,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidType != null">
+        #{invalidType,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageType != null">
+        #{packageType,jdbcType=CHAR},
+      </if>
+      <if test="planType != null">
+        #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptDate != null">
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planClassify != null" >
+        #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.TradeOperatorPlan">
+    update LAO_TRADE_OPERATOR_PLAN
+    <set>
+      <if test="modifyTag != null">
+        MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="planId != null">
+        PLAN_ID = #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null">
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsPid != null">
+        OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="enableTag != null">
+        ENABLE_TAG = #{enableTag,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidType != null">
+        INVALID_TYPE = #{invalidType,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageType != null">
+        PACKAGE_TYPE = #{packageType,jdbcType=CHAR},
+      </if>
+      <if test="planType != null">
+        PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.TradeOperatorPlan">
+    update LAO_TRADE_OPERATOR_PLAN
+    set MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      PLAN_ID = #{planId,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      ENABLE_TAG = #{enableTag,jdbcType=VARCHAR},
+      INVALID_TYPE = #{invalidType,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      PACKAGE_TYPE = #{packageType,jdbcType=CHAR},
+      PLAN_TYPE = #{planType,jdbcType=VARCHAR},
+      ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR}
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and GOODS_INDEX = #{goodsIndex,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.DItemMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DItem" >
+    <id column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_DESC" property="itemDesc" jdbcType="VARCHAR" />
+    <result column="P_ITEM_ID" property="pItemId" jdbcType="DECIMAL" />
+    <result column="START_CYCLE_ID" property="startCycleId" jdbcType="DECIMAL" />
+    <result column="END_CYCLE_ID" property="endCycleId" jdbcType="DECIMAL" />
+    <result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ITEM_ID, ITEM_NAME, ITEM_DESC, P_ITEM_ID, START_CYCLE_ID, END_CYCLE_ID, TAX_RATE, 
+    REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_ITEM
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_D_ITEM
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.DItem" >
+    insert into LAO_D_ITEM (ITEM_ID, ITEM_NAME, ITEM_DESC, 
+      P_ITEM_ID, START_CYCLE_ID, END_CYCLE_ID, 
+      TAX_RATE, REMARK)
+    values (#{itemId,jdbcType=DECIMAL}, #{itemName,jdbcType=VARCHAR}, #{itemDesc,jdbcType=VARCHAR}, 
+      #{pItemId,jdbcType=DECIMAL}, #{startCycleId,jdbcType=DECIMAL}, #{endCycleId,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.DItem" >
+    insert into LAO_D_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemDesc != null" >
+        ITEM_DESC,
+      </if>
+      <if test="pItemId != null" >
+        P_ITEM_ID,
+      </if>
+      <if test="startCycleId != null" >
+        START_CYCLE_ID,
+      </if>
+      <if test="endCycleId != null" >
+        END_CYCLE_ID,
+      </if>
+      <if test="taxRate != null" >
+        TAX_RATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null" >
+        #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pItemId != null" >
+        #{pItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="startCycleId != null" >
+        #{startCycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="endCycleId != null" >
+        #{endCycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.DItem" >
+    update LAO_D_ITEM
+    <set >
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDesc != null" >
+        ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="pItemId != null" >
+        P_ITEM_ID = #{pItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="startCycleId != null" >
+        START_CYCLE_ID = #{startCycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="endCycleId != null" >
+        END_CYCLE_ID = #{endCycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null" >
+        TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.DItem" >
+    update LAO_D_ITEM
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_DESC = #{itemDesc,jdbcType=VARCHAR},
+      P_ITEM_ID = #{pItemId,jdbcType=DECIMAL},
+      START_CYCLE_ID = #{startCycleId,jdbcType=DECIMAL},
+      END_CYCLE_ID = #{endCycleId,jdbcType=DECIMAL},
+      TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+</mapper>

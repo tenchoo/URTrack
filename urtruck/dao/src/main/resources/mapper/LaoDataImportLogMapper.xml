@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDataImportLogMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDataImportLog">
+    <id column="IMP_ID" jdbcType="DECIMAL" property="impId" />
+    <result column="IMP_TYPE" jdbcType="VARCHAR" property="impType" />
+    <result column="IMP_NAME" jdbcType="VARCHAR" property="impName" />
+    <result column="IMP_DATE" jdbcType="VARCHAR" property="impDate" />
+    <result column="OPERATOR_TYPE" jdbcType="VARCHAR" property="operatorType" />
+    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+    <result column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_STAFF" jdbcType="VARCHAR" property="updateStaff" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    IMP_ID, IMP_TYPE, IMP_NAME, IMP_DATE, OPERATOR_TYPE, OPERATOR_NAME, OPERATORS_ID, 
+    UPDATE_TIME, UPDATE_STAFF, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DATAIMPORT_LOG
+    where IMP_ID = #{impId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DATAIMPORT_LOG
+    where IMP_ID = #{impId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDataImportLog">
+    insert into LAO_DATAIMPORT_LOG (IMP_ID, IMP_TYPE, IMP_NAME, 
+      IMP_DATE, OPERATOR_TYPE, OPERATOR_NAME, 
+      OPERATORS_ID, UPDATE_TIME, UPDATE_STAFF, 
+      REMARK)
+    values (#{impId,jdbcType=DECIMAL}, #{impType,jdbcType=VARCHAR}, #{impName,jdbcType=VARCHAR}, 
+      #{impDate,jdbcType=VARCHAR}, #{operatorType,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR}, 
+      #{operatorsId,jdbcType=DECIMAL}, #{updateTime,jdbcType=TIMESTAMP}, #{updateStaff,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDataImportLog">
+    insert into LAO_DATAIMPORT_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="impId != null">
+        IMP_ID,
+      </if>
+      <if test="impType != null">
+        IMP_TYPE,
+      </if>
+      <if test="impName != null">
+        IMP_NAME,
+      </if>
+      <if test="impDate != null">
+        IMP_DATE,
+      </if>
+      <if test="operatorType != null">
+        OPERATOR_TYPE,
+      </if>
+      <if test="operatorName != null">
+        OPERATOR_NAME,
+      </if>
+      <if test="operatorsId != null">
+        OPERATORS_ID,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateStaff != null">
+        UPDATE_STAFF,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="impId != null">
+        #{impId,jdbcType=DECIMAL},
+      </if>
+      <if test="impType != null">
+        #{impType,jdbcType=VARCHAR},
+      </if>
+      <if test="impName != null">
+        #{impName,jdbcType=VARCHAR},
+      </if>
+      <if test="impDate != null">
+        #{impDate,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null">
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaff != null">
+        #{updateStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDataImportLog">
+    update LAO_DATAIMPORT_LOG
+    <set>
+      <if test="impType != null">
+        IMP_TYPE = #{impType,jdbcType=VARCHAR},
+      </if>
+      <if test="impName != null">
+        IMP_NAME = #{impName,jdbcType=VARCHAR},
+      </if>
+      <if test="impDate != null">
+        IMP_DATE = #{impDate,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        OPERATOR_TYPE = #{operatorType,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorName != null">
+        OPERATOR_NAME = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null">
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaff != null">
+        UPDATE_STAFF = #{updateStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IMP_ID = #{impId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDataImportLog">
+    update LAO_DATAIMPORT_LOG
+    set IMP_TYPE = #{impType,jdbcType=VARCHAR},
+      IMP_NAME = #{impName,jdbcType=VARCHAR},
+      IMP_DATE = #{impDate,jdbcType=VARCHAR},
+      OPERATOR_TYPE = #{operatorType,jdbcType=VARCHAR},
+      OPERATOR_NAME = #{operatorName,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_STAFF = #{updateStaff,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where IMP_ID = #{impId,jdbcType=DECIMAL}
+  </update>
+</mapper>

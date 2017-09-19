@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.laoUserOrderMmPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.laoUserOrderMmPo" >
+    <result column="IN_DATE" property="inDate" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_NAME" property="channelCustName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE1_NAME" property="value1Name" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="VALUE2_NAME" property="value2Name" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_CYCLE" property="goodsCycle" jdbcType="DECIMAL" />
+    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="DECIMAL" />
+    <result column="TOTAL_FLOW" property="totalFlow" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryPage" resultType="map" parameterType="map">
+  	select decode(CHANNEL_CUST_NAME,'',' ',CHANNEL_CUST_NAME) channelcustname,decode(cust_name,'',' ',cust_name) custname,decode(goods_name,'',' ',goods_name) goodsname,decode(value1_name,'',' ',value1_name)value1name,decode(value2_name,'',' ',value2_name)value2name,region_name,goods_price,order_num,cost_price,operators_name,decode(staff_name,'',' ',staff_name) staffname 
+  	from LAO_USER_ORDER_MM where IN_DATE = #{params.param.inDate}
+  </select>
+  <select id="selectFinancia" resultType="map" parameterType="int">
+  select decode(CHANNEL_CUST_NAME,'',' ',CHANNEL_CUST_NAME) channelcustname,decode(goods_name,'',' ',goods_name) goodsname,decode(value1_name,'',' ',value1_name)value1name,decode(value2_name,'',' ',value2_name)value2name,region_name,goods_price,order_num,cost_price,operators_name,goods_price*order_num income,staff_name,cust_name
+  	from LAO_USER_ORDER_MM where IN_DATE = #{indate}
+  </select>
+</mapper>

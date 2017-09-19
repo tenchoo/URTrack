@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoProvideServerExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoProvideServer">
+		<id column="SERVER_ID" property="serverId" jdbcType="DECIMAL" />
+		<result column="SERVER_NAME" property="serverName" jdbcType="VARCHAR" />
+		<result column="SERVER_TAG" property="serverTag" jdbcType="VARCHAR" />
+		<result column="OPERATION_TAG" property="operationTag"
+			jdbcType="VARCHAR" />
+		<result column="PUBLISH_DATE" property="publishDate" jdbcType="TIMESTAMP" />
+		<result column="SERVER_OPEN" property="serverOpen" jdbcType="CHAR" />
+		<result column="SERVER_DESC" property="serverDesc" jdbcType="VARCHAR" />
+		<result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+		<result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		SERVER_ID, SERVER_NAME, SERVER_TAG, OPERATION_TAG,
+		PUBLISH_DATE, SERVER_OPEN,
+		SERVER_DESC,
+		PARA_NAME1, PARA_NAME2
+	</sql>
+	<select id="queryPrivateServerByCustId" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="Base_Column_List" />
+		from lao_provide_server ps where ps.server_id in
+		(select sc.server_id
+		from Lao_Role_Server_Conn sc where sc.role_id=(select
+		cc.role_id from
+		Lao_Ss_Role_Cust cc where cc.cust_id=#{custId})
+		)
+	</select>
+	<select id="queryList"  resultMap="BaseResultMap" >
+	 select <include refid="Base_Column_List" />
+	   from lao_provide_server
+	</select>
+</mapper>
+	
+	
+	

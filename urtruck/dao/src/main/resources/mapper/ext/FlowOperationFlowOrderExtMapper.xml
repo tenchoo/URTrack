@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.FlowOperationFlowOrderExtMapper" >
+   <resultMap id="BaseResultMap" type="com.urt.po.FlowOperationFlowOrder">
+    <id column="FLOWORDERID" jdbcType="VARCHAR" property="floworderid" />
+    <result column="CUSTCHANNELID" jdbcType="VARCHAR" property="custchannelid" />
+    <result column="CLIENTORDERID" jdbcType="VARCHAR" property="clientorderid" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="PACKAGESIZE" jdbcType="VARCHAR" property="packagesize" />
+    <result column="STEPSTATE1" jdbcType="VARCHAR" property="stepstate1" />
+    <result column="STEPSTATETIME1" jdbcType="TIMESTAMP" property="stepstatetime1" />
+    <result column="STEPSTATE2" jdbcType="VARCHAR" property="stepstate2" />
+    <result column="STEPSTATETIME2" jdbcType="TIMESTAMP" property="stepstatetime2" />
+    <result column="STEPSTATE3" jdbcType="VARCHAR" property="stepstate3" />
+    <result column="STEPSTATETIME3" jdbcType="TIMESTAMP" property="stepstatetime3" />
+    <result column="CALLBACKDISCOUNT" jdbcType="VARCHAR" property="callbackdiscount" />
+    <result column="CALLBACKDOSTMONEY" jdbcType="VARCHAR" property="callbackdostmoney" />
+    <result column="STEPSTATE4" jdbcType="VARCHAR" property="stepstate4" />
+    <result column="STEPSTATETIME4" jdbcType="TIMESTAMP" property="stepstatetime4" />
+    <result column="PARANAME1" jdbcType="VARCHAR" property="paraname1" />
+    <result column="PARANAME2" jdbcType="VARCHAR" property="paraname2" />
+    <result column="ISSUCCESS" jdbcType="VARCHAR" property="issuccess" />
+  </resultMap>
+ 
+  <select id="getFlowOrderId" parameterType="String" resultType="String">
+   select FLOWORDERID from LAO_FLOWOPERATION_FLOWORDER
+    where CLIENTORDERID = #{clientOrderId,jdbcType=VARCHAR} and rownum=1
+  </select>
+  <select id="getFlowOrderCount" parameterType="String" resultType="int">
+   select count(1) from LAO_FLOWOPERATION_FLOWORDER
+    where FLOWORDERID = #{flowOrderId,jdbcType=VARCHAR}
+  </select>
+   <select id="getHttpUrl" resultType="String">
+   select config.property_value 
+   from lao_flowoperation_floworder flowOrder left join LAO_PROPERTIES_CONFIG config on flowOrder.custchannelid=config.custid 
+   where flowOrder.Floworderid=#{flowOrderId,jdbcType=VARCHAR}
+  </select>
+  <select id="getFlowOrderIdByBillId" parameterType="String" resultType="String">
+   select FLOWORDERID from LAO_FLOWOPERATION_FLOWORDER
+    where paraname1 = #{billId,jdbcType=VARCHAR} and rownum=1
+  </select>
+</mapper>

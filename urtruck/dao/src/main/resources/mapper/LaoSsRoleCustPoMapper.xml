@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsRoleCustPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsRoleCustPo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_SS_ROLE_CUST
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and CUST_ID = #{custId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsRoleCustPo" >
+    insert into LAO_SS_ROLE_CUST (ROLE_ID, CUST_ID)
+    values (#{roleId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsRoleCustPo" >
+    insert into LAO_SS_ROLE_CUST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

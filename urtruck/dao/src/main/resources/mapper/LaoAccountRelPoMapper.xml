@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoAccountRelPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAccountRelPo" >
+    <id column="REL_ID" property="relId" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    <result column="REL_TYPE" property="relType" jdbcType="VARCHAR" />
+    <result column="REL_ACCOUNT" property="relAccount" jdbcType="VARCHAR" />
+    <result column="REL_LOGINNAME" property="relLoginname" jdbcType="VARCHAR" />
+    <result column="REL_NICKNAME" property="relNickname" jdbcType="VARCHAR" />
+    <result column="REL_IMGURL" property="relImgurl" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REL_ID, ACCOUNT_ID, REL_TYPE, REL_ACCOUNT, REL_LOGINNAME, REL_NICKNAME, REL_IMGURL, 
+    RECV_TIME, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ACCOUNT_REL
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByRelAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ACCOUNT_REL
+    where REL_ACCOUNT = #{relAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ACCOUNT_REL
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoAccountRelPo" >
+    insert into LAO_ACCOUNT_REL (REL_ID, ACCOUNT_ID, REL_TYPE, 
+      REL_ACCOUNT, REL_LOGINNAME, REL_NICKNAME, 
+      REL_IMGURL, RECV_TIME, REMARK
+      )
+    values (#{relId,jdbcType=DECIMAL}, #{accountId,jdbcType=DECIMAL}, #{relType,jdbcType=VARCHAR}, 
+      #{relAccount,jdbcType=VARCHAR}, #{relLoginname,jdbcType=VARCHAR}, #{relNickname,jdbcType=VARCHAR}, 
+      #{relImgurl,jdbcType=VARCHAR}, #{recvTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAccountRelPo" >
+    insert into LAO_ACCOUNT_REL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relId != null" >
+        REL_ID,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="relType != null" >
+        REL_TYPE,
+      </if>
+      <if test="relAccount != null" >
+        REL_ACCOUNT,
+      </if>
+      <if test="relLoginname != null" >
+        REL_LOGINNAME,
+      </if>
+      <if test="relNickname != null" >
+        REL_NICKNAME,
+      </if>
+      <if test="relImgurl != null" >
+        REL_IMGURL,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relId != null" >
+        #{relId,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="relType != null" >
+        #{relType,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccount != null" >
+        #{relAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="relLoginname != null" >
+        #{relLoginname,jdbcType=VARCHAR},
+      </if>
+      <if test="relNickname != null" >
+        #{relNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="relImgurl != null" >
+        #{relImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoAccountRelPo" >
+    update LAO_ACCOUNT_REL
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="relType != null" >
+        REL_TYPE = #{relType,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccount != null" >
+        REL_ACCOUNT = #{relAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="relLoginname != null" >
+        REL_LOGINNAME = #{relLoginname,jdbcType=VARCHAR},
+      </if>
+      <if test="relNickname != null" >
+        REL_NICKNAME = #{relNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="relImgurl != null" >
+        REL_IMGURL = #{relImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoAccountRelPo" >
+    update LAO_ACCOUNT_REL
+    set ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      REL_TYPE = #{relType,jdbcType=VARCHAR},
+      REL_ACCOUNT = #{relAccount,jdbcType=VARCHAR},
+      REL_LOGINNAME = #{relLoginname,jdbcType=VARCHAR},
+      REL_NICKNAME = #{relNickname,jdbcType=VARCHAR},
+      REL_IMGURL = #{relImgurl,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimUserMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimUser" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="LENOVOID" property="lenovoid" jdbcType="VARCHAR" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="BINDDATE" property="binddate" jdbcType="TIMESTAMP" />
+    <result column="FIRSTCALLTIME" property="firstcalltime" jdbcType="TIMESTAMP" />
+    <result column="ENDCALLTIME" property="endcalltime" jdbcType="TIMESTAMP" />
+    <result column="CURENTUSERSTATUS" property="curentuserstatus" jdbcType="DECIMAL" />
+    <result column="CARDSTATUS" property="cardstatus" jdbcType="VARCHAR" />
+    <result column="DPADDRESS" property="dpaddress" jdbcType="VARCHAR" />
+    <result column="PROFILEID" property="profileid" jdbcType="VARCHAR" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, LENOVOID, EID, ICCID, BINDDATE, FIRSTCALLTIME, ENDCALLTIME, CURENTUSERSTATUS, 
+    CARDSTATUS, DPADDRESS, PROFILEID, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_USER
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_USER
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimUser" >
+    insert into LAO_ESIM_USER (USER_ID, LENOVOID, EID, 
+      ICCID, BINDDATE, FIRSTCALLTIME, 
+      ENDCALLTIME, CURENTUSERSTATUS, CARDSTATUS, 
+      DPADDRESS, PROFILEID, PARAM1, 
+      PARAM2)
+    values (#{userId,jdbcType=DECIMAL}, #{lenovoid,jdbcType=VARCHAR}, #{eid,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{binddate,jdbcType=TIMESTAMP}, #{firstcalltime,jdbcType=TIMESTAMP}, 
+      #{endcalltime,jdbcType=TIMESTAMP}, #{curentuserstatus,jdbcType=DECIMAL}, #{cardstatus,jdbcType=VARCHAR}, 
+      #{dpaddress,jdbcType=VARCHAR}, #{profileid,jdbcType=VARCHAR}, #{param1,jdbcType=VARCHAR}, 
+      #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimUser" >
+    insert into LAO_ESIM_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="lenovoid != null" >
+        LENOVOID,
+      </if>
+      <if test="eid != null" >
+        EID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="binddate != null" >
+        BINDDATE,
+      </if>
+      <if test="firstcalltime != null" >
+        FIRSTCALLTIME,
+      </if>
+      <if test="endcalltime != null" >
+        ENDCALLTIME,
+      </if>
+      <if test="curentuserstatus != null" >
+        CURENTUSERSTATUS,
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS,
+      </if>
+      <if test="dpaddress != null" >
+        DPADDRESS,
+      </if>
+      <if test="profileid != null" >
+        PROFILEID,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="lenovoid != null" >
+        #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="binddate != null" >
+        #{binddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstcalltime != null" >
+        #{firstcalltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endcalltime != null" >
+        #{endcalltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curentuserstatus != null" >
+        #{curentuserstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="cardstatus != null" >
+        #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dpaddress != null" >
+        #{dpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="profileid != null" >
+        #{profileid,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimUser" >
+    update LAO_ESIM_USER
+    <set >
+      <if test="lenovoid != null" >
+        LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        EID = #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="binddate != null" >
+        BINDDATE = #{binddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstcalltime != null" >
+        FIRSTCALLTIME = #{firstcalltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endcalltime != null" >
+        ENDCALLTIME = #{endcalltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="curentuserstatus != null" >
+        CURENTUSERSTATUS = #{curentuserstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dpaddress != null" >
+        DPADDRESS = #{dpaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="profileid != null" >
+        PROFILEID = #{profileid,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimUser" >
+    update LAO_ESIM_USER
+    set LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      EID = #{eid,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      BINDDATE = #{binddate,jdbcType=TIMESTAMP},
+      FIRSTCALLTIME = #{firstcalltime,jdbcType=TIMESTAMP},
+      ENDCALLTIME = #{endcalltime,jdbcType=TIMESTAMP},
+      CURENTUSERSTATUS = #{curentuserstatus,jdbcType=DECIMAL},
+      CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      DPADDRESS = #{dpaddress,jdbcType=VARCHAR},
+      PROFILEID = #{profileid,jdbcType=VARCHAR},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

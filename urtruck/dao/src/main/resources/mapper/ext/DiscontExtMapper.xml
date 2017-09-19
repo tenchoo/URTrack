@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.DiscontExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.Discont">
+    <id column="DISCONT_ID" jdbcType="DECIMAL" property="discontId" />
+    <result column="DISCONT_NAME" jdbcType="VARCHAR" property="discontName" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="DISCONT_TYPE" jdbcType="CHAR" property="discontType" />
+    <result column="DISCONT_VALUE" jdbcType="DECIMAL" property="discontValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DISCONT_ID, DISCONT_NAME, CREATEDATE, UPDATEDATE, STARTDATE, ENDDATE, DISCONT_TYPE, 
+    DISCONT_VALUE
+  </sql>
+  
+  <select id="findDiscont" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DISCONT
+  </select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserIpManagerExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoUserIpManager">
+	    <id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+		<result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+		<result column="UPDAT_DATE" property="updatDate" jdbcType="TIMESTAMP" />
+		<result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+		<result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+		<result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+		<result column="ISDISABLED" property="isdisabled" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,CUST_ID, IP_ADDRESS, UPDAT_DATE, CREAT_DATE, PARA_NAME1,
+		PARA_NAME2,
+		ISDISABLED
+	</sql>
+	<!--条件查询 -->
+	<select id="getLaoUserIpByCustId" resultType="java.util.Map"
+		parameterType="Long">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_USER_IP_MANAGER
+		where CUST_ID=#{custId}
+	</select>
+	<!-- 分页查询 -->
+	<select id="queryPage" resultType="map" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from Lao_User_Ip_Manager where 1=1
+		<if test="params.param.custId != null and params.param.custId!=''">
+			and CUST_ID=#{params.param.custId}
+		</if>
+		ORDER BY CREAT_DATE desc
+	</select>
+	<!-- 查询总记录数 -->
+	<select id="queryCountByCustId" resultType="Integer"
+		parameterType="long">
+		select count(1) from Lao_User_Ip_Manager where
+		CUST_ID=#{custId,jdbcType=DECIMAL}
+	</select>
+
+
+</mapper>

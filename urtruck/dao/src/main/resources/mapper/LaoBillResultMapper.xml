@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBillResultMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBillResult" >
+    <id column="BALANCE_ID" property="balanceId" jdbcType="DECIMAL" />
+    <result column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="BACK_FEE" property="backFee" jdbcType="DECIMAL" />
+    <result column="BALANCE_TIME" property="balanceTime" jdbcType="TIMESTAMP" />
+    <result column="LEFT_FEE" property="leftFee" jdbcType="DECIMAL" />
+    <result column="CANPAY_TAG" property="canpayTag" jdbcType="VARCHAR" />
+    <result column="CASHBACK_TAG" property="cashbackTag" jdbcType="VARCHAR" />
+    <result column="CASH_TIME" property="cashTime" jdbcType="TIMESTAMP" />
+    <result column="CASH_CHARGE_ID" property="cashChargeId" jdbcType="DECIMAL" />
+    <result column="RECV_OPER_ID" property="recvOperId" jdbcType="VARCHAR" />
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="CANCEL_CHARGE_ID" property="cancelChargeId" jdbcType="DECIMAL" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BALANCE_ID, CHARGE_ID, CHANNEL_CUST_ID, CYCLE_ID, BACK_FEE, BALANCE_TIME, LEFT_FEE, 
+    CANPAY_TAG, CASHBACK_TAG, CASH_TIME, CASH_CHARGE_ID, RECV_OPER_ID, RULE_ID, CANCEL_TAG, 
+    CANCEL_OPER_ID, CANCEL_TIME, CANCEL_CHARGE_ID, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BILL_RESULT
+    where BALANCE_ID = #{balanceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_BILL_RESULT
+    where BALANCE_ID = #{balanceId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBillResult" >
+    insert into LAO_BILL_RESULT (BALANCE_ID, CHARGE_ID, CHANNEL_CUST_ID, 
+      CYCLE_ID, BACK_FEE, BALANCE_TIME, 
+      LEFT_FEE, CANPAY_TAG, CASHBACK_TAG, 
+      CASH_TIME, CASH_CHARGE_ID, RECV_OPER_ID, 
+      RULE_ID, CANCEL_TAG, CANCEL_OPER_ID, 
+      CANCEL_TIME, CANCEL_CHARGE_ID, RSRV_INFO1, 
+      RSRV_INFO2)
+    values (#{balanceId,jdbcType=DECIMAL}, #{chargeId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{cycleId,jdbcType=DECIMAL}, #{backFee,jdbcType=DECIMAL}, #{balanceTime,jdbcType=TIMESTAMP}, 
+      #{leftFee,jdbcType=DECIMAL}, #{canpayTag,jdbcType=VARCHAR}, #{cashbackTag,jdbcType=VARCHAR}, 
+      #{cashTime,jdbcType=TIMESTAMP}, #{cashChargeId,jdbcType=DECIMAL}, #{recvOperId,jdbcType=VARCHAR}, 
+      #{ruleId,jdbcType=DECIMAL}, #{cancelTag,jdbcType=CHAR}, #{cancelOperId,jdbcType=VARCHAR}, 
+      #{cancelTime,jdbcType=TIMESTAMP}, #{cancelChargeId,jdbcType=DECIMAL}, #{rsrvInfo1,jdbcType=VARCHAR}, 
+      #{rsrvInfo2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBillResult" >
+    insert into LAO_BILL_RESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="balanceId != null" >
+        BALANCE_ID,
+      </if>
+      <if test="chargeId != null" >
+        CHARGE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID,
+      </if>
+      <if test="backFee != null" >
+        BACK_FEE,
+      </if>
+      <if test="balanceTime != null" >
+        BALANCE_TIME,
+      </if>
+      <if test="leftFee != null" >
+        LEFT_FEE,
+      </if>
+      <if test="canpayTag != null" >
+        CANPAY_TAG,
+      </if>
+      <if test="cashbackTag != null" >
+        CASHBACK_TAG,
+      </if>
+      <if test="cashTime != null" >
+        CASH_TIME,
+      </if>
+      <if test="cashChargeId != null" >
+        CASH_CHARGE_ID,
+      </if>
+      <if test="recvOperId != null" >
+        RECV_OPER_ID,
+      </if>
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="cancelTag != null" >
+        CANCEL_TAG,
+      </if>
+      <if test="cancelOperId != null" >
+        CANCEL_OPER_ID,
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME,
+      </if>
+      <if test="cancelChargeId != null" >
+        CANCEL_CHARGE_ID,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="balanceId != null" >
+        #{balanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="backFee != null" >
+        #{backFee,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceTime != null" >
+        #{balanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leftFee != null" >
+        #{leftFee,jdbcType=DECIMAL},
+      </if>
+      <if test="canpayTag != null" >
+        #{canpayTag,jdbcType=VARCHAR},
+      </if>
+      <if test="cashbackTag != null" >
+        #{cashbackTag,jdbcType=VARCHAR},
+      </if>
+      <if test="cashTime != null" >
+        #{cashTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashChargeId != null" >
+        #{cashChargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvOperId != null" >
+        #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="cancelTag != null" >
+        #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelOperId != null" >
+        #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelChargeId != null" >
+        #{cancelChargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBillResult" >
+    update LAO_BILL_RESULT
+    <set >
+      <if test="chargeId != null" >
+        CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="backFee != null" >
+        BACK_FEE = #{backFee,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceTime != null" >
+        BALANCE_TIME = #{balanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leftFee != null" >
+        LEFT_FEE = #{leftFee,jdbcType=DECIMAL},
+      </if>
+      <if test="canpayTag != null" >
+        CANPAY_TAG = #{canpayTag,jdbcType=VARCHAR},
+      </if>
+      <if test="cashbackTag != null" >
+        CASHBACK_TAG = #{cashbackTag,jdbcType=VARCHAR},
+      </if>
+      <if test="cashTime != null" >
+        CASH_TIME = #{cashTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cashChargeId != null" >
+        CASH_CHARGE_ID = #{cashChargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvOperId != null" >
+        RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        RULE_ID = #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="cancelTag != null" >
+        CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelOperId != null" >
+        CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelChargeId != null" >
+        CANCEL_CHARGE_ID = #{cancelChargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BALANCE_ID = #{balanceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBillResult" >
+    update LAO_BILL_RESULT
+    set CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      BACK_FEE = #{backFee,jdbcType=DECIMAL},
+      BALANCE_TIME = #{balanceTime,jdbcType=TIMESTAMP},
+      LEFT_FEE = #{leftFee,jdbcType=DECIMAL},
+      CANPAY_TAG = #{canpayTag,jdbcType=VARCHAR},
+      CASHBACK_TAG = #{cashbackTag,jdbcType=VARCHAR},
+      CASH_TIME = #{cashTime,jdbcType=TIMESTAMP},
+      CASH_CHARGE_ID = #{cashChargeId,jdbcType=DECIMAL},
+      RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      RULE_ID = #{ruleId,jdbcType=DECIMAL},
+      CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      CANCEL_CHARGE_ID = #{cancelChargeId,jdbcType=DECIMAL},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where BALANCE_ID = #{balanceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

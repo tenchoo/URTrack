@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSmsDeliverExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSmsDeliver" >
+    <result column="DELIVER_ID" property="deliverId" jdbcType="DECIMAL" />
+    <result column="SRC_NUMBER" property="srcNumber" jdbcType="VARCHAR" />
+    <result column="DEST_NUMBER" property="destNumber" jdbcType="VARCHAR" />
+    <result column="SMS_CONTENT" property="smsContent" jdbcType="VARCHAR" />
+    <result column="PUSH_DATE" property="pushDate" jdbcType="TIMESTAMP" />
+    <result column="SMS_ID" property="smsId" jdbcType="DECIMAL" />
+    <result column="PUSH_STATE" property="pushState" jdbcType="DECIMAL" />
+    <result column="PUSH_DESC" property="pushDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DELIVER_ID, SRC_NUMBER, DEST_NUMBER, SMS_CONTENT, PUSH_DATE, SMS_ID, PUSH_STATE ,PUSH_DESC
+  </sql>
+  
+  <select id="selectBySrcNumber" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from lao_sms_deliver t  where  t.push_date=(select max(push_date) from lao_sms_deliver t where  t.src_number=#{srcNumber,jdbcType=DECIMAL})
+  </select>
+</mapper>

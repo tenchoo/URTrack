@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoEsimFlowInfoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimFlowInfo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="LENOVOID" jdbcType="VARCHAR" property="lenovoid" />
+    <result column="TOTALFLOW" jdbcType="VARCHAR" property="totalflow" />
+    <result column="SURPLUSFLOW" jdbcType="VARCHAR" property="surplusflow" />
+    <result column="OPERATORS" jdbcType="VARCHAR" property="operators" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="IMSI" jdbcType="VARCHAR" property="imsi" />
+    <result column="GOODSID" jdbcType="VARCHAR" property="goodsid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, LENOVOID, TOTALFLOW, SURPLUSFLOW, OPERATORS, CREATEDATE, UPDATEDATE, IMSI, GOODSID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_FLOWINFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_ESIM_FLOWINFO
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimFlowInfo">
+    insert into LAO_ESIM_FLOWINFO (ID, LENOVOID, TOTALFLOW, 
+      SURPLUSFLOW, OPERATORS, CREATEDATE, 
+      UPDATEDATE, IMSI, GOODSID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{lenovoid,jdbcType=VARCHAR}, #{totalflow,jdbcType=VARCHAR}, 
+      #{surplusflow,jdbcType=VARCHAR}, #{operators,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{imsi,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimFlowInfo">
+    insert into LAO_ESIM_FLOWINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="lenovoid != null">
+        LENOVOID,
+      </if>
+      <if test="totalflow != null">
+        TOTALFLOW,
+      </if>
+      <if test="surplusflow != null">
+        SURPLUSFLOW,
+      </if>
+      <if test="operators != null">
+        OPERATORS,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null">
+        UPDATEDATE,
+      </if>
+      <if test="imsi != null">
+        IMSI,
+      </if>
+      <if test="goodsid != null">
+        GOODSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="lenovoid != null">
+        #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalflow != null">
+        #{totalflow,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusflow != null">
+        #{surplusflow,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null">
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imsi != null">
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimFlowInfo">
+    update LAO_ESIM_FLOWINFO
+    <set>
+      <if test="lenovoid != null">
+        LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="totalflow != null">
+        TOTALFLOW = #{totalflow,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusflow != null">
+        SURPLUSFLOW = #{surplusflow,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null">
+        OPERATORS = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imsi != null">
+        IMSI = #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null">
+        GOODSID = #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimFlowInfo">
+    update LAO_ESIM_FLOWINFO
+    set LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      TOTALFLOW = #{totalflow,jdbcType=VARCHAR},
+      SURPLUSFLOW = #{surplusflow,jdbcType=VARCHAR},
+      OPERATORS = #{operators,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      IMSI = #{imsi,jdbcType=VARCHAR},
+      GOODSID = #{goodsid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

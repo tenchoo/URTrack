@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustConcatPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustConcatPo" >
+    <id column="CONTACT_ID" property="contactId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CONTACT_FAX" property="contactFax" jdbcType="VARCHAR" />
+    <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="CONTACT_POST_CODE" property="contactPostCode" jdbcType="CHAR" />
+    <result column="CONTACT_POST_ADDR" property="contactPostAddr" jdbcType="VARCHAR" />
+    <result column="CONTACT_HOME_ADDR" property="contactHomeAddr" jdbcType="VARCHAR" />
+    <result column="CONTACT_PSPT_TYPE_CODE" property="contactPsptTypeCode" jdbcType="CHAR" />
+    <result column="CONTACT_PSPT_ID" property="contactPsptId" jdbcType="VARCHAR" />
+    <result column="CONTACT_WORK_NAME" property="contactWorkName" jdbcType="VARCHAR" />
+    <result column="CONTACT_WORK_ADDR" property="contactWorkAddr" jdbcType="VARCHAR" />
+    <result column="CONTACT_DEPART" property="contactDepart" jdbcType="VARCHAR" />
+    <result column="CONTACT_DUTY" property="contactDuty" jdbcType="VARCHAR" />
+    <result column="BEST_CONTACT_TIME" property="bestContactTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="UPDATE_DEPART_ID" property="updateDepartId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_NUM1" property="rsrvNum1" jdbcType="DECIMAL" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_DATE1" property="rsrvDate1" jdbcType="TIMESTAMP" />
+    <result column="RSRV_TAG1" property="rsrvTag1" jdbcType="CHAR" />
+  </resultMap>
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUST_CONTACT where 1=1 
+ 	<if test="params.param.custId != null and params.param.custId!=''" >
+	      	and  CUST_ID = #{params.param.custId} 
+    </if>
+ 	<if test="params.param.contactName != null and params.param.contactName!=''" >
+	      	and  CONTACT_NAME like CONCAT(CONCAT('%', #{params.param.contactName}), '%')
+    </if>
+	 	ORDER BY UPDATE_TIME desc
+  </select>
+</mapper>

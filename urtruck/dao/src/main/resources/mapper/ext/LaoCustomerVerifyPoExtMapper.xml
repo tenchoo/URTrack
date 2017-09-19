@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustomerVerifyPoExtMapper" >
+<resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerVerifyPo" >
+    <result column="cust_id" property="custId" jdbcType="DECIMAL" />
+    <result column="id" property="id" jdbcType="DECIMAL" />
+    <result column="idtype" property="idtype" jdbcType="DECIMAL" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="idnum" property="idnum" jdbcType="VARCHAR" />
+    <result column="handpicurl" property="handpicurl" jdbcType="VARCHAR" />
+    <result column="frontpicurl" property="frontpicurl" jdbcType="VARCHAR" />
+    <result column="backpicurl" property="backpicurl" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="verifystatus" property="verifystatus" jdbcType="DECIMAL" />
+    <result column="failtimes" property="failtimes" jdbcType="DECIMAL" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="iccid" property="iccid" jdbcType="VARCHAR" />
+    <result column="photourl" property="photourl" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="getCountByIdcode" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	select count(*) from LAO_CUSTOMER_VERIFY where idnum=#{idnum} and verifystatus in (2,3)
+  </select>
+  <select id="getVerifyById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select * from LAO_CUSTOMER_VERIFY where id=#{id}
+  </select>
+  <select id="getFailMessage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select * from lao_customer_verify where TO_char(now(),'YYYYMMDD')= TO_CHAR(createtime,'YYYYMMDD') and account_id=2 and （verifystatus=1 or verifystatus=4）and rownum=1 order by createtime
+  </select>
+  <select id="getVerifyByAccountId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select * from LAO_CUSTOMER_VERIFY where account_id=#{accountId} and verifystatus=2
+  </select>
+  <update id="updateFailTimes" parameterType="com.urt.po.LaoCustomerVerifyPo">
+  	update LAO_CUSTOMER_VERIFY set failtimes=#{failtimes},updatetime=#{updatetime,jdbcType=TIMESTAMP} where account_id=#{accountId}
+  </update>
+  <update id="updateStatus" parameterType="com.urt.po.LaoCustomerVerifyPo">
+  	update LAO_CUSTOMER_VERIFY set verifystatus=#{verifystatus} where id=#{id}
+  </update>
+ <!--  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER_VERIFY where 1=1 and verifystatus=2 
+ 	<if test="params.param.realname != null and params.param.realname!=''" >
+		and  realname like CONCAT(CONCAT('%', #{params.param.realname}), '%') 
+	</if>
+	 	ORDER BY createtime desc
+  </select> -->
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER_VERIFY where 1=1 and verifystatus='2'
+ 	<if test="params.param.realname != null and params.param.realname!=''" >
+		and  realname like CONCAT(CONCAT('%', #{params.param.realname}), '%') 
+	</if>
+	 	ORDER BY createtime desc
+  </select>
+</mapper>

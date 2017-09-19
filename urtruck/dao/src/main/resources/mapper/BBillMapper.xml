@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.BBillMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.BBill" >
+    <id column="BILL_ID" property="billId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="ACCT_ID" property="acctId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+    <result column="B_DISCNT" property="bDiscnt" jdbcType="DECIMAL" />
+    <result column="A_DISCNT" property="aDiscnt" jdbcType="DECIMAL" />
+    <result column="ADJUST_BEFORE" property="adjustBefore" jdbcType="DECIMAL" />
+    <result column="ADJUST_AFTER" property="adjustAfter" jdbcType="DECIMAL" />
+    <result column="CANPAY_TAG" property="canpayTag" jdbcType="CHAR" />
+    <result column="BILL_PAY_TAG" property="billPayTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="CHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BILL_ID, PARTITION_ID, ACCT_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, CYCLE_ID, USE_COUNT, 
+    FEE, BALANCE, B_DISCNT, A_DISCNT, ADJUST_BEFORE, ADJUST_AFTER, CANPAY_TAG, BILL_PAY_TAG, 
+    RECV_TIME, UPDATE_TIME, UPDATE_STAFF_ID, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_B_BILL
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_B_BILL
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.BBill" >
+    insert into LAO_B_BILL (BILL_ID, PARTITION_ID, ACCT_ID, 
+      USER_ID, SERIAL_NUMBER, ITEM_ID, 
+      CYCLE_ID, USE_COUNT, FEE, 
+      BALANCE, B_DISCNT, A_DISCNT, 
+      ADJUST_BEFORE, ADJUST_AFTER, CANPAY_TAG, 
+      BILL_PAY_TAG, RECV_TIME, UPDATE_TIME, 
+      UPDATE_STAFF_ID, RSRV_INFO1, RSRV_INFO2
+      )
+    values (#{billId,jdbcType=DECIMAL}, #{partitionId,jdbcType=DECIMAL}, #{acctId,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=DECIMAL}, #{serialNumber,jdbcType=VARCHAR}, #{itemId,jdbcType=DECIMAL}, 
+      #{cycleId,jdbcType=DECIMAL}, #{useCount,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{bDiscnt,jdbcType=DECIMAL}, #{aDiscnt,jdbcType=DECIMAL}, 
+      #{adjustBefore,jdbcType=DECIMAL}, #{adjustAfter,jdbcType=DECIMAL}, #{canpayTag,jdbcType=CHAR}, 
+      #{billPayTag,jdbcType=CHAR}, #{recvTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateStaffId,jdbcType=CHAR}, #{rsrvInfo1,jdbcType=VARCHAR}, #{rsrvInfo2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.BBill" >
+    insert into LAO_B_BILL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        BILL_ID,
+      </if>
+      <if test="partitionId != null" >
+        PARTITION_ID,
+      </if>
+      <if test="acctId != null" >
+        ACCT_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID,
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="bDiscnt != null" >
+        B_DISCNT,
+      </if>
+      <if test="aDiscnt != null" >
+        A_DISCNT,
+      </if>
+      <if test="adjustBefore != null" >
+        ADJUST_BEFORE,
+      </if>
+      <if test="adjustAfter != null" >
+        ADJUST_AFTER,
+      </if>
+      <if test="canpayTag != null" >
+        CANPAY_TAG,
+      </if>
+      <if test="billPayTag != null" >
+        BILL_PAY_TAG,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billId != null" >
+        #{billId,jdbcType=DECIMAL},
+      </if>
+      <if test="partitionId != null" >
+        #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctId != null" >
+        #{acctId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="bDiscnt != null" >
+        #{bDiscnt,jdbcType=DECIMAL},
+      </if>
+      <if test="aDiscnt != null" >
+        #{aDiscnt,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustBefore != null" >
+        #{adjustBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustAfter != null" >
+        #{adjustAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="canpayTag != null" >
+        #{canpayTag,jdbcType=CHAR},
+      </if>
+      <if test="billPayTag != null" >
+        #{billPayTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        #{updateStaffId,jdbcType=CHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.BBill" >
+    update LAO_B_BILL
+    <set >
+      <if test="partitionId != null" >
+        PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctId != null" >
+        ACCT_ID = #{acctId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        FEE = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="bDiscnt != null" >
+        B_DISCNT = #{bDiscnt,jdbcType=DECIMAL},
+      </if>
+      <if test="aDiscnt != null" >
+        A_DISCNT = #{aDiscnt,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustBefore != null" >
+        ADJUST_BEFORE = #{adjustBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="adjustAfter != null" >
+        ADJUST_AFTER = #{adjustAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="canpayTag != null" >
+        CANPAY_TAG = #{canpayTag,jdbcType=CHAR},
+      </if>
+      <if test="billPayTag != null" >
+        BILL_PAY_TAG = #{billPayTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID = #{updateStaffId,jdbcType=CHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.BBill" >
+    update LAO_B_BILL
+    set PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      ACCT_ID = #{acctId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      FEE = #{fee,jdbcType=DECIMAL},
+      BALANCE = #{balance,jdbcType=DECIMAL},
+      B_DISCNT = #{bDiscnt,jdbcType=DECIMAL},
+      A_DISCNT = #{aDiscnt,jdbcType=DECIMAL},
+      ADJUST_BEFORE = #{adjustBefore,jdbcType=DECIMAL},
+      ADJUST_AFTER = #{adjustAfter,jdbcType=DECIMAL},
+      CANPAY_TAG = #{canpayTag,jdbcType=CHAR},
+      BILL_PAY_TAG = #{billPayTag,jdbcType=CHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_STAFF_ID = #{updateStaffId,jdbcType=CHAR},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where BILL_ID = #{billId,jdbcType=DECIMAL}
+  </update>
+  <insert id="batchInsert"  parameterType="java.util.List">  
+   insert into LAO_B_BILL (BILL_ID, PARTITION_ID, ACCT_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, CYCLE_ID, USE_COUNT, 
+    FEE, BALANCE, B_DISCNT, A_DISCNT, ADJUST_BEFORE, ADJUST_AFTER, CANPAY_TAG, BILL_PAY_TAG, 
+    RECV_TIME, UPDATE_TIME, UPDATE_STAFF_ID, RSRV_INFO1, RSRV_INFO2)   
+    <foreach collection="list" item="item" index="index"  separator="union all"  >
+    	(select  #{item.billId},#{item.partitionId},#{item.acctId},#{item.userId},#{item.serialNumber},#{item.itemId},
+    	#{item.cycleId},#{item.useCount},#{item.fee},#{item.balance},#{item.bDiscnt},#{item.aDiscnt},
+    	#{item.adjustBefore},#{item.adjustAfter},#{item.canpayTag},#{item.billPayTag},#{item.recvTime},#{item.updateTime},#{item.updateStaffId},#{item.rsrvInfo1},#{item.rsrvInfo2} from dual)  
+    </foreach>
+  </insert>  
+  
+</mapper>

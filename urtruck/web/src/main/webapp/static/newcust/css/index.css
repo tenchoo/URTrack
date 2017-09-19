@@ -1,0 +1,65 @@
+.container{
+	border:2px solid #e7ebef;
+}
+.container .head h2{
+	height:50px;
+	line-height: 50px;
+	font-size: 14px;
+	color: #333;
+	padding-left: 15px;
+	font-weight: bold;
+	border-bottom: 1px solid #e7ebef;
+}
+.title{
+	height: 100px;
+}
+.title h2,.consumer_information h2{
+	height:50px;
+	line-height: 50px;
+	font-size: 14px;
+	color: #55565d;
+}
+.title p{
+	font-weight: bold;
+	margin-left: 15px;
+}
+.title p a{
+	color:#007eec ;
+}
+.blue_div{
+	margin-left: 15px;
+	width: 3px;
+	height: 14px;
+	margin-top: 17px;
+	margin-right: 5px;
+	background-color: #007eec;
+}
+.consumer_information{
+	height:200px;
+	border-top: 1px solid #e7ebef;
+}
+.consumer_information .blue_div{
+	margin-left: 15px;
+	width: 3px;
+	height: 14px;
+	margin-top: 17px;
+	margin-right: 5px;
+	background-color: #007eec;
+}
+.consumer_information ul li{
+	width: 200px;
+	height: 130px;
+	background-color: #f5f7fb;
+}
+.consumer_information img{
+	float: left;
+	margin-top: 40px;
+	margin-left: 28px;
+}
+.consumer_information .box{
+	margin-top: 45px;
+	margin-left: 24px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #55565d;
+}

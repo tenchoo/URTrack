@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsAccountPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsAccountPo" >
+    <id column="ACCONUT_ID" property="acconutId" jdbcType="DECIMAL" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="PLAIN_PASSWORD" property="plainPassword" jdbcType="VARCHAR" />
+    <result column="SALT" property="salt" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RELATED_TYPE" property="relatedType" jdbcType="VARCHAR" />
+    <result column="RELATED_ID" property="relatedId" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="FST_STRUCT" jdbcType="VARCHAR" property="fstStruct" />
+    <result column="SEC_STRUCT" jdbcType="VARCHAR" property="secStruct" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCONUT_ID, LOGIN_NAME, NICKNAME, PASSWORD,PLAIN_PASSWORD, SALT, STATUS, CREATE_DATE, REMARK, RELATED_TYPE, 
+    RELATED_ID, CUST_ID, FST_STRUCT, SEC_STRUCT
+  </sql>
+  <select id="queryUserByPage" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from LAO_SS_ACCOUNT where 1=1 
+    	<if test="params.param.loginName != null and params.param.loginName!=''" >
+	      	and  LOGIN_NAME like CONCAT(CONCAT('%', #{params.param.loginName}), '%')
+	    </if>
+	    <if test="params.param.nickname != null and params.param.nickname!=''" >
+	    	and  NICKNAME like CONCAT(CONCAT('%', #{params.param.nickname}), '%')
+	    </if>
+	    <if test="params.custIdList != null and params.custIdList != ''" >
+	    	and CUST_ID in (${params.custIdList})
+	    </if>
+	    <!--  
+	    <if test="params.param.custId != null and params.param.custId!=''" >
+	      	and  CUST_ID = #{params.param.custId} 
+    	</if>
+    	-->
+  </select>
+  <select id="queryUsersByModel" resultMap="BaseResultMap" parameterType="com.urt.po.LaoSsAccountPo" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_ACCOUNT
+    <!-- <where>
+	    <if test="userId != null" >
+	       USER_ID =#{userId,jdbcType=VARCHAR}
+	    </if>
+	   	<if test="params.param.loginName != null and params.param.loginName!=''" >
+	      	and  LOGIN_NAME like CONCAT(CONCAT('%', #{params.param.loginName}), '%')
+	    </if>
+	    <if test="params.param.nickname != null and params.param.nickname!=''" >
+	    	and  NICKNAME like CONCAT(CONCAT('%', #{params.param.nickname}), '%')
+	    </if>
+    </where> -->
+  </select>
+  
+  <select id="queryByLoginName" resultMap="BaseResultMap" parameterType="map">
+  	select <include refid="Base_Column_List" />
+  	from LAO_SS_ACCOUNT
+  	where LOGIN_NAME = #{loginName}
+  </select>
+  <select id="queryByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select <include refid="Base_Column_List" />
+  	from LAO_SS_ACCOUNT
+  	where CUST_ID = #{custId}
+  </select>
+  <select id="getUserByRelared" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from lao_ss_account where 1=1
+  		<if test="_parameter!=null">
+  			and RELATED_ID=#{relatedId}
+  		</if>
+  </select>
+   <update id="updateCustId" parameterType="com.urt.po.LaoSsAccountPo">
+    update LAO_SS_ACCOUNT
+    <set>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ACCONUT_ID = #{acconutId,jdbcType=DECIMAL}
+  </update>
+</mapper>

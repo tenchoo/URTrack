@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoRuleRelExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoRuleRel" >
+    <id column="RULEGROUP_ID" property="rulegroupId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="SALE_MANAGER" property="saleManager" jdbcType="VARCHAR" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="EPARCHY_CODE" property="eparchyCode" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULEGROUP_ID, CHANNEL_CUST_ID, SALE_MANAGER, EFF_DATE, EXP_DATE, EPARCHY_CODE, STATE, 
+    OPER_ID, UPDATE_TIME, REMARK
+  </sql>
+  <select id="selectRelsByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_RULE_REL
+    where CHANNEL_CUST_ID = #{custId} and now() BETWEEN EFF_DATE and EXP_DATE   
+  </select>
+  
+   <update id="updateByCustId" parameterType="com.urt.po.LaoRuleRel" >
+    update LAO_RULE_REL
+    <set >       
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>  
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>   
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>    
+    </set>
+    where  CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL} and now() BETWEEN EFF_DATE and EXP_DATE
+  </update>
+</mapper>

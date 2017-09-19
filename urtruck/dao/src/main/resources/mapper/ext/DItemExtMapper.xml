@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.DItemExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DItem" >
+    <id column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_DESC" property="itemDesc" jdbcType="VARCHAR" />
+    <result column="P_ITEM_ID" property="pItemId" jdbcType="DECIMAL" />
+    <result column="START_CYCLE_ID" property="startCycleId" jdbcType="DECIMAL" />
+    <result column="END_CYCLE_ID" property="endCycleId" jdbcType="DECIMAL" />
+    <result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ITEM_ID, ITEM_NAME, ITEM_DESC, P_ITEM_ID, START_CYCLE_ID, END_CYCLE_ID, TAX_RATE, 
+    REMARK
+  </sql>
+  <select id="selectByItemName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_ITEM
+    where ITEM_NAME = #{itemName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_ITEM
+  </select>
+  <select id="selDItemByPItemId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_ITEM
+    where ITEM_ID = P_ITEM_ID
+    ORDER BY ITEM_ID ASC
+  </select>
+</mapper>

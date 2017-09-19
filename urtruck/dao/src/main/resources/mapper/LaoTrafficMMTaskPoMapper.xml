@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoTrafficMMTaskPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoTrafficMMTaskPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="DATA1" jdbcType="DECIMAL" property="data1" />
+    <result column="DATA2" jdbcType="DECIMAL" property="data2" />
+    <result column="OPER_ID" jdbcType="DECIMAL" property="operId" />
+    <result column="TASK_STATE" jdbcType="CHAR" property="taskState" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="COUNT" jdbcType="DECIMAL" property="count" />
+    <result column="VALUE1" jdbcType="VARCHAR" property="value1" />
+    <result column="VALUE2" jdbcType="VARCHAR" property="value2" />
+    <result column="MONTH" jdbcType="VARCHAR" property="month" />
+    <result column="OPERATORID" jdbcType="DECIMAL" property="operatorid" />
+    <result column="GOODSID" jdbcType="DECIMAL" property="goodsid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.urt.po.LaoTrafficMMTaskPo">
+    <result column="BINARY_DATA" jdbcType="BLOB" property="binaryData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CHANNEL_CUST_ID, DATA1, DATA2, OPER_ID, TASK_STATE, START_TIME, END_TIME, REMARK, 
+    TYPE, CREATE_TIME, COUNT, VALUE1, VALUE2, MONTH, OPERATORID, GOODSID
+  </sql>
+  <sql id="Blob_Column_List">
+    BINARY_DATA
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from LAO_TRAFFICMM_TASK
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_TRAFFICMM_TASK
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoTrafficMMTaskPo">
+    insert into LAO_TRAFFICMM_TASK (ID, CHANNEL_CUST_ID, DATA1, 
+      DATA2, OPER_ID, TASK_STATE, 
+      START_TIME, END_TIME, REMARK, 
+      TYPE, CREATE_TIME, COUNT, 
+      VALUE1, VALUE2, MONTH, 
+      OPERATORID, GOODSID, BINARY_DATA
+      )
+    values (#{id,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{data1,jdbcType=DECIMAL}, 
+      #{data2,jdbcType=DECIMAL}, #{operId,jdbcType=DECIMAL}, #{taskState,jdbcType=CHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{count,jdbcType=DECIMAL}, 
+      #{value1,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, 
+      #{operatorid,jdbcType=DECIMAL}, #{goodsid,jdbcType=DECIMAL}, #{binaryData,jdbcType=BLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoTrafficMMTaskPo">
+    insert into LAO_TRAFFICMM_TASK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="data1 != null">
+        DATA1,
+      </if>
+      <if test="data2 != null">
+        DATA2,
+      </if>
+      <if test="operId != null">
+        OPER_ID,
+      </if>
+      <if test="taskState != null">
+        TASK_STATE,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="count != null">
+        COUNT,
+      </if>
+      <if test="value1 != null">
+        VALUE1,
+      </if>
+      <if test="value2 != null">
+        VALUE2,
+      </if>
+      <if test="month != null">
+        MONTH,
+      </if>
+      <if test="operatorid != null">
+        OPERATORID,
+      </if>
+      <if test="goodsid != null">
+        GOODSID,
+      </if>
+      <if test="binaryData != null">
+        BINARY_DATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null">
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="data1 != null">
+        #{data1,jdbcType=DECIMAL},
+      </if>
+      <if test="data2 != null">
+        #{data2,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null">
+        #{operId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskState != null">
+        #{taskState,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="value1 != null">
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null">
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null">
+        #{operatorid,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=DECIMAL},
+      </if>
+      <if test="binaryData != null">
+        #{binaryData,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoTrafficMMTaskPo">
+    update LAO_TRAFFICMM_TASK
+    <set>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="data1 != null">
+        DATA1 = #{data1,jdbcType=DECIMAL},
+      </if>
+      <if test="data2 != null">
+        DATA2 = #{data2,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null">
+        OPER_ID = #{operId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskState != null">
+        TASK_STATE = #{taskState,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="count != null">
+        COUNT = #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="value1 != null">
+        VALUE1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null">
+        VALUE2 = #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        MONTH = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorid != null">
+        OPERATORID = #{operatorid,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsid != null">
+        GOODSID = #{goodsid,jdbcType=DECIMAL},
+      </if>
+      <if test="binaryData != null">
+        BINARY_DATA = #{binaryData,jdbcType=BLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.urt.po.LaoTrafficMMTaskPo">
+    update LAO_TRAFFICMM_TASK
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      DATA1 = #{data1,jdbcType=DECIMAL},
+      DATA2 = #{data2,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=DECIMAL},
+      TASK_STATE = #{taskState,jdbcType=CHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      COUNT = #{count,jdbcType=DECIMAL},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR},
+      MONTH = #{month,jdbcType=VARCHAR},
+      OPERATORID = #{operatorid,jdbcType=DECIMAL},
+      GOODSID = #{goodsid,jdbcType=DECIMAL},
+      BINARY_DATA = #{binaryData,jdbcType=BLOB}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoTrafficMMTaskPo">
+    update LAO_TRAFFICMM_TASK
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      DATA1 = #{data1,jdbcType=DECIMAL},
+      DATA2 = #{data2,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=DECIMAL},
+      TASK_STATE = #{taskState,jdbcType=CHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      COUNT = #{count,jdbcType=DECIMAL},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR},
+      MONTH = #{month,jdbcType=VARCHAR},
+      OPERATORID = #{operatorid,jdbcType=DECIMAL},
+      GOODSID = #{goodsid,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

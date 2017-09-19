@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsAccessLogPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsAccessLogPo" >
+    <result column="LOG_ID" property="logId" jdbcType="DECIMAL" />
+    <result column="LOGIN_ID" property="loginId" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="THIRD_PARTY_ACCOUNT_ID" property="thirdPartyAccountId" jdbcType="VARCHAR" />
+    <result column="THIRD_PARTY_ACCOUNT_TYPE" property="thirdPartyAccountType" jdbcType="VARCHAR" />
+    <result column="ACCESS_TIME" property="accessTime" jdbcType="DATE" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="VARCHAR" />
+    <result column="USER_IP" property="userIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoSsAccessLogPo" >
+    insert into LAO_SS_ACCESS_LOG (LOG_ID, LOGIN_ID, LOGIN_NAME, 
+      ICCID, URL, THIRD_PARTY_ACCOUNT_ID, 
+      THIRD_PARTY_ACCOUNT_TYPE, ACCESS_TIME, TRADE_ID, 
+      USER_IP)
+    values (#{logId,jdbcType=DECIMAL}, #{loginId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{thirdPartyAccountId,jdbcType=VARCHAR}, 
+      #{thirdPartyAccountType,jdbcType=VARCHAR}, #{accessTime,jdbcType=DATE}, #{tradeId,jdbcType=VARCHAR}, 
+      #{userIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsAccessLogPo" >
+    insert into LAO_SS_ACCESS_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="loginId != null" >
+        LOGIN_ID,
+      </if>
+      <if test="loginName != null" >
+        LOGIN_NAME,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="thirdPartyAccountId != null" >
+        THIRD_PARTY_ACCOUNT_ID,
+      </if>
+      <if test="thirdPartyAccountType != null" >
+        THIRD_PARTY_ACCOUNT_TYPE,
+      </if>
+      <if test="accessTime != null" >
+        ACCESS_TIME,
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="userIp != null" >
+        USER_IP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyAccountId != null" >
+        #{thirdPartyAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyAccountType != null" >
+        #{thirdPartyAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTime != null" >
+        now(),
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

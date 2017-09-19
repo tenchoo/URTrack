@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoCustConfigMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustConfig">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="VISTS" jdbcType="VARCHAR" property="vists" />
+    <result column="IS_TAG" jdbcType="VARCHAR" property="isTag" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="IS_RANDOM_CHECK" jdbcType="VARCHAR" property="isRandomCheck" />
+    <result column="IS_IP_CHECK" jdbcType="VARCHAR" property="isIpCheck" />
+    <result column="IS_LIMIT_CUST_VISTS" jdbcType="VARCHAR" property="isLimitCustVists" />
+    <result column="PARA_NAME1" jdbcType="VARCHAR" property="paraName1" />
+    <result column="PARA_NAME2" jdbcType="VARCHAR" property="paraName2" />
+    <result column="SERVER_NAME" jdbcType="VARCHAR" property="serverName" />
+    <result column="SERVER_NAME_LIMIT" jdbcType="VARCHAR" property="serverNameLimit" />
+    <result column="SENDSMS_CALLBACKURL" jdbcType="VARCHAR" property="sendsmsCallbackurl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CUST_ID, VISTS, IS_TAG, CREATEDATE, IS_RANDOM_CHECK, IS_IP_CHECK, IS_LIMIT_CUST_VISTS, 
+    PARA_NAME1, PARA_NAME2, SERVER_NAME, SERVER_NAME_LIMIT, SENDSMS_CALLBACKURL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUST_CONFIG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_CUST_CONFIG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoCustConfig">
+    insert into LAO_CUST_CONFIG (ID, CUST_ID, VISTS, 
+      IS_TAG, CREATEDATE, IS_RANDOM_CHECK, 
+      IS_IP_CHECK, IS_LIMIT_CUST_VISTS, PARA_NAME1, 
+      PARA_NAME2, SERVER_NAME, SERVER_NAME_LIMIT, 
+      SENDSMS_CALLBACKURL)
+    values (#{id,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{vists,jdbcType=VARCHAR}, 
+      #{isTag,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{isRandomCheck,jdbcType=VARCHAR}, 
+      #{isIpCheck,jdbcType=VARCHAR}, #{isLimitCustVists,jdbcType=VARCHAR}, #{paraName1,jdbcType=VARCHAR}, 
+      #{paraName2,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, #{serverNameLimit,jdbcType=VARCHAR}, 
+      #{sendsmsCallbackurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoCustConfig">
+    insert into LAO_CUST_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="vists != null">
+        VISTS,
+      </if>
+      <if test="isTag != null">
+        IS_TAG,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="isRandomCheck != null">
+        IS_RANDOM_CHECK,
+      </if>
+      <if test="isIpCheck != null">
+        IS_IP_CHECK,
+      </if>
+      <if test="isLimitCustVists != null">
+        IS_LIMIT_CUST_VISTS,
+      </if>
+      <if test="paraName1 != null">
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null">
+        PARA_NAME2,
+      </if>
+      <if test="serverName != null">
+        SERVER_NAME,
+      </if>
+      <if test="serverNameLimit != null">
+        SERVER_NAME_LIMIT,
+      </if>
+      <if test="sendsmsCallbackurl != null">
+        SENDSMS_CALLBACKURL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="vists != null">
+        #{vists,jdbcType=VARCHAR},
+      </if>
+      <if test="isTag != null">
+        #{isTag,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRandomCheck != null">
+        #{isRandomCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="isIpCheck != null">
+        #{isIpCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitCustVists != null">
+        #{isLimitCustVists,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName1 != null">
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null">
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverNameLimit != null">
+        #{serverNameLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsmsCallbackurl != null">
+        #{sendsmsCallbackurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoCustConfig">
+    update LAO_CUST_CONFIG
+    <set>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="vists != null">
+        VISTS = #{vists,jdbcType=VARCHAR},
+      </if>
+      <if test="isTag != null">
+        IS_TAG = #{isTag,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRandomCheck != null">
+        IS_RANDOM_CHECK = #{isRandomCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="isIpCheck != null">
+        IS_IP_CHECK = #{isIpCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="isLimitCustVists != null">
+        IS_LIMIT_CUST_VISTS = #{isLimitCustVists,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName1 != null">
+        PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null">
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverNameLimit != null">
+        SERVER_NAME_LIMIT = #{serverNameLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="sendsmsCallbackurl != null">
+        SENDSMS_CALLBACKURL = #{sendsmsCallbackurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoCustConfig">
+    update LAO_CUST_CONFIG
+    set CUST_ID = #{custId,jdbcType=DECIMAL},
+      VISTS = #{vists,jdbcType=VARCHAR},
+      IS_TAG = #{isTag,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      IS_RANDOM_CHECK = #{isRandomCheck,jdbcType=VARCHAR},
+      IS_IP_CHECK = #{isIpCheck,jdbcType=VARCHAR},
+      IS_LIMIT_CUST_VISTS = #{isLimitCustVists,jdbcType=VARCHAR},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      SERVER_NAME_LIMIT = #{serverNameLimit,jdbcType=VARCHAR},
+      SENDSMS_CALLBACKURL = #{sendsmsCallbackurl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

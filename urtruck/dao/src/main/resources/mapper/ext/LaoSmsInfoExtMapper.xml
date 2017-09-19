@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoSmsInfoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoSmsInfo">
+		<id column="SMS_ID" jdbcType="DECIMAL" property="smsId" />
+		<result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+		<result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+		<result column="MSISDN" jdbcType="VARCHAR" property="msisdn" />
+		<result column="SMS_CONTEXT" jdbcType="VARCHAR" property="smsContext" />
+		<result column="SEND_TIME" jdbcType="TIMESTAMP" property="sendTime" />
+		<result column="TEMPLETE_ID" jdbcType="DECIMAL" property="templeteId" />
+		<result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+		<result column="DEAL_TAG" jdbcType="CHAR" property="dealTag" />
+		<result column="RESULT_INFO" jdbcType="VARCHAR" property="resultInfo" />
+		<result column="ERROR_CODE" jdbcType="VARCHAR" property="errorCode" />
+		<result column="SMS_CORP" jdbcType="VARCHAR" property="smsCorp" />
+		<result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="OUT_SMSID" jdbcType="VARCHAR" property="outSmsid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		SMS_ID, CHANNEL_CUST_ID, USER_ID, ICCID, MSISDN,
+		SMS_CONTEXT, SEND_TIME,
+		TEMPLETE_ID,
+		OPER_ID, DEAL_TAG, RESULT_INFO,
+		ERROR_CODE, SMS_CORP, UPDATE_TIME, REMARK,
+		OUT_SMSID
+	</sql>
+	<!-- <select id="querySendInfo" parameterType="java.util.Map" resultMap="BaseResultMap"> -->
+	<!-- select -->
+	<!-- <include refid="Base_Column_List" /> -->
+	<!-- from LAO_SMS_INFO -->
+	<!-- where SEND_TIME <![CDATA[>=]]> #{sendTime} -->
+	<!-- </select> -->
+
+	<select id="querySendInfo" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM
+		(
+		SELECT tt.*,ROWNUM RN
+		FROM (
+		select A.*
+		FROM LAO_SMS_INFO A
+		WHERE 1=1
+		<if test="startTime != null">
+			AND SEND_TIME between #{startTime} AND #{endTime}
+		</if>
+		<if test="custId != null">
+			AND CHANNEL_CUST_ID = #{custId}
+		</if>
+		<if test="iccid != null">
+			AND ICCID = #{iccid}
+		</if>
+		<if test="condition != null">
+			AND RESULT_INFO = #{condition}
+		</if>
+		and
+		not exists(select sms_id from lao_sms_deliver d where d.sms_id=A.Sms_Id)
+		ORDER BY Send_Time DESC
+		) tt
+		WHERE ROWNUM <![CDATA[<=]]>
+		#{end}
+		)
+		WHERE RN <![CDATA[>=]]>
+		#{start}
+	</select>
+
+	<select id="countSendInfo" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(*) from LAO_SMS_INFO A WHERE 1=1
+		<if test="startTime != null">
+			AND SEND_TIME between #{startTime} AND #{endTime}
+		</if>
+		<if test="custId != null">
+			AND CHANNEL_CUST_ID = #{custId}
+		</if>
+		<if test="iccid != null">
+			and ICCID = #{iccid}
+		</if>
+		<if test="condition != null">
+			and RESULT_INFO = #{condition}
+		</if>
+		and
+		not exists(select sms_id from lao_sms_deliver d where d.sms_id=A.Sms_Id)
+	</select>
+
+	<update id="updateByOutsmsidSelective" parameterType="com.urt.po.LaoSmsInfo">
+		update LAO_SMS_INFO
+		<set>
+			<if test="channelCustId != null">
+				CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="iccid != null">
+				ICCID = #{iccid,jdbcType=VARCHAR},
+			</if>
+			<if test="msisdn != null">
+				MSISDN = #{msisdn,jdbcType=VARCHAR},
+			</if>
+			<if test="smsContext != null">
+				SMS_CONTEXT = #{smsContext,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="templeteId != null">
+				TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL},
+			</if>
+			<if test="operId != null">
+				OPER_ID = #{operId,jdbcType=VARCHAR},
+			</if>
+			<if test="dealTag != null">
+				DEAL_TAG = #{dealTag,jdbcType=CHAR},
+			</if>
+			<if test="resultInfo != null">
+				RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="errorCode != null">
+				ERROR_CODE = #{errorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="smsCorp != null">
+				SMS_CORP = #{smsCorp,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where OUT_SMSID = #{outSmsid,jdbcType=VARCHAR}
+	</update>
+	<select id="queryqueryAcceptSms" parameterType="java.util.Map"
+		resultType="java.util.Map">
+
+		SELECT * FROM
+		(
+		SELECT tt.*,ROWNUM RN
+		FROM (select
+		d.sms_id,
+		f.channel_cust_id,
+		f.iccid,
+		f.msisdn,
+		d.sms_content,
+		d.push_date ,
+		f.oper_id ,
+		d.push_state ,
+		d.push_desc
+		from lao_sms_deliver d join lao_sms_info f on d.sms_id=f.sms_id
+
+		where 1=1
+
+		<if test="custId != null">
+			and f.channel_cust_id=#{custId}
+		</if>
+		<if test="iccid != null">
+			and f.iccid=#{iccid}
+		</if>
+		<if test="startTime != null">
+			and d.push_date between #{startTime} AND #{endTime}
+		</if>
+		ORDER BY push_date DESC
+		) tt
+		WHERE ROWNUM <![CDATA[<=]]>
+		#{end}
+		
+		)
+		WHERE RN <![CDATA[>=]]>
+		#{start}
+
+	</select>
+	<select id="countAcceptSms" resultType="java.lang.Integer"
+		parameterType="map">
+		select
+		count(1)
+		from lao_sms_deliver d join lao_sms_info f on
+		d.sms_id=f.sms_id
+		where 1=1
+		<if test="custId != null">
+			and f.channel_cust_id=#{custId}
+		</if>
+		<if test="iccid != null">
+			and f.iccid=#{iccid}
+		</if>
+		<if test="startTime != null">
+			and d.push_date between #{startTime} AND #{endTime}
+		</if>
+	</select>
+
+	<select id="queryInfoByMsisdn" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * FROM LAO_SMS_INFO t where t.MSISDN = #{msisdn,jdbcType=VARCHAR} and
+		DEAL_TAG = 2
+	</select>
+
+</mapper>

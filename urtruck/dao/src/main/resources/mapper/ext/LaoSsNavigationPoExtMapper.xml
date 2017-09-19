@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsNavigationPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsNavigationPo" >
+   <id column="NAVIGATION_ID" property="navigationId" jdbcType="INTEGER" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="NAV_NAME" property="navName" jdbcType="VARCHAR" />
+    <result column="NAV_PICTURE" property="navPicture" jdbcType="VARCHAR" />
+    <result column="URL_LEVEL" property="urlLevel" jdbcType="CHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="SHOW_INDEX" property="showIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+     NAVIGATION_ID, URL, NAV_NAME, NAV_PICTURE, URL_LEVEL, PARENT_ID, SHOW_INDEX
+  </sql>
+  
+  <select id="queryListByUserId" resultMap="BaseResultMap" parameterType="map">
+	  select n.* from LAO_SS_NAVIGATION n 
+	  join LAO_SS_ROLE_NAVIGATION rn on n.NAVIGATION_ID = rn.NAVIGATION_ID 
+	  join LAO_SS_ACCOUNT_ROLE ur on ur.ROLE_ID = rn.ROLE_ID 
+      where ur.USER_ID = #{userId} 
+      and (n.status = '1' or n.status is null)
+      order by url_level,SHOW_INDEX
+  </select>
+  <select id="queryList" resultMap="BaseResultMap">
+	  select 
+		  <include refid="Base_Column_List" />
+		from LAO_SS_NAVIGATION a
+		where 1=1
+		and (a.status = '1' or a.status is null)
+  </select>
+</mapper>

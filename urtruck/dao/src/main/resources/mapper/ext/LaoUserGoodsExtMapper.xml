@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserGoodsExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoUserGoods">
+		<id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+		<id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="BI_RULES_ID" property="biRulesId" jdbcType="DECIMAL" />
+		<result column="GOODS_RELEASE_ID" property="goodsReleaseId"
+			jdbcType="DECIMAL" />
+		<result column="RELEASE_CYCLE" property="releaseCycle"
+			jdbcType="VARCHAR" />
+		<result column="START_USE_DATE" property="startUseDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseResult" type="com.urt.po.Goods">
+		<id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+		<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+		<result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+		<result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="GOODS_PRICES" property="goodsPrices" jdbcType="VARCHAR" />
+		<result column="CREATE_STAFF_ID" property="createStaffId"
+			jdbcType="DECIMAL" />
+		<result column="GOODS_DESC" property="goodsDesc" jdbcType="VARCHAR" />
+		<result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+		<result column="ACTIVE_WAY" property="activeWay" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, GOODS_ID, START_DATE, END_DATE, UPDATE_DATE, BI_RULES_ID,
+		GOODS_RELEASE_ID,RELEASE_CYCLE,START_USE_DATE
+	</sql>
+	<select id="getGoodsListByIccid" resultMap="BaseResult"
+		parameterType="java.lang.String">
+		select g.*
+		from lao_user laouser
+		left join lao_user_goods goods
+		on laouser.user_id = goods.user_id
+		left join lao_goods g
+		on goods.goods_id = g.goods_id
+		where laouser.iccid = #{iccid,jdbcType=VARCHAR}
+		and goods.start_date <![CDATA[<]]>=
+		now()
+		and goods.end_date <![CDATA[>]]>=
+		now()
+		and (g.goods_type = '4' or g.goods_type = '5' or g.goods_type = '6')
+	</select>
+	<select id="getIccidAndGoodsId" resultType="map">
+		select u.user_id, u.iccid,
+		g.goods_id,ug.GOODS_RELEASE_ID,ug.start_date
+		from lao_goods g
+		inner join lao_user_goods ug
+		on g.goods_id = ug.goods_id
+		inner join lao_user u
+		on ug.user_id = u.user_id
+		where g.goods_type = '5'
+		and ug.start_date <![CDATA[<]]>=
+		now()
+		and ug.end_date <![CDATA[>]]>=
+		now()
+	</select>
+	<select id="getIccidAndGoodsIdByDay" resultType="map">
+		select u.user_id, u.iccid,
+		g.goods_id,ug.GOODS_RELEASE_ID,ug.start_date
+		from lao_goods g
+		inner join lao_user_goods ug
+		on g.goods_id = ug.goods_id
+		inner join lao_user u
+		on ug.user_id = u.user_id
+		where g.goods_type = '6'
+		and ug.start_date <![CDATA[<]]>=
+		now()
+		and ug.end_date <![CDATA[>]]>=
+		now() 
+		and mod(to_date(to_char(now(),'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(ug.start_date,'yyyy-mm-dd'),'yyyy-mm-dd'),30)=0
+	</select>
+	<select id="getUserGoodsByIccid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from (select goods.* from lao_iccid_lib lib left join lao_user
+		laouser on lib.iccid = laouser.iccid left join lao_user_goods goods on
+		laouser.user_id=goods.user_id where
+		lib.iccid=#{iccid,jdbcType=VARCHAR} order by goods.update_date desc)
+		where rownum=1
+	</select>
+		
+	<select id="getGoodsListByUserId" resultType="java.lang.Long"
+		parameterType="java.lang.Long">
+		select g.goods_id
+		from lao_user laouser
+		left join lao_user_goods goods
+		on laouser.user_id = goods.user_id
+		left join lao_goods g
+		on goods.goods_id = g.goods_id
+		where laouser.user_id = #{userId}
+		and goods.start_date <![CDATA[<]]>=
+		now()
+		and goods.end_date <![CDATA[>]]>=
+		now()
+		and g.goods_type = '7'
+	</select>
+	<select id="getGoodsList" resultType="java.lang.Long"
+		parameterType="java.lang.Long">
+		select g.goods_id
+		from lao_user laouser
+		left join lao_user_goods goods
+		on laouser.user_id = goods.user_id
+		left join lao_goods g
+		on goods.goods_id = g.goods_id
+		where laouser.user_id = #{userId}
+		and goods.start_date <![CDATA[<]]>=
+		now()
+		and goods.end_date <![CDATA[>]]>=
+		now()
+		and g.goods_type != '7'
+	</select>
+	
+ <update id="updateByUserIdAndGoodsId" parameterType="java.util.List" >
+  begin  
+  <foreach collection="list" item="item" index="index" separator=";">
+    update LAO_USER_GOODS set END_DATE = #{item.endDate,jdbcType=TIMESTAMP}
+    where user_id = #{item.userId,jdbcType=DECIMAL} and goods_id = #{item.goodsId,jdbcType=DECIMAL}
+  </foreach>
+    ;end;    
+  </update>
+  
+   <update id="updateByUseDate" parameterType="java.util.List" >
+    begin  
+ <!--  <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";"> -->
+  <foreach collection="list" item="item" index="index" separator=";">
+    update LAO_USER_GOODS set START_USE_DATE = #{item.useDate,jdbcType=TIMESTAMP}
+    where user_id = #{item.userId,jdbcType=DECIMAL} and goods_id = #{item.goodsId,jdbcType=DECIMAL}
+  </foreach>
+    ;end;         
+  </update>
+</mapper>

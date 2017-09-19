@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoBatchDataPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBatchDataPo" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="VARCHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, TRADE_TYPE_CODE, DEAL_TAG, RESULT_INFO, RECV_TIME, UPDATE_TIME, OPER_ID, 
+    SUM_NUM, SUCC_NUM, FAIL_NUM, REMARK, RSRV_INFO1, RSRV_INFO2
+  </sql>
+ <update id="updateBatchDate" parameterType="java.util.Map">
+    UPDATE LAO_BATCH_DATA a SET 
+    SUCC_NUM=(SELECT COUNT(0) FROM LAO_BATCH_DATADETAIL b WHERE a.BATCH_ID=b.BATCH_ID and b.DEAL_TAG=2),
+    FAIL_NUM=(SELECT COUNT(0) FROM LAO_BATCH_DATADETAIL c WHERE a.BATCH_ID=c.BATCH_ID and c.DEAL_TAG=3) 
+    WHERE  RECV_TIME BETWEEN #{startTime} AND #{endTime} AND NVL(SUM_NUM,0)<![CDATA[<>]]> (NVL(SUCC_NUM,0)+NVL(FAIL_NUM,0)) 
+    <if test="param.batchId != null and param.batchId!=''" >
+	      	and  BATCH_ID = #{param.batchId} 
+    </if>
+    <if test="param.tradeTypeCode != null and param.tradeTypeCode!=''" >
+	      	and  TRADE_TYPE_CODE = #{param.tradeTypeCode} 
+    </if>
+  </update>
+  <update id="updateByBatchId" parameterType="Long">
+    UPDATE LAO_BATCH_DATA a SET 
+    SUCC_NUM=(SELECT COUNT(0) FROM LAO_BATCH_DATADETAIL b WHERE a.BATCH_ID=b.BATCH_ID and b.DEAL_TAG=2),
+    FAIL_NUM=(SELECT COUNT(0) FROM LAO_BATCH_DATADETAIL c WHERE a.BATCH_ID=c.BATCH_ID and c.DEAL_TAG=3) 
+    WHERE BATCH_ID=#{batchId} AND SUM_NUM <![CDATA[<>]]> (SUCC_NUM+FAIL_NUM)
+  </update>
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="Map" >	
+   	 select <include refid="Base_Column_List" />
+     from LAO_BATCH_DATA 
+     where RECV_TIME <![CDATA[<=]]>#{params.endTime} 
+     and RECV_TIME <![CDATA[>=]]>#{params.startTime}
+     <if test="params.param.batchId != null and params.param.batchId!=''" >
+	      	and  BATCH_ID = #{params.param.batchId} 
+    </if>
+    <if test="params.param.tradeTypeCode != null and params.param.tradeTypeCode!=''" >
+	      	and  TRADE_TYPE_CODE = #{params.param.tradeTypeCode} 
+    </if>
+    order by RECV_TIME desc
+  </select>
+  <select id="queryPageNum" resultType="java.lang.Integer" parameterType="java.util.Map" >	
+   	 SELECT COUNT(0) 
+   	 FROM LAO_BATCH_DATA 
+   	 WHERE RECV_TIME BETWEEN #{startTime} and #{endTime} 
+   	 <if test="param.batchId != null and param.batchId!=''" >
+	      	and  BATCH_ID = #{param.batchId} 
+    </if>
+    <if test="param.tradeTypeCode != null and param.tradeTypeCode!=''" >
+	      	and  TRADE_TYPE_CODE = #{param.tradeTypeCode} 
+    </if>
+  </select>
+</mapper>

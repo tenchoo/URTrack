@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoUser">
+		<id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<result column="CHANNEL_CUST_ID" property="channelCustId"
+			jdbcType="DECIMAL" />
+		<result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+		<result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+		<result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+		<result column="SCORE_VALUE" property="scoreValue" jdbcType="DECIMAL" />
+		<result column="CREDIT_CLASS" property="creditClass" jdbcType="DECIMAL" />
+		<result column="BASIC_CREDIT_VALUE" property="basicCreditValue"
+			jdbcType="DECIMAL" />
+		<result column="CREDIT_VALUE" property="creditValue" jdbcType="DECIMAL" />
+		<result column="ACCT_TAG" property="acctTag" jdbcType="CHAR" />
+		<result column="PREPAY_TAG" property="prepayTag" jdbcType="CHAR" />
+		<result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+		<result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" />
+		<result column="REMOVE_TAG" property="removeTag" jdbcType="CHAR" />
+		<result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+		<result column="PRE_DESTROY_TIME" property="preDestroyTime"
+			jdbcType="TIMESTAMP" />
+		<result column="FIRST_CALL_TIME" property="firstCallTime"
+			jdbcType="TIMESTAMP" />
+		<result column="LAST_STOP_TIME" property="lastStopTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+		<result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+		<result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+		<result column="ALIVE_CHECK_TIME" property="aliveCheckTime"
+			jdbcType="DECIMAL" />
+		<result column="IMEI" property="imei" jdbcType="VARCHAR" />
+		<result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+		<result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+		<result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+		<result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+		<result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, CHANNEL_CUST_ID, CUST_ID, MSISDN, OPERATORS_ID, SCORE_VALUE,
+		CREDIT_CLASS,
+		BASIC_CREDIT_VALUE, CREDIT_VALUE, ACCT_TAG, PREPAY_TAG, IN_DATE, OPEN_DATE, REMOVE_TAG,
+		DESTROY_TIME, PRE_DESTROY_TIME, FIRST_CALL_TIME, LAST_STOP_TIME,
+		ICCID, DEVICE_ID,
+		STATUS_CODE, ALIVE_CHECK_TIME, IMEI, STATE_CODE, ATTRIBUTE1, VALUE1, ATTRIBUTE2,
+		VALUE2
+	</sql>
+	<select id="queryInStoreDate" resultType="String" parameterType="map">
+		select
+		to_char(ur.in_date,'yyyy-mm-dd')
+		from LAO_USER ur
+		where ICCID = #{iccid}
+		<if test="channelCustId != null and channelCustId!=''">
+			and CHANNEL_CUST_ID=#{channelCustId}
+		</if>
+	</select>
+	<select id="selectCountByState" resultType="java.util.Map"
+		parameterType="map">
+		select b.outsidestate ,d.static_name, sum(1) SUMCOUNT
+		from lao_user a, lao_service_status b,lao_ss_static d
+		where a.state_code=b.state_code
+		<if test="channelCustId != null and channelCustId!=''">
+			and a.CHANNEL_CUST_ID=#{channelCustId}
+		</if>
+		and b.outsidestate = d.static_code
+		and d.tab_name='LAO_SERVICE_STATUS'
+		and d.col_name='OUTSIDESTATE'
+		group by b.outsidestate ,d.static_name
+	</select>
+	<select id="selectCustCardInfo" resultType="java.util.Map"
+		parameterType="Long">
+		select a.operators_id operatorsId,c.operators_name
+		operatorsname,b.outsidestate statecode,d.static_name servicename,
+		sum(1) sum
+		from lao_user a, lao_service_status b,lao_operators c,lao_ss_static d
+		where a.channel_cust_id=#{channelCustId}
+		and a.state_code=b.state_code
+		and a.operators_id=c.operators_id
+		and b.outsidestate = d.static_code
+		and d.tab_name='LAO_SERVICE_STATUS'
+		and d.col_name='OUTSIDESTATE'
+		group by a.operators_id,c.operators_name, b.outsidestate ,d.static_name
+	</select>
+
+	<select id="selectGoodsCorporate" resultType="java.util.Map"
+		parameterType="Long">
+		select b.goods_id goodid,b.goods_name goodsname,b.operators_id
+		operatorsid,c.operators_name operatorsname,sum(1) sum from lao_user
+		d,lao_trade_goods a,lao_goods b,lao_operators c
+		where a.user_id=d.user_id and d.channel_cust_id=#{channelCustId} and
+		to_char(a.accept_date,'yyMM')=to_char(now(), 'yyMM') and a.goods_id
+		= b.goods_id and b.operators_id=c.operators_id
+		group by b.goods_id,b.goods_name,b.operators_id,c.operators_name
+	</select>
+
+	<select id="selectCategoryCount" resultType="java.util.Map"
+		parameterType="Long">
+		select b.goods_id goodid,b.goods_name goodsname,d.operators_id
+		operatorsid,c.operators_name operatorsname,sum(1) sum from lao_user
+		d,lao_trade_goods a,lao_goods b,lao_operators c
+		where a.user_id=d.user_id and d.channel_cust_id=#{channelCustId} and
+		a.accept_month=to_char(now(), 'MM') and a.goods_id = b.goods_id and
+		b.operators_id=c.operators_id
+		group by b.goods_id,b.goods_name,d.operators_id,c.operators_name
+	</select>
+	<select id="getCustIdByIccid" resultType="String" parameterType="java.lang.String">
+		select
+		CUST_ID
+		from LAO_USER
+		where ICCID = #{iccid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getCustId" resultType="java.util.Map" parameterType="Long">
+		select u.iccid,lss2.static_name as deviceType,lss3.static_name as
+		devcieNumber
+		from lao_user u
+		left join lao_ss_static lss on u.cust_id=lss.cust_id and
+		lss.col_name='attribute1' and lss.static_code=u.attribute1
+		left join lao_ss_static lss1 on u.cust_id=lss1.cust_id and
+		lss1.col_name='attribute2' and lss1.static_code=u.attribute2
+		left join lao_ss_static lss2 on u.cust_id=lss2.cust_id and
+		lss2.col_name='VALUE1' and lss2.static_code=u.value1
+		left join lao_ss_static lss3 on u.cust_id=lss3.cust_id and
+		lss3.col_name='VALUE2' and lss3.static_code=u.value2
+		where u.CUST_ID = #{custId,jdbcType=DECIMAL}
+	</select>
+
+	<select id="selectByIccid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_USER
+		where ICCID = #{iccid,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByMsisdn" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_USER
+		where msisdn = #{msisdn,jdbcType=VARCHAR} and remove_tag='0' and rownum =1
+	</select>
+	<select id="getMsisdnByIccid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		MSISDN
+		from LAO_USER
+		where ICCID = #{iccid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryPage" resultMap="BaseResultMap" parameterType="map">
+		select user1.*,a.cust_name channelCustName,b.cust_name
+		custName,c.operators_name operatorsName,d.service_name serviceName
+		from lao_user user1 left join lao_cust_group a on
+		user1.channel_cust_id = a.cust_id
+		left join lao_cust_person b on user1.cust_id = b.cust_id
+		left join lao_operators c on user1.operators_id = c.operators_id
+		left join lao_service_status d on user1.state_code = d.state_code
+		where 1=1
+		<if test="params.param.custId != null and params.param.custId!=''">
+			and user1.channel_cust_id like CONCAT(CONCAT('%',
+			#{params.param.custId}), '%')
+		</if>
+		<if
+			test="params.param.operatorsId != null and params.param.operatorsId!=''">
+			and user1.operators_id like CONCAT(CONCAT('%',
+			#{params.param.operatorsId}), '%')
+		</if>
+		<if test="params.param.value1 != null and params.param.value1!=''">
+			and user1.value1 like CONCAT(CONCAT('%', #{params.param.value1}),
+			'%')
+		</if>
+		<if test="params.param.value2 != null and params.param.value2!=''">
+			and user1.value2 like CONCAT(CONCAT('%', #{params.param.value2}),
+			'%')
+		</if>
+		<if test="params.param.iccid != null and params.param.iccid!=''">
+			and user1.iccid like CONCAT(CONCAT('%', #{params.param.iccid}), '%')
+		</if>
+		<if test="params.param.msisdn != null and params.param.msisdn!=''">
+			and user1.msisdn like CONCAT(CONCAT('%', #{params.param.msisdn}), '%')
+		</if>
+	</select>
+	<select id="queryUserPage" resultType="java.util.Map" parameterType="map">
+	select luser.*, tmp.apn1 apn1, tmp.apn2 apn2
+  			from lao_user luser
+  			left join (select sum(case lus.service_id
+                          when 1 then
+                           lus.state_code
+                        end) apn1,
+                    sum(case lus.service_id
+                          when 2 then
+                           lus.state_code
+                        end) apn2,
+                    lu.user_id
+               from lao_user lu
+               left join lao_user_svcstate lus
+                 on lu.user_id = lus.user_id
+              where lus.start_date &lt; now()
+                and now() &lt; lus.end_date
+		<if test="params.param.value1 != null and params.param.value1!=''">
+			and luser.value1 like CONCAT(CONCAT('%', #{params.param.value1}),
+			'%')
+		</if>
+		<if test="params.param.value2 != null and params.param.value2!=''">
+			and luser.value2 like CONCAT(CONCAT('%', #{params.param.value2}),
+			'%')
+		</if>
+		<if test="params.param.iccid != null and params.param.iccid!=''">
+			and luser.iccid like CONCAT(CONCAT('%', #{params.param.iccid}), '%')
+		</if>
+		<if test="params.param.msisdn != null and params.param.msisdn!=''">
+			and luser.msisdn like CONCAT(CONCAT('%', #{params.param.msisdn}), '%')
+		</if>
+ 		group by lu.user_id) tmp on luser.user_id = tmp.user_id
+	</select>
+	<select id="getUserCount" resultType="java.lang.Integer">
+		select count(*) from LAO_USER where OPERATORS_ID =1 and iccid is not null
+		and CHANNEL_CUST_ID != 3070959380000017
+	</select>
+	<select id="getUserCountByColony" resultType="java.lang.Integer">
+		select count(*) from LAO_USER where OPERATORS_ID =4
+	</select>
+	<select id="getCardCount" resultType="java.lang.Integer"
+		parameterType="Long">
+		SELECT COUNT(1) FROM LAO_USER WHERE CHANNEL_CUST_ID=#{custId}
+	</select>
+	<select id="queryUserInfo" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS rowno, t.* FROM lao_user t where
+		ROWNUM <![CDATA[<=]]>
+		#{end} and iccid is not null) iccid WHERE iccid.rowno <![CDATA[>=]]>
+		#{begin}
+	</select>
+	<select id="queryUserInfoByCtcc" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS rowno, t.* FROM lao_user t where
+		ROWNUM <![CDATA[<=]]>
+		#{end} and OPERATORS_ID =1 and iccid is not null and CHANNEL_CUST_ID
+		!= 3070959380000017 ) iccid WHERE iccid.rowno <![CDATA[>=]]>
+		#{begin}
+	</select>
+	<select id="queryUserInfoByColony" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS rowno, t.* FROM lao_user t where
+		ROWNUM <![CDATA[<=]]>
+		#{end} and OPERATORS_ID =4 and msisdn is not null) iccid WHERE
+		iccid.rowno <![CDATA[>=]]>
+		#{begin}
+	</select>
+
+
+	<select id="queryMessage" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+
+		select us.*,a.static_name attr1Name,b.static_name v1name,c.static_name
+		attr2Name,d.static_name v2Name from lao_user us
+
+		left join lao_ss_static a on us.channel_cust_id = a.cust_id and
+		us.attribute1 = a.static_code
+
+		left join lao_ss_static b on us.channel_cust_id = b.cust_id and us.value1
+		= b.static_code
+
+		left join lao_ss_static c on us.channel_cust_id = c.cust_id and
+		us.attribute2 = c.static_code
+
+		left join lao_ss_static d on us.channel_cust_id = d.cust_id and us.value2
+		= d.static_code
+
+		where us.iccid = #{iccid,jdbcType=VARCHAR}
+
+	</select>
+	<select id="getModifiedCountByIccid" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*)
+		from lao_user_goods a
+		left join lao_goods b
+		on a.goods_id = b.goods_id
+		left join lao_user c
+		on a.user_id = c.user_id
+		where b.goods_type != '1'
+		and c.iccid = #{iccid,jdbcType=VARCHAR}
+		and a.end_date - 5 > now()
+		and to_char(a.end_date, 'yyyymm') = to_char(now(), 'yyyymm')
+	</select>
+	<select id="getUserGoodsByIccid" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS rowno, t.* FROM lao_user t where
+		ROWNUM <![CDATA[<=]]>
+		#{end} and OPERATORS_ID =4 and iccid is not null) iccid WHERE
+		iccid.rowno <![CDATA[>=]]>
+		#{begin}
+	</select>
+
+	<!-- <select id="getCustIdByChaId" resultType="java.lang.Long" parameterType="java.lang.Long"> 
+		SELECT CUST_ID FROM lao_user where channel_cust_id =#{channelCustId,jdbcType=DECIMAL} 
+		</select> -->
+
+	<select id="getIccidByCustId" resultType="java.lang.String"
+		parameterType="java.lang.Long">
+		SELECT uu.iccid FROM (SELECT ROWNUM AS rowno, t.* FROM lao_user t
+		where ROWNUM <![CDATA[<=]]>10
+		and (channel_cust_id=#{custId,jdbcType=DECIMAL} or cust_id=
+		#{custId,jdbcType=DECIMAL})) uu WHERE uu.rowno <![CDATA[>=]]>
+		1
+	</select>
+	<select id="getAllIccidByCustId" resultType="java.lang.String"
+		parameterType="java.lang.Long">
+		SELECT iccid FROM lao_user t where
+		channel_cust_id=#{custId,jdbcType=DECIMAL} or cust_id=
+		#{custId,jdbcType=DECIMAL}
+	</select>
+	<select id="getIccid" resultType="java.lang.String" parameterType="java.lang.String">
+		<!--后8位可能匹配多条数据，修改为按位查找 
+        select iccid from lao_user t where t.iccid like '%'||#{end}||'%' -->
+        select iccid from lao_user t where t.iccid like CONCAT(#{end}, '%')
+	</select>
+	<!--信息概况开始 -->
+	<select id="getNewCardsOfCurrentMonth" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM LAO_USER WHERE
+		to_char(in_date,'yyyyMM')=to_char(now(),'yyyyMM') and
+		CHANNEL_CUST_ID=#{custId}
+	</select>
+	<select id="getCardsOfPrevMonth" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM LAO_USER WHERE
+		to_char(in_date,'yyyyMM')=to_char(add_months(trunc(now()),-1),'yyyyMM')
+		and CHANNEL_CUST_ID=#{custId}
+	</select>
+	<!-- 信息概况结束 -->
+	<select id="selectExpireWarnInfo" resultType="map">
+		select * from (select lut.channel_cust_id custId,decode(lut.cust_name
+		,null,' ',lut.cust_name) custname,sum(1) count from lao_user_goods lug
+		left join (select * from lao_user lu left join (select * from
+		lao_customer lc where lc.dev_cust=#{custId}) cust on
+		lu.channel_cust_id=cust.cust_id where lu.remove_tag='0') lut on
+		lut.user_id=lug.user_id where to_char(now(),'yyyyMM')
+		=to_char(ADD_MONTHS(lug.start_use_date,lug.release_cycle),'yyyyMM')
+		group by lut.channel_cust_id,lut.cust_name) where rownum<![CDATA[<=]]>5
+	</select>
+	<select id="selectExpireWarnInfoAll" resultType="map">
+		select lut.channel_cust_id custId,decode(lut.cust_name ,null,'
+		',lut.cust_name) custname,sum(1) count from lao_user_goods lug left
+		join (select * from lao_user lu left join (select * from lao_customer
+		lc where lc.dev_cust=#{custId}) cust on
+		lu.channel_cust_id=cust.cust_id where lu.remove_tag='0') lut on
+		lut.user_id=lug.user_id where to_char(now(),'yyyyMM')
+		=to_char(ADD_MONTHS(lug.start_use_date,lug.release_cycle),'yyyyMM')
+		group by lut.channel_cust_id,lut.cust_name
+	</select>
+
+	<select id="selectCorporateCount" resultType="java.util.Map"
+		parameterType="Long">
+		select a.operators_id operatorsId,c.operators_name operatorsname,sum(1) sum
+		from lao_user a, lao_service_status b,lao_operators c,lao_ss_static d
+		where a.channel_cust_id=#{channelCustId}
+		and a.state_code=b.state_code
+		and a.operators_id=c.operators_id
+		and b.outsidestate = d.static_code
+		and d.tab_name='LAO_SERVICE_STATUS'
+		and d.col_name='OUTSIDESTATE'
+		group by a.operators_id,c.operators_name
+	</select>
+
+	<select id="queryStopDate" resultType="java.util.Map">
+		select u.iccid,max(s.start_date) mStopDate from fan_user u ,
+		fan_user_svcstate s where u.user_id=s.user_id
+		and u.channel_cust_id='3071809471147095' and u.state_code in('20','53')
+		group by u.iccid
+	</select>
+		<select id="singleCardQuery" resultMap="BaseResultMap"
+		parameterType="com.urt.po.LaoUser">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_USER where 1=1
+		<if test="iccid != null and iccid!='' ">
+			and iccid = #{iccid, jdbcType=VARCHAR}
+		</if>
+		<if test="msisdn != null and msisdn!='' ">
+			and msisdn = #{msisdn, jdbcType=VARCHAR}
+		</if>
+	</select>
+	  <update id="updateByIccidOrMsi" parameterType="com.urt.po.LaoUser" >
+    update LAO_USER
+    <set >
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="inDate != null" >
+        IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeTag != null" >
+        REMOVE_TAG = #{removeTag,jdbcType=CHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1  
+      <if test="iccid!=null and iccid!=''">	 
+	     and ICCID = #{iccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="msisdn!=null and msisdn!=''">	 
+	     and MSISDN = #{msisdn,jdbcType=VARCHAR}
+	    </if> 
+  </update>
+	  <select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_USER
+	    where CHANNEL_CUST_ID = #{chCustId,jdbcType=DECIMAL}
+	    and REMOVE_TAG = '7'
+	    <if test="iccid!=null and iccid!=''">	 
+	     and ICCID = #{iccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="msisdn!=null and msisdn!=''">	 
+	     and MSISDN = #{msisdn,jdbcType=VARCHAR}
+	    </if>   
+	</select>
+	<select id="selectByListIccid" resultMap="BaseResultMap" parameterType="java.util.List" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_USER
+	    where 
+       ICCID in
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+	</select>
+  
+    <select id="selectByListMsison" resultMap="BaseResultMap" parameterType="java.util.List" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_USER
+	    where 
+       MSISDN in
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+	</select>
+	
+	<update id="updateByIccidSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";">
+    update LAO_USER
+    <set >
+      <if test="item.channelCustId != null" >
+        CHANNEL_CUST_ID = #{item.channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.custId != null" >
+        CUST_ID = #{item.custId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.operatorsId != null" >
+        OPERATORS_ID = #{item.operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.scoreValue != null" >
+        SCORE_VALUE = #{item.scoreValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.creditClass != null" >
+        CREDIT_CLASS = #{item.creditClass,jdbcType=DECIMAL},
+      </if>
+      <if test="item.basicCreditValue != null" >
+        BASIC_CREDIT_VALUE = #{item.basicCreditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.creditValue != null" >
+        CREDIT_VALUE = #{item.creditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.acctTag != null" >
+        ACCT_TAG = #{item.acctTag,jdbcType=CHAR},
+      </if>
+      <if test="item.prepayTag != null" >
+        PREPAY_TAG = #{item.prepayTag,jdbcType=CHAR},
+      </if>
+      <if test="item.inDate != null" >
+        IN_DATE = #{item.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.openDate != null" >
+        OPEN_DATE = #{item.openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.removeTag != null" >
+        REMOVE_TAG = #{item.removeTag,jdbcType=CHAR},
+      </if>
+      <if test="item.destroyTime != null" >
+        DESTROY_TIME = #{item.destroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.preDestroyTime != null" >
+        PRE_DESTROY_TIME = #{item.preDestroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.firstCallTime != null" >
+        FIRST_CALL_TIME = #{item.firstCallTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.lastStopTime != null" >
+        LAST_STOP_TIME = #{item.lastStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.iccid != null" >
+        ICCID = #{item.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="item.deviceId != null" >
+        DEVICE_ID = #{item.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.statusCode != null" >
+        STATUS_CODE = #{item.statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.aliveCheckTime != null" >
+        ALIVE_CHECK_TIME = #{item.aliveCheckTime,jdbcType=DECIMAL},
+      </if>
+      <if test="item.imei != null" >
+        IMEI = #{item.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="item.stateCode != null" >
+        STATE_CODE = #{item.stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute1 != null" >
+        ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value1 != null" >
+        VALUE1 = #{item.value1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute2 != null" >
+        ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value2 != null" >
+        VALUE2 = #{item.value2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  ICCID = #{item.iccid,jdbcType=VARCHAR}
+    </foreach>     
+  </update>
+
+  <update id="updateByMsisonSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";">
+    update LAO_USER
+    <set >
+      <if test="item.channelCustId != null" >
+        CHANNEL_CUST_ID = #{item.channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.custId != null" >
+        CUST_ID = #{item.custId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.operatorsId != null" >
+        OPERATORS_ID = #{item.operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="item.scoreValue != null" >
+        SCORE_VALUE = #{item.scoreValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.creditClass != null" >
+        CREDIT_CLASS = #{item.creditClass,jdbcType=DECIMAL},
+      </if>
+      <if test="item.basicCreditValue != null" >
+        BASIC_CREDIT_VALUE = #{item.basicCreditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.creditValue != null" >
+        CREDIT_VALUE = #{item.creditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="item.acctTag != null" >
+        ACCT_TAG = #{item.acctTag,jdbcType=CHAR},
+      </if>
+      <if test="item.prepayTag != null" >
+        PREPAY_TAG = #{item.prepayTag,jdbcType=CHAR},
+      </if>
+      <if test="item.inDate != null" >
+        IN_DATE = #{item.inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.openDate != null" >
+        OPEN_DATE = #{item.openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.removeTag != null" >
+        REMOVE_TAG = #{item.removeTag,jdbcType=CHAR},
+      </if>
+      <if test="item.destroyTime != null" >
+        DESTROY_TIME = #{item.destroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.preDestroyTime != null" >
+        PRE_DESTROY_TIME = #{item.preDestroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.firstCallTime != null" >
+        FIRST_CALL_TIME = #{item.firstCallTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.lastStopTime != null" >
+        LAST_STOP_TIME = #{item.lastStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="item.iccid != null" >
+        ICCID = #{item.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="item.deviceId != null" >
+        DEVICE_ID = #{item.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="item.statusCode != null" >
+        STATUS_CODE = #{item.statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.aliveCheckTime != null" >
+        ALIVE_CHECK_TIME = #{item.aliveCheckTime,jdbcType=DECIMAL},
+      </if>
+      <if test="item.imei != null" >
+        IMEI = #{item.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="item.stateCode != null" >
+        STATE_CODE = #{item.stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute1 != null" >
+        ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value1 != null" >
+        VALUE1 = #{item.value1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute2 != null" >
+        ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value2 != null" >
+        VALUE2 = #{item.value2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  MSISDN = #{item.msisdn,jdbcType=VARCHAR}
+    </foreach>     
+  </update>
+	
+	<select id="queryPageUser"  resultMap="BaseResultMap" parameterType="map">
+  	 SELECT  * from lao_user where 1=1 
+        <if test="params.chCustId != null and params.chCustId!=''" >
+		and channel_cust_id =#{params.chCustId} 
+		</if>
+   </select>
+   
+   <update id="updateByUserId" parameterType="com.urt.po.LaoUser" >
+    update LAO_USER
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      SCORE_VALUE = #{scoreValue,jdbcType=DECIMAL},
+      CREDIT_CLASS = #{creditClass,jdbcType=DECIMAL},
+      BASIC_CREDIT_VALUE = #{basicCreditValue,jdbcType=DECIMAL},
+      CREDIT_VALUE = #{creditValue,jdbcType=DECIMAL},
+      ACCT_TAG = #{acctTag,jdbcType=CHAR},
+      PREPAY_TAG = #{prepayTag,jdbcType=CHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      REMOVE_TAG = #{removeTag,jdbcType=CHAR},
+      DESTROY_TIME = #{destroyTime,jdbcType=TIMESTAMP},
+      PRE_DESTROY_TIME = #{preDestroyTime,jdbcType=TIMESTAMP},
+      FIRST_CALL_TIME = #{firstCallTime,jdbcType=TIMESTAMP},
+      LAST_STOP_TIME = #{lastStopTime,jdbcType=TIMESTAMP},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      ALIVE_CHECK_TIME = #{aliveCheckTime,jdbcType=DECIMAL},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  
+  
+     <update id="updateByIccids" parameterType="java.util.List">
+        update lao_user ur
+        <set>
+            ur.STATE_CODE= '4'
+        </set>
+        where ur.iccid in 
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+</update>
+   <select id="selectDetaisByIccid" parameterType="String" resultType="map">
+select ur.iccid,
+       ur.first_call_time,
+       ur.imsi            imsi,
+       ur.msisdn,
+       lo.operators_name,
+       ls1.static_name    zhongduan,
+       ls2.static_name    xinghao,
+       lc.cust_name       custname,
+       ls3.static_name,
+       lg.goods_id,
+       tm.use_count,
+       to_char(li.in_date,'yyyy-mm-dd') imtime
+  from lao_user           ur,
+       lao_operators      lo,
+       lao_ss_static      ls1,
+       lao_ss_static      ls2,
+       lao_customer       lc,
+       lao_ss_static      ls3,
+       lao_service_status lss,
+       lao_user_goods     ug,
+       lao_goods          lg,
+       lao_traffic_mm     tm,
+       lao_iccid_lib      li
+ where ur.operators_id = lo.operators_id(+)
+   and ur.value1 = ls1.static_code
+   and ur.value2 = ls2.static_code
+   and ur.channel_cust_id = lc.cust_id
+   and ur.state_code = lss.state_code
+   and lss.outsidestate = ls3.static_code
+   and ls3.tab_name = 'LAO_SERVICE_STATUS'
+   and ls3.col_name = 'OUTSIDESTATE'
+   and (ur.channel_cust_id = ls1.cust_id or ls1.cust_id = -1)
+   and (ur.channel_cust_id = ls2.cust_id or ls2.cust_id = -1)
+   and ur.user_id = ug.user_id(+)
+   and ug.goods_id = lg.goods_id(+)
+   and ur.iccid = tm.iccid(+)
+   and tm.data_cycle(+) = to_char(now(),'yyyymm')
+   and ur.iccid = li.iccid(+)
+   and ur.iccid = #{iccid}
+   </select>
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoDMPOperationPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPOperationPo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
+    <result column="OPERATION_COMMENT" property="operationComment" jdbcType="VARCHAR" />
+    <result column="OPERATORIMPL" property="operatorimpl" jdbcType="VARCHAR" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="PARAMETER1" property="parameter1" jdbcType="VARCHAR" />
+    <result column="PARAMETER2" property="parameter2" jdbcType="VARCHAR" />
+    <result column="PARAMETER3" property="parameter3" jdbcType="VARCHAR" />
+    <result column="PARAMETER4" property="parameter4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, OPERATION_NAME, OPERATION_COMMENT, OPERATORIMPL, DELFLAG, CREATETIME, UPDATETIME, 
+    PARAMETER1, PARAMETER2, PARAMETER3, PARAMETER4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_OPERATION
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_DMP_OPERATION
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPOperationPo" >
+    insert into LAO_DMP_OPERATION (ID, OPERATION_NAME, OPERATION_COMMENT, 
+      OPERATORIMPL, DELFLAG, CREATETIME, 
+      UPDATETIME, PARAMETER1, PARAMETER2, 
+      PARAMETER3, PARAMETER4)
+    values (#{id,jdbcType=DECIMAL}, #{operationName,jdbcType=VARCHAR}, #{operationComment,jdbcType=VARCHAR}, 
+      #{operatorimpl,jdbcType=VARCHAR}, #{delflag,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{parameter1,jdbcType=VARCHAR}, #{parameter2,jdbcType=VARCHAR}, 
+      #{parameter3,jdbcType=VARCHAR}, #{parameter4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPOperationPo" >
+    insert into LAO_DMP_OPERATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="operationName != null" >
+        OPERATION_NAME,
+      </if>
+      <if test="operationComment != null" >
+        OPERATION_COMMENT,
+      </if>
+      <if test="operatorimpl != null" >
+        OPERATORIMPL,
+      </if>
+      <if test="delflag != null" >
+        DELFLAG,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="parameter1 != null" >
+        PARAMETER1,
+      </if>
+      <if test="parameter2 != null" >
+        PARAMETER2,
+      </if>
+      <if test="parameter3 != null" >
+        PARAMETER3,
+      </if>
+      <if test="parameter4 != null" >
+        PARAMETER4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="operationName != null" >
+        #{operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationComment != null" >
+        #{operationComment,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorimpl != null" >
+        #{operatorimpl,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null" >
+        #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null" >
+        #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null" >
+        #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter4 != null" >
+        #{parameter4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDMPOperationPo" >
+    update LAO_DMP_OPERATION
+    <set >
+      <if test="operationName != null" >
+        OPERATION_NAME = #{operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationComment != null" >
+        OPERATION_COMMENT = #{operationComment,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorimpl != null" >
+        OPERATORIMPL = #{operatorimpl,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        DELFLAG = #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null" >
+        PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null" >
+        PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null" >
+        PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter4 != null" >
+        PARAMETER4 = #{parameter4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDMPOperationPo" >
+    update LAO_DMP_OPERATION
+    set OPERATION_NAME = #{operationName,jdbcType=VARCHAR},
+      OPERATION_COMMENT = #{operationComment,jdbcType=VARCHAR},
+      OPERATORIMPL = #{operatorimpl,jdbcType=VARCHAR},
+      DELFLAG = #{delflag,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      PARAMETER4 = #{parameter4,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoWebDesignMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoWebDesign" >
+    <id column="DESIGN_ID" property="designId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="COLOR" property="color" jdbcType="VARCHAR" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="DESIGN_DATE" property="designDate" jdbcType="VARCHAR" />
+    <result column="WEB_URL" property="webUrl" jdbcType="VARCHAR" />
+    <result column="WEB_CONTENT" property="webContent" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DESIGN_ID, CUST_ID, CUST_NAME, COLOR, IMAGE, STATUS_CODE, DESIGN_DATE, WEB_URL, WEB_CONTENT, 
+    VALUE1, VALUE2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_WEBDESIGN
+    where DESIGN_ID = #{designId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_WEBDESIGN
+    where DESIGN_ID = #{designId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoWebDesign" >
+    insert into LAO_WEBDESIGN (DESIGN_ID, CUST_ID, CUST_NAME, 
+      COLOR, IMAGE, STATUS_CODE, 
+      DESIGN_DATE, WEB_URL, WEB_CONTENT, 
+      VALUE1, VALUE2)
+    values (#{designId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{custName,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{statusCode,jdbcType=VARCHAR}, 
+      #{designDate,jdbcType=VARCHAR}, #{webUrl,jdbcType=VARCHAR}, #{webContent,jdbcType=VARCHAR}, 
+      #{value1,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoWebDesign" >
+    insert into LAO_WEBDESIGN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="designId != null" >
+        DESIGN_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="color != null" >
+        COLOR,
+      </if>
+      <if test="image != null" >
+        IMAGE,
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE,
+      </if>
+      <if test="designDate != null" >
+        DESIGN_DATE,
+      </if>
+      <if test="webUrl != null" >
+        WEB_URL,
+      </if>
+      <if test="webContent != null" >
+        WEB_CONTENT,
+      </if>
+      <if test="value1 != null" >
+        VALUE1,
+      </if>
+      <if test="value2 != null" >
+        VALUE2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="designId != null" >
+        #{designId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="designDate != null" >
+        #{designDate,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="webContent != null" >
+        #{webContent,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        #{value2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoWebDesign" >
+    update LAO_WEBDESIGN
+    <set >
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        COLOR = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        IMAGE = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="designDate != null" >
+        DESIGN_DATE = #{designDate,jdbcType=VARCHAR},
+      </if>
+      <if test="webUrl != null" >
+        WEB_URL = #{webUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="webContent != null" >
+        WEB_CONTENT = #{webContent,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        VALUE1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        VALUE2 = #{value2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DESIGN_ID = #{designId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoWebDesign" >
+    update LAO_WEBDESIGN
+    set CUST_ID = #{custId,jdbcType=DECIMAL},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      COLOR = #{color,jdbcType=VARCHAR},
+      IMAGE = #{image,jdbcType=VARCHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      DESIGN_DATE = #{designDate,jdbcType=VARCHAR},
+      WEB_URL = #{webUrl,jdbcType=VARCHAR},
+      WEB_CONTENT = #{webContent,jdbcType=VARCHAR},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR}
+    where DESIGN_ID = #{designId,jdbcType=DECIMAL}
+  </update>
+</mapper>

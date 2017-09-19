@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoCustomerVerifyPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerVerifyPo" >
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="IDTYPE" property="idtype" jdbcType="DECIMAL" />
+    <result column="REALNAME" property="realname" jdbcType="VARCHAR" />
+    <result column="IDNUM" property="idnum" jdbcType="VARCHAR" />
+    <result column="HANDPICURL" property="handpicurl" jdbcType="VARCHAR" />
+    <result column="FRONTPICURL" property="frontpicurl" jdbcType="VARCHAR" />
+    <result column="BACKPICURL" property="backpicurl" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="VERIFYSTATUS" property="verifystatus" jdbcType="DECIMAL" />
+    <result column="FAILTIMES" property="failtimes" jdbcType="DECIMAL" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="PHOTOURL" property="photourl" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoCustomerVerifyPo" >
+    insert into LAO_CUSTOMER_VERIFY (CUST_ID, ID, IDTYPE, 
+      REALNAME, IDNUM, HANDPICURL, 
+      FRONTPICURL, BACKPICURL, TEL, 
+      VERIFYSTATUS, FAILTIMES, CREATETIME, 
+      UPDATETIME, ICCID, PHOTOURL, 
+      ACCOUNT_ID)
+    values (#{custId,jdbcType=DECIMAL}, #{id,jdbcType=DECIMAL}, #{idtype,jdbcType=DECIMAL}, 
+      #{realname,jdbcType=VARCHAR}, #{idnum,jdbcType=VARCHAR}, #{handpicurl,jdbcType=VARCHAR}, 
+      #{frontpicurl,jdbcType=VARCHAR}, #{backpicurl,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{verifystatus,jdbcType=DECIMAL}, #{failtimes,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{iccid,jdbcType=VARCHAR}, #{photourl,jdbcType=VARCHAR}, 
+      #{accountId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoCustomerVerifyPo" >
+    insert into LAO_CUSTOMER_VERIFY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="idtype != null" >
+        IDTYPE,
+      </if>
+      <if test="realname != null" >
+        REALNAME,
+      </if>
+      <if test="idnum != null" >
+        IDNUM,
+      </if>
+      <if test="handpicurl != null" >
+        HANDPICURL,
+      </if>
+      <if test="frontpicurl != null" >
+        FRONTPICURL,
+      </if>
+      <if test="backpicurl != null" >
+        BACKPICURL,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="verifystatus != null" >
+        VERIFYSTATUS,
+      </if>
+      <if test="failtimes != null" >
+        FAILTIMES,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="photourl != null" >
+        PHOTOURL,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="idtype != null" >
+        #{idtype,jdbcType=DECIMAL},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null" >
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="handpicurl != null" >
+        #{handpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="frontpicurl != null" >
+        #{frontpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="backpicurl != null" >
+        #{backpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="verifystatus != null" >
+        #{verifystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="failtimes != null" >
+        #{failtimes,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="photourl != null" >
+        #{photourl,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

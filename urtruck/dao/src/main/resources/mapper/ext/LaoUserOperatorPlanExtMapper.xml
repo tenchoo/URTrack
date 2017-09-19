@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserOperatorPlanExtMapper" >
+ <resultMap id="BaseResultMap" type="com.urt.po.LaoUserOperatorPlan" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <id column="GOODS_INDEX" property="goodsIndex" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="PLAN_TYPE" property="planType" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_RST" property="opeartorsDealRst" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_CODE" property="opeartorsDealCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_NUM" property="opeartorsDealNum" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="START_USE_DATE" property="startUseDate" jdbcType="TIMESTAMP" />
+    <result column="BILL_TAG" property="billTag" jdbcType="CHAR" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, PLAN_ID, START_DATE, GOODS_INDEX, GOODS_ID, OPERATORS_ID, OPERATORS_PID, 
+    END_DATE, PLAN_TYPE, OPEARTORS_DEAL_RST, OPEARTORS_DEAL_CODE, OPEARTORS_DEAL_NUM, 
+    GOODS_RELEASE_ID, START_USE_DATE, BILL_TAG, TRADE_ID, COST_PRICE, 
+    PLAN_CLASSIFY, APN_TYPE, PLAN_CLASSIFY
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_OPERATOR_PLAN
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+    and OPEARTORS_DEAL_RST = '3' order by GOODS_INDEX
+  </select>
+  
+   <select id="selectByTradeId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_OPERATOR_PLAN
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+    order by GOODS_INDEX
+  </select>
+  
+  <select id="queryCurrentMonthPlan" resultMap="BaseResultMap" >
+	  select <include refid="Base_Column_List" /> from (   
+		  select t.*,rownum as rn from (
+			  select 
+			    <include refid="Base_Column_List" />
+			    from LAO_USER_OPERATOR_PLAN 
+			    where USER_ID = #{userId,jdbcType=DECIMAL} and PLAN_TYPE='0'order by START_DATE desc 
+			  )t 
+		  ) 
+	   where rn =2
+  </select>
+  <select id="getCurrentMonthPlan" resultMap="BaseResultMap" >
+	  select <include refid="Base_Column_List" /> from (   
+		  select t.*,rownum as rn from (
+			  select 
+			    <include refid="Base_Column_List" />
+			    from LAO_USER_OPERATOR_PLAN 
+			    where USER_ID = #{userId,jdbcType=DECIMAL} and PLAN_TYPE='0'order by START_DATE desc 
+			  )t 
+		  ) 
+	   where rn =1
+  </select>
+  
+    <select id="getCountFlowByICCID" resultType="java.lang.Double" parameterType="java.lang.String">
+	select nvl(sum(decode(quantity_unit,
+                  'M',
+                  quantity_max * 1024,
+                  'G',
+                  quantity_max * 1024 * 1024)),0)
+   from lao_user a, lao_user_operator_plan b, lao_operator_plan c<!-- ,lao_goods d -->
+   where a.user_id = b.user_id
+   and b.plan_id = c.plan_id
+   <!-- and exists(select 1 from lao_user_goods f 
+	where b.goods_release_id=f.goods_release_id
+	and b.goods_id=f.goods_id
+	and b.user_id=f.user_id
+	and now() between f.start_date and f.end_date
+	and f.goods_id=d.goods_id) -->
+   and a.ICCID=#{iccid,jdbcType=VARCHAR}
+   
+  </select>
+  <select id="getNextPlans" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!--  select * from (select * from lao_user_operator_plan plan where plan.opeartors_deal_rst ='2' and plan.goods_id = #{userId,jdbcType=DECIMAL} and plan.user_id=#{userId,jdbcType=DECIMAL} order by plan.goods_index) where rownum<=2 -->
+  	<!-- select * from ( 
+select d.* from lao_user_operator_plan d,lao_user_goods a,lao_user b,lao_goods c 
+where b.iccid=#{iccid,jdbcType=VARCHAR} 
+and a.user_id=b.user_id 
+and a.goods_id=c.goods_id 
+and c.goods_type='4' 
+and d.user_id=b.user_id 
+and d.goods_id=a.goods_id 
+and d.opeartors_deal_rst ='2' 
+and now() between a.start_date and a.end_date 
+order by d.goods_index,d.goods_id,d.trade_id,d.start_date asc) 
+<![CDATA[ where rownum <= 2 ]]> --> 
+select * from (
+select d.* from lao_user_operator_plan d,lao_user b
+where b.iccid=#{iccid,jdbcType=VARCHAR} 
+and d.user_id=b.user_id
+and d.opeartors_deal_rst ='2'
+and exists(select 1 from lao_user_goods a,lao_goods c
+where a.goods_id=c.goods_id
+and c.goods_type in ('4','5','6')
+and d.goods_id=a.goods_id
+and now() between a.start_date and a.end_date)
+order by d.trade_id asc,d.start_date asc,d.goods_index asc)
+<![CDATA[ where rownum <= 2 ]]> 
+  	
+  </select>
+  <select id="getNextPlan" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <!--  select * from (select * from lao_user_operator_plan plan where plan.opeartors_deal_rst ='2' and plan.goods_id = #{userId,jdbcType=DECIMAL} and plan.user_id=#{userId,jdbcType=DECIMAL} order by plan.goods_index) where rownum<=2 -->
+  	<!-- select * from ( 
+select d.* from lao_user_operator_plan d,lao_user_goods a,lao_user b,lao_goods c 
+where b.iccid=#{iccid,jdbcType=VARCHAR} 
+and a.user_id=b.user_id 
+and a.goods_id=c.goods_id 
+and c.goods_type='4' 
+and d.user_id=b.user_id 
+and d.goods_id=a.goods_id 
+and d.opeartors_deal_rst ='2' 
+and now() between a.start_date and a.end_date 
+order by d.goods_index,d.goods_id,d.trade_id,d.start_date asc) 
+<![CDATA[ where rownum <= 2 ]]> --> 
+select * from (
+select d.* from lao_user_operator_plan d,lao_user b
+where b.iccid=#{iccid,jdbcType=VARCHAR} 
+and d.user_id=b.user_id
+and d.opeartors_deal_rst ='2'
+and exists(select 1 from lao_user_goods a,lao_goods c
+where a.goods_id=c.goods_id
+and c.goods_type='5'
+and d.goods_id=a.goods_id
+and now() between a.start_date and a.end_date)
+order by d.trade_id asc,d.start_date asc,d.goods_index asc)
+where rownum = 1 
+  	
+  </select>
+  <select id="getBeforePlan" resultMap="BaseResultMap" parameterType="com.urt.po.LaoUserOperatorPlan" >
+   select * from lao_user_operator_plan plan where plan.goods_id= #{goodsId,jdbcType=DECIMAL} and plan.user_id = #{userId,jdbcType=DECIMAL}  and plan.GOODS_INDEX=#{goodsIndex,jdbcType=DECIMAL} and plan.trade_id=#{tradeId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="getUserPlansByBillTag"  resultMap="BaseResultMap">  
+  		select <include refid="Base_Column_List" />
+		  from lao_user_operator_plan p
+		 where p.user_id = #{userId,jdbcType=DECIMAL}
+		   and p.bill_Tag = #{billTag, jdbcType=VARCHAR}
+		   Order by start_date asc
+  </select>
+   <select id="getUserPlansByPlanId"  resultMap="BaseResultMap">  
+  		select <include refid="Base_Column_List" />
+		  from lao_user_operator_plan p
+		 where p.user_id = #{userId,jdbcType=DECIMAL}
+		   and p.plan_id = #{planId, jdbcType=DECIMAL}
+		   and now() between p.start_use_date and p.end_date
+  </select>  
+  
+   <select id="getCostTotalsOfUnicom"  resultType="map" parameterType="java.lang.Long" >  
+  	select trade_id,sum(cost_price) as total_cost
+		from lao_user_operator_plan
+			where user_id= #{userId,jdbcType=DECIMAL} 
+			And plan_type='1'
+			And now() between start_date and end_date
+			Group by trade_id
+  </select>
+   <select id="selectMaxOperatorPlanByTradeId"  resultMap="BaseResultMap" parameterType="java.lang.Long" >  
+  	select * from (select * from lao_user_operator_plan p where p.trade_id= #{tradeId,jdbcType=DECIMAL} order by p.goods_index desc, p.start_date desc) where rownum=1
+  </select>
+  
+  <select id="selectOperatorPlanByTradeId"  resultMap="BaseResultMap" parameterType="java.lang.Long" >  
+  	  select * from lao_user_operator_plan p where p.user_id in 
+		(select user_id from lao_trade t where t.trade_id  = #{tradeId,jdbcType=DECIMAL})
+  </select>
+  
+   <select id="getCostTotals"  resultType="map" parameterType="java.lang.Long" >  
+  	 Select trade_id ,cost_price*decode(cycle_unit,0, release_cycle/30,1,release_cycle) as total_cost
+		from lao_user_operator_plan a,lao_goods_release b
+		where a.user_id= #{userId,jdbcType=DECIMAL}  
+		And plan_type!=’1’
+		And now() between start_date and end_date
+		AND a.goods_release_id=b.goods_release_id
+  </select>
+    
+  <update id="updateByUserIdAndGoodsId" parameterType="java.util.List" >
+  begin  
+  <foreach collection="list" item="item" index="index" separator=";">
+    update lao_user_operator_plan set END_DATE = #{item.endDate,jdbcType=TIMESTAMP}
+    where user_id = #{item.userId,jdbcType=DECIMAL} and goods_id = #{item.goodsId,jdbcType=DECIMAL} 
+    And now() between start_date and end_date
+  </foreach>   
+  ;end;       
+  </update>
+   <update id="updateByUserDate" parameterType="java.util.List" >
+    begin  
+    <foreach collection="list" item="item" index="index" separator=";">
+    update lao_user_operator_plan set start_use_date = #{item.useDate,jdbcType=TIMESTAMP}
+    where user_id = #{item.userId,jdbcType=DECIMAL} and goods_id = #{item.goodsId,jdbcType=DECIMAL} 
+    And now() between start_date and end_date
+   </foreach> 
+    ;end;     
+  </update>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.UserLinkedTariffPlanMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.UserLinkedTariffPlan">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="LINKTARIFFPLANID" jdbcType="DECIMAL" property="linktariffplanid" />
+    <result column="ORDERSTATUS" jdbcType="DECIMAL" property="orderstatus" />
+    <result column="USEDSTATUS" jdbcType="DECIMAL" property="usedstatus" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="TARIFFPLANNAME" jdbcType="VARCHAR" property="tariffplanname" />
+    <result column="TARIFFPLANEXPDATE" jdbcType="TIMESTAMP" property="tariffplanexpdate" />
+    <result column="TARIFFPLANLENGTH" jdbcType="DECIMAL" property="tariffplanlength" />
+    <result column="TARIFFPLANSTAUTS" jdbcType="DECIMAL" property="tariffplanstauts" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="MODIFYDATE" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="TARIFFPLANCAPACITY" jdbcType="DECIMAL" property="tariffplancapacity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERID, USERNAME, LINKTARIFFPLANID, ORDERSTATUS, USEDSTATUS, ICCID, TARIFFPLANNAME, 
+    TARIFFPLANEXPDATE, TARIFFPLANLENGTH, TARIFFPLANSTAUTS, CREATEDATE, MODIFYDATE, TARIFFPLANCAPACITY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_LINKED_TARIFFPLAN
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from LAO_USER_LINKED_TARIFFPLAN
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.UserLinkedTariffPlan">
+    insert into LAO_USER_LINKED_TARIFFPLAN (ID, USERID, USERNAME, 
+      LINKTARIFFPLANID, ORDERSTATUS, USEDSTATUS, 
+      ICCID, TARIFFPLANNAME, TARIFFPLANEXPDATE, 
+      TARIFFPLANLENGTH, TARIFFPLANSTAUTS, CREATEDATE, 
+      MODIFYDATE, TARIFFPLANCAPACITY)
+    values (LAO_USER_LINKEDTARIFF_ID_SEQ.nextval, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{linktariffplanid,jdbcType=DECIMAL}, #{orderstatus,jdbcType=DECIMAL}, #{usedstatus,jdbcType=DECIMAL}, 
+      #{iccid,jdbcType=VARCHAR}, #{tariffplanname,jdbcType=VARCHAR}, #{tariffplanexpdate,jdbcType=TIMESTAMP}, 
+      #{tariffplanlength,jdbcType=DECIMAL}, #{tariffplanstauts,jdbcType=DECIMAL}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{modifydate,jdbcType=TIMESTAMP}, #{tariffplancapacity,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.UserLinkedTariffPlan">
+    insert into LAO_USER_LINKED_TARIFFPLAN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="linktariffplanid != null">
+        LINKTARIFFPLANID,
+      </if>
+      <if test="orderstatus != null">
+        ORDERSTATUS,
+      </if>
+      <if test="usedstatus != null">
+        USEDSTATUS,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="tariffplanname != null">
+        TARIFFPLANNAME,
+      </if>
+      <if test="tariffplanexpdate != null">
+        TARIFFPLANEXPDATE,
+      </if>
+      <if test="tariffplanlength != null">
+        TARIFFPLANLENGTH,
+      </if>
+      <if test="tariffplanstauts != null">
+        TARIFFPLANSTAUTS,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE,
+      </if>
+      <if test="tariffplancapacity != null">
+        TARIFFPLANCAPACITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="linktariffplanid != null">
+        #{linktariffplanid,jdbcType=DECIMAL},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="usedstatus != null">
+        #{usedstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanname != null">
+        #{tariffplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanexpdate != null">
+        #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplanlength != null">
+        #{tariffplanlength,jdbcType=DECIMAL},
+      </if>
+      <if test="tariffplanstauts != null">
+        #{tariffplanstauts,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplancapacity != null">
+        #{tariffplancapacity,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.UserLinkedTariffPlan">
+    update LAO_USER_LINKED_TARIFFPLAN
+    <set>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="linktariffplanid != null">
+        LINKTARIFFPLANID = #{linktariffplanid,jdbcType=DECIMAL},
+      </if>
+      <if test="orderstatus != null">
+        ORDERSTATUS = #{orderstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="usedstatus != null">
+        USEDSTATUS = #{usedstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanname != null">
+        TARIFFPLANNAME = #{tariffplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanexpdate != null">
+        TARIFFPLANEXPDATE = #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplanlength != null">
+        TARIFFPLANLENGTH = #{tariffplanlength,jdbcType=DECIMAL},
+      </if>
+      <if test="tariffplanstauts != null">
+        TARIFFPLANSTAUTS = #{tariffplanstauts,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplancapacity != null">
+        TARIFFPLANCAPACITY = #{tariffplancapacity,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.UserLinkedTariffPlan">
+    update LAO_USER_LINKED_TARIFFPLAN
+    set USERID = #{userid,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      LINKTARIFFPLANID = #{linktariffplanid,jdbcType=DECIMAL},
+      ORDERSTATUS = #{orderstatus,jdbcType=DECIMAL},
+      USEDSTATUS = #{usedstatus,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      TARIFFPLANNAME = #{tariffplanname,jdbcType=VARCHAR},
+      TARIFFPLANEXPDATE = #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      TARIFFPLANLENGTH = #{tariffplanlength,jdbcType=DECIMAL},
+      TARIFFPLANSTAUTS = #{tariffplanstauts,jdbcType=DECIMAL},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      TARIFFPLANCAPACITY = #{tariffplancapacity,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

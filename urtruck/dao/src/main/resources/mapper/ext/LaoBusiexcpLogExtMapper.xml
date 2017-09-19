@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoBusiexcpLogExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBusiexcpLog" >
+    <id column="EXCP_ID" property="excpId" jdbcType="DECIMAL" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="BATCHDETAIL_ID" property="batchdetailId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="EXCP_TYPE_CODE" property="excpTypeCode" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DONE_TIMES" property="doneTimes" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXCP_ID, TRADE_ID, BATCH_ID, BATCHDETAIL_ID, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, 
+    ICCID, GOODS_ID, TRADE_TYPE_CODE, EXCP_TYPE_CODE, DEAL_TAG, RESULT_INFO, RECV_TIME, 
+    UPDATE_TIME, DONE_TIMES, OPER_ID, REMARK
+  </sql>
+  <select id="autoResExceptions" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BUSIEXCP_LOG a, LAO_EXCP_DEF b 
+    where (a.DEAL_TAG='0' or (a.deal_tag='3' and a.DONE_TIMES <![CDATA[<]]>b.DO_TIMES))
+	and a.EXCP_TYPE_CODE=b.EXCP_TYPE_CODE 
+	and b.DO_TYPE='2' and b.DO_TAG='1'
+  </select>
+  
+   <select id="handResExceptions" resultMap="BaseResultMap" parameterType="map">
+    select 
+    a.*
+    from LAO_BUSIEXCP_LOG a, LAO_EXCP_DEF b 
+    where (a.DEAL_TAG='0' or (a.deal_tag='3' and a.DONE_TIMES <![CDATA[<]]>b.DO_TIMES))
+	and a.EXCP_TYPE_CODE=b.EXCP_TYPE_CODE 
+	and b.DO_TYPE='1' and b.DO_TAG='1'
+	
+	<if test="params.logs.excpId != null and params.logs.excpId!=''" >
+	and a.EXCP_ID = #{params.logs.excpId}
+	</if>
+    <if test="params.logs.tradeId != null and params.logs.tradeId !=''" >
+	and a.TRADE_ID = #{params.logs.tradeId}
+	</if>
+	<if test="params.logs.batchId != null and params.logs.batchId !=''" >
+	and a.BATCH_ID = #{params.logs.batchId}
+	</if>
+	
+	<if test="params.logs.batchdetailId != null and params.logs.batchdetailId !=''" >
+	and a.BATCHDETAIL_ID = #{params.logs.batchdetailId}
+	</if>
+	
+	<if test="params.logs.msisdn != null and params.logs.msisdn !=''" >
+	and a.MSISDN = #{params.logs.msisdn}
+	</if>
+	
+	<if test="params.logs.iccid != null and params.logs.iccid !=''" >
+	and a.ICCID = #{params.logs.iccid}
+	</if>
+	
+	<if test="params.logs.excpTypeCode != null and params.logs.excpTypeCode !=''" >
+	and a.EXCP_TYPE_CODE = #{params.logs.excpTypeCode} 
+	</if>
+	
+	<if test="params.logs.dealTag != null and params.logs.dealTag !=''" >
+	and a.DEAL_TAG = #{params.logs.dealTag} 
+	</if>
+	<if test="params.logs.resultInfo != null and params.logs.resultInfo !=''" >
+	and a.RESULT_INFO = #{params.logs.resultInfo}
+	</if>
+	
+	<if test="params.logs.updateTime != null and params.logs.updateTime !=''" >
+	and a.UPDATE_TIME = #{params.logs.updateTime} 
+	</if>
+	
+	<if test="params.logs.recvTime != null and params.logs.recvTime !=''" >
+	and a.RECV_TIME = #{params.logs.recvTime}
+	</if>
+	
+	<if test="params.logs.doneTimes != null and params.logs.doneTimes !=''" >
+	and a.DONE_TIMES = #{params.logs.doneTimes} 
+	</if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimOperatorPropertyMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimOperatorProperty" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATORNAME" property="operatorname" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="LICENSEKEY" property="licensekey" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, OPERATOR, OPERATORNAME, USERNAME, PASSWORD, URL, LICENSEKEY, VERSION, CREATEDATE, 
+    PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_OPERATOR_PROPERTY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByOperator" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_OPERATOR_PROPERTY
+    where OPERATOR = #{operator,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_OPERATOR_PROPERTY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimOperatorProperty" >
+    insert into LAO_ESIM_OPERATOR_PROPERTY (ID, OPERATOR, OPERATORNAME, 
+      USERNAME, PASSWORD, URL, 
+      LICENSEKEY, VERSION, CREATEDATE, 
+      PARAM1, PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{operator,jdbcType=VARCHAR}, #{operatorname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{licensekey,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimOperatorProperty" >
+    insert into LAO_ESIM_OPERATOR_PROPERTY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operatorname != null" >
+        OPERATORNAME,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="licensekey != null" >
+        LICENSEKEY,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorname != null" >
+        #{operatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="licensekey != null" >
+        #{licensekey,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimOperatorProperty" >
+    update LAO_ESIM_OPERATOR_PROPERTY
+    <set >
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorname != null" >
+        OPERATORNAME = #{operatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="licensekey != null" >
+        LICENSEKEY = #{licensekey,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimOperatorProperty" >
+    update LAO_ESIM_OPERATOR_PROPERTY
+    set OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATORNAME = #{operatorname,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      LICENSEKEY = #{licensekey,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

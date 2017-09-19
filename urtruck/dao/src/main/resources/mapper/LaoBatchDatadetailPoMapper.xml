@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBatchDatadetailPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBatchDatadetailPo" >
+    <id column="DATADETAIL_ID" property="datadetailId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="FLOW_STATUS" property="flowStatus" jdbcType="VARCHAR" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="PARA_CODE1" property="paraCode1" jdbcType="VARCHAR" />
+    <result column="PARA_CODE2" property="paraCode2" jdbcType="VARCHAR" />
+    <result column="PARA_CODE3" property="paraCode3" jdbcType="VARCHAR" />
+    <result column="PARA_CODE4" property="paraCode4" jdbcType="VARCHAR" />
+    <result column="PARA_CODE5" property="paraCode5" jdbcType="VARCHAR" />
+    <result column="PARA_CODE6" property="paraCode6" jdbcType="VARCHAR" />
+    <result column="PARA_CODE7" property="paraCode7" jdbcType="VARCHAR" />
+    <result column="PARA_CODE8" property="paraCode8" jdbcType="VARCHAR" />
+    <result column="PARA_CODE9" property="paraCode9" jdbcType="VARCHAR" />
+    <result column="PARA_CODE10" property="paraCode10" jdbcType="VARCHAR" />
+    <result column="PARA_CODE11" property="paraCode11" jdbcType="VARCHAR" />
+    <result column="PARA_CODE12" property="paraCode12" jdbcType="VARCHAR" />
+    <result column="PARA_CODE13" property="paraCode13" jdbcType="VARCHAR" />
+    <result column="PARA_CODE14" property="paraCode14" jdbcType="VARCHAR" />
+    <result column="PARA_CODE15" property="paraCode15" jdbcType="VARCHAR" />
+    <result column="PARA_CODE16" property="paraCode16" jdbcType="VARCHAR" />
+    <result column="PARA_CODE17" property="paraCode17" jdbcType="VARCHAR" />
+    <result column="PARA_CODE18" property="paraCode18" jdbcType="VARCHAR" />
+    <result column="PARA_CODE19" property="paraCode19" jdbcType="VARCHAR" />
+    <result column="PARA_CODE20" property="paraCode20" jdbcType="VARCHAR" />
+    <result column="PARA_CODE21" property="paraCode21" jdbcType="VARCHAR" />
+    <result column="PARA_CODE22" property="paraCode22" jdbcType="VARCHAR" />
+    <result column="PARA_CODE23" property="paraCode23" jdbcType="VARCHAR" />
+    <result column="PARA_CODE24" property="paraCode24" jdbcType="VARCHAR" />
+    <result column="PARA_CODE25" property="paraCode25" jdbcType="VARCHAR" />
+    <result column="PARA_CODE26" property="paraCode26" jdbcType="VARCHAR" />
+    <result column="PARA_CODE27" property="paraCode27" jdbcType="VARCHAR" />
+    <result column="PARA_CODE28" property="paraCode28" jdbcType="VARCHAR" />
+    <result column="PARA_CODE29" property="paraCode29" jdbcType="VARCHAR" />
+    <result column="PARA_CODE30" property="paraCode30" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DATADETAIL_ID, BATCH_ID, TRADE_TYPE_CODE, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, 
+    ICCID, GOODS_ID, RECV_TIME, FLOW_STATUS, DEAL_TAG, RESULT_INFO, UPDATE_TIME, TRADE_ID, 
+    OPER_ID, PARA_CODE1, PARA_CODE2, PARA_CODE3, PARA_CODE4, PARA_CODE5, PARA_CODE6, 
+    PARA_CODE7, PARA_CODE8, PARA_CODE9, PARA_CODE10, PARA_CODE11, PARA_CODE12, PARA_CODE13, 
+    PARA_CODE14, PARA_CODE15, PARA_CODE16, PARA_CODE17, PARA_CODE18, PARA_CODE19, PARA_CODE20, 
+    PARA_CODE21, PARA_CODE22, PARA_CODE23, PARA_CODE24, PARA_CODE25, PARA_CODE26, PARA_CODE27, 
+    PARA_CODE28, PARA_CODE29, PARA_CODE30, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BATCH_DATADETAIL
+    where DATADETAIL_ID = #{datadetailId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_BATCH_DATADETAIL
+    where DATADETAIL_ID = #{datadetailId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBatchDatadetailPo" >
+    insert into LAO_BATCH_DATADETAIL (DATADETAIL_ID, BATCH_ID, TRADE_TYPE_CODE, 
+      CHANNEL_CUST_ID, CUST_ID, USER_ID, 
+      MSISDN, ICCID, GOODS_ID, 
+      RECV_TIME, FLOW_STATUS, DEAL_TAG, 
+      RESULT_INFO, UPDATE_TIME, TRADE_ID, 
+      OPER_ID, PARA_CODE1, PARA_CODE2, 
+      PARA_CODE3, PARA_CODE4, PARA_CODE5, 
+      PARA_CODE6, PARA_CODE7, PARA_CODE8, 
+      PARA_CODE9, PARA_CODE10, PARA_CODE11, 
+      PARA_CODE12, PARA_CODE13, PARA_CODE14, 
+      PARA_CODE15, PARA_CODE16, PARA_CODE17, 
+      PARA_CODE18, PARA_CODE19, PARA_CODE20, 
+      PARA_CODE21, PARA_CODE22, PARA_CODE23, 
+      PARA_CODE24, PARA_CODE25, PARA_CODE26, 
+      PARA_CODE27, PARA_CODE28, PARA_CODE29, 
+      PARA_CODE30, REMARK)
+    values (#{datadetailId,jdbcType=DECIMAL}, #{batchId,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, 
+      #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{msisdn,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{goodsId,jdbcType=DECIMAL}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{flowStatus,jdbcType=VARCHAR}, #{dealTag,jdbcType=CHAR}, 
+      #{resultInfo,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{tradeId,jdbcType=DECIMAL}, 
+      #{operId,jdbcType=VARCHAR}, #{paraCode1,jdbcType=VARCHAR}, #{paraCode2,jdbcType=VARCHAR}, 
+      #{paraCode3,jdbcType=VARCHAR}, #{paraCode4,jdbcType=VARCHAR}, #{paraCode5,jdbcType=VARCHAR}, 
+      #{paraCode6,jdbcType=VARCHAR}, #{paraCode7,jdbcType=VARCHAR}, #{paraCode8,jdbcType=VARCHAR}, 
+      #{paraCode9,jdbcType=VARCHAR}, #{paraCode10,jdbcType=VARCHAR}, #{paraCode11,jdbcType=VARCHAR}, 
+      #{paraCode12,jdbcType=VARCHAR}, #{paraCode13,jdbcType=VARCHAR}, #{paraCode14,jdbcType=VARCHAR}, 
+      #{paraCode15,jdbcType=VARCHAR}, #{paraCode16,jdbcType=VARCHAR}, #{paraCode17,jdbcType=VARCHAR}, 
+      #{paraCode18,jdbcType=VARCHAR}, #{paraCode19,jdbcType=VARCHAR}, #{paraCode20,jdbcType=VARCHAR}, 
+      #{paraCode21,jdbcType=VARCHAR}, #{paraCode22,jdbcType=VARCHAR}, #{paraCode23,jdbcType=VARCHAR}, 
+      #{paraCode24,jdbcType=VARCHAR}, #{paraCode25,jdbcType=VARCHAR}, #{paraCode26,jdbcType=VARCHAR}, 
+      #{paraCode27,jdbcType=VARCHAR}, #{paraCode28,jdbcType=VARCHAR}, #{paraCode29,jdbcType=VARCHAR}, 
+      #{paraCode30,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBatchDatadetailPo" >
+    insert into LAO_BATCH_DATADETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="datadetailId != null" >
+        DATADETAIL_ID,
+      </if>
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="flowStatus != null" >
+        FLOW_STATUS,
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG,
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="paraCode1 != null" >
+        PARA_CODE1,
+      </if>
+      <if test="paraCode2 != null" >
+        PARA_CODE2,
+      </if>
+      <if test="paraCode3 != null" >
+        PARA_CODE3,
+      </if>
+      <if test="paraCode4 != null" >
+        PARA_CODE4,
+      </if>
+      <if test="paraCode5 != null" >
+        PARA_CODE5,
+      </if>
+      <if test="paraCode6 != null" >
+        PARA_CODE6,
+      </if>
+      <if test="paraCode7 != null" >
+        PARA_CODE7,
+      </if>
+      <if test="paraCode8 != null" >
+        PARA_CODE8,
+      </if>
+      <if test="paraCode9 != null" >
+        PARA_CODE9,
+      </if>
+      <if test="paraCode10 != null" >
+        PARA_CODE10,
+      </if>
+      <if test="paraCode11 != null" >
+        PARA_CODE11,
+      </if>
+      <if test="paraCode12 != null" >
+        PARA_CODE12,
+      </if>
+      <if test="paraCode13 != null" >
+        PARA_CODE13,
+      </if>
+      <if test="paraCode14 != null" >
+        PARA_CODE14,
+      </if>
+      <if test="paraCode15 != null" >
+        PARA_CODE15,
+      </if>
+      <if test="paraCode16 != null" >
+        PARA_CODE16,
+      </if>
+      <if test="paraCode17 != null" >
+        PARA_CODE17,
+      </if>
+      <if test="paraCode18 != null" >
+        PARA_CODE18,
+      </if>
+      <if test="paraCode19 != null" >
+        PARA_CODE19,
+      </if>
+      <if test="paraCode20 != null" >
+        PARA_CODE20,
+      </if>
+      <if test="paraCode21 != null" >
+        PARA_CODE21,
+      </if>
+      <if test="paraCode22 != null" >
+        PARA_CODE22,
+      </if>
+      <if test="paraCode23 != null" >
+        PARA_CODE23,
+      </if>
+      <if test="paraCode24 != null" >
+        PARA_CODE24,
+      </if>
+      <if test="paraCode25 != null" >
+        PARA_CODE25,
+      </if>
+      <if test="paraCode26 != null" >
+        PARA_CODE26,
+      </if>
+      <if test="paraCode27 != null" >
+        PARA_CODE27,
+      </if>
+      <if test="paraCode28 != null" >
+        PARA_CODE28,
+      </if>
+      <if test="paraCode29 != null" >
+        PARA_CODE29,
+      </if>
+      <if test="paraCode30 != null" >
+        PARA_CODE30,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="datadetailId != null" >
+        #{datadetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flowStatus != null" >
+        #{flowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null" >
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null" >
+        #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode1 != null" >
+        #{paraCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode2 != null" >
+        #{paraCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode3 != null" >
+        #{paraCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode4 != null" >
+        #{paraCode4,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode5 != null" >
+        #{paraCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode6 != null" >
+        #{paraCode6,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode7 != null" >
+        #{paraCode7,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode8 != null" >
+        #{paraCode8,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode9 != null" >
+        #{paraCode9,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode10 != null" >
+        #{paraCode10,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode11 != null" >
+        #{paraCode11,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode12 != null" >
+        #{paraCode12,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode13 != null" >
+        #{paraCode13,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode14 != null" >
+        #{paraCode14,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode15 != null" >
+        #{paraCode15,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode16 != null" >
+        #{paraCode16,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode17 != null" >
+        #{paraCode17,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode18 != null" >
+        #{paraCode18,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode19 != null" >
+        #{paraCode19,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode20 != null" >
+        #{paraCode20,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode21 != null" >
+        #{paraCode21,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode22 != null" >
+        #{paraCode22,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode23 != null" >
+        #{paraCode23,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode24 != null" >
+        #{paraCode24,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode25 != null" >
+        #{paraCode25,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode26 != null" >
+        #{paraCode26,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode27 != null" >
+        #{paraCode27,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode28 != null" >
+        #{paraCode28,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode29 != null" >
+        #{paraCode29,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode30 != null" >
+        #{paraCode30,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBatchDatadetailPo" >
+    update LAO_BATCH_DATADETAIL
+    <set >
+      <if test="batchId != null" >
+        BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flowStatus != null" >
+        FLOW_STATUS = #{flowStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode1 != null" >
+        PARA_CODE1 = #{paraCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode2 != null" >
+        PARA_CODE2 = #{paraCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode3 != null" >
+        PARA_CODE3 = #{paraCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode4 != null" >
+        PARA_CODE4 = #{paraCode4,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode5 != null" >
+        PARA_CODE5 = #{paraCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode6 != null" >
+        PARA_CODE6 = #{paraCode6,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode7 != null" >
+        PARA_CODE7 = #{paraCode7,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode8 != null" >
+        PARA_CODE8 = #{paraCode8,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode9 != null" >
+        PARA_CODE9 = #{paraCode9,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode10 != null" >
+        PARA_CODE10 = #{paraCode10,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode11 != null" >
+        PARA_CODE11 = #{paraCode11,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode12 != null" >
+        PARA_CODE12 = #{paraCode12,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode13 != null" >
+        PARA_CODE13 = #{paraCode13,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode14 != null" >
+        PARA_CODE14 = #{paraCode14,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode15 != null" >
+        PARA_CODE15 = #{paraCode15,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode16 != null" >
+        PARA_CODE16 = #{paraCode16,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode17 != null" >
+        PARA_CODE17 = #{paraCode17,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode18 != null" >
+        PARA_CODE18 = #{paraCode18,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode19 != null" >
+        PARA_CODE19 = #{paraCode19,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode20 != null" >
+        PARA_CODE20 = #{paraCode20,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode21 != null" >
+        PARA_CODE21 = #{paraCode21,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode22 != null" >
+        PARA_CODE22 = #{paraCode22,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode23 != null" >
+        PARA_CODE23 = #{paraCode23,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode24 != null" >
+        PARA_CODE24 = #{paraCode24,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode25 != null" >
+        PARA_CODE25 = #{paraCode25,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode26 != null" >
+        PARA_CODE26 = #{paraCode26,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode27 != null" >
+        PARA_CODE27 = #{paraCode27,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode28 != null" >
+        PARA_CODE28 = #{paraCode28,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode29 != null" >
+        PARA_CODE29 = #{paraCode29,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode30 != null" >
+        PARA_CODE30 = #{paraCode30,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DATADETAIL_ID = #{datadetailId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBatchDatadetailPo" >
+    update LAO_BATCH_DATADETAIL
+    set BATCH_ID = #{batchId,jdbcType=DECIMAL},
+      TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      FLOW_STATUS = #{flowStatus,jdbcType=VARCHAR},
+      DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      PARA_CODE1 = #{paraCode1,jdbcType=VARCHAR},
+      PARA_CODE2 = #{paraCode2,jdbcType=VARCHAR},
+      PARA_CODE3 = #{paraCode3,jdbcType=VARCHAR},
+      PARA_CODE4 = #{paraCode4,jdbcType=VARCHAR},
+      PARA_CODE5 = #{paraCode5,jdbcType=VARCHAR},
+      PARA_CODE6 = #{paraCode6,jdbcType=VARCHAR},
+      PARA_CODE7 = #{paraCode7,jdbcType=VARCHAR},
+      PARA_CODE8 = #{paraCode8,jdbcType=VARCHAR},
+      PARA_CODE9 = #{paraCode9,jdbcType=VARCHAR},
+      PARA_CODE10 = #{paraCode10,jdbcType=VARCHAR},
+      PARA_CODE11 = #{paraCode11,jdbcType=VARCHAR},
+      PARA_CODE12 = #{paraCode12,jdbcType=VARCHAR},
+      PARA_CODE13 = #{paraCode13,jdbcType=VARCHAR},
+      PARA_CODE14 = #{paraCode14,jdbcType=VARCHAR},
+      PARA_CODE15 = #{paraCode15,jdbcType=VARCHAR},
+      PARA_CODE16 = #{paraCode16,jdbcType=VARCHAR},
+      PARA_CODE17 = #{paraCode17,jdbcType=VARCHAR},
+      PARA_CODE18 = #{paraCode18,jdbcType=VARCHAR},
+      PARA_CODE19 = #{paraCode19,jdbcType=VARCHAR},
+      PARA_CODE20 = #{paraCode20,jdbcType=VARCHAR},
+      PARA_CODE21 = #{paraCode21,jdbcType=VARCHAR},
+      PARA_CODE22 = #{paraCode22,jdbcType=VARCHAR},
+      PARA_CODE23 = #{paraCode23,jdbcType=VARCHAR},
+      PARA_CODE24 = #{paraCode24,jdbcType=VARCHAR},
+      PARA_CODE25 = #{paraCode25,jdbcType=VARCHAR},
+      PARA_CODE26 = #{paraCode26,jdbcType=VARCHAR},
+      PARA_CODE27 = #{paraCode27,jdbcType=VARCHAR},
+      PARA_CODE28 = #{paraCode28,jdbcType=VARCHAR},
+      PARA_CODE29 = #{paraCode29,jdbcType=VARCHAR},
+      PARA_CODE30 = #{paraCode30,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where DATADETAIL_ID = #{datadetailId,jdbcType=DECIMAL}
+  </update>
+</mapper>

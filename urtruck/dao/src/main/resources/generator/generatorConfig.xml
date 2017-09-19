@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	 <properties resource="generator/db.properties" />
+     <context id="testTables" targetRuntime="MyBatis3" defaultModelType="flat">
+     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+         <commentGenerator>
+             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+             <property name="suppressAllComments" value="true" />
+         </commentGenerator>
+         <!--数据库连接的信息：驱动类、连接地址、用户名、密码,这里配置的是mysql的，当然也可以配置oracle等数据库 -->
+         <jdbcConnection driverClass="${jdbc.driver}"
+             connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+         </jdbcConnection>
+ 
+         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL和 NUMERIC 类型解析为java.math.BigDecimal -->
+         <javaTypeResolver>
+             <property name="forceBigDecimals" value="false" />
+         </javaTypeResolver>
+ 
+         <!-- targetProject:生成PO类的位置 -->
+         <javaModelGenerator targetPackage="com.urt.po" targetProject="src/main/java">
+             <!-- enableSubPackages:是否让schema作为包的后缀 -->
+             <property name="enableSubPackages" value="true" />
+             <!-- 从数据库返回的值被清理前后的空格 -->
+             <property name="trimStrings" value="true" />
+         </javaModelGenerator>
+         <!-- targetProject:mapper映射文件生成的位置 -->
+         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+             <!-- enableSubPackages:是否让schema作为包的后缀 -->
+             <property name="enableSubPackages" value="true" />
+         </sqlMapGenerator>
+         <!-- targetPackage：mapper接口生成的位置 -->
+         <javaClientGenerator type="XMLMAPPER" targetPackage="com.urt.mapper" targetProject="src/main/java">
+             <!-- enableSubPackages:是否让schema作为包的后缀 -->
+             <property name="enableSubPackages" value="true" />
+         </javaClientGenerator>
+         <!-- 指定数据库表 -->
+	      <!-- <table tableName="LAO_USER" domainObjectName="LaoUser" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_USER_SVCSTATE" domainObjectName="LaoUserSvcstate" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> -->
+	     
+	     <!-- <table tableName="LAO_USER_RES" domainObjectName="LaoUserRes" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_USER_GOODS" domainObjectName="LaoUserGoods" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_USER_OPERATOR_PLAN" domainObjectName="LaoUserOperatorPlan" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	     <table tableName="LAO_BATCH_DATA" domainObjectName="LaoBatchDataPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	     <table tableName="LAO_BATCH_DATADETAIL" domainObjectName="LaoBatchDatadetailPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     <table tableName="lao_operators" domainObjectName="Operators" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	      <table tableName="LAO_TRADEFEE_SUB" domainObjectName="TradeFeeSub" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	     </table> 
+	    <table tableName="LAO_DEVICEPRODUCT_AD" domainObjectName="DeviceProductPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	    <table tableName="LAO_FLOWOPERATION_FLOWORDER" domainObjectName="FlowOperationFlowOrder" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_SS_ACCOUNT" domainObjectName="LaoSsAccountPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_SMS_DELIVER" domainObjectName="LaoSmsDeliver" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	      <table tableName="LAO_PROPERTIES_CONFIG" domainObjectName="LaoPropertiesConfig" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     -->
+	     
+	     <!-- <table tableName="LAO_ESIM_LENOVO_IMEI" domainObjectName="LaoEsimLenovoImei" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false"> -->
+	     <!-- <table tableName="LAO_DEVICE_REL" domainObjectName="LaoDeviceRel" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table> 
+	     <table tableName="LAO_ESIM_FLOW_GIVEN_DETAIL" domainObjectName="LaoEsimFlowGivenDetail" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_GOODS_OPERATIVE" domainObjectName="LaoGoodsOperative" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_DATAIMPORT_LOG" domainObjectName="LaoDataImportLog" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	      <table tableName="LAO_API_MSG_LOG" domainObjectName="ApiMsgLog" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	      <table tableName="LAO_USERBILLS_DETAIL" domainObjectName="LaoUserbillsDetail" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_OPERATORS_CYCLE" domainObjectName="LaoOperatorsCycle" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_USERFEE_INFO" domainObjectName="LaoUserfeeInfo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_OPERATORSBILL_RESULT" domainObjectName="LaoOperatorsbillResult" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_OPERATORS_BILL" domainObjectName="LaoOperatorsBill" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_CUSTOMER" domainObjectName="LaoCustomerPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_USER_IP_MANAGER" domainObjectName="LaoUserIpManager" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	     <table tableName="lao_dmpposition_data" domainObjectName="LaoDMPPositionPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_DMPDEVICE_ATTRIBUTE" domainObjectName="LaoDMPDeviceAttributePo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="lao_dmpcard_data" domainObjectName="LaoDMPCardPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	      
+	     <table tableName="lao_dmpposition_data" domainObjectName="LaoDMPPositionPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     <table tableName="LAO_SS_LOGIN_LOG" domainObjectName="LaoSsLoginLogPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="LAO_TRAFFICMM_TASK" domainObjectName="LaoTrafficMMTaskPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_DMP_GROUP" domainObjectName="LaoDMPGroupPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     </table>
+	      <table tableName="lao_dmpcard_data" domainObjectName="LaoDMPCardPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="lao_dmp_cardgroup" domainObjectName="LaoDMPCardGroupPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="lao_dmp_log" domainObjectName="LaoDMPLogPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="LAO_DMPSTRATEGY_RELATION" domainObjectName="LaoDMPStrategyRelationPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     
+	     <table tableName="LAO_TRAFFICMM_TASK" domainObjectName="LaoTrafficMMTaskPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false"></table>
+	      <table tableName="lao_ss_access_log" domainObjectName="LaoSsAccessLogPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="lao_alm_rule_log" domainObjectName="LaoAlmRuleLogPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="lao_user_order_mm" domainObjectName="laoUserOrderMmPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	      <table tableName="lao_staff" domainObjectName="LaoStaffPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+	     <table tableName="lao_user_expire_mm" domainObjectName="LaoUserExpireMMPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>-->
+	     <table tableName="lao_iccid_assign_lib" domainObjectName="LaoIccidAssignLibPo" 
+           enableSelectByExample="false"  
+	       enableDeleteByExample="false"  
+	       enableCountByExample="false"  
+	       enableUpdateByExample="false">
+	     </table>
+     </context>
+</generatorConfiguration>

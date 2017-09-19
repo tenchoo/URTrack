@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoInvoiceLogMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoInvoiceLog" >
+    <id column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="APPLICATION_TYPE" property="applicationType" jdbcType="DECIMAL" />
+    <result column="INVOICE_MONEY" property="invoiceMoney" jdbcType="DECIMAL" />
+    <result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="INVOICE_CATEGORY" property="invoiceCategory" jdbcType="DECIMAL" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="DECIMAL" />
+    <result column="INVOICE_STATUS" property="invoiceStatus" jdbcType="DECIMAL" />
+    <result column="INVOICE_RISE" property="invoiceRise" jdbcType="VARCHAR" />
+    <result column="INVOICE_NUMBER" property="invoiceNumber" jdbcType="DECIMAL" />
+    <result column="APPLY_PERSON" property="applyPerson" jdbcType="VARCHAR" />
+    <result column="APPROVAL_DATE" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="INVOICE_STR1" property="invoiceStr1" jdbcType="VARCHAR" />
+    <result column="INVOICE_STR2" property="invoiceStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    INVOICE_ID, CHANNEL_CUST_ID, APPLICATION_TYPE, INVOICE_MONEY, APPLY_DATE, INVOICE_CATEGORY, 
+    INVOICE_TYPE, INVOICE_STATUS, INVOICE_RISE, INVOICE_NUMBER, APPLY_PERSON, APPROVAL_DATE, 
+    INVOICE_STR1, INVOICE_STR2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_INVOICE_LOG
+    where INVOICE_ID = #{invoiceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_INVOICE_LOG
+    where INVOICE_ID = #{invoiceId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoInvoiceLog" >
+    insert into LAO_INVOICE_LOG (INVOICE_ID, CHANNEL_CUST_ID, APPLICATION_TYPE, 
+      INVOICE_MONEY, APPLY_DATE, INVOICE_CATEGORY, 
+      INVOICE_TYPE, INVOICE_STATUS, INVOICE_RISE, 
+      INVOICE_NUMBER, APPLY_PERSON, APPROVAL_DATE, 
+      INVOICE_STR1, INVOICE_STR2)
+    values (#{invoiceId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{applicationType,jdbcType=DECIMAL}, 
+      #{invoiceMoney,jdbcType=DECIMAL}, #{applyDate,jdbcType=TIMESTAMP}, #{invoiceCategory,jdbcType=DECIMAL}, 
+      #{invoiceType,jdbcType=DECIMAL}, #{invoiceStatus,jdbcType=DECIMAL}, #{invoiceRise,jdbcType=VARCHAR}, 
+      #{invoiceNumber,jdbcType=DECIMAL}, #{applyPerson,jdbcType=VARCHAR}, #{approvalDate,jdbcType=TIMESTAMP}, 
+      #{invoiceStr1,jdbcType=VARCHAR}, #{invoiceStr2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoInvoiceLog" >
+    insert into LAO_INVOICE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invoiceId != null" >
+        INVOICE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="applicationType != null" >
+        APPLICATION_TYPE,
+      </if>
+      <if test="invoiceMoney != null" >
+        INVOICE_MONEY,
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE,
+      </if>
+      <if test="invoiceCategory != null" >
+        INVOICE_CATEGORY,
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE,
+      </if>
+      <if test="invoiceStatus != null" >
+        INVOICE_STATUS,
+      </if>
+      <if test="invoiceRise != null" >
+        INVOICE_RISE,
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER,
+      </if>
+      <if test="applyPerson != null" >
+        APPLY_PERSON,
+      </if>
+      <if test="approvalDate != null" >
+        APPROVAL_DATE,
+      </if>
+      <if test="invoiceStr1 != null" >
+        INVOICE_STR1,
+      </if>
+      <if test="invoiceStr2 != null" >
+        INVOICE_STR2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invoiceId != null" >
+        #{invoiceId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationType != null" >
+        #{applicationType,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceMoney != null" >
+        #{invoiceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceCategory != null" >
+        #{invoiceCategory,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceStatus != null" >
+        #{invoiceStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceRise != null" >
+        #{invoiceRise,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="applyPerson != null" >
+        #{applyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDate != null" >
+        #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceStr1 != null" >
+        #{invoiceStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr2 != null" >
+        #{invoiceStr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoInvoiceLog" >
+    update LAO_INVOICE_LOG
+    <set >
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="applicationType != null" >
+        APPLICATION_TYPE = #{applicationType,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceMoney != null" >
+        INVOICE_MONEY = #{invoiceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceCategory != null" >
+        INVOICE_CATEGORY = #{invoiceCategory,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE = #{invoiceType,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceStatus != null" >
+        INVOICE_STATUS = #{invoiceStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceRise != null" >
+        INVOICE_RISE = #{invoiceRise,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER = #{invoiceNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="applyPerson != null" >
+        APPLY_PERSON = #{applyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDate != null" >
+        APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceStr1 != null" >
+        INVOICE_STR1 = #{invoiceStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr2 != null" >
+        INVOICE_STR2 = #{invoiceStr2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INVOICE_ID = #{invoiceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoInvoiceLog" >
+    update LAO_INVOICE_LOG
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      APPLICATION_TYPE = #{applicationType,jdbcType=DECIMAL},
+      INVOICE_MONEY = #{invoiceMoney,jdbcType=DECIMAL},
+      APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      INVOICE_CATEGORY = #{invoiceCategory,jdbcType=DECIMAL},
+      INVOICE_TYPE = #{invoiceType,jdbcType=DECIMAL},
+      INVOICE_STATUS = #{invoiceStatus,jdbcType=DECIMAL},
+      INVOICE_RISE = #{invoiceRise,jdbcType=VARCHAR},
+      INVOICE_NUMBER = #{invoiceNumber,jdbcType=DECIMAL},
+      APPLY_PERSON = #{applyPerson,jdbcType=VARCHAR},
+      APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+      INVOICE_STR1 = #{invoiceStr1,jdbcType=VARCHAR},
+      INVOICE_STR2 = #{invoiceStr2,jdbcType=VARCHAR}
+    where INVOICE_ID = #{invoiceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoIccidReleaseRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoIccidReleaseRule" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoIccidReleaseRule" >
+    insert into LAO_ICCID_RELEASERULE (ID, ICCID, RULE_ID, 
+      CREATE_DATE, UPDATE_DATE)
+    values (#{id,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{ruleId,jdbcType=DECIMAL}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoIccidReleaseRule" >
+    insert into LAO_ICCID_RELEASERULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

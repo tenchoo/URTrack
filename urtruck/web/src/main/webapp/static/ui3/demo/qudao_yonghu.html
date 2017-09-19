@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>渠道用户首页</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/unit/Chart.js"></script>
+</head>
+<body class="add_bg">
+	<div class="wrap_header">
+		<div class="header">
+			<span class="welcome">欢迎您访问联想懂的上网！</span>
+			<div class="user_info">
+				<p><span class="user">你好，XXXXXX个人用户！</span><a href="">[安全退出]</a><span class="question">常见问题<em><img src="images/sj_icon.png"></em></span></p>
+				<div class="answer_wrap">
+					<span class="square fix"></span>
+					<div class="answer">
+						<ul>
+							<li><a href="">什么问题1</a></li>
+							<li><a href="">什么问题2</a></li>
+							<li><a href="">什么问题3</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="logo2"><img src="images/logo2.png" alt=""></div>
+		<div class="nav">
+			<ul>
+				<li><a href="">首页</a></li>
+				<li><a href="">SIM卡管理</a></li>
+				<li><a href="">流量池管理</a></li>
+				<li><a href="">异常告警</a></li>
+				<li><a href="">账户管理</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="container">
+			<!-- 加载内容放这里 -->
+			<div class="model_q whole colum_3" style="margin-top:30px;">
+				<h3><span style="width:78px;">SIM卡状态</span><em style="background:none">查看更多</em></h3>
+				<div class="disk">
+					<div id="echartsPie" style="width:322px;height:222px"></div>
+					<p><span><i></i>正常</span><span><i></i>待激活</span><span><i></i>停机</span></p>
+					<div class="colum_btn">
+						<button class="linear">中国移动</button>
+						<span>中国联通</span>
+						<span>中国电信</span>
+					</div>
+					<script type="text/javascript" src="js/unit/echarts.min.js"></script>
+					<script>
+					var option = {
+						    // tooltip: {
+						    //     trigger: 'item',
+						    //     formatter: "{a} <br/>{b}: {c} ({d}%)"
+						    // },
+						    color:['#4bceff','#009e96','#0194ff'],
+						    legend: {
+						        orient: 'vertical',
+						        x: 'left'
+						    },
+						    series: [
+						        {
+						            name:'访问来源',
+						            type:'pie',
+						            selectedMode: 'single',
+						            radius: [0, '30%'],
+
+						            label: {
+						                normal: {
+						                    position: 'inner'
+						                }
+						            },
+						            labelLine: {
+						                normal: {
+						                    show: false
+						                }
+						            }
+						        },
+						        {
+						            name:'访问来源',
+						            type:'pie',
+						            radius: ['25%', '55%'],
+
+						            data:[
+						                {value:335, name:'待激活 80'},
+						                {value:310, name:'正常 12210'},
+						                {value:234, name:'停机 29'}
+						            ]
+						        }
+						    ]
+						};
+						var myDoughnut = echarts.init(document.getElementById("echartsPie"))
+							myDoughnut.setOption(option);
+					</script>
+				</div>
+			</div>
+			<div class="model_q survey survey_list colum_3" style="margin-top:30px;">
+				<img src="images/ul_icon.png">
+				<h3><span>异常警告</span><em style="background:none">查看更多</em></h3>
+				<ul>
+					<li>超套餐告警<span><strong>1212</strong></span></li>
+					<li>流量池超出告警<span><strong>1212</strong></span></li>
+					<li>机卡分离告警<span><strong>1212</strong></span></li>
+					<li>超套餐告警<span><strong>1212</strong></span></li>
+					<li>流量池超出告警<span><strong>1212</strong></span></li>
+					<li>机卡分离告警<span><strong>1212</strong></span></li>
+					<li>超套餐告警<span><strong>1212</strong></span></li>
+				</ul>
+			</div>
+			<div class="model_q survey colum_3" style="margin-top:30px;">
+				<h3><span>信息概况</span><em>自定义视图</em></h3>
+				<div class="m_l">
+					<span><i></i><em>总连接数</em></span>
+					<p>40000000035</p>
+				</div>
+				<div class="m_l">
+					<span><i></i><em>发展客户数</em></span>
+					<p>12839012928</p>
+				</div>
+				<div class="m_l">
+					<span><i></i><em>环比</em></span>
+					<p>20%</p>
+				</div>
+				<div class="m_l">
+					<span><i></i><em>本月新增</em></span>
+					<p>7400035</p>
+				</div>
+			</div>
+			<div class="article_wrap">
+				<div class="model_q whole colum_3">
+					<h3><span>本月情况</span><em style="background:none">查看更多</em></h3>
+					<div class="disk">
+						<div id="echartsPie2" style="width:322px;height:222px"></div>
+						<p style="margin-left:58px;"><span><i></i>700M</span><span><i></i>1000M</span><span><i></i>1G</span><span><i></i>4G</span></p>
+						<div class="colum_btn">
+							<button class="linear">中国移动</button>
+							<span>中国联通</span>
+							<span>中国电信</span>
+						</div>
+						<script type="text/javascript" src="js/unit/echarts.min.js"></script>
+						<script>
+						var option = {
+							    // tooltip: {
+							    //     trigger: 'item',
+							    //     formatter: "{a} <br/>{b}: {c} ({d}%)"
+							    // },
+							    color:['#4bceff','#009e96','#0194ff','#0068b7'],
+							    legend: {
+							        orient: 'vertical',
+							        x: 'left'
+							    },
+							    series: [
+							        {
+							            name:'访问来源',
+							            type:'pie',
+							            selectedMode: 'single',
+							            radius: [0, '30%'],
+
+							            label: {
+							                normal: {
+							                    position: 'inner'
+							                }
+							            },
+							            labelLine: {
+							                normal: {
+							                    show: false
+							                }
+							            }
+							        },
+							        {
+							            name:'访问来源',
+							            type:'pie',
+							            radius: ['25%', '55%'],
+
+							            data:[
+							                {value:335, name:'4G 10'},
+							                {value:310, name:'1G 50'},
+							                {value:234, name:'100MB 20'},
+							                {value:234, name:'70MB 100'}
+							            ]
+							        }
+							    ]
+							};
+							var myDoughnut = echarts.init(document.getElementById("echartsPie2"))
+								myDoughnut.setOption(option);
+						</script>
+					</div>
+				</div>
+				<div class="model_q survey survey_list colum_3">
+					<img src="images/ul_icon.png">
+					<h3><span>到期提醒</span><em style="background:none">查看更多</em></h3>
+					<ul>
+						<li>客户A<span><strong>270</strong/>张卡即将到期</span></li>
+						<li>客户B<span><strong>70</strong/>张卡即将到期</span></li>
+						<li>客户C<span><strong>20</strong/>张卡即将到期</span></li>
+						<li>客户D<span><strong>5</strong/>张卡即将到期</span></li>
+						<li>客户E<span><strong>30</strong/>张卡即将到期</span></li>
+						<li>客户F<span><strong>2270</strong/>张卡即将到期</span></li>
+						<li>客户G<span><strong>20</strong/>张卡即将到期</span></li>
+					</ul>
+				</div>
+				<div class="model_q survey survey_list colum_3">
+					<img src="images/ul_icon.png">
+					<h3><span>重要通知</span><em style="background:none">查看更多</em></h3>
+					<ul>
+						<li>系统升级<span>017-05-12</span></li>
+						<li>到货通知<span>017-05-12</span></li>
+						<li>流量池警告<span>017-05-12</span></li>
+						<li>流量池警告<span>017-05-12</span></li>
+						<li>流量池警告<span>017-05-12</span></li>
+						<li>流量池警告<span>017-05-12</span></li>
+						<li>流量池警告<span>017-05-12</span></li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+	    </div>
+	</div>
+</body>
+</html>

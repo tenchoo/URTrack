@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.GrpnetImpbillExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.GrpnetImpbill" >
+    <id column="BILL_ID" property="billId" jdbcType="DECIMAL" />
+    <result column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="CHAR" />
+    <result column="FILE_SRC" property="fileSrc" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BILL_ID, BATCH_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, ITEM_NAME, CYCLE_ID, USE_COUNT, 
+    DEAL_TAG, RECV_TIME, RESULT_INFO, UPDATE_TIME, UPDATE_STAFF_ID, FILE_SRC, RSRV_INFO1, 
+    RSRV_INFO2
+  </sql>
+  <insert id="batchInsert"  parameterType="java.util.List">  
+   insert into LAO_GRPNET_IMPBILL (BILL_ID, BATCH_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, ITEM_NAME, CYCLE_ID, USE_COUNT, 
+    DEAL_TAG, RECV_TIME, RESULT_INFO, UPDATE_TIME, UPDATE_STAFF_ID, FILE_SRC, RSRV_INFO1, 
+    RSRV_INFO2)   
+    <foreach collection="list" item="item" index="index"  separator="union all"  >
+    	(select  #{item.billId},#{item.batchId},#{item.userId},#{item.serialNumber},#{item.itemId},#{item.itemName},#{item.cycleId},#{item.useCount},#{item.dealTag},#{item.recvTime},#{item.resultInfo},#{item.updateTime},#{item.updateStaffId},#{item.fileSrc},#{item.rsrvInfo1},#{item.rsrvInfo2} from dual)  
+    </foreach>
+   </insert> 
+ 
+</mapper>

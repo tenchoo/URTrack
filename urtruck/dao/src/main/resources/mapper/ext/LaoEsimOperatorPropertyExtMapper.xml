@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimOperatorPropertyExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimOperatorProperty" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATORNAME" property="operatorname" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="LICENSEKEY" property="licensekey" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, OPERATOR, OPERATORNAME, USERNAME, PASSWORD, URL, LICENSEKEY, VERSION, CREATEDATE, 
+    PARAM1, PARAM2
+  </sql>
+   <select id="getProperty" resultType="LaoEsimOperatorProperty" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from lao_esim_operator_property
+    where operator = #{operator,jdbcType=VARCHAR}
+  </select>
+</mapper>

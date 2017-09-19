@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsRoleCustPoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoSsRoleCustPo">
+		<id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+	</resultMap>
+	<select id="queryPage" resultType="map" parameterType="java.util.Map">
+		select * from (select a1.*,ROWNUM RN from (select * from (select
+		m.cust_id,m.cust_name,mm.totalcount
+		from lao_customer m , (select
+		ff.cust_id, count(ff.cust_id) as totalcount
+		from (select c.role_id,
+		rr.cust_id from Lao_Ss_Role_Cust rr,
+		Lao_Role_Server_Conn
+		c where
+		c.role_id = rr.role_id) ff group by ff.cust_id) mm where
+		m.cust_id=mm.cust_id 
+		and m.cust_type=1  
+		<if test="custName!=null">
+		and m.cust_name LIKE '%'||#{custName}||'%'
+		</if>
+		 ) ) a1 where ROWNUM <![CDATA[<=]]>
+		#{pageSize}
+		) where RN <![CDATA[>=]]>#{pageNo}
+	</select>
+	<select id="countTotal" resultType="java.lang.Integer">
+		select count(1)
+		from (select m.cust_id, m.cust_name, mm.totalcount
+		from lao_customer m,
+		(select ff.cust_id,
+		count(ff.cust_id) as totalcount
+		from (select c.role_id, rr.cust_id
+		from Lao_Ss_Role_Cust rr
+		, Lao_Role_Server_Conn c
+		where c.role_id = rr.role_id) ff
+		group by ff.cust_id) mm
+		where m.cust_id = mm.cust_id
+		and m.cust_type = 1
+		<if test="custName!=null">
+		  and	m.cust_name LIKE '%'||#{custName}||'%' 
+		</if>
+		)
+	</select>
+	<select id="queryByCustId" resultMap="BaseResultMap" parameterType="Long" >
+	     select  ROLE_ID,CUST_ID from Lao_Ss_Role_Cust where CUST_ID=#{custId}
+	</select>
+	<select id="queryLaoRoleServerConn" resultType="map" parameterType="Long">
+	  select *  from Lao_Role_Server_Conn c where c.role_id=#{roleId} and c.server_id=#{serverId}
+	</select>
+	<insert id="insertLaoRoleServerConn">
+	    insert into Lao_Role_Server_Conn (ROLE_ID,SERVER_ID)
+    values (#{roleId},#{serverId})
+	</insert>
+	<select id="queryRoleMax" resultType="Long" >
+	    select Max(role_Id)  from Lao_Ss_Role_Cust
+	</select>
+	<delete id="deleteLaoRoleServerConn">
+	     delete from Lao_Role_Server_Conn r where r.role_id=#{roleId}
+	</delete>
+</mapper>

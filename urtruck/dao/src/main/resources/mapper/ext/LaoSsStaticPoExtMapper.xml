@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsStaticPoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoSsStaticPo">
+		<id column="STATIC_ID" property="staticId" jdbcType="DECIMAL" />
+		<result column="STATIC_CODE" property="staticCode" jdbcType="VARCHAR" />
+		<result column="STATIC_NAME" property="staticName" jdbcType="VARCHAR" />
+		<result column="TAB_NAME" property="tabName" jdbcType="VARCHAR" />
+		<result column="COL_NAME" property="colName" jdbcType="VARCHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="PID" property="pid" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		STATIC_ID, STATIC_CODE, STATIC_NAME, TAB_NAME, COL_NAME, CUST_ID, PID
+	</sql>
+	<select id="queryStatic" resultType="java.util.Map"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select * from lao_ss_static where 1=1
+		<if test="colName!=null">
+			and COL_NAME=#{colName}
+		</if>
+		<if test="custId!=null">
+			and CUST_ID=#{custId}
+		</if>
+		<if test="staticCode!=null">
+			and STATIC_CODE=#{staticCode}
+		</if>
+		<if test="pid!=null">
+			and PID=#{pid}
+		</if>
+	</select>
+	<select id="getStaticByCustIdCode" resultMap="BaseResultMap"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_SS_STATIC where STATIC_CODE = #{staticCode} and
+		(CUST_ID=#{custId} or CUST_ID='-1')
+	</select>
+	<select id="getIdTypeByDeviceRel" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_SS_STATIC ss
+		where ss.tab_name ='LAO_DEVICE_REL'
+		and ss.col_name ='id_type'
+	</select>
+	<select id="queryStaticByClo" resultType="java.util.Map"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select * from lao_ss_static where 1=1 and COL_NAME=#{colName} and
+		CUST_ID=#{custId}
+	</select>
+	<select id="queryStaticByCode" resultType="java.util.Map"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select * from lao_ss_static where 1=1 and STATIC_CODE=#{staticCode} and
+		CUST_ID=#{custId}
+	</select>
+	<select id="queryStaticByParent" resultType="java.util.Map"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select * from lao_ss_static where 1=1 and PID=#{pid} and CUST_ID=#{custId}
+	</select>
+	<!-- æ ¹æ®å®¢æˆ·æ£€æŸ¥ä¸€çº§åˆ†ç±» -->
+	<select id="queryProductTypeByCustId" resultType="java.util.Map"
+		parameterType="java.lang.String">
+		select * from lao_ss_static where 1=1 and COL_NAME='VALUE1' and
+		(CUST_ID=#{custId} or CUST_ID='-1')
+	</select>
+	<!-- æ ¹æ®CUST_IDæ‰¾åˆ°ä¸€çº§æ ‡è¯† -->
+	  <select id="queryProductTypeVAL1" resultType="java.util.Map" parameterType="java.lang.String">
+  	<!-- select *  from lao_ss_static where 1=1 and COL_NAME='VAL1' and CUST_ID='-2' -->
+  	select * from lao_ss_static where 1=1 and TAB_NAME='LAO_USER' AND COL_NAME='ATTRIBUTE1' and CUST_ID='10' 
+  </select>
+	<select id="queryPoolsByCustId" resultType="java.util.Map"
+		parameterType="java.lang.String">
+		select * from lao_ss_static where 1=1 and COL_NAME='POOL' and
+		CUST_ID=#{custId}
+	</select>
+	<!-- äºŒçº§åˆ†ç±» -->
+	<select id="queryProductVersionByPid" resultType="java.util.Map"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select * from lao_ss_static where 1=1 and COL_NAME='VALUE2'
+		<if test="pid != null">
+			and PID = #{pid}
+		</if>
+	</select>
+	<select id="queryProductVersionVAL2" resultType="java.util.Map"
+		parameterType="java.lang.String">
+		<!-- select * from lao_ss_static where COL_NAME='VAL2' and PID = #{pid} -->
+		select * from lao_ss_static where 1=1 and TAB_NAME='LAO_USER' AND
+		COL_NAME='attribute2' and PID = #{pid}
+	</select>
+	<!-- <if test="custId != null" > and CUST_ID = #{custId} </if> and CUST_ID='-1' -->
+	<select id="getStaticByIccid" resultType="java.util.Map"
+		parameterType="java.lang.String">
+		select cust.cust_id as cust_id,cust.CUST_NAME as cust_name,lss.static_name
+		as att1,lss1.static_name as att2,lss2.static_name as
+		val1,lss3.static_name as val2 from lao_iccid_lib lib left join
+		lao_customer cust on lib.CUSTID=cust.CUST_ID
+		left join lao_ss_static lss on lib.CUSTID=lss.cust_id and
+		lss.col_name='attribute1' and lss.static_code=lib.attribute1
+		left join lao_ss_static lss1 on lib.CUSTID=lss1.cust_id and
+		lss1.col_name='attribute2' and lss1.static_code=lib.attribute2
+		left join lao_ss_static lss2 on lib.CUSTID=lss2.cust_id and
+		lss2.col_name='VALUE1' and lss2.static_code=lib.value1
+		left join lao_ss_static lss3 on lib.CUSTID=lss3.cust_id and
+		lss3.col_name='VALUE2' and lss3.static_code=lib.value2 where
+		lib.iccid=#{id}
+	</select>
+	<select id="queryPaymentOps" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from lao_ss_static where tab_name='lao_b_paylog'and
+		COL_NAME='PAYMENT_OP'
+	</select>
+	<select id="queryUserIncomeByIntelligent" resultType="java.util.Map">
+		select a.staticname,a.sumuser sumuserA,b.sumincome
+		sumincomeB,c.sumuser sumuserC,d.sumincome sumincomeD,e.sumuser
+		sumuserE from
+		( select ss1.static_name staticname, count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute1 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE1'
+		and u.channel_cust_id != '90001'
+		and to_char(u.in_date,'yyyy-MM')=
+		to_char(#{date3,jdbcType=TIMESTAMP},'yyyy-MM')
+		group by ss1.static_name
+		) a left join
+		( select ss1.static_name staticname ,sum(ug.release_cycle) sumincome
+		from lao_user_goods_bak_20170628 ug ,lao_ss_static ss1,lao_user u
+		where u.attribute1 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE1'
+		and u.channel_cust_id != '90001'
+		and ug.user_id = u.user_id
+		and to_char(ug.start_date,'yyyy-MM')=
+		to_char(#{date3,jdbcType=TIMESTAMP},'yyyy-MM')
+		group by ss1.static_name
+		) b on a.staticname =b.staticname left join
+		( select ss1.static_name staticname, count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute1 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE1'
+		and u.channel_cust_id != '90001'
+		and u.in_date<![CDATA[>=]]>
+		to_date(#{date1},'yyyy-MM-dd')
+		and u.in_date<![CDATA[< ]]>
+		to_date(#{date2},'yyyy-MM-dd')
+		group by ss1.static_name
+		) c on a.staticname =c.staticname left join
+		( select ss1.static_name staticname ,sum(ug.release_cycle) sumincome
+		from lao_user_goods_bak_20170628 ug ,lao_ss_static ss1,lao_user u
+		where u.attribute1 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE1'
+		and u.channel_cust_id != '90001'
+		and ug.user_id = u.user_id
+		and ug.start_date<![CDATA[>=]]>
+		to_date(#{date1},'yyyy-MM-dd')
+		and ug.start_date<![CDATA[< ]]>
+		to_date(#{date2},'yyyy-MM-dd')
+		group by ss1.static_name
+		) d on a.staticname =d.staticname left join
+		( select ss1.static_name staticname, count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute1 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE1'
+		and u.channel_cust_id != '90001'
+		group by ss1.static_name
+		) e on a.staticname =e.staticname
+	</select>
+
+	<select id="queryZhiNengHuLian" resultType="java.util.Map">
+		select a.staticname,a.sumuser sumuserA,b.sumincome
+		sumincomeB,c.sumuser sumuserC,d.sumincome sumincomeD,e.sumuser
+		sumuserE from
+		(
+		select ss1.static_name staticname,count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute2 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE2'
+		and u.channel_cust_id = '90001'
+		and to_char(u.in_date,'yyyy-MM')=
+		to_char(#{date3,jdbcType=TIMESTAMP},'yyyy-MM')
+		group by ss1.static_name
+		) a left join
+		(
+		select ss1.static_name staticname,sum(ug.release_cycle) sumincome
+		from lao_user_goods_bak_20170628 ug ,lao_ss_static ss1,lao_user u
+		where u.attribute2 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE2'
+		and u.channel_cust_id = '90001'
+		and ug.user_id = u.user_id
+		and to_char(ug.start_date,'yyyy-MM')=
+		to_char(#{date3,jdbcType=TIMESTAMP},'yyyy-MM')
+		group by ss1.static_name
+		) b on a.staticname =b.staticname left join
+		(
+		select ss1.static_name staticname,count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute2 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE2'
+		and u.channel_cust_id = '90001'
+		and u.in_date<![CDATA[>=]]>
+		to_date(#{date1},'yyyy-MM-dd')
+		and u.in_date<![CDATA[< ]]>
+		to_date(#{date2},'yyyy-MM-dd')
+		group by ss1.static_name
+		) c on a.staticname =c.staticname left join
+		(
+		select ss1.static_name staticname,sum(ug.release_cycle) sumincome
+		from lao_user_goods_bak_20170628 ug ,lao_ss_static ss1,lao_user u
+		where u.attribute2 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE2'
+		and u.channel_cust_id = '90001'
+		and ug.user_id = u.user_id
+		and ug.start_date<![CDATA[>=]]>
+		to_date(#{date1},'yyyy-MM-dd')
+		and ug.start_date<![CDATA[< ]]>
+		to_date(#{date2},'yyyy-MM-dd')
+		group by ss1.static_name
+		) d on a.staticname =d.staticname left join
+		(
+		select ss1.static_name staticname,count(*) sumuser
+		from lao_ss_static ss1,lao_user u
+		where u.attribute2 = ss1.static_code
+		and ss1.col_name='ATTRIBUTE2'
+		and u.channel_cust_id = '90001'
+		group by ss1.static_name
+		) e on a.staticname =e.staticname
+	</select>
+	<select id="queryProductTypeVAL1TSP" resultType="java.util.Map" parameterType="java.lang.String">
+		select * from lao_ss_static where 1=1 and COL_NAME='attribute1' and CUST_ID=#{custId}
+	</select>
+		<select id="getStaticByCustIdCodeTSP" resultMap="BaseResultMap"
+		parameterType="com.urt.po.LaoSsStaticPo">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_SS_STATIC where STATIC_CODE = #{staticCode} and
+		(CUST_ID=#{custId} or CUST_ID='-1')
+	</select>
+</mapper>

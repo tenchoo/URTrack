@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAlmElemValueExtPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmElemValuePo" >
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+    <result column="ELEMENT_ID" property="elementId" jdbcType="DECIMAL" />
+    <result column="ELEM_VALUE" property="elemValue" jdbcType="VARCHAR" />
+    <result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="RECV_OPER_ID" property="recvOperId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_OPER_ID" property="updateOperId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+    RULE_ID, RULE_TYPE_ID, ELEMENT_ID, ELEM_VALUE, VALID_TAG, RECV_TIME, RECV_OPER_ID, UPDATE_TIME, 
+    UPDATE_OPER_ID, REMARK
+  </sql>
+  <delete id="deletesByRuleId" parameterType="java.lang.Long" >
+    delete from LAO_ALM_ELEM_VALUE
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </delete>
+  <select id="getElemValuesByRuleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" /> 
+  	from LAO_ALM_ELEM_VALUE where RULE_ID=#{ruleId,jdbcType=DECIMAL}
+  </select>
+</mapper>

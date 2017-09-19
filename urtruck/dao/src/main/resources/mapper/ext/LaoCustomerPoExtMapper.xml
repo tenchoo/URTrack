@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustomerPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerPo" >
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="CHAR" />
+    <result column="CUST_STATE" property="custState" jdbcType="CHAR" />
+    <result column="PSPT_TYPE_CODE" property="psptTypeCode" jdbcType="CHAR" />
+    <result column="PSPT_ID" property="psptId" jdbcType="VARCHAR" />
+    <result column="REMOVE_DATE" property="removeDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_CHANGE" property="removeChange" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_DATE1" property="rsrvDate1" jdbcType="TIMESTAMP" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="IN_STAFF_ID" property="inStaffId" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="DEV_CUST" property="devCust" jdbcType="DECIMAL" />
+    <result column="DEV_ACT" property="devAct" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER where 1=1 
+ 	and CUST_TYPE='1'
+ 	<if test="params.param.custName != null and params.param.custName!=''" >
+		and  CUST_NAME like CONCAT(CONCAT('%', #{params.param.custName}), '%') 
+	</if>
+ 	<if test="params.param.custId != null and params.param.custId!=''" >
+		and  CUST_ID = #{params.param.custId}
+	</if>
+	 	ORDER BY IN_DATE desc
+  </select>
+  
+   <select id="queryPageNormal" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER where 1=1 
+ 	and CUST_TYPE='1'
+ 	and (CUST_ID = #{params.pid} or PARENT_ID = #{params.pid}) 
+ 	<if test="params.param.custName != null and params.param.custName!=''" >
+		and  CUST_NAME like CONCAT(CONCAT('%', #{params.param.custName}), '%') 
+	</if>
+	 	ORDER BY IN_DATE desc
+  </select>
+  
+   <select id="feeQueryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER where 1=1 
+ 	and CUST_TYPE='1'
+	START WITH CUST_ID=#{params.pid}
+	CONNECT BY PRIOR CUST_ID=PARENT_ID
+	 	ORDER BY IN_DATE desc
+  </select>
+  
+  <select id="queryAgent" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER where 1=1 and CUST_TYPE='1'
+  </select>
+  
+   <select id="queryAllAgents" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUSTOMER 
+  </select>
+  
+    <select id="queryCustName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	select * from LAO_CUSTOMER where 1=1
+     <if test="custName!=null">
+    AND CUST_NAME LIKE '%'||#{custName}||'%'
+      </if>
+  </select>
+  
+    <select id="selectStaticName" resultType="java.util.Map" parameterType="java.lang.Long" >
+ 	select  b.static_name as static_nameA, c.static_name as static_nameB
+ 	from lao_customer a, lao_ss_static b，lao_ss_static c
+ 	where a.cust_id = b.cust_id
+    and a.cust_id = c.cust_id
+    and b.col_name = 'attribute1'
+    and c.col_name = 'attribute2'
+    and a.CUST_ID = #{custId,jdbcType=DECIMAL}
+  </select>
+  <select id="queryComCustByName" resultMap="BaseResultMap" >
+ 	select * from LAO_CUSTOMER where CUST_TYPE='1'
+     <if test="custName!=null">
+    AND CUST_NAME LIKE '%'||#{custName}||'%'
+      </if>
+  </select>
+   <select id="queryChannelCust" resultMap="BaseResultMap" >
+ select cust.cust_id, cust.cust_name, cust.rsrv_str1
+  from lao_customer cust, lao_cust_group custgroup
+ where cust.cust_id = custgroup.cust_id
+   and custgroup.sell_type = #{sellType}
+  </select>
+  <select id="queryCustId" parameterType="java.lang.Long"  resultType="java.lang.Long" > 
+    select CUST_ID from LAO_CUSTOMER where DEV_CUST = #{devCust,jdbcType=DECIMAL} 
+  </select>
+<!--   <select id="queryChannelCust" resultMap="BaseResultMap"  > -->
+<!--     select * from LAO_CUSTOMER where 1=1 and CUST_TYPE='1' and PARENT_ID IS NULL -->
+<!--   </select> -->
+</mapper>

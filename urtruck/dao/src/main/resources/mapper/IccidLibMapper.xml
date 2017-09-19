@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.IccidLibMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidLib" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="PRIVATEKEY" property="privatekey" jdbcType="VARCHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="VARCHAR" />
+    <result column="INITPRODUCT" property="initproduct" jdbcType="VARCHAR" />
+    <result column="CARDSTATUS" property="cardstatus" jdbcType="VARCHAR" />
+    <result column="OPERATORS" property="operators" jdbcType="VARCHAR" />
+    <result column="CTYPE" property="ctype" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="IF_MAINTENANCE" property="ifMaintenance" jdbcType="VARCHAR" />
+    <result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ACTIVED" property="actived" jdbcType="VARCHAR" />
+    <result column="BATCH_ID" property="batchId" jdbcType="VARCHAR" />
+    
+    <result column="TEST_CYCLE" property="testCycle" jdbcType="DECIMAL" />
+    <result column="VIC" property="vic" jdbcType="VARCHAR" />
+    <result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+    <result column="BUY_ORDER_NO" property="buyOrderNo" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ICCID, DEVICETYPE, PRIVATEKEY, CARDTYPE, INITPRODUCT, CARDSTATUS, OPERATORS, 
+    CTYPE, ATTRIBUTE1, VALUE1, ATTRIBUTE2, VALUE2, IF_MAINTENANCE, CUSTID,IN_DATE,MSISDN,ACTIVED,BATCH_ID,TEST_CYCLE
+    ,VIC,IMSI,BUY_ORDER_NO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ICCID_LIB
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from LAO_ICCID_LIB
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.IccidLib" >
+    insert into LAO_ICCID_LIB (ID, ICCID, DEVICETYPE, 
+      PRIVATEKEY, CARDTYPE, INITPRODUCT, 
+      CARDSTATUS, OPERATORS, CTYPE, 
+      ATTRIBUTE1, VALUE1, ATTRIBUTE2, 
+      VALUE2, IF_MAINTENANCE, CUSTID,IN_DATE,MSISDN,ACTIVED,BATCH_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{devicetype,jdbcType=VARCHAR}, 
+      #{privatekey,jdbcType=VARCHAR}, #{cardtype,jdbcType=VARCHAR}, #{initproduct,jdbcType=VARCHAR}, 
+      #{cardstatus,jdbcType=VARCHAR}, #{operators,jdbcType=VARCHAR}, #{ctype,jdbcType=VARCHAR}, 
+      #{attribute1,jdbcType=VARCHAR}, #{value1,jdbcType=VARCHAR}, #{attribute2,jdbcType=VARCHAR}, 
+      #{value2,jdbcType=VARCHAR}, #{ifMaintenance,jdbcType=VARCHAR}, #{custid,jdbcType=VARCHAR},
+      #{inDate,jdbcType=TIMESTAMP},#{msisdn,jdbcType=VARCHAR},#{actived,jdbcType=VARCHAR},#{batchId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.IccidLib" >
+    insert into LAO_ICCID_LIB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="devicetype != null" >
+        DEVICETYPE,
+      </if>
+      <if test="privatekey != null" >
+        PRIVATEKEY,
+      </if>
+      <if test="cardtype != null" >
+        CARDTYPE,
+      </if>
+      <if test="initproduct != null" >
+        INITPRODUCT,
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS,
+      </if>
+      <if test="operators != null" >
+        OPERATORS,
+      </if>
+      <if test="ctype != null" >
+        CTYPE,
+      </if>
+      <if test="attribute1 != null" >
+        ATTRIBUTE1,
+      </if>
+      <if test="value1 != null" >
+        VALUE1,
+      </if>
+      <if test="attribute2 != null" >
+        ATTRIBUTE2,
+      </if>
+      <if test="value2 != null" >
+        VALUE2,
+      </if>
+      <if test="ifMaintenance != null" >
+        IF_MAINTENANCE,
+      </if>
+      <if test="custid != null" >
+        CUSTID,
+      </if>
+      <if test="inDate != null" >
+         IN_DATE,
+      </if>
+      <if test="msisdn != null" >
+         MSISDN,
+      </if>
+       <if test="actived != null" >
+         ACTIVED,
+      </if>
+       <if test="batchId != null" >
+         BATCH_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null" >
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="privatekey != null" >
+        #{privatekey,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="initproduct != null" >
+        #{initproduct,jdbcType=VARCHAR},
+      </if>
+      <if test="cardstatus != null" >
+        #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute1 != null" >
+        #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null" >
+        #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="ifMaintenance != null" >
+        #{ifMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="custid != null" >
+        #{custid,jdbcType=VARCHAR},
+      </if>
+       <if test="inDate != null" >
+         #{inDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="msisdn != null" >
+         #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="actived != null" >
+          #{actived,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+          #{batchId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.IccidLib" >
+    update LAO_ICCID_LIB
+    <set >
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null" >
+        DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="privatekey != null" >
+        PRIVATEKEY = #{privatekey,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="initproduct != null" >
+        INITPRODUCT = #{initproduct,jdbcType=VARCHAR},
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        OPERATORS = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        CTYPE = #{ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute1 != null" >
+        ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        VALUE1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null" >
+        ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        VALUE2 = #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="ifMaintenance != null" >
+        IF_MAINTENANCE = #{ifMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="custid != null" >
+        CUSTID = #{custid,jdbcType=VARCHAR},
+      </if>
+       <if test="inDate != null" >
+         IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="msisdn != null" >
+         MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="actived != null" >
+         ACTIVED = #{actived,jdbcType=VARCHAR},
+      </if>
+      <if test="batchId != null" >
+         BATCH_ID = #{batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.IccidLib" >
+    update LAO_ICCID_LIB
+    set ICCID = #{iccid,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      PRIVATEKEY = #{privatekey,jdbcType=VARCHAR},
+      CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      INITPRODUCT = #{initproduct,jdbcType=VARCHAR},
+      CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      OPERATORS = #{operators,jdbcType=VARCHAR},
+      CTYPE = #{ctype,jdbcType=VARCHAR},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR},
+      IF_MAINTENANCE = #{ifMaintenance,jdbcType=VARCHAR},
+      CUSTID = #{custid,jdbcType=VARCHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      ACTIVED = #{actived,jdbcType=VARCHAR}
+      BATCH_ID = #{batchId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

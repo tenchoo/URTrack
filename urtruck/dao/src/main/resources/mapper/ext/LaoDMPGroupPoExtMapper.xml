@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPGroupPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPGroupPo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+    <result column="GROUP_COMMENT" property="groupComment" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CUSTID" property="channelCustid" jdbcType="DECIMAL" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GROUP_NAME, GROUP_COMMENT, CHANNEL_CUSTID, DELFLAG, CREATETIME, UPDATETIME
+  </sql>
+  <sql id="Group_List" >
+   ID, GROUP_NAME, GROUP_COMMENT,DELFLAG
+  </sql>
+	
+	 <update id="delDeviceManage" parameterType="long">
+    update LAO_DMP_GROUP
+    set DELFLAG = 0
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+ <select id="queryPage" resultType="map" parameterType="map">
+		select gp.id,gp.group_name,decode(group_comment,'',' ',group_comment) groupComment from lao_dmp_group gp
+		where gp.CHANNEL_CUSTID=#{params.param.channelCustid} and gp.DELFLAG = 1 order by CREATETIME desc
+ </select>
+ <select id="getGroupsByCustId" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lao_dmp_group 
+		where CHANNEL_CUSTID=#{custId} and DELFLAG = 1 order by CREATETIME desc
+ </select>
+</mapper>

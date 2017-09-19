@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustConfigExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustConfig">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="VISTS" jdbcType="VARCHAR" property="vists" />
+    <result column="IS_TAG" jdbcType="VARCHAR" property="isTag" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="IS_RANDOM_CHECK" jdbcType="VARCHAR" property="isRandomCheck" />
+    <result column="IS_IP_CHECK" jdbcType="VARCHAR" property="isIpCheck" />
+    <result column="IS_LIMIT_CUST_VISTS" jdbcType="VARCHAR" property="isLimitCustVists" />
+    <result column="PARA_NAME1" jdbcType="VARCHAR" property="paraName1" />
+    <result column="PARA_NAME2" jdbcType="VARCHAR" property="paraName2" />
+    <result column="SERVER_NAME" jdbcType="VARCHAR" property="serverName" />
+    <result column="SERVER_NAME_LIMIT" jdbcType="VARCHAR" property="serverNameLimit" />
+    <result column="SENDSMS_CALLBACKURL" jdbcType="VARCHAR" property="sendsmsCallbackurl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CUST_ID, VISTS, IS_TAG, CREATEDATE, IS_RANDOM_CHECK, IS_IP_CHECK, IS_LIMIT_CUST_VISTS, 
+    PARA_NAME1, PARA_NAME2, SERVER_NAME, SERVER_NAME_LIMIT, SENDSMS_CALLBACKURL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUST_CONFIG
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </select>
+</mapper>

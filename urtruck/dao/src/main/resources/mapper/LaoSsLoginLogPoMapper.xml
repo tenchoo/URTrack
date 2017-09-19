@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsLoginLogPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsLoginLogPo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    <result column="LOGIN_TIME" property="loginTime" jdbcType="TIMESTAMP" />
+    <result column="SESSION_ID" property="sessionId" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_ID, LOGIN_TIME, SESSION_ID, IP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_LOGIN_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_SS_LOGIN_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsLoginLogPo" >
+    insert into LAO_SS_LOGIN_LOG (ID, ACCOUNT_ID, LOGIN_TIME, 
+      SESSION_ID, IP)
+    values (#{id,jdbcType=DECIMAL}, #{accountId,jdbcType=DECIMAL}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{sessionId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsLoginLogPo" >
+    insert into LAO_SS_LOGIN_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME,
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsLoginLogPo" >
+    update LAO_SS_LOGIN_LOG
+    <set >
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sessionId != null" >
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsLoginLogPo" >
+    update LAO_SS_LOGIN_LOG
+    set ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

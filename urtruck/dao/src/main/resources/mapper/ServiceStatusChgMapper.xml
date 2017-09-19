@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ServiceStatusChgMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.ServiceStatusChg">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="TRADE_TYPE_CODE" jdbcType="VARCHAR" property="tradeTypeCode" />
+    <result column="OLD_STATE_CODE" jdbcType="VARCHAR" property="oldStateCode" />
+    <result column="NEW_STATE_CODE" jdbcType="VARCHAR" property="newStateCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TRADE_TYPE_CODE, OLD_STATE_CODE, NEW_STATE_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS_CHG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from LAO_SERVICE_STATUS_CHG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.ServiceStatusChg">
+    insert into LAO_SERVICE_STATUS_CHG (ID, TRADE_TYPE_CODE, OLD_STATE_CODE, 
+      NEW_STATE_CODE)
+    values (#{id,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=VARCHAR}, #{oldStateCode,jdbcType=VARCHAR}, 
+      #{newStateCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.ServiceStatusChg">
+    insert into LAO_SERVICE_STATUS_CHG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="oldStateCode != null">
+        OLD_STATE_CODE,
+      </if>
+      <if test="newStateCode != null">
+        NEW_STATE_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null">
+        #{tradeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oldStateCode != null">
+        #{oldStateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="newStateCode != null">
+        #{newStateCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.ServiceStatusChg">
+    update LAO_SERVICE_STATUS_CHG
+    <set>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oldStateCode != null">
+        OLD_STATE_CODE = #{oldStateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="newStateCode != null">
+        NEW_STATE_CODE = #{newStateCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.ServiceStatusChg">
+    update LAO_SERVICE_STATUS_CHG
+    set TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=VARCHAR},
+      OLD_STATE_CODE = #{oldStateCode,jdbcType=VARCHAR},
+      NEW_STATE_CODE = #{newStateCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

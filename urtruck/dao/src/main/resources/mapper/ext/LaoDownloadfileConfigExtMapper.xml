@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDownloadfileConfigExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDownloadfileConfig" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="FILEPREFIX_NAME" property="fileprefixName" jdbcType="VARCHAR" />
+    <result column="FILESUFFIX_DATE" property="filesuffixDate" jdbcType="TIMESTAMP" />
+    <result column="ISDOWNLOAD" property="isdownload" jdbcType="DECIMAL" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FILEPREFIX_NAME, FILESUFFIX_DATE, ISDOWNLOAD, PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectListFile" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DOWNLOADFILE_CONFIG
+    where ISDOWNLOAD=0
+  </select>
+  
+   <select id="selectListFileByofo" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />  
+    from Lao_Downloadfile_Config c where c.isdownload=0 and c.para_name1='9001'
+  </select>
+</mapper>

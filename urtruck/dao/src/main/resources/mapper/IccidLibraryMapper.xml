@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.IccidLibraryMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidLibrary">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="DEVICETYPE" jdbcType="VARCHAR" property="devicetype" />
+    <result column="PRIVATEKEY" jdbcType="VARCHAR" property="privatekey" />
+    <result column="CARDTYPE" jdbcType="VARCHAR" property="cardType" />
+    <result column="RATE" jdbcType="VARCHAR" property="rate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ICCID, DEVICETYPE, PRIVATEKEY, CARDTYPE, RATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ICCID_LIBRARY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+   <!--条件查询-->
+  <select id="doQueryFirst" parameterType="java.lang.String" resultMap="BaseResultMap">
+ 	select 
+    *
+    from LAO_ICCID_LIBRARY 
+    where ICCID = #{iccid,jdbcType=VARCHAR}
+    and  rownum = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from LAO_ICCID_LIBRARY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.IccidLibrary">
+    insert into LAO_ICCID_LIBRARY (ID, ICCID, DEVICETYPE, 
+      PRIVATEKEY)
+    values (#{id,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{devicetype,jdbcType=VARCHAR}, 
+      #{privatekey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.IccidLibrary">
+    insert into LAO_ICCID_LIBRARY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="devicetype != null">
+        DEVICETYPE,
+      </if>
+      <if test="privatekey != null">
+        PRIVATEKEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null">
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="privatekey != null">
+        #{privatekey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.IccidLibrary">
+    update LAO_ICCID_LIBRARY
+    <set>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null">
+        DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="privatekey != null">
+        PRIVATEKEY = #{privatekey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.IccidLibrary">
+    update LAO_ICCID_LIBRARY
+    set ICCID = #{iccid,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      PRIVATEKEY = #{privatekey,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

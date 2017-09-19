@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimIccidLibExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoEsimIccidLib">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+		<result column="CARDSTATUS" property="cardstatus" jdbcType="VARCHAR" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+		<result column="INDATE" property="indate" jdbcType="TIMESTAMP" />
+		<result column="ICCIDCURENTSTATUS" property="iccidcurentstatus"
+			jdbcType="DECIMAL" />
+		<result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+		<result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ICCID, CARDSTATUS, COUNTRY_ID, INDATE, ICCIDCURENTSTATUS, PARAM1, PARAM2
+	</sql>
+	<select id="selectByGoodsId" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		eb.*
+		from LAO_ESIM_ICCID_LIB eb,lao_esim_goods eg
+		where rownum=1 and eb.country_id=eg.country_id and
+		eb.iccidcurentstatus=0 and
+		eg.goods_id=#{goodsId}
+
+	</select>
+	<select id="selectByIccid" resultMap="BaseResultMap" parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_ESIM_ICCID_LIB
+		where ICCID = #{iccid,jdbcType=VARCHAR}
+
+	</select>
+
+	<update id="updateByIccid" parameterType="String">
+		update Lao_Esim_Iccid_Lib b set b.iccidcurentstatus=1 where b.iccid=#{iccid}
+
+	</update>
+
+</mapper>

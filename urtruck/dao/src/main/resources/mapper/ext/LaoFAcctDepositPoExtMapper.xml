@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoFAcctDepositPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFAcctDepositPo" >
+    <id column="ACCT_BALANCE_ID" property="acctBalanceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="INIT_MONEY" property="initMoney" jdbcType="DECIMAL" />
+    <result column="DEPOSIT_MONEY" property="depositMoney" jdbcType="DECIMAL" />
+    <result column="INVOICE_FEE" property="invoiceFee" jdbcType="DECIMAL" />
+    <result column="PRINT_FEE" property="printFee" jdbcType="DECIMAL" />
+    <result column="START_CYC_ID" property="startCycId" jdbcType="DECIMAL" />
+    <result column="END_CYC_ID" property="endCycId" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="CASH_TAG" property="cashTag" jdbcType="CHAR" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_STR2" property="rsrvStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCT_BALANCE_ID, CHANNEL_CUST_ID, INIT_MONEY, DEPOSIT_MONEY, INVOICE_FEE, PRINT_FEE, 
+    START_CYC_ID, END_CYC_ID, START_DATE, END_DATE, CASH_TAG, UPDATE_STAFF_ID, UPDATE_TIME, 
+    OPER_ID, REMARK, RSRV_STR1, RSRV_STR2
+  </sql>
+  <select id="selectDepositMomey" resultType="Long" parameterType="Long" >	
+   	 SELECT DEPOSIT_MONEY
+     FROM LAO_F_ACCTDEPOSIT 
+     WHERE  CHANNEL_CUST_ID =#{custId} AND now() BETWEEN START_DATE AND END_DATE 
+  </select>
+</mapper>

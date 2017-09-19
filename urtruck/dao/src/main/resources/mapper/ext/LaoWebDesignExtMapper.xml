@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoWebDesignExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoWebDesign" >
+    <id column="DESIGN_ID" property="designId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="COLOR" property="color" jdbcType="VARCHAR" />
+    <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="DESIGN_DATE" property="designDate" jdbcType="VARCHAR" />
+    <result column="WEB_URL" property="webUrl" jdbcType="VARCHAR" />
+    <result column="WEB_CONTENT" property="webContent" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DESIGN_ID, CUST_ID, CUST_NAME, COLOR, IMAGE, STATUS_CODE, DESIGN_DATE, WEB_URL, WEB_CONTENT, 
+    VALUE1, VALUE2
+  </sql>
+  <select id="selectAllByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_WEBDESIGN
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+    order by STATUS_CODE desc
+  </select>
+  
+  <select id="queryAllCustId" resultMap="BaseResultMap">
+    select 
+    distinct CUST_ID, CUST_NAME
+    from LAO_WEBDESIGN
+  </select>
+  
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from (select ROWNUM AS rowno, t.* from LAO_WEBDESIGN t where ROWNUM <![CDATA[<=]]> #{end} and t.CUST_ID is not null
+    <if test="custId != null" >
+        and CUST_ID = #{custId,jdbcType=DECIMAL}
+    </if>
+    ) tb
+    where tb.rowno <![CDATA[>=]]> #{begin}
+    order by STATUS_CODE desc
+  </select>
+  
+  <select id="getAllCount" resultType="java.lang.Long">
+    select 
+    count(*)
+    from LAO_WEBDESIGN
+    where CUST_ID is not null
+  </select>
+</mapper>

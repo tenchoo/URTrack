@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoKeyManagementMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoKeyManagement">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="AUTH_KEY" property="authKey" jdbcType="VARCHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+		<result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, AUTH_KEY, CUST_ID, UPDATE_DATE, PARA_NAME1, PARA_NAME2
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.math.BigDecimal">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_KEY_MANAGEMENT
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+
+	<select id="selectByCustId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_KEY_MANAGEMENT
+		where CUST_ID=#{custId}
+	</select>
+
+	<!--条件查询 -->
+	<select id="doQueryAppKey" resultType="java.lang.Integer">
+		select
+		count(CUST_ID)
+		from
+		LAO_KEY_MANAGEMENT
+		where CUST_ID=#{custId} and AUTH_KEY=#{authKey} and
+		ROWNUM=1
+	</select>
+	<!--条件查询 -->
+	<select id="doQueryAppKeyIsExist" resultType="java.lang.Integer">
+		select
+		count(CUST_ID)
+		from LAO_KEY_MANAGEMENT
+		where CUST_ID=#{custId} and
+		ROWNUM=1
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		LAO_KEY_MANAGEMENT
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.urt.po.LaoKeyManagement">
+		insert into LAO_KEY_MANAGEMENT
+		(ID, AUTH_KEY, CUST_ID,
+		UPDATE_DATE, PARA_NAME1, PARA_NAME2
+		)
+		values
+		(#{id,jdbcType=DECIMAL}, #{authKey,jdbcType=VARCHAR},
+		#{custId,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.urt.po.LaoKeyManagement">
+		insert into LAO_KEY_MANAGEMENT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="authKey != null">
+				AUTH_KEY,
+			</if>
+			<if test="custId != null">
+				CUST_ID,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="paraName1 != null">
+				PARA_NAME1,
+			</if>
+			<if test="paraName2 != null">
+				PARA_NAME2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="authKey != null">
+				#{authKey,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paraName1 != null">
+				#{paraName1,jdbcType=VARCHAR},
+			</if>
+			<if test="paraName2 != null">
+				#{paraName2,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoKeyManagement">
+		update LAO_KEY_MANAGEMENT
+		<set>
+			<if test="authKey != null">
+				AUTH_KEY = #{authKey,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paraName1 != null">
+				PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+			</if>
+			<if test="paraName2 != null">
+				PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.urt.po.LaoKeyManagement">
+		update
+		LAO_KEY_MANAGEMENT
+		set AUTH_KEY = #{authKey,jdbcType=VARCHAR},
+		CUST_ID =
+		#{custId,jdbcType=VARCHAR},
+		UPDATE_DATE =
+		#{updateDate,jdbcType=TIMESTAMP},
+		PARA_NAME1 =
+		#{paraName1,jdbcType=VARCHAR},
+		PARA_NAME2 =
+		#{paraName2,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<select id="pageQuery" resultType="map" parameterType="java.util.Map">
+		select *
+		from (select a1.*, ROWNUM RN
+		from (
+		select
+		c.cust_name,m.auth_key,m.update_date
+		from Lao_Key_Management
+		m,lao_customer c
+		where
+		<if test="custName!=null">
+			c.cust_name LIKE '%'||#{custName}||'%' and
+		</if>
+		c.cust_id = m.cust_id
+		) a1
+		where ROWNUM <![CDATA[<=]]>#{end})
+		where RN <![CDATA[>=]]>#{start}
+	</select>
+	<select id="totalCount" resultType="java.lang.Integer">
+		select count(1)
+		from Lao_Key_Management m,lao_customer c
+		where c.cust_id = m.cust_id 
+		<if test="custName!=null">
+		  and	c.cust_name LIKE '%'||#{custName}||'%' 
+		</if>
+	</select>
+</mapper>

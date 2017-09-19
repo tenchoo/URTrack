@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoProvideServerMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoProvideServer" >
+    <id column="SERVER_ID" property="serverId" jdbcType="DECIMAL" />
+    <result column="SERVER_NAME" property="serverName" jdbcType="VARCHAR" />
+    <result column="SERVER_TAG" property="serverTag" jdbcType="VARCHAR" />
+    <result column="OPERATION_TAG" property="operationTag" jdbcType="VARCHAR" />
+    <result column="PUBLISH_DATE" property="publishDate" jdbcType="TIMESTAMP" />
+    <result column="SERVER_OPEN" property="serverOpen" jdbcType="CHAR" />
+    <result column="SERVER_DESC" property="serverDesc" jdbcType="VARCHAR" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SERVER_ID, SERVER_NAME, SERVER_TAG, OPERATION_TAG, PUBLISH_DATE, SERVER_OPEN, SERVER_DESC, 
+    PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_PROVIDE_SERVER
+    where SERVER_ID = #{serverId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByServerName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_PROVIDE_SERVER
+    where SERVER_NAME = #{serverName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectServer" resultMap="BaseResultMap">
+    select server.server_tag,server.operation_tag,server.server_id
+       from LAO_CUST_GROUP cust
+    inner join LAO_SS_ROLE_CUST custRol 
+          on cust.CUST_ID=custRol.CUST_ID
+    inner join LAO_ROLE_SERVER_CONN serConn 
+          on serConn.Role_Id=custRol.Role_Id
+    inner join LAO_PROVIDE_SERVER server 
+          on server.server_id = serConn.server_id  
+    where   server.server_name = #{serverName}
+  		 and cust.cust_id = #{custid}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_PROVIDE_SERVER
+    where SERVER_ID = #{serverId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoProvideServer" >
+    insert into LAO_PROVIDE_SERVER (SERVER_ID, SERVER_NAME, SERVER_TAG, 
+      OPERATION_TAG, PUBLISH_DATE, SERVER_OPEN, 
+      SERVER_DESC, PARA_NAME1, PARA_NAME2
+      )
+    values (#{serverId,jdbcType=DECIMAL}, #{serverName,jdbcType=VARCHAR}, #{serverTag,jdbcType=VARCHAR}, 
+      #{operationTag,jdbcType=VARCHAR}, #{publishDate,jdbcType=TIMESTAMP}, #{serverOpen,jdbcType=CHAR}, 
+      #{serverDesc,jdbcType=VARCHAR}, #{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoProvideServer" >
+    insert into LAO_PROVIDE_SERVER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serverId != null" >
+        SERVER_ID,
+      </if>
+      <if test="serverName != null" >
+        SERVER_NAME,
+      </if>
+      <if test="serverTag != null" >
+        SERVER_TAG,
+      </if>
+      <if test="operationTag != null" >
+        OPERATION_TAG,
+      </if>
+      <if test="publishDate != null" >
+        PUBLISH_DATE,
+      </if>
+      <if test="serverOpen != null" >
+        SERVER_OPEN,
+      </if>
+      <if test="serverDesc != null" >
+        SERVER_DESC,
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serverId != null" >
+        #{serverId,jdbcType=DECIMAL},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverTag != null" >
+        #{serverTag,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTag != null" >
+        #{operationTag,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serverOpen != null" >
+        #{serverOpen,jdbcType=CHAR},
+      </if>
+      <if test="serverDesc != null" >
+        #{serverDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName1 != null" >
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoProvideServer" >
+    update LAO_PROVIDE_SERVER
+    <set >
+      <if test="serverName != null" >
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverTag != null" >
+        SERVER_TAG = #{serverTag,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTag != null" >
+        OPERATION_TAG = #{operationTag,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serverOpen != null" >
+        SERVER_OPEN = #{serverOpen,jdbcType=CHAR},
+      </if>
+      <if test="serverDesc != null" >
+        SERVER_DESC = #{serverDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SERVER_ID = #{serverId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoProvideServer" >
+    update LAO_PROVIDE_SERVER
+    set SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      SERVER_TAG = #{serverTag,jdbcType=VARCHAR},
+      OPERATION_TAG = #{operationTag,jdbcType=VARCHAR},
+      PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+      SERVER_OPEN = #{serverOpen,jdbcType=CHAR},
+      SERVER_DESC = #{serverDesc,jdbcType=VARCHAR},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR}
+    where SERVER_ID = #{serverId,jdbcType=DECIMAL}
+  </update>
+</mapper>

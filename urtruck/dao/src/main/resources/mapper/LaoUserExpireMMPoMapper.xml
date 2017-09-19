@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserExpireMMPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserExpireMMPo" >
+    <result column="IN_DATE" property="inDate" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_NAME" property="channelCustName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE1_NAME" property="value1Name" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="VALUE2_NAME" property="value2Name" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_CYCLE" property="goodsCycle" jdbcType="DECIMAL" />
+    <result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+    <result column="EXPIRE_NUM" property="expireNum" jdbcType="DECIMAL" />
+    <result column="END_DATE" property="endDate" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoUserExpireMMPo" >
+    insert into LAO_USER_EXPIRE_MM (IN_DATE, CHANNEL_CUST_ID, CHANNEL_CUST_NAME, 
+      CUST_ID, CUST_NAME, STAFF_ID, 
+      STAFF_NAME, REGION_ID, REGION_NAME, 
+      OPERATORS_ID, OPERATORS_NAME, VALUE1, 
+      VALUE1_NAME, VALUE2, VALUE2_NAME, 
+      GOODS_ID, GOODS_NAME, GOODS_CYCLE, 
+      GOODS_TYPE, EXPIRE_NUM, END_DATE, 
+      UPDATE_TIME, REMARK)
+    values (#{inDate,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{channelCustName,jdbcType=VARCHAR}, 
+      #{custId,jdbcType=DECIMAL}, #{custName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
+      #{staffName,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, 
+      #{operatorsId,jdbcType=DECIMAL}, #{operatorsName,jdbcType=VARCHAR}, #{value1,jdbcType=VARCHAR}, 
+      #{value1Name,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR}, #{value2Name,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=DECIMAL}, #{goodsName,jdbcType=VARCHAR}, #{goodsCycle,jdbcType=DECIMAL}, 
+      #{goodsType,jdbcType=VARCHAR}, #{expireNum,jdbcType=DECIMAL}, #{endDate,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserExpireMMPo" >
+    insert into LAO_USER_EXPIRE_MM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inDate != null" >
+        IN_DATE,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="channelCustName != null" >
+        CHANNEL_CUST_NAME,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="regionId != null" >
+        REGION_ID,
+      </if>
+      <if test="regionName != null" >
+        REGION_NAME,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="operatorsName != null" >
+        OPERATORS_NAME,
+      </if>
+      <if test="value1 != null" >
+        VALUE1,
+      </if>
+      <if test="value1Name != null" >
+        VALUE1_NAME,
+      </if>
+      <if test="value2 != null" >
+        VALUE2,
+      </if>
+      <if test="value2Name != null" >
+        VALUE2_NAME,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="goodsCycle != null" >
+        GOODS_CYCLE,
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE,
+      </if>
+      <if test="expireNum != null" >
+        EXPIRE_NUM,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inDate != null" >
+        #{inDate,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustName != null" >
+        #{channelCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsName != null" >
+        #{operatorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1Name != null" >
+        #{value1Name,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="value2Name != null" >
+        #{value2Name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCycle != null" >
+        #{goodsCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="expireNum != null" >
+        #{expireNum,jdbcType=DECIMAL},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

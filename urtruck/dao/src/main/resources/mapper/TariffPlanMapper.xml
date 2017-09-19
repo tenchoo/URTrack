@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.TariffPlanMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TariffPlan">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="TARIFFPLANNAME" jdbcType="VARCHAR" property="tariffplanname" />
+    <result column="TARIFFPLANEXPDATE" jdbcType="TIMESTAMP" property="tariffplanexpdate" />
+    <result column="TARIFFPLANLENGTH" jdbcType="DECIMAL" property="tariffplanlength" />
+    <result column="TARIFFPLANSTAUTS" jdbcType="DECIMAL" property="tariffplanstauts" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="MODIFYDATE" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="TARIFFPLANCAPACITY" jdbcType="DECIMAL" property="tariffplancapacity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TARIFFPLANNAME, TARIFFPLANEXPDATE, TARIFFPLANLENGTH, TARIFFPLANSTAUTS, CREATEDATE, 
+    MODIFYDATE, TARIFFPLANCAPACITY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TARIFF_PLAN
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <!--条件查询  -->
+   <select id="doQueryFirst" resultMap="BaseResultMap">
+ 	select 
+    <include refid="Base_Column_List" />
+    from LAO_TARIFF_PLAN
+    where tariffPlanName=#{tariffPlanName}  and tariffPlanStauts=#{tariffPlanStauts} and ROWNUM=1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from LAO_TARIFF_PLAN
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.TariffPlan">
+    insert into LAO_TARIFF_PLAN (ID, TARIFFPLANNAME, TARIFFPLANEXPDATE, 
+      TARIFFPLANLENGTH, TARIFFPLANSTAUTS, CREATEDATE, 
+      MODIFYDATE, TARIFFPLANCAPACITY)
+    values (#{id,jdbcType=DECIMAL}, #{tariffplanname,jdbcType=VARCHAR}, #{tariffplanexpdate,jdbcType=TIMESTAMP}, 
+      #{tariffplanlength,jdbcType=DECIMAL}, #{tariffplanstauts,jdbcType=DECIMAL}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{modifydate,jdbcType=TIMESTAMP}, #{tariffplancapacity,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.TariffPlan">
+    insert into LAO_TARIFF_PLAN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="tariffplanname != null">
+        TARIFFPLANNAME,
+      </if>
+      <if test="tariffplanexpdate != null">
+        TARIFFPLANEXPDATE,
+      </if>
+      <if test="tariffplanlength != null">
+        TARIFFPLANLENGTH,
+      </if>
+      <if test="tariffplanstauts != null">
+        TARIFFPLANSTAUTS,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE,
+      </if>
+      <if test="tariffplancapacity != null">
+        TARIFFPLANCAPACITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="tariffplanname != null">
+        #{tariffplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanexpdate != null">
+        #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplanlength != null">
+        #{tariffplanlength,jdbcType=DECIMAL},
+      </if>
+      <if test="tariffplanstauts != null">
+        #{tariffplanstauts,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplancapacity != null">
+        #{tariffplancapacity,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.TariffPlan">
+    update LAO_TARIFF_PLAN
+    <set>
+      <if test="tariffplanname != null">
+        TARIFFPLANNAME = #{tariffplanname,jdbcType=VARCHAR},
+      </if>
+      <if test="tariffplanexpdate != null">
+        TARIFFPLANEXPDATE = #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplanlength != null">
+        TARIFFPLANLENGTH = #{tariffplanlength,jdbcType=DECIMAL},
+      </if>
+      <if test="tariffplanstauts != null">
+        TARIFFPLANSTAUTS = #{tariffplanstauts,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tariffplancapacity != null">
+        TARIFFPLANCAPACITY = #{tariffplancapacity,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.TariffPlan">
+    update LAO_TARIFF_PLAN
+    set TARIFFPLANNAME = #{tariffplanname,jdbcType=VARCHAR},
+      TARIFFPLANEXPDATE = #{tariffplanexpdate,jdbcType=TIMESTAMP},
+      TARIFFPLANLENGTH = #{tariffplanlength,jdbcType=DECIMAL},
+      TARIFFPLANSTAUTS = #{tariffplanstauts,jdbcType=DECIMAL},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+      TARIFFPLANCAPACITY = #{tariffplancapacity,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

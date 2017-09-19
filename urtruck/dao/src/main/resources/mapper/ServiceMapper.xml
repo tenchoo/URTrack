@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.Service" >
+    <id column="SERVICE_ID" property="serviceId" jdbcType="DECIMAL" />
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SERVICE_ID, SERVICE_NAME, CREATEDATE, UPDATEDATE, STARTDATE, ENDDATE, OPERATORS_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE
+    where SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_SERVICE
+    where SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.Service" >
+    insert into LAO_SERVICE (SERVICE_ID, SERVICE_NAME, CREATEDATE, 
+      UPDATEDATE, STARTDATE, ENDDATE, 
+      OPERATORS_ID)
+    values (#{serviceId,jdbcType=DECIMAL}, #{serviceName,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{operatorsId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.Service" >
+    insert into LAO_SERVICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="startdate != null" >
+        STARTDATE,
+      </if>
+      <if test="enddate != null" >
+        ENDDATE,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.Service" >
+    update LAO_SERVICE
+    <set >
+      <if test="serviceName != null" >
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null" >
+        STARTDATE = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        ENDDATE = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.Service" >
+    update LAO_SERVICE
+    set SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      STARTDATE = #{startdate,jdbcType=TIMESTAMP},
+      ENDDATE = #{enddate,jdbcType=TIMESTAMP},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+    where SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

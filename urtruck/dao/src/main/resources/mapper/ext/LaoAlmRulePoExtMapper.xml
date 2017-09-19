@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAlmRulePoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRulePo">
+		<id column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+		<result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+		<result column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+		<result column="CHANNEL_CUST_ID" property="channelCustId"
+			jdbcType="DECIMAL" />
+		<result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+		<result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+		<result column="RECV_OPER_ID" property="recvOperId" jdbcType="VARCHAR" />
+		<result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+		<result column="UPD_TIME" property="updTime" jdbcType="TIMESTAMP" />
+		<result column="UPD_OPER_ID" property="updOperId" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		RULE_ID, RULE_NAME, RULE_TYPE_ID, CHANNEL_CUST_ID, CUST_ID, RECV_TIME,
+		RECV_OPER_ID,
+		VALID_TAG, UPD_TIME, UPD_OPER_ID, REMARK
+	</sql>
+	<select id="queryPage" resultType="map" parameterType="map">
+		select rule.*,rule_type.rule_type_name as
+		rule_type_name,account.login_name as
+		recv_name,updateAccount.Login_Name as u_name
+		from lao_alm_rule rule 
+		left join lao_alm_rule_type rule_type on rule.RULE_TYPE_ID=rule_type.RULE_TYPE_ID
+		left join lao_ss_account account on rule.recv_oper_id=account.acconut_id
+		left join lao_ss_account updateAccount on
+		rule.recv_oper_id=updateAccount.acconut_id where 1=1
+		<if test="params.param.ruleName != null and params.param.ruleName!=''">
+			and RULE_NAME like CONCAT(CONCAT('%', #{params.param.ruleName}), '%')
+		</if>
+		<if test="params.param.custId != null and params.param.custId!=''">
+			and rule.CUST_ID = #{params.param.custId}
+		</if>
+		ORDER BY RECV_TIME desc
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from LAO_ALM_RULE
+		where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+	</delete>
+	<!-- select <include refid="Base_Column_List" /> from LAO_ALM_RULE where LAO_ALM_RULE.VALID_TAG='1' and LAO_ALM_RULE.RULE_ID NOT IN (select rule_id from lao_alm_rule_log where to_char(now(),'yyyy-mm')=to_char(lao_alm_rule_log.deal_time,'yyyy-mm')) -->
+	<select id="getAllRules" resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List" /> from LAO_ALM_RULE where LAO_ALM_RULE.VALID_TAG='1' 
+	</select>
+	<select id="getRulesByCustId" resultMap="BaseResultMap" >
+		select <include refid="Base_Column_List" /> from LAO_ALM_RULE where LAO_ALM_RULE.VALID_TAG='1' and LAO_ALM_RULE.cust_id=#{channelcustId}
+	</select>
+</mapper>

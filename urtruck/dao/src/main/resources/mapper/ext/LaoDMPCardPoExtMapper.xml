@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoDMPCardPoExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPCardPo">
+   <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="IMSI" jdbcType="VARCHAR" property="imsi" />
+    <result column="PHONENUMBER" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="SIMSTATE" jdbcType="DECIMAL" property="simstate" />
+    <result column="NETWORKOPERATORNAME" jdbcType="VARCHAR" property="networkoperatorname" />
+    <result column="DEVICETYPE" jdbcType="DECIMAL" property="devicetype" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="STARTTIME" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="FLAG" jdbcType="DECIMAL" property="flag" />
+    <result column="TRIGGEDREASON" jdbcType="DECIMAL" property="triggedreason" />
+    <result column="CUSTID" jdbcType="DECIMAL" property="custid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ICCID, IMEI, IMSI, PHONENUMBER, SIMSTATE, NETWORKOPERATORNAME, DEVICETYPE, CREATETIME, 
+    STARTTIME, ENDTIME, UPDATETIME, FLAG, TRIGGEDREASON, CUSTID
+  </sql>
+   <sql id="Device_BaseInfo_List">
+    ICCID, IMEI, IMSI, PHONENUMBER, SIMSTATE, NETWORKOPERATORNAME,DEVICETYPE
+  </sql>
+     <sql id="Device_IMEI_List">
+    IMEI, FLAG
+  </sql>
+ <select id="queryPage" resultType="map" parameterType="map" >
+ 	select  
+ 	decode(gs.groups,'',' ',gs.groups) groupName,decode(ct.cust_name,'',' ',ct.cust_name) custName,decode(da.attributevalue,'',' ',da.attributevalue) model,decode(dat.attributevalue,'',' ',dat.attributevalue) networkType,decode(dd.ICCID,'',' ',dd.ICCID) iccid, dd.IMEI imei, decode(dd.IMSI,'',' ',dd.IMSI) imsi, decode(dd.PHONENUMBER,'',' ',dd.PHONENUMBER) phonenumber, decode(dd.SIMSTATE,'',' ',dd.SIMSTATE) simstate, decode(dd.NETWORKOPERATORNAME,'',' ',dd.NETWORKOPERATORNAME) NETWORKOPERATORNAME,dd.DEVICETYPE DEVICETYPE 
+ 	from lao_dmpcard_data dd 
+ 	left join lao_dmpdevice_attribute da on  dd.id=da.carddataid and da.attributename='model'
+ 	left join lao_dmpdevice_attribute dat on  dd.id=dat.carddataid and dat.attributename='networkType'
+ 	left join lao_customer ct on ct.cust_id = dd.custid
+ 	left join (SELECT    imei, TRANSLATE (LTRIM (text, '/'), '*/', '*,') groups
+FROM (
+   SELECT ROW_NUMBER () OVER (PARTITION BY imei ORDER BY imei,lvl DESC) rn,imei, text 
+   FROM (
+      SELECT  imei, LEVEL lvl,SYS_CONNECT_BY_PATH (groupname,'/') text
+      FROM (
+          SELECT  imei, groupname as groupname, ROW_NUMBER () OVER (PARTITION BY imei ORDER BY imei,groupname) x
+          FROM (
+             select cg.imei,g.group_name groupname 
+             from lao_dmp_cardgroup cg left join lao_dmp_group g on cg.group_id=g.id where delflag=1) cg 
+	  ORDER BY imei, groupname) a 
+	   CONNECT BY imei = PRIOR imei AND x - 1 = PRIOR x
+	    )
+     )
+WHERE rn = 1 ORDER BY imei) gs on dd.imei=gs.imei
+ 	where flag=0 
+ 	<if test="params.param.custid != null and params.param.custid!=''" >
+		and  custid=#{params.param.custid} 
+	</if>   
+ 	<if test="params.param.iccid != null and params.param.iccid!=''" >
+		and  ICCID = #{params.param.iccid} 
+	</if>	
+	<if test="params.param.imei != null and params.param.imei!=''" >
+		and  dd.IMEI like '%'||#{params.param.imei}||'%' 
+	</if>
+	<if test="params.param.phonenumber != null and params.param.phonenumber!=''" >
+		and  PHONENUMBER like '%'||#{params.param.phonenumber}||'%'
+	</if>
+	<if test="params.param.devicetype != null and params.param.devicetype!=' '" >
+		and  DEVICETYPE = #{params.param.devicetype}
+	</if>
+	 	ORDER BY CREATETIME desc
+  </select>
+  <select id="selectCardIdByImei" resultType="Long">
+ 	select id from lao_dmpcard_data where IMEI= #{imei} and flag=0 and rownum=1 
+  </select>
+   <update id="updateFlag">
+    update LAO_DMPCARD_DATA 
+    set ENDTIME = now(),FLAG = 1,TRIGGEDREASON= #{triggedReson,jdbcType=DECIMAL} 
+    where IMEI = #{imei,jdbcType=VARCHAR}
+  </update>
+       <select id="selectByImei" resultMap="BaseResultMap" >
+    select 
+    <include refid="Device_IMEI_List" />
+    from LAO_DMPCARD_DATA
+    where IMEI = #{imei} AND FLAG = 0 and rownum=1
+  </select>
+  
+     <insert id="insertImei"  parameterType="java.util.List">
+   insert into LAO_DMPCARD_DATA (ID,IMEI,CUSTID)
+   		SELECT * from(
+   	<foreach collection="list" item="item" index="index"  separator="union all">
+    	select #{item.id,jdbcType=DECIMAL}ID, #{item.imei,jdbcType=VARCHAR}IMEI,#{item.custid,jdbcType=VARCHAR}CUSTID from dual
+    </foreach>)
+
+   </insert>
+    <select id="getImei" resultType="String" parameterType="com.urt.po.LaoDMPCardPo">
+   		select IMEI 
+   		from LAO_DMPCARD_DATA 
+   		where FLAG =0 
+   		<if test="custid != null and custid!=''" >
+		    and  custid=#{custid} 
+		</if>   
+	 	<if test="iccid != null and iccid!=''" >
+			and  ICCID = #{iccid} 
+		</if>	
+		<if test="imei != null and imei!=''" >
+			and  IMEI like '%'||#{imei}||'%' 
+		</if>
+		<if test="phonenumber != null and phonenumber!=''" >
+			and  PHONENUMBER like '%'||#{phonenumber}||'%'
+		</if>
+		<if test="devicetype != null and devicetype!=''" >
+			and  DEVICETYPE = #{devicetype}
+		</if>
+   </select> 
+          <select id="selectDeviceDetails" resultMap="BaseResultMap" parameterType="String">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMPCARD_DATA
+    where IMEI = #{imei} AND FLAG = 0 and rownum=1
+   </select> 
+    <select id="selectDeviceAttirbute" resultType="map" parameterType="String">
+    select 
+ 	decode(ct.cust_name,'',' ',ct.cust_name) custName,decode(da.attributevalue,'',' ',da.attributevalue) model,
+ 	decode(dat.attributevalue,'',' ',dat.attributevalue) batteryLevel,decode(daatrr.attributevalue,'',' ',daatrr.attributevalue) networkType
+    from LAO_DMPCARD_DATA dd
+    left join lao_dmpdevice_attribute da on  dd.id=da.carddataid and da.attributename='model'
+    left join lao_dmpdevice_attribute dat on  dd.id=dat.carddataid and dat.attributename='batteryLevel'
+    left join lao_dmpdevice_attribute daatrr on  dd.id=daatrr.carddataid and daatrr.attributename='networkType'
+ 	left join lao_customer ct on ct.cust_id = dd.custid
+    where IMEI = #{imei} AND FLAG = 0 and rownum=1
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoGoodsReleaseRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoGoodsReleaseRule" >
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PACKAGE_NUM_MAX" property="packageNumMax" jdbcType="DECIMAL" />
+    <result column="EFFECTIVE_MODE" property="effectiveMode" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="MONTH_CYCLE" property="monthCycle" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoGoodsReleaseRule" >
+    insert into LAO_GOODS_RELEASE_RULE (RULE_ID, RULE_NAME, GOODS_RELEASE_ID, 
+      CUST_ID, PACKAGE_NUM_MAX, EFFECTIVE_MODE, 
+      STATUS, END_DATE, MONTH_CYCLE, 
+      CREATE_DATE, UPDATE_DATE)
+    values (#{ruleId,jdbcType=DECIMAL}, #{ruleName,jdbcType=VARCHAR}, #{goodsReleaseId,jdbcType=DECIMAL}, 
+      #{custId,jdbcType=DECIMAL}, #{packageNumMax,jdbcType=DECIMAL}, #{effectiveMode,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{endDate,jdbcType=TIMESTAMP}, #{monthCycle,jdbcType=DECIMAL}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoGoodsReleaseRule" >
+    insert into LAO_GOODS_RELEASE_RULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="packageNumMax != null" >
+        PACKAGE_NUM_MAX,
+      </if>
+      <if test="effectiveMode != null" >
+        EFFECTIVE_MODE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="monthCycle != null" >
+        MONTH_CYCLE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="packageNumMax != null" >
+        #{packageNumMax,jdbcType=DECIMAL},
+      </if>
+      <if test="effectiveMode != null" >
+        #{effectiveMode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monthCycle != null" >
+        #{monthCycle,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

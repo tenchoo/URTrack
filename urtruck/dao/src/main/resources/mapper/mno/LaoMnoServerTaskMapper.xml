@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.mno.LaoMnoServerTaskMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.mno.LaoMnoServerTask">
+    <id column="TASK_ID" jdbcType="DECIMAL" property="taskId" />
+    <result column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
+    <result column="SRC_REQUEST_ID" jdbcType="VARCHAR" property="srcRequestId" />
+    <result column="ACCESS_LOG_ID" jdbcType="DECIMAL" property="accessLogId" />
+    <result column="COM_REQUEST_ID" jdbcType="VARCHAR" property="comRequestId" />
+    <result column="COM_SERVER_NAME" jdbcType="VARCHAR" property="comServerName" />
+    <result column="SERVER_NAME" jdbcType="VARCHAR" property="serverName" />
+    <result column="TASK_STATUS" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="RESP_CODE" jdbcType="VARCHAR" property="respCode" />
+    <result column="RESP_DESC" jdbcType="VARCHAR" property="respDesc" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="MSISDN" jdbcType="VARCHAR" property="msisdn" />
+    <result column="REPEAT_TIMES" jdbcType="DECIMAL" property="repeatTimes" />
+    <result column="PRIORITY_LEVEL" jdbcType="DECIMAL" property="priorityLevel" />
+    <result column="CREATE_DATE" jdbcType="DATE" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="DATE" property="updateDate" />
+    <result column="PARA_NAME1" jdbcType="VARCHAR" property="paraName1" />
+    <result column="PARA_NAME2" jdbcType="VARCHAR" property="paraName2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TASK_ID, SYSTEM_ID, SRC_REQUEST_ID, ACCESS_LOG_ID, COM_REQUEST_ID, COM_SERVER_NAME, 
+    SERVER_NAME, TASK_STATUS, RESP_CODE, RESP_DESC, ICCID, MSISDN, REPEAT_TIMES, PRIORITY_LEVEL, 
+    CREATE_DATE, UPDATE_DATE, PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectByExample" parameterType="com.urt.po.mno.LaoMnoServerTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LAO_MNO_SERVER_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_MNO_SERVER_TASK
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_MNO_SERVER_TASK
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.urt.po.mno.LaoMnoServerTaskExample">
+    delete from LAO_MNO_SERVER_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.mno.LaoMnoServerTask">
+    insert into LAO_MNO_SERVER_TASK (TASK_ID, SYSTEM_ID, SRC_REQUEST_ID, 
+      ACCESS_LOG_ID, COM_REQUEST_ID, COM_SERVER_NAME, 
+      SERVER_NAME, TASK_STATUS, RESP_CODE, 
+      RESP_DESC, ICCID, MSISDN, 
+      REPEAT_TIMES, PRIORITY_LEVEL, CREATE_DATE, 
+      UPDATE_DATE, PARA_NAME1, PARA_NAME2
+      )
+    values (#{taskId,jdbcType=DECIMAL}, #{systemId,jdbcType=VARCHAR}, #{srcRequestId,jdbcType=VARCHAR}, 
+      #{accessLogId,jdbcType=DECIMAL}, #{comRequestId,jdbcType=VARCHAR}, #{comServerName,jdbcType=VARCHAR}, 
+      #{serverName,jdbcType=VARCHAR}, #{taskStatus,jdbcType=VARCHAR}, #{respCode,jdbcType=VARCHAR}, 
+      #{respDesc,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{msisdn,jdbcType=VARCHAR}, 
+      #{repeatTimes,jdbcType=DECIMAL}, #{priorityLevel,jdbcType=DECIMAL}, #{createDate,jdbcType=DATE}, 
+      #{updateDate,jdbcType=DATE}, #{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.mno.LaoMnoServerTask">
+    insert into LAO_MNO_SERVER_TASK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="srcRequestId != null">
+        SRC_REQUEST_ID,
+      </if>
+      <if test="accessLogId != null">
+        ACCESS_LOG_ID,
+      </if>
+      <if test="comRequestId != null">
+        COM_REQUEST_ID,
+      </if>
+      <if test="comServerName != null">
+        COM_SERVER_NAME,
+      </if>
+      <if test="serverName != null">
+        SERVER_NAME,
+      </if>
+      <if test="taskStatus != null">
+        TASK_STATUS,
+      </if>
+      <if test="respCode != null">
+        RESP_CODE,
+      </if>
+      <if test="respDesc != null">
+        RESP_DESC,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="msisdn != null">
+        MSISDN,
+      </if>
+      <if test="repeatTimes != null">
+        REPEAT_TIMES,
+      </if>
+      <if test="priorityLevel != null">
+        PRIORITY_LEVEL,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="paraName1 != null">
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null">
+        PARA_NAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcRequestId != null">
+        #{srcRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessLogId != null">
+        #{accessLogId,jdbcType=DECIMAL},
+      </if>
+      <if test="comRequestId != null">
+        #{comRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="comServerName != null">
+        #{comServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null">
+        #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respDesc != null">
+        #{respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null">
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatTimes != null">
+        #{repeatTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="priorityLevel != null">
+        #{priorityLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="paraName1 != null">
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null">
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.urt.po.mno.LaoMnoServerTaskExample" resultType="java.lang.Long">
+    select count(*) from LAO_MNO_SERVER_TASK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LAO_MNO_SERVER_TASK
+    <set>
+      <if test="record.taskId != null">
+        TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcRequestId != null">
+        SRC_REQUEST_ID = #{record.srcRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessLogId != null">
+        ACCESS_LOG_ID = #{record.accessLogId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comRequestId != null">
+        COM_REQUEST_ID = #{record.comRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comServerName != null">
+        COM_SERVER_NAME = #{record.comServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverName != null">
+        SERVER_NAME = #{record.serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStatus != null">
+        TASK_STATUS = #{record.taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respCode != null">
+        RESP_CODE = #{record.respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respDesc != null">
+        RESP_DESC = #{record.respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid != null">
+        ICCID = #{record.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msisdn != null">
+        MSISDN = #{record.msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repeatTimes != null">
+        REPEAT_TIMES = #{record.repeatTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priorityLevel != null">
+        PRIORITY_LEVEL = #{record.priorityLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=DATE},
+      </if>
+      <if test="record.paraName1 != null">
+        PARA_NAME1 = #{record.paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paraName2 != null">
+        PARA_NAME2 = #{record.paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LAO_MNO_SERVER_TASK
+    set TASK_ID = #{record.taskId,jdbcType=DECIMAL},
+      SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      SRC_REQUEST_ID = #{record.srcRequestId,jdbcType=VARCHAR},
+      ACCESS_LOG_ID = #{record.accessLogId,jdbcType=DECIMAL},
+      COM_REQUEST_ID = #{record.comRequestId,jdbcType=VARCHAR},
+      COM_SERVER_NAME = #{record.comServerName,jdbcType=VARCHAR},
+      SERVER_NAME = #{record.serverName,jdbcType=VARCHAR},
+      TASK_STATUS = #{record.taskStatus,jdbcType=VARCHAR},
+      RESP_CODE = #{record.respCode,jdbcType=VARCHAR},
+      RESP_DESC = #{record.respDesc,jdbcType=VARCHAR},
+      ICCID = #{record.iccid,jdbcType=VARCHAR},
+      MSISDN = #{record.msisdn,jdbcType=VARCHAR},
+      REPEAT_TIMES = #{record.repeatTimes,jdbcType=DECIMAL},
+      PRIORITY_LEVEL = #{record.priorityLevel,jdbcType=DECIMAL},
+      CREATE_DATE = #{record.createDate,jdbcType=DATE},
+      UPDATE_DATE = #{record.updateDate,jdbcType=DATE},
+      PARA_NAME1 = #{record.paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{record.paraName2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.mno.LaoMnoServerTask">
+    update LAO_MNO_SERVER_TASK
+    <set>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcRequestId != null">
+        SRC_REQUEST_ID = #{srcRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessLogId != null">
+        ACCESS_LOG_ID = #{accessLogId,jdbcType=DECIMAL},
+      </if>
+      <if test="comRequestId != null">
+        COM_REQUEST_ID = #{comRequestId,jdbcType=VARCHAR},
+      </if>
+      <if test="comServerName != null">
+        COM_SERVER_NAME = #{comServerName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        TASK_STATUS = #{taskStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null">
+        RESP_CODE = #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respDesc != null">
+        RESP_DESC = #{respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null">
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatTimes != null">
+        REPEAT_TIMES = #{repeatTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="priorityLevel != null">
+        PRIORITY_LEVEL = #{priorityLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="paraName1 != null">
+        PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null">
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.mno.LaoMnoServerTask">
+    update LAO_MNO_SERVER_TASK
+    set SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      SRC_REQUEST_ID = #{srcRequestId,jdbcType=VARCHAR},
+      ACCESS_LOG_ID = #{accessLogId,jdbcType=DECIMAL},
+      COM_REQUEST_ID = #{comRequestId,jdbcType=VARCHAR},
+      COM_SERVER_NAME = #{comServerName,jdbcType=VARCHAR},
+      SERVER_NAME = #{serverName,jdbcType=VARCHAR},
+      TASK_STATUS = #{taskStatus,jdbcType=VARCHAR},
+      RESP_CODE = #{respCode,jdbcType=VARCHAR},
+      RESP_DESC = #{respDesc,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      REPEAT_TIMES = #{repeatTimes,jdbcType=DECIMAL},
+      PRIORITY_LEVEL = #{priorityLevel,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=DATE},
+      UPDATE_DATE = #{updateDate,jdbcType=DATE},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR}
+    where TASK_ID = #{taskId,jdbcType=DECIMAL}
+  </update>
+</mapper>

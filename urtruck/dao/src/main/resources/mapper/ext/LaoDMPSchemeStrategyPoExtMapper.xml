@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPSchemeStrategyPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPSchemeStrategyPo" >
+    <result column="SCHEME_ID" property="schemeId" jdbcType="DECIMAL" />
+    <result column="STRATEGY_ID" property="strategyId" jdbcType="DECIMAL" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectBySchemeId" resultType="com.urt.po.LaoDMPStrategyPo">
+     select  
+    dmps.id,dmps.strategy_name,dmps.stategy_comment,dmps.strategyimpl,dmps.parameter1,dmps.parameter2,dmps.parameter3,dmps.parameter4  
+    from lao_dmpscheme_strategy dmpss 
+    left join lao_dmp_strategy dmps on dmpss.strategy_id=dmps.id
+    where dmpss.DELFLAG='1' and dmpss.SCHEME_ID =  #{schemeId} 
+  </select>
+</mapper>

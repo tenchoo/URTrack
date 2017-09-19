@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPStrategyOperationPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyOperationPo">
+    <result column="STRATEGY_ID" jdbcType="DECIMAL" property="strategyId" />
+    <result column="OPERATION_ID" jdbcType="DECIMAL" property="operationId" />
+    <result column="DELFLAG" jdbcType="VARCHAR" property="delflag" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPStrategyOperationPo">
+    insert into LAO_DMPSTRATEGY_OPERATION (STRATEGY_ID, OPERATION_ID, DELFLAG, 
+      CREATETIME, UPDATETIME, SCHEME_ID
+      )
+    values (#{strategyId,jdbcType=DECIMAL}, #{operationId,jdbcType=DECIMAL}, #{delflag,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{schemeId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPStrategyOperationPo">
+    insert into LAO_DMPSTRATEGY_OPERATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="strategyId != null">
+        STRATEGY_ID,
+      </if>
+      <if test="operationId != null">
+        OPERATION_ID,
+      </if>
+      <if test="delflag != null">
+        DELFLAG,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=DECIMAL},
+      </if>
+      <if test="operationId != null">
+        #{operationId,jdbcType=DECIMAL},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

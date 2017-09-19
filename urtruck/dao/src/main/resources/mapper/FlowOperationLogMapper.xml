@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.FlowOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.FlowOperationLog">
+    <id column="LOGID" jdbcType="DECIMAL" property="logid" />
+    <result column="FLOWORDERID" jdbcType="VARCHAR" property="floworderid" />
+    <result column="REQUESTSYSTEM" jdbcType="VARCHAR" property="requestsystem" />
+    <result column="RESPONSESYSTEM" jdbcType="VARCHAR" property="responsesystem" />
+    <result column="REQUESTPARM" jdbcType="VARCHAR" property="requestparm" />
+    <result column="RESPONSEPARM" jdbcType="VARCHAR" property="responseparm" />
+    <result column="CALLSERVER" jdbcType="VARCHAR" property="callserver" />
+    <result column="CALLTIME" jdbcType="TIMESTAMP" property="calltime" />
+    <result column="RESPCODE" jdbcType="VARCHAR" property="respcode" />
+    <result column="RESPDESC" jdbcType="VARCHAR" property="respdesc" />
+    <result column="CALLISSUCCESS" jdbcType="VARCHAR" property="callissuccess" />
+    <result column="PARANAME1" jdbcType="VARCHAR" property="paraname1" />
+    <result column="PARANAME2" jdbcType="VARCHAR" property="paraname2" />
+    <result column="STEPSTATE" jdbcType="VARCHAR" property="stepstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    LOGID, FLOWORDERID, REQUESTSYSTEM, RESPONSESYSTEM, REQUESTPARM, RESPONSEPARM, CALLSERVER, 
+    CALLTIME, RESPCODE, RESPDESC, CALLISSUCCESS, PARANAME1, PARANAME2, STEPSTATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_FLOWOPERATION_LOG
+    where LOGID = #{logid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from LAO_FLOWOPERATION_LOG
+    where LOGID = #{logid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.FlowOperationLog">
+    insert into LAO_FLOWOPERATION_LOG (LOGID, FLOWORDERID, REQUESTSYSTEM, 
+      RESPONSESYSTEM, REQUESTPARM, RESPONSEPARM, 
+      CALLSERVER, CALLTIME, RESPCODE, 
+      RESPDESC, CALLISSUCCESS, PARANAME1, 
+      PARANAME2, STEPSTATE)
+    values (#{logid,jdbcType=DECIMAL}, #{floworderid,jdbcType=VARCHAR}, #{requestsystem,jdbcType=VARCHAR}, 
+      #{responsesystem,jdbcType=VARCHAR}, #{requestparm,jdbcType=VARCHAR}, #{responseparm,jdbcType=VARCHAR}, 
+      #{callserver,jdbcType=VARCHAR}, #{calltime,jdbcType=TIMESTAMP}, #{respcode,jdbcType=VARCHAR}, 
+      #{respdesc,jdbcType=VARCHAR}, #{callissuccess,jdbcType=VARCHAR}, #{paraname1,jdbcType=VARCHAR}, 
+      #{paraname2,jdbcType=VARCHAR}, #{stepstate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.FlowOperationLog">
+    insert into LAO_FLOWOPERATION_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        LOGID,
+      </if>
+      <if test="floworderid != null">
+        FLOWORDERID,
+      </if>
+      <if test="requestsystem != null">
+        REQUESTSYSTEM,
+      </if>
+      <if test="responsesystem != null">
+        RESPONSESYSTEM,
+      </if>
+      <if test="requestparm != null">
+        REQUESTPARM,
+      </if>
+      <if test="responseparm != null">
+        RESPONSEPARM,
+      </if>
+      <if test="callserver != null">
+        CALLSERVER,
+      </if>
+      <if test="calltime != null">
+        CALLTIME,
+      </if>
+      <if test="respcode != null">
+        RESPCODE,
+      </if>
+      <if test="respdesc != null">
+        RESPDESC,
+      </if>
+      <if test="callissuccess != null">
+        CALLISSUCCESS,
+      </if>
+      <if test="paraname1 != null">
+        PARANAME1,
+      </if>
+      <if test="paraname2 != null">
+        PARANAME2,
+      </if>
+      <if test="stepstate != null">
+        STEPSTATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        #{logid,jdbcType=DECIMAL},
+      </if>
+      <if test="floworderid != null">
+        #{floworderid,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsystem != null">
+        #{requestsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="responsesystem != null">
+        #{responsesystem,jdbcType=VARCHAR},
+      </if>
+      <if test="requestparm != null">
+        #{requestparm,jdbcType=VARCHAR},
+      </if>
+      <if test="responseparm != null">
+        #{responseparm,jdbcType=VARCHAR},
+      </if>
+      <if test="callserver != null">
+        #{callserver,jdbcType=VARCHAR},
+      </if>
+      <if test="calltime != null">
+        #{calltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respcode != null">
+        #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respdesc != null">
+        #{respdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="callissuccess != null">
+        #{callissuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null">
+        #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null">
+        #{paraname2,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate != null">
+        #{stepstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.FlowOperationLog">
+    update LAO_FLOWOPERATION_LOG
+    <set>
+      <if test="floworderid != null">
+        FLOWORDERID = #{floworderid,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsystem != null">
+        REQUESTSYSTEM = #{requestsystem,jdbcType=VARCHAR},
+      </if>
+      <if test="responsesystem != null">
+        RESPONSESYSTEM = #{responsesystem,jdbcType=VARCHAR},
+      </if>
+      <if test="requestparm != null">
+        REQUESTPARM = #{requestparm,jdbcType=VARCHAR},
+      </if>
+      <if test="responseparm != null">
+        RESPONSEPARM = #{responseparm,jdbcType=VARCHAR},
+      </if>
+      <if test="callserver != null">
+        CALLSERVER = #{callserver,jdbcType=VARCHAR},
+      </if>
+      <if test="calltime != null">
+        CALLTIME = #{calltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respcode != null">
+        RESPCODE = #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respdesc != null">
+        RESPDESC = #{respdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="callissuccess != null">
+        CALLISSUCCESS = #{callissuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null">
+        PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null">
+        PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate != null">
+        STEPSTATE = #{stepstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOGID = #{logid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.FlowOperationLog">
+    update LAO_FLOWOPERATION_LOG
+    set FLOWORDERID = #{floworderid,jdbcType=VARCHAR},
+      REQUESTSYSTEM = #{requestsystem,jdbcType=VARCHAR},
+      RESPONSESYSTEM = #{responsesystem,jdbcType=VARCHAR},
+      REQUESTPARM = #{requestparm,jdbcType=VARCHAR},
+      RESPONSEPARM = #{responseparm,jdbcType=VARCHAR},
+      CALLSERVER = #{callserver,jdbcType=VARCHAR},
+      CALLTIME = #{calltime,jdbcType=TIMESTAMP},
+      RESPCODE = #{respcode,jdbcType=VARCHAR},
+      RESPDESC = #{respdesc,jdbcType=VARCHAR},
+      CALLISSUCCESS = #{callissuccess,jdbcType=VARCHAR},
+      PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      STEPSTATE = #{stepstate,jdbcType=VARCHAR}
+    where LOGID = #{logid,jdbcType=DECIMAL}
+  </update>
+</mapper>

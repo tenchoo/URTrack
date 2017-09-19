@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoIccidAssignBatchExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoIccidAssignBatch" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_CONSIGNEE" property="enterpriseConsignee" jdbcType="VARCHAR" />
+    <result column="CONSIGNEE_PHONE" property="consigneePhone" jdbcType="VARCHAR" />
+    <result column="CONSIGNEE_IDCARD" property="consigneeIdcard" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_CATEGORY" property="industryCategory" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_SEGMENTATION" property="industrySegmentation" jdbcType="VARCHAR" />
+    <result column="DELIVERY_ADDRESS" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="SIM_TYPE" property="simType" jdbcType="VARCHAR" />
+    <result column="SIM_SIZE" property="simSize" jdbcType="VARCHAR" />
+    <result column="SIM_FEE" property="simFee" jdbcType="VARCHAR" />
+    <result column="ICCID_START" property="iccidStart" jdbcType="VARCHAR" />
+    <result column="ICCID_END" property="iccidEnd" jdbcType="VARCHAR" />
+    <result column="NUMBER_START" property="numberStart" jdbcType="VARCHAR" />
+    <result column="NUMBER_END" property="numberEnd" jdbcType="VARCHAR" />
+    <result column="DELIVERY_DATE" property="deliveryDate" jdbcType="TIMESTAMP" />
+    <result column="CONSIGNOR" property="consignor" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_COMPANY" property="logisticsCompany" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NUMBER" property="logisticsNumber" jdbcType="VARCHAR" />
+    <result column="PULL_PERSON" property="pullPerson" jdbcType="VARCHAR" />
+    <result column="PULL_NUMBER" property="pullNumber" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+    <result column="ORDER_FEE" property="orderFee" jdbcType="VARCHAR" />
+    <result column="PAYMENT" property="payment" jdbcType="VARCHAR" />
+    <result column="GENERATEINFOR" property="generateinfor" jdbcType="VARCHAR" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, TRADE_TYPE_CODE, OPERATORS_ID, ENTERPRISE_CONSIGNEE, CONSIGNEE_PHONE, CONSIGNEE_IDCARD, 
+    INDUSTRY_CATEGORY, INDUSTRY_SEGMENTATION, DELIVERY_ADDRESS, SIM_TYPE, SIM_SIZE, SIM_FEE, 
+    ICCID_START, ICCID_END, NUMBER_START, NUMBER_END, DELIVERY_DATE, CONSIGNOR, LOGISTICS_COMPANY, 
+    LOGISTICS_NUMBER, PULL_PERSON, PULL_NUMBER, RECV_TIME, OPER_ID, SUM_NUM, SUCC_NUM, 
+    FAIL_NUM, REMARK, RSRV_INFO1, RSRV_INFO2, ORDER_FEE, PAYMENT, GENERATEINFOR,ORDER_DATE
+  </sql>
+  
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ICCID_ASSIGN_BATCH
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="map" >
+	select 
+    <include refid="Base_Column_List" />
+    from LAO_ICCID_ASSIGN_BATCH
+    where 1 = 1
+   	<if test="params.param.iccidStart != null and params.param.iccidStart!=''" >
+	and  ICCID_START= #{params.param.iccidStart} 
+	</if>
+<!--    	<if test="params.param.recvTime != null and params.param.recvTime!=''" >
+	and  RECV_TIME= #{params.param.recvTime} 
+	</if> -->
+    order by batch_id desc
+  </select>
+  
+  <insert id="insertAssignCard" parameterType="com.urt.dto.LaoIccidAssignBatchDto">
+  	insert into LAO_ICCID_ASSIGN_BATCH(BATCH_ID, RECV_TIME, SUM_NUM) values(#{batchId,jdbcType=DECIMAL}, #{recvTime,jdbcType=TIMESTAMP}, #{sumNum,jdbcType=DECIMAL})
+  </insert>
+</mapper>

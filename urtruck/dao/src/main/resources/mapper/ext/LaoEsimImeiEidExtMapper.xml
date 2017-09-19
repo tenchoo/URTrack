@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimImeiEidExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimImeiEid" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="IMEIID" property="imeiid" jdbcType="VARCHAR" />
+    <result column="IMEINAME" property="imeiname" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EID, IMEIID, IMEINAME, CREATEDATE, UPDATEDATE, PARAM1, PARAM2
+  </sql>
+  <select id="queryByEidAndImei" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_IMEI_EID
+    where IMEIID = #{imeiid,jdbcType=VARCHAR} and EID = #{eid,jdbcType=VARCHAR} 
+  </select>
+  <select id="queryByEid" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_IMEI_EID
+    where EID = #{eid,jdbcType=VARCHAR} 
+  </select>
+  <select id="queryByImei" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_IMEI_EID
+    where IMEIID = #{imeiid,jdbcType=VARCHAR} 
+  </select>
+</mapper>

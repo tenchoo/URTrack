@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoEsimStateMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimState">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="OPERATORS" jdbcType="VARCHAR" property="operators" />
+    <result column="IMSI" jdbcType="VARCHAR" property="imsi" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, IMEI, ICCID, STATUS, OPERATORS, IMSI
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_STATE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_ESIM_STATE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimState">
+    insert into LAO_ESIM_STATE (ID, IMEI, ICCID, 
+      STATUS, OPERATORS, IMSI
+      )
+    values (#{id,jdbcType=DECIMAL}, #{imei,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{operators,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimState">
+    insert into LAO_ESIM_STATE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="imei != null">
+        IMEI,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="operators != null">
+        OPERATORS,
+      </if>
+      <if test="imsi != null">
+        IMSI,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null">
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimState">
+    update LAO_ESIM_STATE
+    <set>
+      <if test="imei != null">
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null">
+        OPERATORS = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        IMSI = #{imsi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimState">
+    update LAO_ESIM_STATE
+    set IMEI = #{imei,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      OPERATORS = #{operators,jdbcType=VARCHAR},
+      IMSI = #{imsi,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

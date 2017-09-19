@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoFAcctdepositChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFAcctdepositChange" >
+    <id column="ACCOUNT_CHANGE_ID" property="accountChangeId" jdbcType="DECIMAL" />
+    <result column="ACCT_BALANCE_ID" property="acctBalanceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_MONEY" property="updateMoney" jdbcType="DECIMAL" />
+    <result column="OLD_MONEY" property="oldMoney" jdbcType="DECIMAL" />
+    <result column="NEW_MONEY" property="newMoney" jdbcType="DECIMAL" />
+    <result column="CHANGE_TYPE" property="changeType" jdbcType="DECIMAL" />
+    <result column="MOVE_ID" property="moveId" jdbcType="DECIMAL" />
+    <result column="ACCESS_ID" property="accessId" jdbcType="DECIMAL" />
+    <result column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="BALANCE_ID" property="balanceId" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_STR2" property="rsrvStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCOUNT_CHANGE_ID, ACCT_BALANCE_ID, CHANNEL_CUST_ID, CREATE_DATE, UPDATE_DATE, UPDATE_MONEY, 
+    OLD_MONEY, NEW_MONEY, CHANGE_TYPE, MOVE_ID, ACCESS_ID, CHARGE_ID, BALANCE_ID, OPER_ID, 
+    RSRV_STR1, RSRV_STR2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_F_ACCTDEPOSIT_CHANGE
+    where ACCOUNT_CHANGE_ID = #{accountChangeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_F_ACCTDEPOSIT_CHANGE
+    where ACCOUNT_CHANGE_ID = #{accountChangeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoFAcctdepositChange" >
+    insert into LAO_F_ACCTDEPOSIT_CHANGE (ACCOUNT_CHANGE_ID, ACCT_BALANCE_ID, CHANNEL_CUST_ID, 
+      CREATE_DATE, UPDATE_DATE, UPDATE_MONEY, 
+      OLD_MONEY, NEW_MONEY, CHANGE_TYPE, 
+      MOVE_ID, ACCESS_ID, CHARGE_ID, 
+      BALANCE_ID, OPER_ID, RSRV_STR1, 
+      RSRV_STR2)
+    values (#{accountChangeId,jdbcType=DECIMAL}, #{acctBalanceId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{updateMoney,jdbcType=DECIMAL}, 
+      #{oldMoney,jdbcType=DECIMAL}, #{newMoney,jdbcType=DECIMAL}, #{changeType,jdbcType=DECIMAL}, 
+      #{moveId,jdbcType=DECIMAL}, #{accessId,jdbcType=DECIMAL}, #{chargeId,jdbcType=DECIMAL}, 
+      #{balanceId,jdbcType=DECIMAL}, #{operId,jdbcType=VARCHAR}, #{rsrvStr1,jdbcType=VARCHAR}, 
+      #{rsrvStr2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoFAcctdepositChange" >
+    insert into LAO_F_ACCTDEPOSIT_CHANGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountChangeId != null" >
+        ACCOUNT_CHANGE_ID,
+      </if>
+      <if test="acctBalanceId != null" >
+        ACCT_BALANCE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updateMoney != null" >
+        UPDATE_MONEY,
+      </if>
+      <if test="oldMoney != null" >
+        OLD_MONEY,
+      </if>
+      <if test="newMoney != null" >
+        NEW_MONEY,
+      </if>
+      <if test="changeType != null" >
+        CHANGE_TYPE,
+      </if>
+      <if test="moveId != null" >
+        MOVE_ID,
+      </if>
+      <if test="accessId != null" >
+        ACCESS_ID,
+      </if>
+      <if test="chargeId != null" >
+        CHARGE_ID,
+      </if>
+      <if test="balanceId != null" >
+        BALANCE_ID,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1,
+      </if>
+      <if test="rsrvStr2 != null" >
+        RSRV_STR2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountChangeId != null" >
+        #{accountChangeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acctBalanceId != null" >
+        #{acctBalanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateMoney != null" >
+        #{updateMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="oldMoney != null" >
+        #{oldMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="newMoney != null" >
+        #{newMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="changeType != null" >
+        #{changeType,jdbcType=DECIMAL},
+      </if>
+      <if test="moveId != null" >
+        #{moveId,jdbcType=DECIMAL},
+      </if>
+      <if test="accessId != null" >
+        #{accessId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceId != null" >
+        #{balanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr2 != null" >
+        #{rsrvStr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoFAcctdepositChange" >
+    update LAO_F_ACCTDEPOSIT_CHANGE
+    <set >
+      <if test="acctBalanceId != null" >
+        ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateMoney != null" >
+        UPDATE_MONEY = #{updateMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="oldMoney != null" >
+        OLD_MONEY = #{oldMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="newMoney != null" >
+        NEW_MONEY = #{newMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="changeType != null" >
+        CHANGE_TYPE = #{changeType,jdbcType=DECIMAL},
+      </if>
+      <if test="moveId != null" >
+        MOVE_ID = #{moveId,jdbcType=DECIMAL},
+      </if>
+      <if test="accessId != null" >
+        ACCESS_ID = #{accessId,jdbcType=DECIMAL},
+      </if>
+      <if test="chargeId != null" >
+        CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceId != null" >
+        BALANCE_ID = #{balanceId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr2 != null" >
+        RSRV_STR2 = #{rsrvStr2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACCOUNT_CHANGE_ID = #{accountChangeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoFAcctdepositChange" >
+    update LAO_F_ACCTDEPOSIT_CHANGE
+    set ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_MONEY = #{updateMoney,jdbcType=DECIMAL},
+      OLD_MONEY = #{oldMoney,jdbcType=DECIMAL},
+      NEW_MONEY = #{newMoney,jdbcType=DECIMAL},
+      CHANGE_TYPE = #{changeType,jdbcType=DECIMAL},
+      MOVE_ID = #{moveId,jdbcType=DECIMAL},
+      ACCESS_ID = #{accessId,jdbcType=DECIMAL},
+      CHARGE_ID = #{chargeId,jdbcType=DECIMAL},
+      BALANCE_ID = #{balanceId,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      RSRV_STR2 = #{rsrvStr2,jdbcType=VARCHAR}
+    where ACCOUNT_CHANGE_ID = #{accountChangeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

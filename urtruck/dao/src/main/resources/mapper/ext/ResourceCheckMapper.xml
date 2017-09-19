@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.ResourceCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsResourcePo" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="INTEGER" />
+    <result column="RES_CODE" property="resCode" jdbcType="VARCHAR" />
+    <result column="RES_NAME" property="resName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESOURCE_ID, RES_CODE, RES_NAME
+  </sql>
+  <select id="queryServer" resultType="java.lang.Integer">
+  	select 
+       server.server_tag,
+       server.operation_tag,
+       server.server_name,
+       server.server_id
+       from LAO_CUST_GROUP cust 
+    inner join LAO_USER us 
+          on cust.cust_id=us.channel_cust_id
+    inner join LAO_SS_ACCOUNT_ROLE accRol 
+          on us.user_id=accRol.User_Id
+    inner join LAO_ROLE_SERVER_CONN serConn 
+          on serConn.Role_Id=accRol.Role_Id
+    inner join LAO_PROVIDE_SERVER server 
+          on server.server_id = serConn.server_id   
+  	where  us.iccid = #{iccid} 
+  		 and server.server_name = #{server_name}
+  		 and cust.cust_id = #{custid}
+  		 <!-- where u.USER_ID = #{userId} and resou.RESOURCE_ID = #{resourceId} and cust.cust_id = #{custid} -->
+		
+  </select>
+  
+</mapper>

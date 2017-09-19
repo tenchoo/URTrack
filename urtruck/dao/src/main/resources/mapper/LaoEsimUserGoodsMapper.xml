@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimUserGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimUserGoods" >
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="BINDDATE" property="binddate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="GOODSSTATUS" property="goodsstatus" jdbcType="VARCHAR" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimUserGoods" >
+    insert into LAO_ESIM_USER_GOODS (USER_ID, GOODS_ID, STARTDATE, 
+      ENDDATE, BINDDATE, CREATEDATE, 
+      UPDATEDATE, GOODSSTATUS, PARAM1, 
+      PARAM2)
+    values (#{userId,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{startdate,jdbcType=TIMESTAMP}, 
+      #{enddate,jdbcType=TIMESTAMP}, #{binddate,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{goodsstatus,jdbcType=VARCHAR}, #{param1,jdbcType=VARCHAR}, 
+      #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimUserGoods" >
+    insert into LAO_ESIM_USER_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="startdate != null" >
+        STARTDATE,
+      </if>
+      <if test="enddate != null" >
+        ENDDATE,
+      </if>
+      <if test="binddate != null" >
+        BINDDATE,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="goodsstatus != null" >
+        GOODSSTATUS,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="binddate != null" >
+        #{binddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsstatus != null" >
+        #{goodsstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateUserGoods" parameterType="com.urt.po.LaoEsimUserGoods" >
+     update LAO_ESIM_USER_GOODS
+     <set>
+        <!-- <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if> -->
+      <if test="goodsId != null" >
+        GOODS_ID=#{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startdate != null" >
+       STARTDATE=#{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        ENDDATE=#{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="binddate != null" >
+        BINDDATE=#{binddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE=#{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE=#{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsstatus != null" >
+        GOODSSTATUS=#{goodsstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        PARAM1=#{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2=#{param2,jdbcType=VARCHAR},
+      </if>
+     </set>
+      where  USER_ID=#{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

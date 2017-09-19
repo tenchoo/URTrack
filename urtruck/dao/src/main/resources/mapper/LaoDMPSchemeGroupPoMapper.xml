@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoDMPSchemeGroupPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPSchemeGroupPo" >
+    <result column="SCHEME_ID" property="schemeId" jdbcType="DECIMAL" />
+    <result column="GROUP_ID" property="groupId" jdbcType="DECIMAL" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPSchemeGroupPo" >
+    insert into LAO_DMPSCHEME_GROUP (SCHEME_ID, GROUP_ID, DELFLAG, 
+      CREATETIME, UPDATETIME)
+    values (#{schemeId,jdbcType=DECIMAL}, #{groupId,jdbcType=DECIMAL}, #{delflag,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPSchemeGroupPo" >
+    insert into LAO_DMPSCHEME_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schemeId != null" >
+        SCHEME_ID,
+      </if>
+      <if test="groupId != null" >
+        GROUP_ID,
+      </if>
+      <if test="delflag != null" >
+        DELFLAG,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schemeId != null" >
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="delflag != null" >
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

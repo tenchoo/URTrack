@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPPositionPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPPositionPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
+    <result column="LONGTITUDE" jdbcType="DECIMAL" property="longtitude" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="SPEED" jdbcType="DECIMAL" property="speed" />
+    <result column="ERRORINFO" jdbcType="VARCHAR" property="errorinfo" />
+    <result column="MCC" jdbcType="VARCHAR" property="mcc" />
+    <result column="MNC" jdbcType="VARCHAR" property="mnc" />
+    <result column="MBASESTATIONID" jdbcType="DECIMAL" property="mbasestationid" />
+    <result column="MSYSTEMID" jdbcType="DECIMAL" property="msystemid" />
+    <result column="MNETWORKID" jdbcType="DECIMAL" property="mnetworkid" />
+    <result column="LAC" jdbcType="DECIMAL" property="lac" />
+    <result column="CID" jdbcType="DECIMAL" property="cid" />
+    <result column="REGISTEREDSTATE" jdbcType="VARCHAR" property="registeredstate" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, IMEI, LATITUDE, LONGTITUDE, ADDRESS, SPEED, ERRORINFO, MCC, MNC, MBASESTATIONID, 
+    MSYSTEMID, MNETWORKID, LAC, CID, REGISTEREDSTATE, CREATETIME, UPDATETIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMPPOSITION_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DMPPOSITION_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPPositionPo">
+    insert into LAO_DMPPOSITION_DATA (ID, IMEI, LATITUDE, 
+      LONGTITUDE, ADDRESS, SPEED, 
+      ERRORINFO, MCC, MNC, 
+      MBASESTATIONID, MSYSTEMID, MNETWORKID, 
+      LAC, CID, REGISTEREDSTATE, 
+      CREATETIME, UPDATETIME)
+    values (#{id,jdbcType=DECIMAL}, #{imei,jdbcType=VARCHAR}, #{latitude,jdbcType=DECIMAL}, 
+      #{longtitude,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{speed,jdbcType=DECIMAL}, 
+      #{errorinfo,jdbcType=VARCHAR}, #{mcc,jdbcType=VARCHAR}, #{mnc,jdbcType=VARCHAR}, 
+      #{mbasestationid,jdbcType=DECIMAL}, #{msystemid,jdbcType=DECIMAL}, #{mnetworkid,jdbcType=DECIMAL}, 
+      #{lac,jdbcType=DECIMAL}, #{cid,jdbcType=DECIMAL}, #{registeredstate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPPositionPo">
+    insert into LAO_DMPPOSITION_DATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="imei != null">
+        IMEI,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="longtitude != null">
+        LONGTITUDE,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="speed != null">
+        SPEED,
+      </if>
+      <if test="errorinfo != null">
+        ERRORINFO,
+      </if>
+      <if test="mcc != null">
+        MCC,
+      </if>
+      <if test="mnc != null">
+        MNC,
+      </if>
+      <if test="mbasestationid != null">
+        MBASESTATIONID,
+      </if>
+      <if test="msystemid != null">
+        MSYSTEMID,
+      </if>
+      <if test="mnetworkid != null">
+        MNETWORKID,
+      </if>
+      <if test="lac != null">
+        LAC,
+      </if>
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="registeredstate != null">
+        REGISTEREDSTATE,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="longtitude != null">
+        #{longtitude,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=DECIMAL},
+      </if>
+      <if test="errorinfo != null">
+        #{errorinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null">
+        #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="mnc != null">
+        #{mnc,jdbcType=VARCHAR},
+      </if>
+      <if test="mbasestationid != null">
+        #{mbasestationid,jdbcType=DECIMAL},
+      </if>
+      <if test="msystemid != null">
+        #{msystemid,jdbcType=DECIMAL},
+      </if>
+      <if test="mnetworkid != null">
+        #{mnetworkid,jdbcType=DECIMAL},
+      </if>
+      <if test="lac != null">
+        #{lac,jdbcType=DECIMAL},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredstate != null">
+        #{registeredstate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDMPPositionPo">
+    update LAO_DMPPOSITION_DATA
+    <set>
+      <if test="imei != null">
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        LATITUDE = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="longtitude != null">
+        LONGTITUDE = #{longtitude,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null">
+        SPEED = #{speed,jdbcType=DECIMAL},
+      </if>
+      <if test="errorinfo != null">
+        ERRORINFO = #{errorinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null">
+        MCC = #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="mnc != null">
+        MNC = #{mnc,jdbcType=VARCHAR},
+      </if>
+      <if test="mbasestationid != null">
+        MBASESTATIONID = #{mbasestationid,jdbcType=DECIMAL},
+      </if>
+      <if test="msystemid != null">
+        MSYSTEMID = #{msystemid,jdbcType=DECIMAL},
+      </if>
+      <if test="mnetworkid != null">
+        MNETWORKID = #{mnetworkid,jdbcType=DECIMAL},
+      </if>
+      <if test="lac != null">
+        LAC = #{lac,jdbcType=DECIMAL},
+      </if>
+      <if test="cid != null">
+        CID = #{cid,jdbcType=DECIMAL},
+      </if>
+      <if test="registeredstate != null">
+        REGISTEREDSTATE = #{registeredstate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDMPPositionPo">
+    update LAO_DMPPOSITION_DATA
+    set IMEI = #{imei,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=DECIMAL},
+      LONGTITUDE = #{longtitude,jdbcType=DECIMAL},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      SPEED = #{speed,jdbcType=DECIMAL},
+      ERRORINFO = #{errorinfo,jdbcType=VARCHAR},
+      MCC = #{mcc,jdbcType=VARCHAR},
+      MNC = #{mnc,jdbcType=VARCHAR},
+      MBASESTATIONID = #{mbasestationid,jdbcType=DECIMAL},
+      MSYSTEMID = #{msystemid,jdbcType=DECIMAL},
+      MNETWORKID = #{mnetworkid,jdbcType=DECIMAL},
+      LAC = #{lac,jdbcType=DECIMAL},
+      CID = #{cid,jdbcType=DECIMAL},
+      REGISTEREDSTATE = #{registeredstate,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

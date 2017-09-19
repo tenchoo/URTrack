@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ChargeOrderMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.ChargeOrder">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="ORDERID" jdbcType="VARCHAR" property="orderid" />
+    <result column="FLOWSIZE" jdbcType="VARCHAR" property="flowsize" />
+    <result column="PAYAMOUNT" jdbcType="DECIMAL" property="payamount" />
+    <result column="PAYSTATUS" jdbcType="DECIMAL" property="paystatus" />
+    <result column="CHARGESTATUS" jdbcType="DECIMAL" property="chargestatus" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="CHARGEDATE" jdbcType="TIMESTAMP" property="chargedate" />
+    <result column="PAYTYPE" jdbcType="DECIMAL" property="paytype" />
+    <result column="PAYORDERID" jdbcType="VARCHAR" property="payorderid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERNAME, USERID, ICCID, ORDERID, FLOWSIZE, PAYAMOUNT, PAYSTATUS, CHARGESTATUS, 
+    CREATEDATE, UPDATEDATE, CHARGEDATE, PAYTYPE, PAYORDERID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CHARGE_ORDER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <!-- 条件查询 -->
+  <select id="doQueryFirst" parameterType="java.lang.String" resultMap="BaseResultMap">
+ 		select 
+    <include refid="Base_Column_List" />
+    from LAO_CHARGE_ORDER
+    where orderId = #{orderId,jdbcType=DECIMAL} and ROWNUM =1
+  </select>
+	<!--分页加上时间查询  -->
+	<select id="doQueryList" parameterType="java.lang.String" resultMap="BaseResultMap">
+	SELECT
+	<include refid="Base_Column_List" />
+	
+	FROM (SELECT tt.*, ROWNUM AS rowno
+	FROM (SELECT t.*
+	FROM LAO_CHARGE_ORDER t
+	<where>
+	    <if test="startTime != null and endTime != null " >
+	      and  createdate BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="userId != null">
+	    and  userId=#{userId} and paystatus =1 
+	    </if>
+    </where>
+	order by createDate desc)tt<![CDATA[
+	where ROWNUM <= #{endRow,jdbcType=DECIMAL})tb
+	WHERE tb.rowno >= #{startRow,jdbcType=DECIMAL}  	
+	]]> 
+  </select>
+	
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from LAO_CHARGE_ORDER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.ChargeOrder">
+    insert into LAO_CHARGE_ORDER (ID, USERNAME, USERID, 
+      ICCID, ORDERID, FLOWSIZE, 
+      PAYAMOUNT, PAYSTATUS, CHARGESTATUS, 
+      CREATEDATE, UPDATEDATE, CHARGEDATE, 
+      PAYTYPE, PAYORDERID)
+    values (LAO_CHARGE_ORDER_ID_SEQ.nextval, #{username,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{flowsize,jdbcType=VARCHAR}, 
+      #{payamount,jdbcType=DECIMAL}, #{paystatus,jdbcType=DECIMAL}, #{chargestatus,jdbcType=DECIMAL}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{chargedate,jdbcType=TIMESTAMP}, 
+      #{paytype,jdbcType=DECIMAL}, #{payorderid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.ChargeOrder">
+    insert into LAO_CHARGE_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="orderid != null">
+        ORDERID,
+      </if>
+      <if test="flowsize != null">
+        FLOWSIZE,
+      </if>
+      <if test="payamount != null">
+        PAYAMOUNT,
+      </if>
+      <if test="paystatus != null">
+        PAYSTATUS,
+      </if>
+      <if test="chargestatus != null">
+        CHARGESTATUS,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null">
+        UPDATEDATE,
+      </if>
+      <if test="chargedate != null">
+        CHARGEDATE,
+      </if>
+      <if test="paytype != null">
+        PAYTYPE,
+      </if>
+      <if test="payorderid != null">
+        PAYORDERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowsize != null">
+        #{flowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="payamount != null">
+        #{payamount,jdbcType=DECIMAL},
+      </if>
+      <if test="paystatus != null">
+        #{paystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="chargestatus != null">
+        #{chargestatus,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargedate != null">
+        #{chargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytype != null">
+        #{paytype,jdbcType=DECIMAL},
+      </if>
+      <if test="payorderid != null">
+        #{payorderid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.ChargeOrder">
+    update LAO_CHARGE_ORDER
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        ORDERID = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowsize != null">
+        FLOWSIZE = #{flowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="payamount != null">
+        PAYAMOUNT = #{payamount,jdbcType=DECIMAL},
+      </if>
+      <if test="paystatus != null">
+        PAYSTATUS = #{paystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="chargestatus != null">
+        CHARGESTATUS = #{chargestatus,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargedate != null">
+        CHARGEDATE = #{chargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytype != null">
+        PAYTYPE = #{paytype,jdbcType=DECIMAL},
+      </if>
+      <if test="payorderid != null">
+        PAYORDERID = #{payorderid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.ChargeOrder">
+    update LAO_CHARGE_ORDER
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      ORDERID = #{orderid,jdbcType=VARCHAR},
+      FLOWSIZE = #{flowsize,jdbcType=VARCHAR},
+      PAYAMOUNT = #{payamount,jdbcType=DECIMAL},
+      PAYSTATUS = #{paystatus,jdbcType=DECIMAL},
+      CHARGESTATUS = #{chargestatus,jdbcType=DECIMAL},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      CHARGEDATE = #{chargedate,jdbcType=TIMESTAMP},
+      PAYTYPE = #{paytype,jdbcType=DECIMAL},
+      PAYORDERID = #{payorderid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

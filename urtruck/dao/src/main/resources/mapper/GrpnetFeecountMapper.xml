@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.GrpnetFeecountMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.GrpnetFeecount" >
+    <id column="FEECOUNT_ID" property="feecountId" jdbcType="DECIMAL" />
+    <result column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="COMPUTE_METHOD" property="computeMethod" jdbcType="DECIMAL" />
+    <result column="BASE_UNIT" property="baseUnit" jdbcType="VARCHAR" />
+    <result column="UNIT_FEE" property="unitFee" jdbcType="VARCHAR" />
+    <result column="MIN_VALUE" property="minValue" jdbcType="VARCHAR" />
+    <result column="MAX_VALUE" property="maxValue" jdbcType="VARCHAR" />
+    <result column="MIN_PRICE" property="minPrice" jdbcType="VARCHAR" />
+    <result column="MAX_PRICE" property="maxPrice" jdbcType="VARCHAR" />
+    <result column="TOP_VALUE" property="topValue" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FEECOUNT_ID, OBJECT_ID, COMPUTE_METHOD, BASE_UNIT, UNIT_FEE, MIN_VALUE, MAX_VALUE, 
+    MIN_PRICE, MAX_PRICE, TOP_VALUE, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GRPNET_FEECOUNT
+    where FEECOUNT_ID = #{feecountId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_GRPNET_FEECOUNT
+    where FEECOUNT_ID = #{feecountId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.GrpnetFeecount" >
+    insert into LAO_GRPNET_FEECOUNT (FEECOUNT_ID, OBJECT_ID, COMPUTE_METHOD, 
+      BASE_UNIT, UNIT_FEE, MIN_VALUE, 
+      MAX_VALUE, MIN_PRICE, MAX_PRICE, 
+      TOP_VALUE, REMARK)
+    values (#{feecountId,jdbcType=DECIMAL}, #{objectId,jdbcType=DECIMAL}, #{computeMethod,jdbcType=DECIMAL}, 
+      #{baseUnit,jdbcType=VARCHAR}, #{unitFee,jdbcType=VARCHAR}, #{minValue,jdbcType=VARCHAR}, 
+      #{maxValue,jdbcType=VARCHAR}, #{minPrice,jdbcType=VARCHAR}, #{maxPrice,jdbcType=VARCHAR}, 
+      #{topValue,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.GrpnetFeecount" >
+    insert into LAO_GRPNET_FEECOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feecountId != null" >
+        FEECOUNT_ID,
+      </if>
+      <if test="objectId != null" >
+        OBJECT_ID,
+      </if>
+      <if test="computeMethod != null" >
+        COMPUTE_METHOD,
+      </if>
+      <if test="baseUnit != null" >
+        BASE_UNIT,
+      </if>
+      <if test="unitFee != null" >
+        UNIT_FEE,
+      </if>
+      <if test="minValue != null" >
+        MIN_VALUE,
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE,
+      </if>
+      <if test="minPrice != null" >
+        MIN_PRICE,
+      </if>
+      <if test="maxPrice != null" >
+        MAX_PRICE,
+      </if>
+      <if test="topValue != null" >
+        TOP_VALUE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feecountId != null" >
+        #{feecountId,jdbcType=DECIMAL},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=DECIMAL},
+      </if>
+      <if test="computeMethod != null" >
+        #{computeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="baseUnit != null" >
+        #{baseUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitFee != null" >
+        #{unitFee,jdbcType=VARCHAR},
+      </if>
+      <if test="minValue != null" >
+        #{minValue,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        #{minPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPrice != null" >
+        #{maxPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="topValue != null" >
+        #{topValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.GrpnetFeecount" >
+    update LAO_GRPNET_FEECOUNT
+    <set >
+      <if test="objectId != null" >
+        OBJECT_ID = #{objectId,jdbcType=DECIMAL},
+      </if>
+      <if test="computeMethod != null" >
+        COMPUTE_METHOD = #{computeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="baseUnit != null" >
+        BASE_UNIT = #{baseUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitFee != null" >
+        UNIT_FEE = #{unitFee,jdbcType=VARCHAR},
+      </if>
+      <if test="minValue != null" >
+        MIN_VALUE = #{minValue,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE = #{maxValue,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        MIN_PRICE = #{minPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPrice != null" >
+        MAX_PRICE = #{maxPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="topValue != null" >
+        TOP_VALUE = #{topValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FEECOUNT_ID = #{feecountId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.GrpnetFeecount" >
+    update LAO_GRPNET_FEECOUNT
+    set OBJECT_ID = #{objectId,jdbcType=DECIMAL},
+      COMPUTE_METHOD = #{computeMethod,jdbcType=DECIMAL},
+      BASE_UNIT = #{baseUnit,jdbcType=VARCHAR},
+      UNIT_FEE = #{unitFee,jdbcType=VARCHAR},
+      MIN_VALUE = #{minValue,jdbcType=VARCHAR},
+      MAX_VALUE = #{maxValue,jdbcType=VARCHAR},
+      MIN_PRICE = #{minPrice,jdbcType=VARCHAR},
+      MAX_PRICE = #{maxPrice,jdbcType=VARCHAR},
+      TOP_VALUE = #{topValue,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where FEECOUNT_ID = #{feecountId,jdbcType=DECIMAL}
+  </update>
+</mapper>

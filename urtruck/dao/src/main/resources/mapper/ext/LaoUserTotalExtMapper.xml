@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserTotalExtMapper">
+	
+	
+	<select id="queryUserOperNum" resultType="java.util.Map">
+		select a.operators_id,c.region_name,d.static_name,count(1) numb from lao_user a, lao_customer b, lao_staff c , lao_ss_static d where a.channel_cust_id =b.cust_id
+		and b.rsrv_str1= c.staff_id and a.channel_cust_id =d.cust_id and d.static_name in('智能展业','智能互联','智能车联','运营商物联') 
+		group by a.operators_id,c.region_name,d.static_name 
+	</select>
+	<select id="queryUserStateNum" resultType="java.util.Map">
+		select d.region_name,e.static_name,b.outsidestate,count(1) numb from lao_user a,lao_service_status b ,lao_customer c,
+		lao_staff d,lao_ss_static e where a.state_code=b.state_code and b.outsidestate in('1','2','3')
+		 and a.channel_cust_id= c.cust_id and a.channel_cust_id=e.cust_id and c.rsrv_str1=d.staff_id 
+		 and e.static_name in('智能展业','智能互联','智能车联','运营商物联') group by d.region_name,e.static_name,b.outsidestate
+	</select>
+
+	<select id="queryIndustryNum" resultType="java.util.Map">		
+	 select c.region_name,d.static_name,count(1) numb from lao_user a, lao_customer b, lao_staff c , lao_ss_static d where a.channel_cust_id =b.cust_id
+		and b.rsrv_str1= c.staff_id and a.channel_cust_id =d.cust_id and d.static_name in('智能展业','智能互联','智能车联','运营商物联') 
+		group by c.region_name,d.static_name 
+	</select>
+	<select id="queryNumByAdmin" resultType="java.util.Map">		
+	select substr(ls.staff_id, 3, 2) as gid,lss.static_name as static_name,
+       lu.operators_id as operatorsid,
+       ss.outsidestate as stateid,
+       nvl(sum(decode(p.quantity_unit,
+                      'M',
+                      p.quantity_max * 1024,
+                      'G',
+                      p.quantity_max * 1024 * 1024)),
+           0) as flow,
+       count(*) as num
+  from lao_user lu
+  left join lao_customer lc on lu.channel_cust_id = lc.cust_id
+  left join lao_staff ls on lc.rsrv_str1 = ls.staff_id
+  left join lao_ss_static lss on lu.attribute1 = lss.static_code
+  left join lao_service_status ss on lu.state_code = ss.state_code
+  left join lao_user_operator_plan lp on lu.user_id = lp.user_id
+  left join lao_operator_plan p on lp.plan_id = p.plan_id
+ where <![CDATA[lu.in_date >=]]> to_date(#{0}, 'yyyy-mm-dd')
+   and lu.in_date <![CDATA[<]]> to_date(#{1}, 'yyyy-mm-dd') 
+   and lp.start_date <![CDATA[>=]]> to_date(#{0}, 'yyyy-mm-dd') 
+   and lp.start_date <![CDATA[<]]> to_date(#{1}, 'yyyy-mm-dd') 
+ group by substr(ls.staff_id, 3, 2),lss.static_name, lu.operators_id, ss.outsidestate
+	</select>
+	<select id="queryDetailByNio" resultType="java.util.Map" parameterType="java.util.Map">		
+	select  p.plan_classify as classify,lu.remove_tag as lifecycle,lu.operators_id as operatorsid,
+       ss.outsidestate as stateid,
+       nvl(sum(decode(p.quantity_unit,
+                      'M',
+                      p.quantity_max * 1024,
+                      'G',
+                      p.quantity_max * 1024 * 1024)),
+           0) as flow,
+           sum(p.quantity_max) as max,
+       count(*) as num
+  from lao_user lu 
+  left join lao_service_status ss on lu.state_code = ss.state_code 
+  left join lao_user_operator_plan lp on lu.user_id = lp.user_id 
+  left join lao_operator_plan p on lp.plan_id = p.plan_id 
+  where <![CDATA[lu.in_date >=]]> to_date(#{startDate}, 'yyyy-mm-dd')  
+   and lu.in_date <![CDATA[<]]> to_date(#{endDate}, 'yyyy-mm-dd')  
+   and lp.start_date <![CDATA[>=]]> to_date(#{startDate}, 'yyyy-mm-dd') 
+   and lp.start_date <![CDATA[<]]> to_date(#{endDate}, 'yyyy-mm-dd') 
+     <if test="custId!=null">
+     and lu.cust_id=#{custId}
+     </if>
+ group by lu.remove_tag ,lu.operators_id, ss.outsidestate,p.plan_classify 
+	</select>
+	<select id="getCount" resultType="java.lang.Long">		
+		select count(*) from lao_user
+	</select>
+	<select id="queryCountByLifeCycle" resultType="java.util.Map">		
+		select lu.remove_tag cycleStr,count(lu.remove_tag) countStr from lao_user lu group by lu.remove_tag
+	</select>
+	<select id="queryCountByValue" resultType="java.util.Map">		
+		select lss.static_name typeStr,count(lss.static_name) countStr from lao_user lu left join lao_ss_static lss on lu.value2=lss.static_id group by lss.static_name
+	</select>
+	<select id="queryLinkMom" resultType="java.util.Map" parameterType="java.util.Map">		
+		select count(tmp.monthStr) countStr,tmp.monthStr monthStr from （select case when to_char(lu.in_date,'yyyy-mm')= #{current} then 'current' when to_char(lu.in_date,'yyyy-mm')= #{before} then 'before' else 'else' end monthStr   from lao_user lu）tmp group by tmp.monthStr
+	</select>
+	<select id="getTotalByMM" resultType="java.util.Map">		
+		select mm.plan_classify planClassify,sum(mm.use_count) sumStr from lao_traffic_mm  mm group by mm.plan_classify;
+	</select>
+	<select id="getLifeCycleSumByMM" resultType="java.util.Map">		
+		select mm.plan_classify planClassify,lu.remove_tag cycleStr,sum(mm.use_count) countStr from lao_traffic_mm mm left join lao_user lu on lu.user_id=mm.user_id group by mm.plan_classify,lu.remove_tag
+	</select>
+	<select id="getTypeSumByMM" resultType="java.util.Map">
+		select mm.plan_classify planClassify,lss.static_name typeStr,sum(mm.use_count) countStr from lao_traffic_mm mm left join lao_user lu on mm.user_id=lu.user_id left join lao_ss_static lss on lu.value2=lss.static_id group by mm.plan_classify,lss.static_name		
+	</select>
+	<select id="getMomByMM" resultType="java.util.Map" parameterType="java.util.Map">
+		select tmp.monthstr monthStr,tmp.plan_classify planClassify,sum(tmp.use_count) sumStr from (select case when mm.data_cycle= #{current} then 'current' when mm.data_cycle=#{before}  then 'before' else 'else' end monthStr,mm.use_count use_count,mm.plan_classify plan_classify  from lao_traffic_mm mm) tmp group by tmp.monthstr,tmp.plan_classify
+	</select>
+	<select id="getRechargeTotal" resultType="java.util.Map">
+		select count(lp.real_fee) countStr,sum(lp.real_fee) sumStr from lao_b_paylog lp;
+	</select>
+	<select id="getRechargeByMom" resultType="java.util.Map" parameterType="java.util.Map">
+		select tmp.monthStr monthStr,count(tmp.monthStr) countStr,sum(tmp.real_fee) sumStr from (select case when to_char(lp.recv_time,'yyyy-mm')= #{current} then 'current' when to_char(lp.recv_time,'yyyy-mm')= #{before} then 'before' else 'else' end monthStr,lp.real_fee   from lao_b_paylog lp) tmp group by tmp.monthStr
+	</select>
+	<select id="getRechargeByValue" resultType="java.util.Map">
+		select lss.static_name staticName,count(real_fee) countStr,sum(real_fee) sumStr from lao_b_paylog lp left join lao_user lu on lp.user_id=lu.user_id left join lao_ss_static lss on lu.value2=lss.static_id group by lss.static_name
+	</select>
+	<select id="getApiCount" resultType="java.lang.Long">
+		select count(*) countStr from lao_peripheral_sys_access_log
+	</select>
+	<select id="getApiByValue" resultType="java.util.Map">
+		select  lss.static_name typeStr,count(lss.static_name) countStr from lao_peripheral_sys_access_log lpsal left join lao_user lu on lpsal.user_name=lu.iccid left join lao_ss_static lss on lu.value2=lss.static_id group by lss.static_name
+	</select>
+	<select id="getApiMom" resultType="java.util.Map">
+		select tmp.monthStr monthStr,count(tmp.monthStr) countStr from (select case when to_char(lpsal.access_date,'yyyy-mm')= #{current} then 'current' when to_char(lpsal.access_date,'yyyy-mm')= #{before} then 'before' else 'else' end monthStr from lao_peripheral_sys_access_log lpsal) tmp group by tmp.monthStr 
+	</select>
+	<select id="getLinkByBar" resultType="java.util.Map">
+		select tmp.monthStr,count(tmp.monthStr)  countStr from (select to_char(lu.in_date,'yyyy-mm') monthStr  from lao_user lu) tmp where to_date(tmp.monthStr,'yyyy-mm')>to_date('2016-12','yyyy-mm') group by tmp.monthStr order by tmp.monthStr 
+	</select>
+	<select id="getLinkByMonth" resultType="java.lang.Long" parameterType="java.lang.String">
+		select  count(*)  from lao_user lu  where to_char(lu.in_date,'yyyy-mm')=#{month}
+	</select>
+	<select id="getFlowByApn1" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+		select count(*) countStr from  lao_traffic_mm mm where mm.plan_classify='apn1' and  mm.data_cycle=#{month}
+	</select>
+	<select id="getFlowByApn2" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+		select count(*) countStr from  lao_traffic_mm mm where mm.plan_classify='apn2' and  mm.data_cycle=#{month}
+	</select>
+	<select id="getFlowByApn" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+		select count(*) countStr from  lao_traffic_mm mm where (mm.plan_classify='apn2' or mm.plan_classify='apn1') and  mm.data_cycle=#{month}
+	</select>
+	<select id="getAmountByMonth" resultType="java.util.Map" parameterType="java.lang.String">
+		select  count(lp.real_fee) countStr,sum(lp.real_fee) sumStr from lao_b_paylog lp where to_char(lp.recv_time,'yyyy-mm')=#{month}
+	</select>
+	<select id="getApiByMonth" resultType="java.lang.Long" parameterType="java.lang.String">
+		select count(*) from lao_peripheral_sys_access_log lpsal where to_char(lpsal.access_date,'yyyy-mm')=#{month}
+	</select>
+</mapper>
+ 

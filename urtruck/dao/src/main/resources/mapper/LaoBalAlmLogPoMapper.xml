@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBalAlmLogPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBalAlmLogPo" >
+    <id column="ALARM_ID" property="alarmId" jdbcType="DECIMAL" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUR_BAL" property="curBal" jdbcType="DECIMAL" />
+    <result column="REMIANBAL" property="remianbal" jdbcType="DECIMAL" />
+    <result column="SMS_TAG" property="smsTag" jdbcType="CHAR" />
+    <result column="EMAIL_TAG" property="emailTag" jdbcType="CHAR" />
+    <result column="DEAL_TIME" property="dealTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ALARM_ID, RULE_NAME, CHANNEL_CUST_ID, CUR_BAL, REMIANBAL, SMS_TAG, EMAIL_TAG, DEAL_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BAL_ALM_LOG
+    where ALARM_ID = #{alarmId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_BAL_ALM_LOG
+    where ALARM_ID = #{alarmId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBalAlmLogPo" >
+    insert into LAO_BAL_ALM_LOG (ALARM_ID, RULE_NAME, CHANNEL_CUST_ID, 
+      CUR_BAL, REMIANBAL, SMS_TAG, 
+      EMAIL_TAG, DEAL_TIME)
+    values (#{alarmId,jdbcType=DECIMAL}, #{ruleName,jdbcType=VARCHAR}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{curBal,jdbcType=DECIMAL}, #{remianbal,jdbcType=DECIMAL}, #{smsTag,jdbcType=CHAR}, 
+      #{emailTag,jdbcType=CHAR}, #{dealTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBalAlmLogPo" >
+    insert into LAO_BAL_ALM_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="alarmId != null" >
+        ALARM_ID,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="curBal != null" >
+        CUR_BAL,
+      </if>
+      <if test="remianbal != null" >
+        REMIANBAL,
+      </if>
+      <if test="smsTag != null" >
+        SMS_TAG,
+      </if>
+      <if test="emailTag != null" >
+        EMAIL_TAG,
+      </if>
+      <if test="dealTime != null" >
+        DEAL_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="alarmId != null" >
+        #{alarmId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="curBal != null" >
+        #{curBal,jdbcType=DECIMAL},
+      </if>
+      <if test="remianbal != null" >
+        #{remianbal,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTag != null" >
+        #{smsTag,jdbcType=CHAR},
+      </if>
+      <if test="emailTag != null" >
+        #{emailTag,jdbcType=CHAR},
+      </if>
+      <if test="dealTime != null" >
+        #{dealTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBalAlmLogPo" >
+    update LAO_BAL_ALM_LOG
+    <set >
+      <if test="ruleName != null" >
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="curBal != null" >
+        CUR_BAL = #{curBal,jdbcType=DECIMAL},
+      </if>
+      <if test="remianbal != null" >
+        REMIANBAL = #{remianbal,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTag != null" >
+        SMS_TAG = #{smsTag,jdbcType=CHAR},
+      </if>
+      <if test="emailTag != null" >
+        EMAIL_TAG = #{emailTag,jdbcType=CHAR},
+      </if>
+      <if test="dealTime != null" >
+        DEAL_TIME = #{dealTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ALARM_ID = #{alarmId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBalAlmLogPo" >
+    update LAO_BAL_ALM_LOG
+    set RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUR_BAL = #{curBal,jdbcType=DECIMAL},
+      REMIANBAL = #{remianbal,jdbcType=DECIMAL},
+      SMS_TAG = #{smsTag,jdbcType=CHAR},
+      EMAIL_TAG = #{emailTag,jdbcType=CHAR},
+      DEAL_TIME = #{dealTime,jdbcType=TIMESTAMP}
+    where ALARM_ID = #{alarmId,jdbcType=DECIMAL}
+  </update>
+</mapper>

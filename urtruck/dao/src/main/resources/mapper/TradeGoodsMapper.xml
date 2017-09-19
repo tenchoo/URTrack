@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.TradeGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeGoods">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <id column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="BI_RULES_ID" jdbcType="DECIMAL" property="biRulesId" />
+    <result column="TRADE_DATE" jdbcType="TIMESTAMP" property="tradeDate" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="RELEASE_CYCLE" property="releaseCycle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, GOODS_ID, START_DATE, USER_ID, MODIFY_TAG, END_DATE, BI_RULES_ID, GOODS_RELEASE_ID,RELEASE_CYCLE
+    TRADE_DATE, ACCEPT_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_GOODS
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from LAO_TRADE_GOODS
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.TradeGoods">
+    insert into LAO_TRADE_GOODS (TRADE_ID, ACCEPT_MONTH, GOODS_ID, 
+      START_DATE, USER_ID, MODIFY_TAG, 
+      END_DATE, BI_RULES_ID, TRADE_DATE, 
+      ACCEPT_DATE, GOODS_RELEASE_ID,RELEASE_CYCLE)
+    values (#{tradeId,jdbcType=DECIMAL}, #{acceptMonth,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=DECIMAL}, #{modifyTag,jdbcType=CHAR}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{biRulesId,jdbcType=DECIMAL}, #{tradeDate,jdbcType=TIMESTAMP}, 
+      #{acceptDate,jdbcType=TIMESTAMP},#{goodsReleaseId,jdbcType=DECIMAL},#{releaseCycle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.TradeGoods">
+    insert into LAO_TRADE_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        TRADE_ID,
+      </if>
+      <if test="acceptMonth != null">
+        ACCEPT_MONTH,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="modifyTag != null">
+        MODIFY_TAG,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="biRulesId != null">
+        BI_RULES_ID,
+      </if>
+      <if test="tradeDate != null">
+        TRADE_DATE,
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE,
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptMonth != null">
+        #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="modifyTag != null">
+        #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biRulesId != null">
+        #{biRulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeDate != null">
+        #{tradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptDate != null">
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseCycle != null" >
+        #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.TradeGoods">
+    update LAO_TRADE_GOODS
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="modifyTag != null">
+        MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biRulesId != null">
+        BI_RULES_ID = #{biRulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeDate != null">
+        TRADE_DATE = #{tradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.TradeGoods">
+    update LAO_TRADE_GOODS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      BI_RULES_ID = #{biRulesId,jdbcType=DECIMAL},
+      TRADE_DATE = #{tradeDate,jdbcType=TIMESTAMP},
+      ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR}
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

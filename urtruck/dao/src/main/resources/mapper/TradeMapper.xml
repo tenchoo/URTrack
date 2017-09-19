@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.TradeMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.Trade">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+    <result column="IN_MODE_CODE" jdbcType="CHAR" property="inModeCode" />
+    <result column="SUBSCRIBE_STATE" jdbcType="CHAR" property="subscribeState" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="GOODS_RELEASE_ID" jdbcType="DECIMAL" property="goodsReleaseId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="CHANNAL_CUST_ID" jdbcType="DECIMAL" property="channalCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="EXEC_TIME" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="FINISH_DATE" jdbcType="TIMESTAMP" property="finishDate" />
+    <result column="FEE" jdbcType="VARCHAR" property="fee" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="FEE_STATE" jdbcType="CHAR" property="feeState" />
+    <result column="FEE_TIME" jdbcType="TIMESTAMP" property="feeTime" />
+    <result column="FEE_STAFF_ID" jdbcType="CHAR" property="feeStaffId" />
+    <result column="IF_MAINTENANCE" jdbcType="CHAR" property="ifMaintenance" />
+    <result column="ORDER_ID" jdbcType="DECIMAL" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, TRADE_TYPE_CODE, IN_MODE_CODE, SUBSCRIBE_STATE, GOODS_ID, 
+    USER_ID, CHANNAL_CUST_ID, CUST_ID, ICCID, CUST_NAME, ACCEPT_DATE, EXEC_TIME, FINISH_DATE, 
+    FEE, INVOICE_NO, FEE_STATE, FEE_TIME, FEE_STAFF_ID, IF_MAINTENANCE, ORDER_ID,GOODS_RELEASE_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from LAO_TRADE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.Trade">
+    insert into LAO_TRADE (TRADE_ID, ACCEPT_MONTH, TRADE_TYPE_CODE, 
+      IN_MODE_CODE, SUBSCRIBE_STATE, GOODS_ID, 
+      USER_ID, CHANNAL_CUST_ID, CUST_ID, 
+      ICCID, CUST_NAME, ACCEPT_DATE, 
+      EXEC_TIME, FINISH_DATE, FEE, 
+      INVOICE_NO, FEE_STATE, FEE_TIME, 
+      FEE_STAFF_ID, IF_MAINTENANCE, ORDER_ID,GOODS_RELEASE_ID
+      )
+    values (#{tradeId,jdbcType=DECIMAL}, #{acceptMonth,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, 
+      #{inModeCode,jdbcType=CHAR}, #{subscribeState,jdbcType=CHAR}, #{goodsId,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=DECIMAL}, #{channalCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{iccid,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{acceptDate,jdbcType=TIMESTAMP}, 
+      #{execTime,jdbcType=TIMESTAMP}, #{finishDate,jdbcType=TIMESTAMP}, #{fee,jdbcType=VARCHAR}, 
+      #{invoiceNo,jdbcType=VARCHAR}, #{feeState,jdbcType=CHAR}, #{feeTime,jdbcType=TIMESTAMP}, 
+      #{feeStaffId,jdbcType=CHAR}, #{ifMaintenance,jdbcType=CHAR}, #{orderId,jdbcType=DECIMAL},#{goodsReleaseId,jdbcType=DECIMAL},
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.Trade">
+    insert into LAO_TRADE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        TRADE_ID,
+      </if>
+      <if test="acceptMonth != null">
+        ACCEPT_MONTH,
+      </if>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="inModeCode != null">
+        IN_MODE_CODE,
+      </if>
+      <if test="subscribeState != null">
+        SUBSCRIBE_STATE,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+      <if test="goodsReleaseId != null">
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="channalCustId != null">
+        CHANNAL_CUST_ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="custName != null">
+        CUST_NAME,
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE,
+      </if>
+      <if test="execTime != null">
+        EXEC_TIME,
+      </if>
+      <if test="finishDate != null">
+        FINISH_DATE,
+      </if>
+      <if test="fee != null">
+        FEE,
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO,
+      </if>
+      <if test="feeState != null">
+        FEE_STATE,
+      </if>
+      <if test="feeTime != null">
+        FEE_TIME,
+      </if>
+      <if test="feeStaffId != null">
+        FEE_STAFF_ID,
+      </if>
+      <if test="ifMaintenance != null">
+        IF_MAINTENANCE,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptMonth != null">
+        #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null">
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="inModeCode != null">
+        #{inModeCode,jdbcType=CHAR},
+      </if>
+      <if test="subscribeState != null">
+        #{subscribeState,jdbcType=CHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null">
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="channalCustId != null">
+        #{channalCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptDate != null">
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execTime != null">
+        #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishDate != null">
+        #{finishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feeState != null">
+        #{feeState,jdbcType=CHAR},
+      </if>
+      <if test="feeTime != null">
+        #{feeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeStaffId != null">
+        #{feeStaffId,jdbcType=CHAR},
+      </if>
+      <if test="ifMaintenance != null">
+        #{ifMaintenance,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.Trade">
+    update LAO_TRADE
+    <set>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="inModeCode != null">
+        IN_MODE_CODE = #{inModeCode,jdbcType=CHAR},
+      </if>
+      <if test="subscribeState != null">
+        SUBSCRIBE_STATE = #{subscribeState,jdbcType=CHAR},
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null">
+        GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="channalCustId != null">
+        CHANNAL_CUST_ID = #{channalCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execTime != null">
+        EXEC_TIME = #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishDate != null">
+        FINISH_DATE = #{finishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null">
+        FEE = #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="feeState != null">
+        FEE_STATE = #{feeState,jdbcType=CHAR},
+      </if>
+      <if test="feeTime != null">
+        FEE_TIME = #{feeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feeStaffId != null">
+        FEE_STAFF_ID = #{feeStaffId,jdbcType=CHAR},
+      </if>
+      <if test="ifMaintenance != null">
+        IF_MAINTENANCE = #{ifMaintenance,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.Trade">
+    update LAO_TRADE
+    set TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      IN_MODE_CODE = #{inModeCode,jdbcType=CHAR},
+      SUBSCRIBE_STATE = #{subscribeState,jdbcType=CHAR},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      CHANNAL_CUST_ID = #{channalCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      EXEC_TIME = #{execTime,jdbcType=TIMESTAMP},
+      FINISH_DATE = #{finishDate,jdbcType=TIMESTAMP},
+      FEE = #{fee,jdbcType=VARCHAR},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      FEE_STATE = #{feeState,jdbcType=CHAR},
+      FEE_TIME = #{feeTime,jdbcType=TIMESTAMP},
+      FEE_STAFF_ID = #{feeStaffId,jdbcType=CHAR},
+      IF_MAINTENANCE = #{ifMaintenance,jdbcType=CHAR},
+      ORDER_ID = #{orderId,jdbcType=DECIMAL}
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+  </update>
+</mapper>

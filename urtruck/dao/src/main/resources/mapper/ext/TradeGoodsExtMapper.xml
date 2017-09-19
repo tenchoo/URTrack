@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.TradeGoodsExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeGoods">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <id column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="BI_RULES_ID" jdbcType="DECIMAL" property="biRulesId" />
+    <result column="TRADE_DATE" jdbcType="TIMESTAMP" property="tradeDate" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="RELEASE_CYCLE" property="releaseCycle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, GOODS_ID, START_DATE, USER_ID, MODIFY_TAG, END_DATE, BI_RULES_ID, 
+    TRADE_DATE, ACCEPT_DATE,RELEASE_CYCLE,GOODS_RELEASE_ID
+  </sql>
+  <select id="selectByTradeId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_GOODS
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+</mapper>

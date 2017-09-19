@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPLogPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPLogPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="GROUP_ID" jdbcType="DECIMAL" property="groupId" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="STRATEGY_ID" jdbcType="DECIMAL" property="strategyId" />
+    <result column="TRIGGER_CAUSE" jdbcType="VARCHAR" property="triggerCause" />
+    <result column="IS_AGAINST" jdbcType="VARCHAR" property="isAgainst" />
+    <result column="OPERATION_ID" jdbcType="DECIMAL" property="operationId" />
+    <result column="IS_SUCCESS" jdbcType="VARCHAR" property="isSuccess" />
+    <result column="OPERATE_TIME" jdbcType="TIMESTAMP" property="operateTime" />
+    <result column="OPERATE_TYPE" jdbcType="VARCHAR" property="operateType" />
+    <result column="OPERATE_USER" jdbcType="VARCHAR" property="operateUser" />
+    <result column="OPERATION_COMMENT" jdbcType="VARCHAR" property="operationComment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CUST_ID, GROUP_ID, IMEI, STRATEGY_ID, TRIGGER_CAUSE, IS_AGAINST, OPERATION_ID, 
+    IS_SUCCESS, OPERATE_TIME, OPERATE_TYPE, OPERATE_USER, OPERATION_COMMENT
+  </sql>
+   <select id="queryPage" resultType="map" parameterType="map" >
+		select cust.cust_name custname,decode(dmpgroup.group_name,'',' ',dmpgroup.group_name) groupname,decode(strategy.strategy_name,'',' ',strategy.strategy_name) strategyname,decode(strategy.stategy_comment,'',' ',strategy.stategy_comment) stategycomment,
+		dmplog.trigger_cause triggercause,decode(dmplog.is_against,'0','否','是') isagainst,decode(dmpoperation.operation_name,'',' ',dmpoperation.operation_name) operationname,decode(dmplog.operation_comment,'',' ',dmplog.operation_comment) operationcomment,
+		decode(dmplog.is_success,'1','成功','未知') issuccess,to_char(dmplog.operate_time,'YYYY-MM-DD HH24:MI:SS') operatetime,dmplog.operate_type operatetype,
+		dmplog.operate_user operateuser
+		from lao_dmp_log dmplog  
+		left join lao_customer cust on dmplog.cust_id=cust.cust_id 
+		left join lao_dmp_group dmpgroup on dmplog.group_id=dmpgroup.id 
+		left join lao_dmp_strategy strategy on dmplog.strategy_id=strategy.id 
+		left join lao_dmp_operation dmpoperation on dmplog.operation_id=dmpoperation.id 
+		where dmplog.imei= #{params.param.imei} order by dmplog.operate_time desc
+
+  </select>
+  
+</mapper>

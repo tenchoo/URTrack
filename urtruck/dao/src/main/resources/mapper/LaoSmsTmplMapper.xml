@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSmsTmplMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSmsTmpl" >
+    <id column="TEMPLETE_ID" property="templeteId" jdbcType="DECIMAL" />
+    <result column="SMS_TYPE" property="smsType" jdbcType="VARCHAR" />
+    <result column="TMPL_CONTEXT" property="tmplContext" jdbcType="VARCHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="SMS_CORP" property="smsCorp" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TEMPLETE_ID, SMS_TYPE, TMPL_CONTEXT, START_DATE, END_DATE, SMS_CORP, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SMS_TMPL
+    where TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_SMS_TMPL
+    where TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSmsTmpl" >
+    insert into LAO_SMS_TMPL (TEMPLETE_ID, SMS_TYPE, TMPL_CONTEXT, 
+      START_DATE, END_DATE, SMS_CORP, 
+      REMARK)
+    values (#{templeteId,jdbcType=DECIMAL}, #{smsType,jdbcType=VARCHAR}, #{tmplContext,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{smsCorp,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSmsTmpl" >
+    insert into LAO_SMS_TMPL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templeteId != null" >
+        TEMPLETE_ID,
+      </if>
+      <if test="smsType != null" >
+        SMS_TYPE,
+      </if>
+      <if test="tmplContext != null" >
+        TMPL_CONTEXT,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="smsCorp != null" >
+        SMS_CORP,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templeteId != null" >
+        #{templeteId,jdbcType=DECIMAL},
+      </if>
+      <if test="smsType != null" >
+        #{smsType,jdbcType=VARCHAR},
+      </if>
+      <if test="tmplContext != null" >
+        #{tmplContext,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsCorp != null" >
+        #{smsCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSmsTmpl" >
+    update LAO_SMS_TMPL
+    <set >
+      <if test="smsType != null" >
+        SMS_TYPE = #{smsType,jdbcType=VARCHAR},
+      </if>
+      <if test="tmplContext != null" >
+        TMPL_CONTEXT = #{tmplContext,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsCorp != null" >
+        SMS_CORP = #{smsCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSmsTmpl" >
+    update LAO_SMS_TMPL
+    set SMS_TYPE = #{smsType,jdbcType=VARCHAR},
+      TMPL_CONTEXT = #{tmplContext,jdbcType=VARCHAR},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      SMS_CORP = #{smsCorp,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL}
+  </update>
+</mapper>

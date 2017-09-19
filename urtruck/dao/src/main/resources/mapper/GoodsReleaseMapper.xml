@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.GoodsReleaseMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.GoodsRelease" >
+    <id column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="CHANNEL_GROUP_ID" property="channelGroupId" jdbcType="DECIMAL" />
+    <result column="GROUP_ATTR_N1" property="groupAttrN1" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_V1" property="groupAttrV1" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_N2" property="groupAttrN2" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_V2" property="groupAttrV2" jdbcType="VARCHAR" />
+    <result column="RELEASE_PRICE" property="releasePrice" jdbcType="VARCHAR" />
+    <result column="RELEASE_CYCLE" property="releaseCycle" jdbcType="VARCHAR" />
+    <result column="POOL_ID" property="poolId" jdbcType="DECIMAL" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="BASE_PLAN_ID" property="basePlanId" jdbcType="DECIMAL" />
+    <result column="SMS" property="sms" jdbcType="DECIMAL" />
+    <result column="SPEECH_SOUNDS" property="speechSounds" jdbcType="DECIMAL" />
+    <result column="SILENT_PERIOD" property="silentPeriod" jdbcType="VARCHAR" />
+    <result column="EXTENSION_MODEL" property="extensionModel" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_LEVEL" property="discountLevel" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_RATE" property="discountRate" jdbcType="DECIMAL" />
+    <result column="EXCESS_TACTICS" property="excessTactics" jdbcType="DECIMAL" />
+    <result column="EXCESS_RATE" property="excessRate" jdbcType="DECIMAL" />
+    <result column="IS_ALL_NORM_PLAN" property="isAllNormPlan" jdbcType="DECIMAL" />
+    <result column="IS_BIND_IMEI" property="isBindImei" jdbcType="DECIMAL" />
+    <result column="IS_PRIVATE_NETWORK" property="isPrivateNetwork" jdbcType="DECIMAL" />
+    <result column="APN_REALM" property="apnRealm" jdbcType="VARCHAR" />
+    <result column="IS_DEFAULT_PLAN" property="isDefaultPlan" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RELS_CUST_ID" property="relsCustId" jdbcType="DECIMAL" />
+    <result column="PAR_RELS_ID" property="parRelsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_NAME" property="goodsReleaseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_RELEASE_ID, GOODS_ID, START_DATE, END_DATE, CHANNEL_GROUP_ID, GROUP_ATTR_N1, 
+    GROUP_ATTR_V1, GROUP_ATTR_N2, GROUP_ATTR_V2, RELEASE_PRICE, RELEASE_CYCLE, POOL_ID, 
+    UNIT, BASE_PLAN_ID, SMS, SPEECH_SOUNDS, SILENT_PERIOD, EXTENSION_MODEL, DISCOUNT_LEVEL, 
+    DISCOUNT_RATE, EXCESS_TACTICS, EXCESS_RATE, IS_ALL_NORM_PLAN, IS_BIND_IMEI, IS_PRIVATE_NETWORK, 
+    APN_REALM, IS_DEFAULT_PLAN, REMARK, RULE_ID,RELS_CUST_ID,PAR_RELS_ID,GOODS_RELEASE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_RELEASE
+    where GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_GOODS_RELEASE
+    where GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.GoodsRelease" >
+    insert into LAO_GOODS_RELEASE (GOODS_RELEASE_ID, GOODS_ID, START_DATE, 
+      END_DATE, CHANNEL_GROUP_ID, GROUP_ATTR_N1, 
+      GROUP_ATTR_V1, GROUP_ATTR_N2, GROUP_ATTR_V2, 
+      RELEASE_PRICE, RELEASE_CYCLE, POOL_ID, 
+      UNIT, BASE_PLAN_ID, SMS, 
+      SPEECH_SOUNDS, SILENT_PERIOD, EXTENSION_MODEL, 
+      DISCOUNT_LEVEL, DISCOUNT_RATE, EXCESS_TACTICS, 
+      EXCESS_RATE, IS_ALL_NORM_PLAN, IS_BIND_IMEI, 
+      IS_PRIVATE_NETWORK, APN_REALM, IS_DEFAULT_PLAN, 
+      REMARK,RULE_ID,RELS_CUST_ID,PAR_RELS_ID,GOODS_RELEASE_NAME)
+    values (#{goodsReleaseId,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{channelGroupId,jdbcType=DECIMAL}, #{groupAttrN1,jdbcType=VARCHAR}, 
+      #{groupAttrV1,jdbcType=VARCHAR}, #{groupAttrN2,jdbcType=VARCHAR}, #{groupAttrV2,jdbcType=VARCHAR}, 
+      #{releasePrice,jdbcType=VARCHAR}, #{releaseCycle,jdbcType=VARCHAR}, #{poolId,jdbcType=DECIMAL}, 
+      #{unit,jdbcType=VARCHAR}, #{basePlanId,jdbcType=DECIMAL}, #{sms,jdbcType=DECIMAL}, 
+      #{speechSounds,jdbcType=DECIMAL}, #{silentPeriod,jdbcType=VARCHAR}, #{extensionModel,jdbcType=DECIMAL}, 
+      #{discountLevel,jdbcType=DECIMAL}, #{discountRate,jdbcType=DECIMAL}, #{excessTactics,jdbcType=DECIMAL}, 
+      #{excessRate,jdbcType=DECIMAL}, #{isAllNormPlan,jdbcType=DECIMAL}, #{isBindImei,jdbcType=DECIMAL}, 
+      #{isPrivateNetwork,jdbcType=DECIMAL}, #{apnRealm,jdbcType=VARCHAR}, #{isDefaultPlan,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{ruleId,jdbcType=DECIMAL},#{relsCustId,jdbcType=DECIMAL},#{parRelsId,jdbcType=DECIMAL},#{goodsReleaseName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.GoodsRelease" >
+    insert into LAO_GOODS_RELEASE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="channelGroupId != null" >
+        CHANNEL_GROUP_ID,
+      </if>
+      <if test="groupAttrN1 != null" >
+        GROUP_ATTR_N1,
+      </if>
+      <if test="groupAttrV1 != null" >
+        GROUP_ATTR_V1,
+      </if>
+      <if test="groupAttrN2 != null" >
+        GROUP_ATTR_N2,
+      </if>
+      <if test="groupAttrV2 != null" >
+        GROUP_ATTR_V2,
+      </if>
+      <if test="releasePrice != null" >
+        RELEASE_PRICE,
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE,
+      </if>
+      <if test="poolId != null" >
+        POOL_ID,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="basePlanId != null" >
+        BASE_PLAN_ID,
+      </if>
+      <if test="sms != null" >
+        SMS,
+      </if>
+      <if test="speechSounds != null" >
+        SPEECH_SOUNDS,
+      </if>
+      <if test="silentPeriod != null" >
+        SILENT_PERIOD,
+      </if>
+      <if test="extensionModel != null" >
+        EXTENSION_MODEL,
+      </if>
+      <if test="discountLevel != null" >
+        DISCOUNT_LEVEL,
+      </if>
+      <if test="discountRate != null" >
+        DISCOUNT_RATE,
+      </if>
+      <if test="excessTactics != null" >
+        EXCESS_TACTICS,
+      </if>
+      <if test="excessRate != null" >
+        EXCESS_RATE,
+      </if>
+      <if test="isAllNormPlan != null" >
+        IS_ALL_NORM_PLAN,
+      </if>
+      <if test="isBindImei != null" >
+        IS_BIND_IMEI,
+      </if>
+      <if test="isPrivateNetwork != null" >
+        IS_PRIVATE_NETWORK,
+      </if>
+      <if test="apnRealm != null" >
+        APN_REALM,
+      </if>
+      <if test="isDefaultPlan != null" >
+        IS_DEFAULT_PLAN,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="relsCustId != null" >
+        RELS_CUST_ID,
+      </if>
+      <if test="parRelsId != null" >
+        PAR_RELS_ID,
+      </if>
+       <if test="goodsReleaseName != null" >
+        GOODS_RELEASE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelGroupId != null" >
+        #{channelGroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAttrN1 != null" >
+        #{groupAttrN1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrV1 != null" >
+        #{groupAttrV1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrN2 != null" >
+        #{groupAttrN2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrV2 != null" >
+        #{groupAttrV2,jdbcType=VARCHAR},
+      </if>
+      <if test="releasePrice != null" >
+        #{releasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseCycle != null" >
+        #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="poolId != null" >
+        #{poolId,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="basePlanId != null" >
+        #{basePlanId,jdbcType=DECIMAL},
+      </if>
+      <if test="sms != null" >
+        #{sms,jdbcType=DECIMAL},
+      </if>
+      <if test="speechSounds != null" >
+        #{speechSounds,jdbcType=DECIMAL},
+      </if>
+      <if test="silentPeriod != null" >
+        #{silentPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionModel != null" >
+        #{extensionModel,jdbcType=DECIMAL},
+      </if>
+      <if test="discountLevel != null" >
+        #{discountLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null" >
+        #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="excessTactics != null" >
+        #{excessTactics,jdbcType=DECIMAL},
+      </if>
+      <if test="excessRate != null" >
+        #{excessRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isAllNormPlan != null" >
+        #{isAllNormPlan,jdbcType=DECIMAL},
+      </if>
+      <if test="isBindImei != null" >
+        #{isBindImei,jdbcType=DECIMAL},
+      </if>
+      <if test="isPrivateNetwork != null" >
+        #{isPrivateNetwork,jdbcType=DECIMAL},
+      </if>
+      <if test="apnRealm != null" >
+        #{apnRealm,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultPlan != null" >
+        #{isDefaultPlan,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="relsCustId != null" >
+        #{relsCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="parRelsId != null" >
+        #{parRelsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseName != null" >
+        #{goodsReleaseName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.GoodsRelease" >
+    update LAO_GOODS_RELEASE
+    <set >
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelGroupId != null" >
+        CHANNEL_GROUP_ID = #{channelGroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupAttrN1 != null" >
+        GROUP_ATTR_N1 = #{groupAttrN1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrV1 != null" >
+        GROUP_ATTR_V1 = #{groupAttrV1,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrN2 != null" >
+        GROUP_ATTR_N2 = #{groupAttrN2,jdbcType=VARCHAR},
+      </if>
+      <if test="groupAttrV2 != null" >
+        GROUP_ATTR_V2 = #{groupAttrV2,jdbcType=VARCHAR},
+      </if>
+      <if test="releasePrice != null" >
+        RELEASE_PRICE = #{releasePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="poolId != null" >
+        POOL_ID = #{poolId,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="basePlanId != null" >
+        BASE_PLAN_ID = #{basePlanId,jdbcType=DECIMAL},
+      </if>
+      <if test="sms != null" >
+        SMS = #{sms,jdbcType=DECIMAL},
+      </if>
+      <if test="speechSounds != null" >
+        SPEECH_SOUNDS = #{speechSounds,jdbcType=DECIMAL},
+      </if>
+      <if test="silentPeriod != null" >
+        SILENT_PERIOD = #{silentPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionModel != null" >
+        EXTENSION_MODEL = #{extensionModel,jdbcType=DECIMAL},
+      </if>
+      <if test="discountLevel != null" >
+        DISCOUNT_LEVEL = #{discountLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="discountRate != null" >
+        DISCOUNT_RATE = #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="excessTactics != null" >
+        EXCESS_TACTICS = #{excessTactics,jdbcType=DECIMAL},
+      </if>
+      <if test="excessRate != null" >
+        EXCESS_RATE = #{excessRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isAllNormPlan != null" >
+        IS_ALL_NORM_PLAN = #{isAllNormPlan,jdbcType=DECIMAL},
+      </if>
+      <if test="isBindImei != null" >
+        IS_BIND_IMEI = #{isBindImei,jdbcType=DECIMAL},
+      </if>
+      <if test="isPrivateNetwork != null" >
+        IS_PRIVATE_NETWORK = #{isPrivateNetwork,jdbcType=DECIMAL},
+      </if>
+      <if test="apnRealm != null" >
+        APN_REALM = #{apnRealm,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultPlan != null" >
+        IS_DEFAULT_PLAN = #{isDefaultPlan,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        ROLE_ID = #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="relsCustId != null" >
+       RELS_CUST_ID = #{relsCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="parRelsId != null" >
+        PAR_RELS_ID = #{parRelsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseName != null" >
+       GOODS_RELEASE_NAME = #{goodsReleaseName,jdbcType=VARCHAR},
+      </if> 
+    </set>
+    where GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.GoodsRelease" >
+    update LAO_GOODS_RELEASE
+    set GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      CHANNEL_GROUP_ID = #{channelGroupId,jdbcType=DECIMAL},
+      GROUP_ATTR_N1 = #{groupAttrN1,jdbcType=VARCHAR},
+      GROUP_ATTR_V1 = #{groupAttrV1,jdbcType=VARCHAR},
+      GROUP_ATTR_N2 = #{groupAttrN2,jdbcType=VARCHAR},
+      GROUP_ATTR_V2 = #{groupAttrV2,jdbcType=VARCHAR},
+      RELEASE_PRICE = #{releasePrice,jdbcType=VARCHAR},
+      RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR},
+      POOL_ID = #{poolId,jdbcType=DECIMAL},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      BASE_PLAN_ID = #{basePlanId,jdbcType=DECIMAL},
+      SMS = #{sms,jdbcType=DECIMAL},
+      SPEECH_SOUNDS = #{speechSounds,jdbcType=DECIMAL},
+      SILENT_PERIOD = #{silentPeriod,jdbcType=VARCHAR},
+      EXTENSION_MODEL = #{extensionModel,jdbcType=DECIMAL},
+      DISCOUNT_LEVEL = #{discountLevel,jdbcType=DECIMAL},
+      DISCOUNT_RATE = #{discountRate,jdbcType=DECIMAL},
+      EXCESS_TACTICS = #{excessTactics,jdbcType=DECIMAL},
+      EXCESS_RATE = #{excessRate,jdbcType=DECIMAL},
+      IS_ALL_NORM_PLAN = #{isAllNormPlan,jdbcType=DECIMAL},
+      IS_BIND_IMEI = #{isBindImei,jdbcType=DECIMAL},
+      IS_PRIVATE_NETWORK = #{isPrivateNetwork,jdbcType=DECIMAL},
+      APN_REALM = #{apnRealm,jdbcType=VARCHAR},
+      IS_DEFAULT_PLAN = #{isDefaultPlan,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RULE_ID = #{ruleId,jdbcType=VARCHAR},
+      RELS_CUST_ID = #{relsCustId,jdbcType=DECIMAL},
+      PAR_RELS_ID = #{parRelsId,jdbcType=DECIMAL},
+      GOODS_RELEASE_NAME = #{goodsReleaseName,jdbcType=VARCHAR},  
+    where GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

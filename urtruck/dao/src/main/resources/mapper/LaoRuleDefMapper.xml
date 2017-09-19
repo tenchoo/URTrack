@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoRuleDefMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoRuleDef" >
+    <id column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RULEGROUP_ID" property="rulegroupId" jdbcType="DECIMAL" />
+    <result column="RULEGROUP_NAME" property="rulegroupName" jdbcType="VARCHAR" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="COND_STAT" property="condStat" jdbcType="VARCHAR" />
+    <result column="CAL_FORMULA" property="calFormula" jdbcType="VARCHAR" />
+    <result column="PRIORITY" property="priority" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULE_ID, RULEGROUP_ID, RULEGROUP_NAME, RULE_NAME, COND_STAT, CAL_FORMULA, PRIORITY, 
+    OPER_ID, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_RULE_DEF
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_RULE_DEF
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoRuleDef" >
+    insert into LAO_RULE_DEF (RULE_ID, RULEGROUP_ID, RULEGROUP_NAME, 
+      RULE_NAME, COND_STAT, CAL_FORMULA, 
+      PRIORITY, OPER_ID, REMARK
+      )
+    values (#{ruleId,jdbcType=DECIMAL}, #{rulegroupId,jdbcType=DECIMAL}, #{rulegroupName,jdbcType=VARCHAR}, 
+      #{ruleName,jdbcType=VARCHAR}, #{condStat,jdbcType=VARCHAR}, #{calFormula,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=DECIMAL}, #{operId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoRuleDef" >
+    insert into LAO_RULE_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="rulegroupId != null" >
+        RULEGROUP_ID,
+      </if>
+      <if test="rulegroupName != null" >
+        RULEGROUP_NAME,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="condStat != null" >
+        COND_STAT,
+      </if>
+      <if test="calFormula != null" >
+        CAL_FORMULA,
+      </if>
+      <if test="priority != null" >
+        PRIORITY,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulegroupId != null" >
+        #{rulegroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulegroupName != null" >
+        #{rulegroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="condStat != null" >
+        #{condStat,jdbcType=VARCHAR},
+      </if>
+      <if test="calFormula != null" >
+        #{calFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoRuleDef" >
+    update LAO_RULE_DEF
+    <set >
+      <if test="rulegroupId != null" >
+        RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="rulegroupName != null" >
+        RULEGROUP_NAME = #{rulegroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="condStat != null" >
+        COND_STAT = #{condStat,jdbcType=VARCHAR},
+      </if>
+      <if test="calFormula != null" >
+        CAL_FORMULA = #{calFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        PRIORITY = #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoRuleDef" >
+    update LAO_RULE_DEF
+    set RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL},
+      RULEGROUP_NAME = #{rulegroupName,jdbcType=VARCHAR},
+      RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      COND_STAT = #{condStat,jdbcType=VARCHAR},
+      CAL_FORMULA = #{calFormula,jdbcType=VARCHAR},
+      PRIORITY = #{priority,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

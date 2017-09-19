@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDeviceRelExtMapper" >
+   <resultMap id="BaseResultMap" type="com.urt.po.LaoDeviceRel">
+    <id column="REL_ID" jdbcType="DECIMAL" property="relId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="ID_TYPE" jdbcType="VARCHAR" property="idType" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="REL_TYPE" jdbcType="VARCHAR" property="relType" />
+    <result column="REL_ACCOUNT" jdbcType="VARCHAR" property="relAccount" />
+    <result column="VALID_TAG" jdbcType="CHAR" property="validTag" />
+    <result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+    <result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="REL_LOGINGNAME" jdbcType="VARCHAR" property="relLogingname" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.urt.po.LaoDeviceRelExt" >
+    <id column="REL_ID" property="relId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="ID_TYPE" property="idType" jdbcType="VARCHAR" />
+    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+    <result column="REL_TYPE" property="relType" jdbcType="VARCHAR" />
+    <result column="REL_ACCOUNT" property="relAccount" jdbcType="VARCHAR" />
+    <result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="REL_LOGINGNAME" jdbcType="VARCHAR" property="relLogingname" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+  </resultMap>
+   <sql id="Base_Column_List">
+    REL_ID, USER_ID, ICCID, ID_TYPE, DEVICE_ID, REL_TYPE, REL_ACCOUNT, VALID_TAG, RECV_TIME, 
+    OPER_ID, UPDATE_TIME, REMARK, REL_LOGINGNAME
+  </sql>
+  <select id="selectByUserIdAndidType" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICE_REL
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+    and ID_TYPE = #{idType,jdbcType=VARCHAR}
+    and VALID_TAG = '1'
+    and rownum = 1
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICE_REL
+  </select>
+  <select id="getImsiByIccid" resultType="string" >
+    select DEVICE_ID  from LAO_DEVICE_REL where ID_TYPE='IMSI' and iccid=#{iccid} and rownum=1
+  </select>
+  <select id="getIccidByImsi" resultType="string" >
+    select iccid  from LAO_DEVICE_REL where ID_TYPE='IMSI' and DEVICE_ID=#{imsi} and rownum=1
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICE_REL
+    where USER_ID = #{userId,jdbcType=DECIMAL} and REL_TYPE='1000' and VALID_TAG = '1' 
+  </select>
+   <insert id="batchInsert"  parameterType="java.util.List">  
+	    insert into LAO_DEVICE_REL (REL_ID, USER_ID, ICCID, ID_TYPE, DEVICE_ID, REL_TYPE, REL_ACCOUNT, VALID_TAG, RECV_TIME, 
+    OPER_ID, UPDATE_TIME, REMARK)   
+	    <foreach collection="list" item="item" index="index"  separator="union all"  >
+	    	(select  #{item.relId},#{item.userId},#{item.iccid},#{item.idType},#{item.deviceId},#{item.relType},#{item.relAccount},#{item.validTag},#{item.recvTime},#{item.operId},#{item.updateTime},#{item.remark} from dual)  
+	    </foreach>
+   </insert>
+   
+     <select id="selectByCondition" resultMap="BaseResultMap2" parameterType="map" >
+		select a.rel_id,b.cust_name,a.iccid,a.id_type,a.device_id,a.update_time,a.oper_id 
+		from lao_device_rel a ,lao_cust_group b,lao_user c
+		where a.valid_tag = 1
+		and a.iccid = c.iccid
+		and b.cust_id = c.channel_cust_id
+	    <if test="params.param.iccid != null and params.param.iccid!=''" >
+	      	and  a.ICCID = #{params.param.iccid}
+	    </if>
+	    <if test="params.param.idType != null and params.param.idType!=''" >
+	    	and  a.ID_TYPE= #{params.param.idType} 
+	    </if>
+	    <if test="params.param.deviceId != null and params.param.deviceId!=''" >
+	    	and  a.DEVICE_ID= #{params.param.deviceId} 
+	    </if>
+	    <if test="params.param.channelCustId != null and params.param.channelCustId!=''" >
+	      	AND EXISTS (
+			SELECT ICCID FROM LAO_USER c
+			WHERE a.ICCID=c.ICCID 
+			AND c.CHANNEL_CUST_ID= #{params.param.channelCustId})
+    	</if>
+  </select>
+
+ 
+</mapper>

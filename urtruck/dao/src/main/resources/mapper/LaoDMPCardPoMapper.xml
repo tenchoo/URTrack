@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPCardPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPCardPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="IMSI" jdbcType="VARCHAR" property="imsi" />
+    <result column="PHONENUMBER" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="SIMSTATE" jdbcType="DECIMAL" property="simstate" />
+    <result column="NETWORKOPERATORNAME" jdbcType="VARCHAR" property="networkoperatorname" />
+    <result column="DEVICETYPE" jdbcType="DECIMAL" property="devicetype" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="STARTTIME" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="FLAG" jdbcType="DECIMAL" property="flag" />
+    <result column="TRIGGEDREASON" jdbcType="DECIMAL" property="triggedreason" />
+    <result column="CUSTID" jdbcType="DECIMAL" property="custid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ICCID, IMEI, IMSI, PHONENUMBER, SIMSTATE, NETWORKOPERATORNAME, DEVICETYPE, CREATETIME, 
+    STARTTIME, ENDTIME, UPDATETIME, FLAG, TRIGGEDREASON, CUSTID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMPCARD_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DMPCARD_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPCardPo">
+    insert into LAO_DMPCARD_DATA (ID, ICCID, IMEI, 
+      IMSI, PHONENUMBER, SIMSTATE, 
+      NETWORKOPERATORNAME, DEVICETYPE, CREATETIME, 
+      STARTTIME, ENDTIME, UPDATETIME, 
+      FLAG, TRIGGEDREASON, CUSTID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{imsi,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{simstate,jdbcType=DECIMAL}, 
+      #{networkoperatorname,jdbcType=VARCHAR}, #{devicetype,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{flag,jdbcType=DECIMAL}, #{triggedreason,jdbcType=DECIMAL}, #{custid,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPCardPo">
+    insert into LAO_DMPCARD_DATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="imei != null">
+        IMEI,
+      </if>
+      <if test="imsi != null">
+        IMSI,
+      </if>
+      <if test="phonenumber != null">
+        PHONENUMBER,
+      </if>
+      <if test="simstate != null">
+        SIMSTATE,
+      </if>
+      <if test="networkoperatorname != null">
+        NETWORKOPERATORNAME,
+      </if>
+      <if test="devicetype != null">
+        DEVICETYPE,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="flag != null">
+        FLAG,
+      </if>
+      <if test="triggedreason != null">
+        TRIGGEDREASON,
+      </if>
+      <if test="custid != null">
+        CUSTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="simstate != null">
+        #{simstate,jdbcType=DECIMAL},
+      </if>
+      <if test="networkoperatorname != null">
+        #{networkoperatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null">
+        #{devicetype,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=DECIMAL},
+      </if>
+      <if test="triggedreason != null">
+        #{triggedreason,jdbcType=DECIMAL},
+      </if>
+      <if test="custid != null">
+        #{custid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDMPCardPo">
+    update LAO_DMPCARD_DATA
+    <set>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null">
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        IMSI = #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        PHONENUMBER = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="simstate != null">
+        SIMSTATE = #{simstate,jdbcType=DECIMAL},
+      </if>
+      <if test="networkoperatorname != null">
+        NETWORKOPERATORNAME = #{networkoperatorname,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null">
+        DEVICETYPE = #{devicetype,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null">
+        STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        FLAG = #{flag,jdbcType=DECIMAL},
+      </if>
+      <if test="triggedreason != null">
+        TRIGGEDREASON = #{triggedreason,jdbcType=DECIMAL},
+      </if>
+      <if test="custid != null">
+        CUSTID = #{custid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDMPCardPo">
+    update LAO_DMPCARD_DATA
+    set ICCID = #{iccid,jdbcType=VARCHAR},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      IMSI = #{imsi,jdbcType=VARCHAR},
+      PHONENUMBER = #{phonenumber,jdbcType=VARCHAR},
+      SIMSTATE = #{simstate,jdbcType=DECIMAL},
+      NETWORKOPERATORNAME = #{networkoperatorname,jdbcType=VARCHAR},
+      DEVICETYPE = #{devicetype,jdbcType=DECIMAL},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      FLAG = #{flag,jdbcType=DECIMAL},
+      TRIGGEDREASON = #{triggedreason,jdbcType=DECIMAL},
+      CUSTID = #{custid,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

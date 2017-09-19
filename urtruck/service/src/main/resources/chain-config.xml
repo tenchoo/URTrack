@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--接入管理模块common-chain任务链配置 -->
+<catalog>
+	<chain name="DUBBO_CHAIN">
+		<command id="CatchException"
+			className="com.urt.Ability.http.chain.command.CatchExceptionCMD" />
+		<command id="ParameterCheck"
+			className="com.urt.Ability.http.chain.command.ParameterCheckCMD" />
+		<command id="IpCheck"
+			className="com.urt.Ability.http.chain.command.IpCheckCMD" />
+		<command id="RandomCheck"
+			className="com.urt.Ability.http.chain.command.RandomCheckCMD" />
+		<command id="MD5Check"
+			className="com.urt.Ability.http.chain.command.MD5CheckCMD" />
+		<command id="GetDubboServer"
+			className="com.urt.Ability.http.chain.command.GetDubboServerCMD" />
+	</chain>
+</catalog>

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.IccidBatchdataMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidBatchdata" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="ENTERPRISE_CONSIGNEE" property="enterpriseConsignee" jdbcType="VARCHAR" />
+    <result column="CONSIGNEE_PHONE" property="consigneePhone" jdbcType="VARCHAR" />
+    <result column="CONSIGNEE_IDCARD" property="consigneeIdcard" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_CATEGORY" property="industryCategory" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_SEGMENTATION" property="industrySegmentation" jdbcType="VARCHAR" />
+    <result column="DELIVERY_ADDRESS" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="SIM_TYPE" property="simType" jdbcType="VARCHAR" />
+    <result column="SIM_SIZE" property="simSize" jdbcType="VARCHAR" />
+    <result column="SIM_FEE" property="simFee" jdbcType="VARCHAR" />
+    <result column="ICCID_START" property="iccidStart" jdbcType="VARCHAR" />
+    <result column="ICCID_END" property="iccidEnd" jdbcType="VARCHAR" />
+    <result column="NUMBER_START" property="numberStart" jdbcType="VARCHAR" />
+    <result column="NUMBER_END" property="numberEnd" jdbcType="VARCHAR" />
+    <result column="DELIVERY_DATE" property="deliveryDate" jdbcType="TIMESTAMP" />
+    <result column="CONSIGNOR" property="consignor" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_COMPANY" property="logisticsCompany" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NUMBER" property="logisticsNumber" jdbcType="VARCHAR" />
+    <result column="PULL_PERSON" property="pullPerson" jdbcType="VARCHAR" />
+    <result column="PULL_NUMBER" property="pullNumber" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+    <result column="ORDER_FEE" property="orderFee" jdbcType="VARCHAR" />
+    <result column="PAYMENT" property="payment" jdbcType="VARCHAR" />
+    <result column="GENERATEINFOR" property="generateinfor" jdbcType="VARCHAR" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, TRADE_TYPE_CODE, OPERATORS_ID, ENTERPRISE_CONSIGNEE, CONSIGNEE_PHONE, CONSIGNEE_IDCARD, 
+    INDUSTRY_CATEGORY, INDUSTRY_SEGMENTATION, DELIVERY_ADDRESS, SIM_TYPE, SIM_SIZE, SIM_FEE, 
+    ICCID_START, ICCID_END, NUMBER_START, NUMBER_END, DELIVERY_DATE, CONSIGNOR, LOGISTICS_COMPANY, 
+    LOGISTICS_NUMBER, PULL_PERSON, PULL_NUMBER, RECV_TIME, OPER_ID, SUM_NUM, SUCC_NUM, 
+    FAIL_NUM, REMARK, RSRV_INFO1, RSRV_INFO2, ORDER_FEE, PAYMENT, GENERATEINFOR, ORDER_DATE,FILE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ICCID_BATCHDATA
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ICCID_BATCHDATA
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.IccidBatchdata" >
+    insert into LAO_ICCID_BATCHDATA (BATCH_ID, TRADE_TYPE_CODE, OPERATORS_ID, 
+      ENTERPRISE_CONSIGNEE, CONSIGNEE_PHONE, CONSIGNEE_IDCARD, 
+      INDUSTRY_CATEGORY, INDUSTRY_SEGMENTATION, 
+      DELIVERY_ADDRESS, SIM_TYPE, SIM_SIZE, 
+      SIM_FEE, ICCID_START, ICCID_END, 
+      NUMBER_START, NUMBER_END, DELIVERY_DATE, 
+      CONSIGNOR, LOGISTICS_COMPANY, LOGISTICS_NUMBER, 
+      PULL_PERSON, PULL_NUMBER, RECV_TIME, 
+      OPER_ID, SUM_NUM, SUCC_NUM, 
+      FAIL_NUM, REMARK, RSRV_INFO1, 
+      RSRV_INFO2, ORDER_FEE, PAYMENT, 
+      GENERATEINFOR, ORDER_DATE,FILE_NAME)
+    values (#{batchId,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{enterpriseConsignee,jdbcType=VARCHAR}, #{consigneePhone,jdbcType=VARCHAR}, #{consigneeIdcard,jdbcType=VARCHAR}, 
+      #{industryCategory,jdbcType=VARCHAR}, #{industrySegmentation,jdbcType=VARCHAR}, 
+      #{deliveryAddress,jdbcType=VARCHAR}, #{simType,jdbcType=VARCHAR}, #{simSize,jdbcType=VARCHAR}, 
+      #{simFee,jdbcType=VARCHAR}, #{iccidStart,jdbcType=VARCHAR}, #{iccidEnd,jdbcType=VARCHAR}, 
+      #{numberStart,jdbcType=VARCHAR}, #{numberEnd,jdbcType=VARCHAR}, #{deliveryDate,jdbcType=TIMESTAMP}, 
+      #{consignor,jdbcType=VARCHAR}, #{logisticsCompany,jdbcType=VARCHAR}, #{logisticsNumber,jdbcType=VARCHAR}, 
+      #{pullPerson,jdbcType=VARCHAR}, #{pullNumber,jdbcType=VARCHAR}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{operId,jdbcType=VARCHAR}, #{sumNum,jdbcType=DECIMAL}, #{succNum,jdbcType=DECIMAL}, 
+      #{failNum,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{rsrvInfo1,jdbcType=VARCHAR}, 
+      #{rsrvInfo2,jdbcType=VARCHAR}, #{orderFee,jdbcType=VARCHAR}, #{payment,jdbcType=VARCHAR}, 
+      #{generateinfor,jdbcType=VARCHAR}, #{orderDate,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.IccidBatchdata" >
+    insert into LAO_ICCID_BATCHDATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="enterpriseConsignee != null" >
+        ENTERPRISE_CONSIGNEE,
+      </if>
+      <if test="consigneePhone != null" >
+        CONSIGNEE_PHONE,
+      </if>
+      <if test="consigneeIdcard != null" >
+        CONSIGNEE_IDCARD,
+      </if>
+      <if test="industryCategory != null" >
+        INDUSTRY_CATEGORY,
+      </if>
+      <if test="industrySegmentation != null" >
+        INDUSTRY_SEGMENTATION,
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS,
+      </if>
+      <if test="simType != null" >
+        SIM_TYPE,
+      </if>
+      <if test="simSize != null" >
+        SIM_SIZE,
+      </if>
+      <if test="simFee != null" >
+        SIM_FEE,
+      </if>
+      <if test="iccidStart != null" >
+        ICCID_START,
+      </if>
+      <if test="iccidEnd != null" >
+        ICCID_END,
+      </if>
+      <if test="numberStart != null" >
+        NUMBER_START,
+      </if>
+      <if test="numberEnd != null" >
+        NUMBER_END,
+      </if>
+      <if test="deliveryDate != null" >
+        DELIVERY_DATE,
+      </if>
+      <if test="consignor != null" >
+        CONSIGNOR,
+      </if>
+      <if test="logisticsCompany != null" >
+        LOGISTICS_COMPANY,
+      </if>
+      <if test="logisticsNumber != null" >
+        LOGISTICS_NUMBER,
+      </if>
+      <if test="pullPerson != null" >
+        PULL_PERSON,
+      </if>
+      <if test="pullNumber != null" >
+        PULL_NUMBER,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM,
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM,
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+      <if test="orderFee != null" >
+        ORDER_FEE,
+      </if>
+      <if test="payment != null" >
+        PAYMENT,
+      </if>
+      <if test="generateinfor != null" >
+        GENERATEINFOR,
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseConsignee != null" >
+        #{enterpriseConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhone != null" >
+        #{consigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeIdcard != null" >
+        #{consigneeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null" >
+        #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySegmentation != null" >
+        #{industrySegmentation,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddress != null" >
+        #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="simType != null" >
+        #{simType,jdbcType=VARCHAR},
+      </if>
+      <if test="simSize != null" >
+        #{simSize,jdbcType=VARCHAR},
+      </if>
+      <if test="simFee != null" >
+        #{simFee,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidStart != null" >
+        #{iccidStart,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidEnd != null" >
+        #{iccidEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="numberStart != null" >
+        #{numberStart,jdbcType=VARCHAR},
+      </if>
+      <if test="numberEnd != null" >
+        #{numberEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        #{deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignor != null" >
+        #{consignor,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null" >
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNumber != null" >
+        #{logisticsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pullPerson != null" >
+        #{pullPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pullNumber != null" >
+        #{pullNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumNum != null" >
+        #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFee != null" >
+        #{orderFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="generateinfor != null" >
+        #{generateinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.IccidBatchdata" >
+    update LAO_ICCID_BATCHDATA
+    <set >
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterpriseConsignee != null" >
+        ENTERPRISE_CONSIGNEE = #{enterpriseConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneePhone != null" >
+        CONSIGNEE_PHONE = #{consigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeIdcard != null" >
+        CONSIGNEE_IDCARD = #{consigneeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null" >
+        INDUSTRY_CATEGORY = #{industryCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySegmentation != null" >
+        INDUSTRY_SEGMENTATION = #{industrySegmentation,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="simType != null" >
+        SIM_TYPE = #{simType,jdbcType=VARCHAR},
+      </if>
+      <if test="simSize != null" >
+        SIM_SIZE = #{simSize,jdbcType=VARCHAR},
+      </if>
+      <if test="simFee != null" >
+        SIM_FEE = #{simFee,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidStart != null" >
+        ICCID_START = #{iccidStart,jdbcType=VARCHAR},
+      </if>
+      <if test="iccidEnd != null" >
+        ICCID_END = #{iccidEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="numberStart != null" >
+        NUMBER_START = #{numberStart,jdbcType=VARCHAR},
+      </if>
+      <if test="numberEnd != null" >
+        NUMBER_END = #{numberEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignor != null" >
+        CONSIGNOR = #{consignor,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null" >
+        LOGISTICS_COMPANY = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNumber != null" >
+        LOGISTICS_NUMBER = #{logisticsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="pullPerson != null" >
+        PULL_PERSON = #{pullPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="pullNumber != null" >
+        PULL_NUMBER = #{pullNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFee != null" >
+        ORDER_FEE = #{orderFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        PAYMENT = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="generateinfor != null" >
+        GENERATEINFOR = #{generateinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.IccidBatchdata" >
+    update LAO_ICCID_BATCHDATA
+    set TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      ENTERPRISE_CONSIGNEE = #{enterpriseConsignee,jdbcType=VARCHAR},
+      CONSIGNEE_PHONE = #{consigneePhone,jdbcType=VARCHAR},
+      CONSIGNEE_IDCARD = #{consigneeIdcard,jdbcType=VARCHAR},
+      INDUSTRY_CATEGORY = #{industryCategory,jdbcType=VARCHAR},
+      INDUSTRY_SEGMENTATION = #{industrySegmentation,jdbcType=VARCHAR},
+      DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      SIM_TYPE = #{simType,jdbcType=VARCHAR},
+      SIM_SIZE = #{simSize,jdbcType=VARCHAR},
+      SIM_FEE = #{simFee,jdbcType=VARCHAR},
+      ICCID_START = #{iccidStart,jdbcType=VARCHAR},
+      ICCID_END = #{iccidEnd,jdbcType=VARCHAR},
+      NUMBER_START = #{numberStart,jdbcType=VARCHAR},
+      NUMBER_END = #{numberEnd,jdbcType=VARCHAR},
+      DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+      CONSIGNOR = #{consignor,jdbcType=VARCHAR},
+      LOGISTICS_COMPANY = #{logisticsCompany,jdbcType=VARCHAR},
+      LOGISTICS_NUMBER = #{logisticsNumber,jdbcType=VARCHAR},
+      PULL_PERSON = #{pullPerson,jdbcType=VARCHAR},
+      PULL_NUMBER = #{pullNumber,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      ORDER_FEE = #{orderFee,jdbcType=VARCHAR},
+      PAYMENT = #{payment,jdbcType=VARCHAR},
+      GENERATEINFOR = #{generateinfor,jdbcType=VARCHAR},
+      ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR}
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+</mapper>

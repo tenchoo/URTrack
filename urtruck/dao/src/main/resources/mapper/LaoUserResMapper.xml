@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserResMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserRes" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="RES_TYPE_CODE" property="resTypeCode" jdbcType="CHAR" />
+    <id column="RES_CODE" property="resCode" jdbcType="VARCHAR" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="RES_INFO1" property="resInfo1" jdbcType="VARCHAR" />
+    <result column="RES_INFO2" property="resInfo2" jdbcType="VARCHAR" />
+    <result column="RES_INFO3" property="resInfo3" jdbcType="VARCHAR" />
+    <result column="RES_INFO4" property="resInfo4" jdbcType="VARCHAR" />
+    <result column="RES_INFO5" property="resInfo5" jdbcType="VARCHAR" />
+    <result column="RES_INFO6" property="resInfo6" jdbcType="VARCHAR" />
+    <result column="RES_INFO7" property="resInfo7" jdbcType="VARCHAR" />
+    <result column="RES_INFO8" property="resInfo8" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, RES_TYPE_CODE, RES_CODE, START_DATE, PARTITION_ID, RES_INFO1, RES_INFO2, 
+    RES_INFO3, RES_INFO4, RES_INFO5, RES_INFO6, RES_INFO7, RES_INFO8, END_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_RES
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and RES_TYPE_CODE = #{resTypeCode,jdbcType=CHAR}
+      and RES_CODE = #{resCode,jdbcType=VARCHAR}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_USER_RES
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and RES_TYPE_CODE = #{resTypeCode,jdbcType=CHAR}
+      and RES_CODE = #{resCode,jdbcType=VARCHAR}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserRes" >
+    insert into LAO_USER_RES (USER_ID, RES_TYPE_CODE, RES_CODE, 
+      START_DATE, PARTITION_ID, RES_INFO1, 
+      RES_INFO2, RES_INFO3, RES_INFO4, 
+      RES_INFO5, RES_INFO6, RES_INFO7, 
+      RES_INFO8, END_DATE)
+    values (#{userId,jdbcType=DECIMAL}, #{resTypeCode,jdbcType=CHAR}, #{resCode,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{partitionId,jdbcType=DECIMAL}, #{resInfo1,jdbcType=VARCHAR}, 
+      #{resInfo2,jdbcType=VARCHAR}, #{resInfo3,jdbcType=VARCHAR}, #{resInfo4,jdbcType=VARCHAR}, 
+      #{resInfo5,jdbcType=VARCHAR}, #{resInfo6,jdbcType=VARCHAR}, #{resInfo7,jdbcType=VARCHAR}, 
+      #{resInfo8,jdbcType=VARCHAR}, #{endDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserRes" >
+    insert into LAO_USER_RES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="resTypeCode != null" >
+        RES_TYPE_CODE,
+      </if>
+      <if test="resCode != null" >
+        RES_CODE,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="partitionId != null" >
+        PARTITION_ID,
+      </if>
+      <if test="resInfo1 != null" >
+        RES_INFO1,
+      </if>
+      <if test="resInfo2 != null" >
+        RES_INFO2,
+      </if>
+      <if test="resInfo3 != null" >
+        RES_INFO3,
+      </if>
+      <if test="resInfo4 != null" >
+        RES_INFO4,
+      </if>
+      <if test="resInfo5 != null" >
+        RES_INFO5,
+      </if>
+      <if test="resInfo6 != null" >
+        RES_INFO6,
+      </if>
+      <if test="resInfo7 != null" >
+        RES_INFO7,
+      </if>
+      <if test="resInfo8 != null" >
+        RES_INFO8,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="resTypeCode != null" >
+        #{resTypeCode,jdbcType=CHAR},
+      </if>
+      <if test="resCode != null" >
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partitionId != null" >
+        #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="resInfo1 != null" >
+        #{resInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo2 != null" >
+        #{resInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo3 != null" >
+        #{resInfo3,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo4 != null" >
+        #{resInfo4,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo5 != null" >
+        #{resInfo5,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo6 != null" >
+        #{resInfo6,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo7 != null" >
+        #{resInfo7,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo8 != null" >
+        #{resInfo8,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserRes" >
+    update LAO_USER_RES
+    <set >
+      <if test="partitionId != null" >
+        PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="resInfo1 != null" >
+        RES_INFO1 = #{resInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo2 != null" >
+        RES_INFO2 = #{resInfo2,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo3 != null" >
+        RES_INFO3 = #{resInfo3,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo4 != null" >
+        RES_INFO4 = #{resInfo4,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo5 != null" >
+        RES_INFO5 = #{resInfo5,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo6 != null" >
+        RES_INFO6 = #{resInfo6,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo7 != null" >
+        RES_INFO7 = #{resInfo7,jdbcType=VARCHAR},
+      </if>
+      <if test="resInfo8 != null" >
+        RES_INFO8 = #{resInfo8,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and RES_TYPE_CODE = #{resTypeCode,jdbcType=CHAR}
+      and RES_CODE = #{resCode,jdbcType=VARCHAR}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserRes" >
+    update LAO_USER_RES
+    set PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      RES_INFO1 = #{resInfo1,jdbcType=VARCHAR},
+      RES_INFO2 = #{resInfo2,jdbcType=VARCHAR},
+      RES_INFO3 = #{resInfo3,jdbcType=VARCHAR},
+      RES_INFO4 = #{resInfo4,jdbcType=VARCHAR},
+      RES_INFO5 = #{resInfo5,jdbcType=VARCHAR},
+      RES_INFO6 = #{resInfo6,jdbcType=VARCHAR},
+      RES_INFO7 = #{resInfo7,jdbcType=VARCHAR},
+      RES_INFO8 = #{resInfo8,jdbcType=VARCHAR},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and RES_TYPE_CODE = #{resTypeCode,jdbcType=CHAR}
+      and RES_CODE = #{resCode,jdbcType=VARCHAR}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

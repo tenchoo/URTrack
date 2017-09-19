@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.CustomerExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerPo" >
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="CHAR" />
+    <result column="CUST_STATE" property="custState" jdbcType="CHAR" />
+    <result column="PSPT_TYPE_CODE" property="psptTypeCode" jdbcType="CHAR" />
+    <result column="PSPT_ID" property="psptId" jdbcType="VARCHAR" />
+    <result column="REMOVE_DATE" property="removeDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_CHANGE" property="removeChange" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_DATE1" property="rsrvDate1" jdbcType="TIMESTAMP" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="IN_STAFF_ID" property="inStaffId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, PARTITION_ID, CUST_NAME, CUST_TYPE, CUST_STATE, PSPT_TYPE_CODE, PSPT_ID, 
+    REMOVE_DATE, REMOVE_CHANGE, RSRV_STR1, RSRV_DATE1, IN_DATE, IN_STAFF_ID
+  </sql>
+
+
+  <select id="findCustomer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUSTOMER
+  </select>
+</mapper>

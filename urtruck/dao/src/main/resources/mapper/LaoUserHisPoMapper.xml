@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserHisPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserHisPo" >
+    <id column="SEQ_ID" property="seqId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="SCORE_VALUE" property="scoreValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_CLASS" property="creditClass" jdbcType="DECIMAL" />
+    <result column="BASIC_CREDIT_VALUE" property="basicCreditValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_VALUE" property="creditValue" jdbcType="DECIMAL" />
+    <result column="ACCT_TAG" property="acctTag" jdbcType="CHAR" />
+    <result column="PREPAY_TAG" property="prepayTag" jdbcType="CHAR" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_TAG" property="removeTag" jdbcType="CHAR" />
+    <result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+    <result column="PRE_DESTROY_TIME" property="preDestroyTime" jdbcType="TIMESTAMP" />
+    <result column="FIRST_CALL_TIME" property="firstCallTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_STOP_TIME" property="lastStopTime" jdbcType="TIMESTAMP" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="ALIVE_CHECK_TIME" property="aliveCheckTime" jdbcType="DECIMAL" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="OPER_TYPE" property="operType" jdbcType="VARCHAR" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SEQ_ID, USER_ID, CHANNEL_CUST_ID, CUST_ID, MSISDN, OPERATORS_ID, SCORE_VALUE, CREDIT_CLASS, 
+    BASIC_CREDIT_VALUE, CREDIT_VALUE, ACCT_TAG, PREPAY_TAG, IN_DATE, OPEN_DATE, REMOVE_TAG, 
+    DESTROY_TIME, PRE_DESTROY_TIME, FIRST_CALL_TIME, LAST_STOP_TIME, ICCID, DEVICE_ID, 
+    STATUS_CODE, ALIVE_CHECK_TIME, IMEI, STATE_CODE, ATTRIBUTE1, VALUE1, ATTRIBUTE2, 
+    VALUE2, OPER_TYPE, TRADE_TYPE_CODE, MODIFY_TIME, ACCOUNT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_HIS
+    where SEQ_ID = #{seqId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_USER_HIS
+    where SEQ_ID = #{seqId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserHisPo" >
+    insert into LAO_USER_HIS (SEQ_ID, USER_ID, CHANNEL_CUST_ID, 
+      CUST_ID, MSISDN, OPERATORS_ID, 
+      SCORE_VALUE, CREDIT_CLASS, BASIC_CREDIT_VALUE, 
+      CREDIT_VALUE, ACCT_TAG, PREPAY_TAG, 
+      IN_DATE, OPEN_DATE, REMOVE_TAG, 
+      DESTROY_TIME, PRE_DESTROY_TIME, FIRST_CALL_TIME, 
+      LAST_STOP_TIME, ICCID, DEVICE_ID, 
+      STATUS_CODE, ALIVE_CHECK_TIME, IMEI, 
+      STATE_CODE, ATTRIBUTE1, VALUE1, 
+      ATTRIBUTE2, VALUE2, OPER_TYPE, 
+      TRADE_TYPE_CODE, MODIFY_TIME, ACCOUNT_ID
+      )
+    values (#{seqId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{custId,jdbcType=DECIMAL}, #{msisdn,jdbcType=VARCHAR}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{scoreValue,jdbcType=DECIMAL}, #{creditClass,jdbcType=DECIMAL}, #{basicCreditValue,jdbcType=DECIMAL}, 
+      #{creditValue,jdbcType=DECIMAL}, #{acctTag,jdbcType=CHAR}, #{prepayTag,jdbcType=CHAR}, 
+      #{inDate,jdbcType=TIMESTAMP}, #{openDate,jdbcType=TIMESTAMP}, #{removeTag,jdbcType=CHAR}, 
+      #{destroyTime,jdbcType=TIMESTAMP}, #{preDestroyTime,jdbcType=TIMESTAMP}, #{firstCallTime,jdbcType=TIMESTAMP}, 
+      #{lastStopTime,jdbcType=TIMESTAMP}, #{iccid,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{statusCode,jdbcType=VARCHAR}, #{aliveCheckTime,jdbcType=DECIMAL}, #{imei,jdbcType=VARCHAR}, 
+      #{stateCode,jdbcType=VARCHAR}, #{attribute1,jdbcType=VARCHAR}, #{value1,jdbcType=VARCHAR}, 
+      #{attribute2,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR}, #{operType,jdbcType=VARCHAR}, 
+      #{tradeTypeCode,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{accountId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserHisPo" >
+    insert into LAO_USER_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqId != null" >
+        SEQ_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="scoreValue != null" >
+        SCORE_VALUE,
+      </if>
+      <if test="creditClass != null" >
+        CREDIT_CLASS,
+      </if>
+      <if test="basicCreditValue != null" >
+        BASIC_CREDIT_VALUE,
+      </if>
+      <if test="creditValue != null" >
+        CREDIT_VALUE,
+      </if>
+      <if test="acctTag != null" >
+        ACCT_TAG,
+      </if>
+      <if test="prepayTag != null" >
+        PREPAY_TAG,
+      </if>
+      <if test="inDate != null" >
+        IN_DATE,
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE,
+      </if>
+      <if test="removeTag != null" >
+        REMOVE_TAG,
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME,
+      </if>
+      <if test="preDestroyTime != null" >
+        PRE_DESTROY_TIME,
+      </if>
+      <if test="firstCallTime != null" >
+        FIRST_CALL_TIME,
+      </if>
+      <if test="lastStopTime != null" >
+        LAST_STOP_TIME,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="deviceId != null" >
+        DEVICE_ID,
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE,
+      </if>
+      <if test="aliveCheckTime != null" >
+        ALIVE_CHECK_TIME,
+      </if>
+      <if test="imei != null" >
+        IMEI,
+      </if>
+      <if test="stateCode != null" >
+        STATE_CODE,
+      </if>
+      <if test="attribute1 != null" >
+        ATTRIBUTE1,
+      </if>
+      <if test="value1 != null" >
+        VALUE1,
+      </if>
+      <if test="attribute2 != null" >
+        ATTRIBUTE2,
+      </if>
+      <if test="value2 != null" >
+        VALUE2,
+      </if>
+      <if test="operType != null" >
+        OPER_TYPE,
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqId != null" >
+        #{seqId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreValue != null" >
+        #{scoreValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditClass != null" >
+        #{creditClass,jdbcType=DECIMAL},
+      </if>
+      <if test="basicCreditValue != null" >
+        #{basicCreditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditValue != null" >
+        #{creditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="acctTag != null" >
+        #{acctTag,jdbcType=CHAR},
+      </if>
+      <if test="prepayTag != null" >
+        #{prepayTag,jdbcType=CHAR},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeTag != null" >
+        #{removeTag,jdbcType=CHAR},
+      </if>
+      <if test="destroyTime != null" >
+        #{destroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preDestroyTime != null" >
+        #{preDestroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstCallTime != null" >
+        #{firstCallTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastStopTime != null" >
+        #{lastStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliveCheckTime != null" >
+        #{aliveCheckTime,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute1 != null" >
+        #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null" >
+        #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="operType != null" >
+        #{operType,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeTypeCode != null" >
+        #{tradeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserHisPo" >
+    update LAO_USER_HIS
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="scoreValue != null" >
+        SCORE_VALUE = #{scoreValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditClass != null" >
+        CREDIT_CLASS = #{creditClass,jdbcType=DECIMAL},
+      </if>
+      <if test="basicCreditValue != null" >
+        BASIC_CREDIT_VALUE = #{basicCreditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="creditValue != null" >
+        CREDIT_VALUE = #{creditValue,jdbcType=DECIMAL},
+      </if>
+      <if test="acctTag != null" >
+        ACCT_TAG = #{acctTag,jdbcType=CHAR},
+      </if>
+      <if test="prepayTag != null" >
+        PREPAY_TAG = #{prepayTag,jdbcType=CHAR},
+      </if>
+      <if test="inDate != null" >
+        IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeTag != null" >
+        REMOVE_TAG = #{removeTag,jdbcType=CHAR},
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME = #{destroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preDestroyTime != null" >
+        PRE_DESTROY_TIME = #{preDestroyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstCallTime != null" >
+        FIRST_CALL_TIME = #{firstCallTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastStopTime != null" >
+        LAST_STOP_TIME = #{lastStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliveCheckTime != null" >
+        ALIVE_CHECK_TIME = #{aliveCheckTime,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null" >
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="stateCode != null" >
+        STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute1 != null" >
+        ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        VALUE1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="attribute2 != null" >
+        ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null" >
+        VALUE2 = #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="operType != null" >
+        OPER_TYPE = #{operType,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountId != null" >
+        ACCOUNT_ID = #{accountId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SEQ_ID = #{seqId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserHisPo" >
+    update LAO_USER_HIS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      SCORE_VALUE = #{scoreValue,jdbcType=DECIMAL},
+      CREDIT_CLASS = #{creditClass,jdbcType=DECIMAL},
+      BASIC_CREDIT_VALUE = #{basicCreditValue,jdbcType=DECIMAL},
+      CREDIT_VALUE = #{creditValue,jdbcType=DECIMAL},
+      ACCT_TAG = #{acctTag,jdbcType=CHAR},
+      PREPAY_TAG = #{prepayTag,jdbcType=CHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      REMOVE_TAG = #{removeTag,jdbcType=CHAR},
+      DESTROY_TIME = #{destroyTime,jdbcType=TIMESTAMP},
+      PRE_DESTROY_TIME = #{preDestroyTime,jdbcType=TIMESTAMP},
+      FIRST_CALL_TIME = #{firstCallTime,jdbcType=TIMESTAMP},
+      LAST_STOP_TIME = #{lastStopTime,jdbcType=TIMESTAMP},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      STATUS_CODE = #{statusCode,jdbcType=VARCHAR},
+      ALIVE_CHECK_TIME = #{aliveCheckTime,jdbcType=DECIMAL},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR},
+      OPER_TYPE = #{operType,jdbcType=VARCHAR},
+      TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      ACCOUNT_ID = #{accountId,jdbcType=DECIMAL}
+    where SEQ_ID = #{seqId,jdbcType=DECIMAL}
+  </update>
+</mapper>

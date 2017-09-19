@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPCardGroupPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPCardGroupPo">
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="GROUP_ID" jdbcType="DECIMAL" property="groupId" />
+    <result column="CREATTIME" jdbcType="TIMESTAMP" property="creattime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="FLAG" jdbcType="DECIMAL" property="flag" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPCardGroupPo">
+    insert into LAO_DMP_CARDGROUP (IMEI, GROUP_ID, CREATTIME, 
+      UPDATETIME, FLAG)
+    values (#{imei,jdbcType=VARCHAR}, #{groupId,jdbcType=DECIMAL}, #{creattime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{flag,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPCardGroupPo">
+    insert into LAO_DMP_CARDGROUP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imei != null">
+        IMEI,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="creattime != null">
+        CREATTIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="flag != null">
+        FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="creattime != null">
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

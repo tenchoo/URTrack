@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoOperatorsBillExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsBill" >
+    <id column="OPERATORS_BILL_ID" property="operatorsBillId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="OUT_BILL_ID" property="outBillId" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="USE_COUNT" property="useCount" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="REAL_FEE" property="realFee" jdbcType="DECIMAL" />
+    <result column="BALANCE_TAG" property="balanceTag" jdbcType="CHAR" />
+    <result column="GLA_FEE" property="glaFee" jdbcType="DECIMAL" />
+    <result column="GLA_RESULT" property="glaResult" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OPERATORS_BILL_ID, PARTITION_ID, CYCLE_ID, OUT_BILL_ID, OPERATORS_ID, CHANNEL_CUST_ID, 
+    USER_ID, ICCID, MSISDN, OPERATORS_PID, PLAN_ID, PRODUCT_NAME, USE_COUNT, FEE, REAL_FEE, 
+    BALANCE_TAG, GLA_FEE, GLA_RESULT, RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT_ID, RSRV_INFO1, 
+    RSRV_INFO2
+  </sql>
+  <insert id="batchInsert"  parameterType="java.util.List">  
+   insert into LAO_OPERATORS_BILL (OPERATORS_BILL_ID, PARTITION_ID, CYCLE_ID, 
+      OUT_BILL_ID, OPERATORS_ID, CHANNEL_CUST_ID, 
+      USER_ID, ICCID, MSISDN, 
+      OPERATORS_PID, PLAN_ID, PRODUCT_NAME, 
+      USE_COUNT, FEE, REAL_FEE, 
+      BALANCE_TAG, GLA_FEE, GLA_RESULT, 
+      RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT_ID, 
+      RSRV_INFO1, RSRV_INFO2)
+    <foreach collection="list" item="item" index="index"  separator="union all"  >
+    	(select  
+    	#{item.operatorsBillId,jdbcType=DECIMAL}, #{item.partitionId,jdbcType=DECIMAL}, #{item.cycleId,jdbcType=DECIMAL}, 
+      #{item.outBillId,jdbcType=VARCHAR}, #{item.operatorsId,jdbcType=DECIMAL}, #{item.channelCustId,jdbcType=DECIMAL}, 
+      #{item.userId,jdbcType=DECIMAL}, #{item.iccid,jdbcType=VARCHAR}, #{item.msisdn,jdbcType=VARCHAR}, 
+      #{item.operatorsPid,jdbcType=VARCHAR}, #{item.planId,jdbcType=DECIMAL}, #{item.productName,jdbcType=VARCHAR}, 
+      #{item.useCount,jdbcType=VARCHAR}, #{item.fee,jdbcType=DECIMAL}, #{item.realFee,jdbcType=DECIMAL}, 
+      #{item.balanceTag,jdbcType=CHAR}, #{item.glaFee,jdbcType=DECIMAL}, #{item.glaResult,jdbcType=VARCHAR}, 
+      #{item.recvTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateAccountId,jdbcType=VARCHAR}, 
+      #{item.rsrvInfo1,jdbcType=VARCHAR}, #{item.rsrvInfo2,jdbcType=VARCHAR}
+		 from dual)  
+    </foreach>
+	</insert> 
+	
+	<select id="getOperatorBillList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_OPERATORS_BILL
+		<where>
+			<if test="cycleId != null and cycleId !=''">
+		       cycle_id = #{cycleId,jdbcType=DECIMAL}
+		    </if>
+			<if test="balanceTag != null and balanceTag !=''">
+		      and balance_tag = #{balanceTag,jdbcType=VARCHAR}
+		    </if>
+		    <if test="operatorsId != null and operatorsId !=''">
+		      and OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+		    </if>
+		    <if test="userId != null and userId !=''">
+		      and user_id = #{userId,jdbcType=VARCHAR}
+		    </if>
+		    order by CYCLE_ID desc
+	     </where>
+	</select>
+	
+	<select id="getUserIdList" resultType="java.lang.String">
+		select
+		distinct USER_ID
+		from LAO_OPERATORS_BILL
+		where cycle_id = #{cycleId,jdbcType=DECIMAL}
+		and balance_tag = #{balanceTag,jdbcType=VARCHAR}
+	</select>
+	<select id="queryMap"  resultType="map" >  
+  		select nvl(SUM(real_fee), 0) as totalCost,
+       	nvl(SUM(gla_fee), 0) as glaTotalCost,
+        count(operators_bill_id) as sumNum
+		  from lao_operators_bill
+		<where>
+			<if test="cycleId != null and cycleId !=''">
+		       cycle_id = #{cycleId,jdbcType=DECIMAL}
+		    </if>
+			<if test="balanceTag != null and balanceTag !=''">
+		      and balance_tag = #{balanceTag,jdbcType=VARCHAR}
+		    </if>
+		    <if test="operatorsId != null and operatorsId !=''">
+		      and OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+		    </if>
+	     </where>
+		 
+  	</select>
+  	<select id="queryOperatorsBills" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_OPERATORS_BILL
+		<where>
+			<if test="params.bill.cycleId != null and params.bill.cycleId !=''">
+		       cycle_id = #{params.bill.cycleId,jdbcType=DECIMAL}
+		    </if>
+			<if test="params.bill.balanceTag != null and params.bill.balanceTag !=''">
+		      and balance_tag = #{params.bill.balanceTag,jdbcType=VARCHAR}
+		    </if>
+		    <if test="params.bill.operatorsId != null and params.bill.operatorsId !=''">
+		      and OPERATORS_ID = #{params.bill.operatorsId,jdbcType=DECIMAL}
+		    </if>
+		    order by CYCLE_ID desc
+	     </where>
+	</select>
+  	
+	
+</mapper>

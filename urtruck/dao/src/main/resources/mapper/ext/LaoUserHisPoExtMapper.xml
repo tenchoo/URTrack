@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserHisPoExtMapper" >
+    <resultMap id="BaseResultMap" type="com.urt.po.LaoUserHisPo" >
+    <id column="SEQ_ID" property="seqId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="SCORE_VALUE" property="scoreValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_CLASS" property="creditClass" jdbcType="DECIMAL" />
+    <result column="BASIC_CREDIT_VALUE" property="basicCreditValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_VALUE" property="creditValue" jdbcType="DECIMAL" />
+    <result column="ACCT_TAG" property="acctTag" jdbcType="CHAR" />
+    <result column="PREPAY_TAG" property="prepayTag" jdbcType="CHAR" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_TAG" property="removeTag" jdbcType="CHAR" />
+    <result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+    <result column="PRE_DESTROY_TIME" property="preDestroyTime" jdbcType="TIMESTAMP" />
+    <result column="FIRST_CALL_TIME" property="firstCallTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_STOP_TIME" property="lastStopTime" jdbcType="TIMESTAMP" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="ALIVE_CHECK_TIME" property="aliveCheckTime" jdbcType="DECIMAL" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="OPER_TYPE" property="operType" jdbcType="VARCHAR" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+  </resultMap>  
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into LAO_USER_CHG (SEQ_ID, USER_ID, CHANNEL_CUST_ID, 
+      CUST_ID, MSISDN, OPERATORS_ID, 
+      SCORE_VALUE, CREDIT_CLASS, BASIC_CREDIT_VALUE, 
+      CREDIT_VALUE, ACCT_TAG, PREPAY_TAG, 
+      IN_DATE, OPEN_DATE, REMOVE_TAG, 
+      DESTROY_TIME, PRE_DESTROY_TIME, FIRST_CALL_TIME, 
+      LAST_STOP_TIME, ICCID, DEVICE_ID, 
+      STATUS_CODE, ALIVE_CHECK_TIME, IMEI, 
+      STATE_CODE, ATTRIBUTE1, VALUE1, 
+      ATTRIBUTE2, VALUE2, OPER_TYPE,TRADE_TYPE_CODE, 
+      MODIFY_TIME, ACCOUNT_ID)
+    <foreach collection="list" item="item" index="index" separator="union all">
+    	(select #{item.seqId,jdbcType=DECIMAL}, #{item.userId,jdbcType=DECIMAL}, #{item.channelCustId,jdbcType=DECIMAL}, 
+      #{item.custId,jdbcType=DECIMAL}, #{item.msisdn,jdbcType=VARCHAR}, #{item.operatorsId,jdbcType=DECIMAL}, 
+      #{item.scoreValue,jdbcType=DECIMAL}, #{item.creditClass,jdbcType=DECIMAL}, #{item.basicCreditValue,jdbcType=DECIMAL}, 
+      #{item.creditValue,jdbcType=DECIMAL}, #{item.acctTag,jdbcType=CHAR}, #{item.prepayTag,jdbcType=CHAR}, 
+      #{item.inDate,jdbcType=TIMESTAMP}, #{item.openDate,jdbcType=TIMESTAMP}, #{item.removeTag,jdbcType=CHAR}, 
+      #{item.destroyTime,jdbcType=TIMESTAMP}, #{item.preDestroyTime,jdbcType=TIMESTAMP}, #{item.firstCallTime,jdbcType=TIMESTAMP}, 
+      #{item.lastStopTime,jdbcType=TIMESTAMP}, #{item.iccid,jdbcType=VARCHAR}, #{item.deviceId,jdbcType=VARCHAR}, 
+      #{item.statusCode,jdbcType=VARCHAR}, #{item.aliveCheckTime,jdbcType=DECIMAL}, #{item.imei,jdbcType=VARCHAR}, 
+      #{item.stateCode,jdbcType=VARCHAR}, #{item.attribute1,jdbcType=VARCHAR}, #{item.value1,jdbcType=VARCHAR}, 
+      #{item.attribute2,jdbcType=VARCHAR}, #{item.value2,jdbcType=VARCHAR}, #{item.operType,jdbcType=VARCHAR},#{item.tradeTypeCode,jdbcType=VARCHAR}, 
+      #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.accountId,jdbcType=DECIMAL} from dual)
+    </foreach>
+  </insert>
+</mapper>

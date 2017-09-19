@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimImeiMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimImei" >
+    <id column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="DEVICEPIC" property="devicepic" jdbcType="VARCHAR" />
+    <result column="DEVICENAME" property="devicename" jdbcType="VARCHAR" />
+    <result column="DEVICEDESC" property="devicedesc" jdbcType="VARCHAR" />
+    <result column="PARANAME1" property="paraname1" jdbcType="VARCHAR" />
+    <result column="PARANAME2" property="paraname2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    IMEI, DEVICETYPE, DEVICEPIC, DEVICENAME, DEVICEDESC, PARANAME1, PARANAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_IMEI
+    where IMEI = #{imei,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LAO_ESIM_IMEI
+    where IMEI = #{imei,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimImei" >
+    insert into LAO_ESIM_IMEI (IMEI, DEVICETYPE, DEVICEPIC, 
+      DEVICENAME, DEVICEDESC, PARANAME1, 
+      PARANAME2)
+    values (#{imei,jdbcType=VARCHAR}, #{devicetype,jdbcType=VARCHAR}, #{devicepic,jdbcType=VARCHAR}, 
+      #{devicename,jdbcType=VARCHAR}, #{devicedesc,jdbcType=VARCHAR}, #{paraname1,jdbcType=VARCHAR}, 
+      #{paraname2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimImei" >
+    insert into LAO_ESIM_IMEI
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imei != null" >
+        IMEI,
+      </if>
+      <if test="devicetype != null" >
+        DEVICETYPE,
+      </if>
+      <if test="devicepic != null" >
+        DEVICEPIC,
+      </if>
+      <if test="devicename != null" >
+        DEVICENAME,
+      </if>
+      <if test="devicedesc != null" >
+        DEVICEDESC,
+      </if>
+      <if test="paraname1 != null" >
+        PARANAME1,
+      </if>
+      <if test="paraname2 != null" >
+        PARANAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="devicetype != null" >
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="devicepic != null" >
+        #{devicepic,jdbcType=VARCHAR},
+      </if>
+      <if test="devicename != null" >
+        #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="devicedesc != null" >
+        #{devicedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null" >
+        #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null" >
+        #{paraname2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimImei" >
+    update LAO_ESIM_IMEI
+    <set >
+      <if test="devicetype != null" >
+        DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="devicepic != null" >
+        DEVICEPIC = #{devicepic,jdbcType=VARCHAR},
+      </if>
+      <if test="devicename != null" >
+        DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      </if>
+      <if test="devicedesc != null" >
+        DEVICEDESC = #{devicedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null" >
+        PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null" >
+        PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IMEI = #{imei,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimImei" >
+    update LAO_ESIM_IMEI
+    set DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      DEVICEPIC = #{devicepic,jdbcType=VARCHAR},
+      DEVICENAME = #{devicename,jdbcType=VARCHAR},
+      DEVICEDESC = #{devicedesc,jdbcType=VARCHAR},
+      PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      PARANAME2 = #{paraname2,jdbcType=VARCHAR}
+    where IMEI = #{imei,jdbcType=VARCHAR}
+  </update>
+</mapper>

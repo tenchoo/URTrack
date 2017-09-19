@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoInvoiceAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoInvoiceAddress" >
+    <id column="ADDRESS_ID" property="addressId" jdbcType="DECIMAL" />
+    <result column="CHANAL_CUST_ID" property="chanalCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="RECEIVE_PERSON" property="receivePerson" jdbcType="VARCHAR" />
+    <result column="SHIP_PERSON" property="shipPerson" jdbcType="VARCHAR" />
+    <result column="RECEIVE_ADDRESS" property="receiveAddress" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="DECIMAL" />
+    <result column="POSTCODE" property="postcode" jdbcType="DECIMAL" />
+    <result column="ISDEFAULT" property="isdefault" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="INVOICE_STR1" property="invoiceStr1" jdbcType="VARCHAR" />
+    <result column="INVOICE_STR2" property="invoiceStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADDRESS_ID, CHANAL_CUST_ID, CUST_ID, RECEIVE_PERSON, SHIP_PERSON, RECEIVE_ADDRESS, 
+    TELEPHONE, POSTCODE, ISDEFAULT, REMARK, INVOICE_STR1, INVOICE_STR2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_INVOICE_ADDRESS
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_INVOICE_ADDRESS
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoInvoiceAddress" >
+    insert into LAO_INVOICE_ADDRESS (ADDRESS_ID, CHANAL_CUST_ID, CUST_ID, 
+      RECEIVE_PERSON, SHIP_PERSON, RECEIVE_ADDRESS, 
+      TELEPHONE, POSTCODE, ISDEFAULT, 
+      REMARK, INVOICE_STR1, INVOICE_STR2
+      )
+    values (#{addressId,jdbcType=DECIMAL}, #{chanalCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{receivePerson,jdbcType=VARCHAR}, #{shipPerson,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=DECIMAL}, #{postcode,jdbcType=DECIMAL}, #{isdefault,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{invoiceStr1,jdbcType=VARCHAR}, #{invoiceStr2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoInvoiceAddress" >
+    insert into LAO_INVOICE_ADDRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        ADDRESS_ID,
+      </if>
+      <if test="chanalCustId != null" >
+        CHANAL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="receivePerson != null" >
+        RECEIVE_PERSON,
+      </if>
+      <if test="shipPerson != null" >
+        SHIP_PERSON,
+      </if>
+      <if test="receiveAddress != null" >
+        RECEIVE_ADDRESS,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="isdefault != null" >
+        ISDEFAULT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="invoiceStr1 != null" >
+        INVOICE_STR1,
+      </if>
+      <if test="invoiceStr2 != null" >
+        INVOICE_STR2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=DECIMAL},
+      </if>
+      <if test="chanalCustId != null" >
+        #{chanalCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="receivePerson != null" >
+        #{receivePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPerson != null" >
+        #{shipPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=DECIMAL},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=DECIMAL},
+      </if>
+      <if test="isdefault != null" >
+        #{isdefault,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr1 != null" >
+        #{invoiceStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr2 != null" >
+        #{invoiceStr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoInvoiceAddress" >
+    update LAO_INVOICE_ADDRESS
+    <set >
+      <if test="chanalCustId != null" >
+        CHANAL_CUST_ID = #{chanalCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="receivePerson != null" >
+        RECEIVE_PERSON = #{receivePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="shipPerson != null" >
+        SHIP_PERSON = #{shipPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        RECEIVE_ADDRESS = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=DECIMAL},
+      </if>
+      <if test="postcode != null" >
+        POSTCODE = #{postcode,jdbcType=DECIMAL},
+      </if>
+      <if test="isdefault != null" >
+        ISDEFAULT = #{isdefault,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr1 != null" >
+        INVOICE_STR1 = #{invoiceStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr2 != null" >
+        INVOICE_STR2 = #{invoiceStr2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoInvoiceAddress" >
+    update LAO_INVOICE_ADDRESS
+    set CHANAL_CUST_ID = #{chanalCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      RECEIVE_PERSON = #{receivePerson,jdbcType=VARCHAR},
+      SHIP_PERSON = #{shipPerson,jdbcType=VARCHAR},
+      RECEIVE_ADDRESS = #{receiveAddress,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=DECIMAL},
+      POSTCODE = #{postcode,jdbcType=DECIMAL},
+      ISDEFAULT = #{isdefault,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      INVOICE_STR1 = #{invoiceStr1,jdbcType=VARCHAR},
+      INVOICE_STR2 = #{invoiceStr2,jdbcType=VARCHAR}
+    where ADDRESS_ID = #{addressId,jdbcType=DECIMAL}
+  </update>
+</mapper>

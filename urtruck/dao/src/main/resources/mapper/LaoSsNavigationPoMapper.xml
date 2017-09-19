@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsNavigationPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsNavigationPo" >
+    <id column="NAVIGATION_ID" property="navigationId" jdbcType="DECIMAL" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="NAV_NAME" property="navName" jdbcType="VARCHAR" />
+    <result column="NAV_PICTURE" property="navPicture" jdbcType="VARCHAR" />
+    <result column="URL_LEVEL" property="urlLevel" jdbcType="CHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="SHOW_INDEX" property="showIndex" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NAVIGATION_ID, URL, NAV_NAME, NAV_PICTURE, URL_LEVEL, PARENT_ID, SHOW_INDEX
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_NAVIGATION
+    where NAVIGATION_ID = #{navigationId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_SS_NAVIGATION
+    where NAVIGATION_ID = #{navigationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsNavigationPo" >
+    insert into LAO_SS_NAVIGATION (NAVIGATION_ID, URL, NAV_NAME, 
+      NAV_PICTURE, URL_LEVEL, PARENT_ID, 
+      SHOW_INDEX)
+    values (#{navigationId,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR}, #{navName,jdbcType=VARCHAR}, 
+      #{navPicture,jdbcType=VARCHAR}, #{urlLevel,jdbcType=CHAR}, #{parentId,jdbcType=DECIMAL}, 
+      #{showIndex,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsNavigationPo" >
+    insert into LAO_SS_NAVIGATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="navigationId != null" >
+        NAVIGATION_ID,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="navName != null" >
+        NAV_NAME,
+      </if>
+      <if test="navPicture != null" >
+        NAV_PICTURE,
+      </if>
+      <if test="urlLevel != null" >
+        URL_LEVEL,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="showIndex != null" >
+        SHOW_INDEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="navigationId != null" >
+        #{navigationId,jdbcType=DECIMAL},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="navName != null" >
+        #{navName,jdbcType=VARCHAR},
+      </if>
+      <if test="navPicture != null" >
+        #{navPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="urlLevel != null" >
+        #{urlLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="showIndex != null" >
+        #{showIndex,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsNavigationPo" >
+    update LAO_SS_NAVIGATION
+    <set >
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="navName != null" >
+        NAV_NAME = #{navName,jdbcType=VARCHAR},
+      </if>
+      <if test="navPicture != null" >
+        NAV_PICTURE = #{navPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="urlLevel != null" >
+        URL_LEVEL = #{urlLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="showIndex != null" >
+        SHOW_INDEX = #{showIndex,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where NAVIGATION_ID = #{navigationId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsNavigationPo" >
+    update LAO_SS_NAVIGATION
+    set URL = #{url,jdbcType=VARCHAR},
+      NAV_NAME = #{navName,jdbcType=VARCHAR},
+      NAV_PICTURE = #{navPicture,jdbcType=VARCHAR},
+      URL_LEVEL = #{urlLevel,jdbcType=CHAR},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      SHOW_INDEX = #{showIndex,jdbcType=DECIMAL}
+    where NAVIGATION_ID = #{navigationId,jdbcType=DECIMAL}
+  </update>
+</mapper>

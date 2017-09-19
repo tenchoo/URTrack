@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.GrpnetFeediscntMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.GrpnetFeediscnt" >
+    <id column="FEEDISCNT_ID" property="feediscntId" jdbcType="DECIMAL" />
+    <result column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="COMPUTE_METHOD" property="computeMethod" jdbcType="DECIMAL" />
+    <result column="MIN_VALUE" property="minValue" jdbcType="VARCHAR" />
+    <result column="MAX_VALUE" property="maxValue" jdbcType="VARCHAR" />
+    <result column="DIVIED_CHILD_VALUE" property="diviedChildValue" jdbcType="VARCHAR" />
+    <result column="DIVIED_PARENT_VALUE" property="diviedParentValue" jdbcType="VARCHAR" />
+    <result column="DISCNT_FEE" property="discntFee" jdbcType="VARCHAR" />
+    <result column="BASE_FEE" property="baseFee" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FEEDISCNT_ID, OBJECT_ID, COMPUTE_METHOD, MIN_VALUE, MAX_VALUE, DIVIED_CHILD_VALUE, 
+    DIVIED_PARENT_VALUE, DISCNT_FEE, BASE_FEE, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GRPNET_FEEDISCNT
+    where FEEDISCNT_ID = #{feediscntId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_GRPNET_FEEDISCNT
+    where FEEDISCNT_ID = #{feediscntId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.GrpnetFeediscnt" >
+    insert into LAO_GRPNET_FEEDISCNT (FEEDISCNT_ID, OBJECT_ID, COMPUTE_METHOD, 
+      MIN_VALUE, MAX_VALUE, DIVIED_CHILD_VALUE, 
+      DIVIED_PARENT_VALUE, DISCNT_FEE, BASE_FEE, 
+      REMARK)
+    values (#{feediscntId,jdbcType=DECIMAL}, #{objectId,jdbcType=DECIMAL}, #{computeMethod,jdbcType=DECIMAL}, 
+      #{minValue,jdbcType=VARCHAR}, #{maxValue,jdbcType=VARCHAR}, #{diviedChildValue,jdbcType=VARCHAR}, 
+      #{diviedParentValue,jdbcType=VARCHAR}, #{discntFee,jdbcType=VARCHAR}, #{baseFee,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.GrpnetFeediscnt" >
+    insert into LAO_GRPNET_FEEDISCNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feediscntId != null" >
+        FEEDISCNT_ID,
+      </if>
+      <if test="objectId != null" >
+        OBJECT_ID,
+      </if>
+      <if test="computeMethod != null" >
+        COMPUTE_METHOD,
+      </if>
+      <if test="minValue != null" >
+        MIN_VALUE,
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE,
+      </if>
+      <if test="diviedChildValue != null" >
+        DIVIED_CHILD_VALUE,
+      </if>
+      <if test="diviedParentValue != null" >
+        DIVIED_PARENT_VALUE,
+      </if>
+      <if test="discntFee != null" >
+        DISCNT_FEE,
+      </if>
+      <if test="baseFee != null" >
+        BASE_FEE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feediscntId != null" >
+        #{feediscntId,jdbcType=DECIMAL},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=DECIMAL},
+      </if>
+      <if test="computeMethod != null" >
+        #{computeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="minValue != null" >
+        #{minValue,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=VARCHAR},
+      </if>
+      <if test="diviedChildValue != null" >
+        #{diviedChildValue,jdbcType=VARCHAR},
+      </if>
+      <if test="diviedParentValue != null" >
+        #{diviedParentValue,jdbcType=VARCHAR},
+      </if>
+      <if test="discntFee != null" >
+        #{discntFee,jdbcType=VARCHAR},
+      </if>
+      <if test="baseFee != null" >
+        #{baseFee,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.GrpnetFeediscnt" >
+    update LAO_GRPNET_FEEDISCNT
+    <set >
+      <if test="objectId != null" >
+        OBJECT_ID = #{objectId,jdbcType=DECIMAL},
+      </if>
+      <if test="computeMethod != null" >
+        COMPUTE_METHOD = #{computeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="minValue != null" >
+        MIN_VALUE = #{minValue,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        MAX_VALUE = #{maxValue,jdbcType=VARCHAR},
+      </if>
+      <if test="diviedChildValue != null" >
+        DIVIED_CHILD_VALUE = #{diviedChildValue,jdbcType=VARCHAR},
+      </if>
+      <if test="diviedParentValue != null" >
+        DIVIED_PARENT_VALUE = #{diviedParentValue,jdbcType=VARCHAR},
+      </if>
+      <if test="discntFee != null" >
+        DISCNT_FEE = #{discntFee,jdbcType=VARCHAR},
+      </if>
+      <if test="baseFee != null" >
+        BASE_FEE = #{baseFee,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FEEDISCNT_ID = #{feediscntId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.GrpnetFeediscnt" >
+    update LAO_GRPNET_FEEDISCNT
+    set OBJECT_ID = #{objectId,jdbcType=DECIMAL},
+      COMPUTE_METHOD = #{computeMethod,jdbcType=DECIMAL},
+      MIN_VALUE = #{minValue,jdbcType=VARCHAR},
+      MAX_VALUE = #{maxValue,jdbcType=VARCHAR},
+      DIVIED_CHILD_VALUE = #{diviedChildValue,jdbcType=VARCHAR},
+      DIVIED_PARENT_VALUE = #{diviedParentValue,jdbcType=VARCHAR},
+      DISCNT_FEE = #{discntFee,jdbcType=VARCHAR},
+      BASE_FEE = #{baseFee,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where FEEDISCNT_ID = #{feediscntId,jdbcType=DECIMAL}
+  </update>
+</mapper>

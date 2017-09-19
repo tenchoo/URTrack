@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoBatchDataPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoBatchDataPo" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="DEAL_TAG" property="dealTag" jdbcType="VARCHAR" />
+    <result column="RESULT_INFO" property="resultInfo" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, TRADE_TYPE_CODE, OPERATORS_ID, DEAL_TAG, RESULT_INFO, RECV_TIME, UPDATE_TIME, 
+    OPER_ID, SUM_NUM, SUCC_NUM, FAIL_NUM, REMARK, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_BATCH_DATA
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_BATCH_DATA
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoBatchDataPo" >
+    insert into LAO_BATCH_DATA (BATCH_ID, TRADE_TYPE_CODE, OPERATORS_ID, 
+      DEAL_TAG, RESULT_INFO, RECV_TIME, 
+      UPDATE_TIME, OPER_ID, SUM_NUM, 
+      SUCC_NUM, FAIL_NUM, REMARK, 
+      RSRV_INFO1, RSRV_INFO2)
+    values (#{batchId,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{dealTag,jdbcType=VARCHAR}, #{resultInfo,jdbcType=VARCHAR}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{operId,jdbcType=VARCHAR}, #{sumNum,jdbcType=DECIMAL}, 
+      #{succNum,jdbcType=DECIMAL}, #{failNum,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{rsrvInfo1,jdbcType=VARCHAR}, #{rsrvInfo2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoBatchDataPo" >
+    insert into LAO_BATCH_DATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG,
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM,
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM,
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null" >
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        #{dealTag,jdbcType=VARCHAR},
+      </if>
+      <if test="resultInfo != null" >
+        #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumNum != null" >
+        #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoBatchDataPo" >
+    update LAO_BATCH_DATA
+    <set >
+      <if test="tradeTypeCode != null" >
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="dealTag != null" >
+        DEAL_TAG = #{dealTag,jdbcType=VARCHAR},
+      </if>
+      <if test="resultInfo != null" >
+        RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoBatchDataPo" >
+    update LAO_BATCH_DATA
+    set TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      DEAL_TAG = #{dealTag,jdbcType=VARCHAR},
+      RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+</mapper>

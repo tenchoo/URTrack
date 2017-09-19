@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoDMPDeviceAttributePoExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPDeviceAttributePo">
+    <result column="CARDDATAID" jdbcType="VARCHAR" property="carddataid" />
+    <result column="ATTRIBUTENAME" jdbcType="VARCHAR" property="attributename" />
+    <result column="ATTRIBUTEVALUE" jdbcType="VARCHAR" property="attributevalue" />
+  </resultMap>
+      <!-- <insert id="insertDeviceAtrribute" parameterType="java.util.List">  
+        insert into lao_dmpdevice_attribute(carddataid,attributename,attributevalue)   
+        values  
+        <foreach item="item" collection="list" separator="," index="">  
+            (#{item.carddataid , jdbcType=VARCHAR javaType=string},
+            #{item.attributename, jdbcType=VARCHAR javaType=string},
+            #{item.attributevalue, jdbcType=VARCHAR javaType=string})  
+        </foreach>  
+    </insert>   -->
+    
+    <insert id="insertDeviceAtrribute" parameterType="java.util.List">
+      INSERT INTO lao_dmpdevice_attribute
+      (CARDDATAID,ATTRIBUTENAME,ATTRIBUTEVALUE)
+	  SELECT A.* FROM(
+		<foreach collection="list" item="item" index="index" separator="UNION ALL">
+		 SELECT 
+	       #{item.carddataid,jdbcType=VARCHAR} CARDDATAID,
+	       #{item.attributename,jdbcType=VARCHAR} ATTRIBUTENAME,
+	       #{item.attributevalue,jdbcType=VARCHAR} ATTRIBUTEVALUE
+	     FROM dual
+	     </foreach>
+      ) A
+  </insert>
+</mapper>

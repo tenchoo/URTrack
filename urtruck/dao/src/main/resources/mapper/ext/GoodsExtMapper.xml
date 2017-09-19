@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.GoodsExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.Goods" >
+    <id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="GOODS_PRICES" property="goodsPrices" jdbcType="VARCHAR" />
+    <result column="CREATE_STAFF_ID" property="createStaffId" jdbcType="DECIMAL" />
+    <result column="GOODS_DESC" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+    <result column="ACTIVE_WAY" property="activeWay" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_ID, GOODS_NAME, GOODS_PIC, OPERATORS_ID, UPDATEDATE, CREATEDATE, GOODS_PRICES, 
+    CREATE_STAFF_ID, GOODS_DESC, GOODS_TYPE, ACTIVE_WAY
+  </sql>
+	<select id="findAll" resultMap="BaseResultMap">
+		select b.*, c.operators_name as operatorsName
+			 from LAO_GOODS b left join  LAO_OPERATORS c
+			on b.operators_id = c.operators_id
+	</select>
+	<select id="selectGoodsByOperator" resultMap="BaseResultMap">
+	
+		select 
+		<include refid="Base_Column_List" /> 
+		from lao_goods where goods_type='0' and operators_id=#{operatorsId}
+	</select>
+	<select id="selGoodsByName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_GOODS where 1=1
+        <if test="goodsName!=null">
+        AND GOODS_NAME LIKE '%'||#{goodsName,jdbcType=VARCHAR}||'%'
+        </if>
+	</select>
+	<select id="queryGoodsByPage" resultMap="BaseResultMap" parameterType="map" >
+ 		select b.*, c.operators_name as operatorsName from LAO_GOODS b left join  LAO_OPERATORS c on b.operators_id = c.operators_id where 1=1 
+	     <if test="params.param.goodsName != null and params.param.goodsName!=''" >
+	    	and  b.GOODS_NAME like CONCAT(CONCAT('%', #{params.param.goodsName}), '%') 
+	     </if>
+	     <if test="params.param.activeWay != null and params.param.activeWay!=''" >
+	    	and  b.ACTIVE_WAY = #{params.param.activeWay} 
+	     </if>
+	     <if test="params.param.goodsType != null and params.param.goodsType!=''" >
+	    	and  b.GOODS_TYPE = #{params.param.goodsType}  
+	     </if>
+ 		 ORDER BY b.GOODS_ID desc
+ 	</select>
+ 	 <select id="queryLaoGoodsName" resultType="java.lang.String" parameterType="java.lang.String">
+ 		select a.goods_name from lao_goods a where a.goods_id=
+		(select b.goods_id from lao_goods_release b where b.goods_release_id=#{goodsId})
+ 	</select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimGoodsPlanExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimGoodsPlan" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="GOODSID" property="goodsid" jdbcType="VARCHAR" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="PLANSIZE" property="plansize" jdbcType="VARCHAR" />
+    <result column="PLANDESC" property="plandesc" jdbcType="VARCHAR" />
+    <result column="OPERATORS" property="operators" jdbcType="VARCHAR" />
+    <result column="GOODNAME" property="goodname" jdbcType="VARCHAR" />
+    <result column="GOODSURL" property="goodsurl" jdbcType="VARCHAR" />
+    <result column="GOODSPRICE" property="goodsprice" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODSID, OPERATORS_PID, PLANSIZE, PLANDESC, OPERATORS, GOODNAME, GOODSURL, GOODSPRICE
+  </sql>
+  <select id="selectGoodsPlans" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_GOODS_PLAN
+  </select>
+  <select id="getGoodsPlanByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_GOODS_PLAN
+    where GOODSID = #{goodsId,jdbcType=VARCHAR}
+  </select>
+</mapper>

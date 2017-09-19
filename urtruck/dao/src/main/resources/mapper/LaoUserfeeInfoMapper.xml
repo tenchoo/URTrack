@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserfeeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserfeeInfo" >
+    <id column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="ACCEPT_MONTH" property="acceptMonth" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="PAY_TAG" property="payTag" jdbcType="CHAR" />
+    <result column="RECV_FEE" property="recvFee" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="BILL_FEE" property="billFee" jdbcType="DECIMAL" />
+    <result column="START_BILL_CYC" property="startBillCyc" jdbcType="DECIMAL" />
+    <result column="END_BILL_CYC" property="endBillCyc" jdbcType="DECIMAL" />
+    <result column="LASTEST_BILL_CYC" property="lastestBillCyc" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHARGE_ID, ACCEPT_MONTH, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, ICCID, TRADE_ID, 
+    GOODS_ID, GOODS_RELEASE_ID, OPERATORS_ID, PAY_TAG, RECV_FEE, FEE, BILL_FEE, START_BILL_CYC, 
+    END_BILL_CYC, LASTEST_BILL_CYC, RECV_TIME, UPDATE_TIME, OPER_ID, CANCEL_TAG, CANCEL_OPER_ID, 
+    CANCEL_TIME, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USERFEE_INFO
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_USERFEE_INFO
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserfeeInfo" >
+    insert into LAO_USERFEE_INFO (CHARGE_ID, ACCEPT_MONTH, CHANNEL_CUST_ID, 
+      CUST_ID, USER_ID, MSISDN, 
+      ICCID, TRADE_ID, GOODS_ID, 
+      GOODS_RELEASE_ID, OPERATORS_ID, PAY_TAG, 
+      RECV_FEE, FEE, BILL_FEE, 
+      START_BILL_CYC, END_BILL_CYC, LASTEST_BILL_CYC, 
+      RECV_TIME, UPDATE_TIME, OPER_ID, 
+      CANCEL_TAG, CANCEL_OPER_ID, CANCEL_TIME, 
+      RSRV_INFO1, RSRV_INFO2)
+    values (#{chargeId,jdbcType=DECIMAL}, #{acceptMonth,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{custId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{msisdn,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{tradeId,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, 
+      #{goodsReleaseId,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, #{payTag,jdbcType=CHAR}, 
+      #{recvFee,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, #{billFee,jdbcType=DECIMAL}, 
+      #{startBillCyc,jdbcType=DECIMAL}, #{endBillCyc,jdbcType=DECIMAL}, #{lastestBillCyc,jdbcType=DECIMAL}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operId,jdbcType=VARCHAR}, 
+      #{cancelTag,jdbcType=CHAR}, #{cancelOperId,jdbcType=VARCHAR}, #{cancelTime,jdbcType=TIMESTAMP}, 
+      #{rsrvInfo1,jdbcType=VARCHAR}, #{rsrvInfo2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserfeeInfo" >
+    insert into LAO_USERFEE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chargeId != null" >
+        CHARGE_ID,
+      </if>
+      <if test="acceptMonth != null" >
+        ACCEPT_MONTH,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="payTag != null" >
+        PAY_TAG,
+      </if>
+      <if test="recvFee != null" >
+        RECV_FEE,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="billFee != null" >
+        BILL_FEE,
+      </if>
+      <if test="startBillCyc != null" >
+        START_BILL_CYC,
+      </if>
+      <if test="endBillCyc != null" >
+        END_BILL_CYC,
+      </if>
+      <if test="lastestBillCyc != null" >
+        LASTEST_BILL_CYC,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="cancelTag != null" >
+        CANCEL_TAG,
+      </if>
+      <if test="cancelOperId != null" >
+        CANCEL_OPER_ID,
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptMonth != null" >
+        #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="payTag != null" >
+        #{payTag,jdbcType=CHAR},
+      </if>
+      <if test="recvFee != null" >
+        #{recvFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="billFee != null" >
+        #{billFee,jdbcType=DECIMAL},
+      </if>
+      <if test="startBillCyc != null" >
+        #{startBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="endBillCyc != null" >
+        #{endBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="lastestBillCyc != null" >
+        #{lastestBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTag != null" >
+        #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelOperId != null" >
+        #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserfeeInfo" >
+    update LAO_USERFEE_INFO
+    <set >
+      <if test="acceptMonth != null" >
+        ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeId != null" >
+        TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="payTag != null" >
+        PAY_TAG = #{payTag,jdbcType=CHAR},
+      </if>
+      <if test="recvFee != null" >
+        RECV_FEE = #{recvFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        FEE = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="billFee != null" >
+        BILL_FEE = #{billFee,jdbcType=DECIMAL},
+      </if>
+      <if test="startBillCyc != null" >
+        START_BILL_CYC = #{startBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="endBillCyc != null" >
+        END_BILL_CYC = #{endBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="lastestBillCyc != null" >
+        LASTEST_BILL_CYC = #{lastestBillCyc,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTag != null" >
+        CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      </if>
+      <if test="cancelOperId != null" >
+        CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null" >
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserfeeInfo" >
+    update LAO_USERFEE_INFO
+    set ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      TRADE_ID = #{tradeId,jdbcType=DECIMAL},
+      GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      PAY_TAG = #{payTag,jdbcType=CHAR},
+      RECV_FEE = #{recvFee,jdbcType=DECIMAL},
+      FEE = #{fee,jdbcType=DECIMAL},
+      BILL_FEE = #{billFee,jdbcType=DECIMAL},
+      START_BILL_CYC = #{startBillCyc,jdbcType=DECIMAL},
+      END_BILL_CYC = #{endBillCyc,jdbcType=DECIMAL},
+      LASTEST_BILL_CYC = #{lastestBillCyc,jdbcType=DECIMAL},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      CANCEL_TAG = #{cancelTag,jdbcType=CHAR},
+      CANCEL_OPER_ID = #{cancelOperId,jdbcType=VARCHAR},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

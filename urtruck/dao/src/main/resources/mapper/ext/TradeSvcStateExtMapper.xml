@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.TradeSvcStateExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeSvcState">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <id column="SERVICE_ID" jdbcType="DECIMAL" property="serviceId" />
+    <id column="STATE_CODE" jdbcType="CHAR" property="stateCode" />
+    <id column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, USER_ID, SERVICE_ID, STATE_CODE, MODIFY_TAG, START_DATE, 
+    END_DATE, ACCEPT_DATE
+  </sql>
+  <select id="selectByTradeId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_SVCSTATE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+</mapper>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.FlowOperationFlowOrderMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.FlowOperationFlowOrder">
+    <id column="FLOWORDERID" jdbcType="VARCHAR" property="floworderid" />
+    <result column="CUSTCHANNELID" jdbcType="VARCHAR" property="custchannelid" />
+    <result column="CLIENTORDERID" jdbcType="VARCHAR" property="clientorderid" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="PACKAGESIZE" jdbcType="VARCHAR" property="packagesize" />
+    <result column="STEPSTATE1" jdbcType="VARCHAR" property="stepstate1" />
+    <result column="STEPSTATETIME1" jdbcType="TIMESTAMP" property="stepstatetime1" />
+    <result column="STEPSTATE2" jdbcType="VARCHAR" property="stepstate2" />
+    <result column="STEPSTATETIME2" jdbcType="TIMESTAMP" property="stepstatetime2" />
+    <result column="STEPSTATE3" jdbcType="VARCHAR" property="stepstate3" />
+    <result column="STEPSTATETIME3" jdbcType="TIMESTAMP" property="stepstatetime3" />
+    <result column="CALLBACKDISCOUNT" jdbcType="VARCHAR" property="callbackdiscount" />
+    <result column="CALLBACKDOSTMONEY" jdbcType="VARCHAR" property="callbackdostmoney" />
+    <result column="STEPSTATE4" jdbcType="VARCHAR" property="stepstate4" />
+    <result column="STEPSTATETIME4" jdbcType="TIMESTAMP" property="stepstatetime4" />
+    <result column="PARANAME1" jdbcType="VARCHAR" property="paraname1" />
+    <result column="PARANAME2" jdbcType="VARCHAR" property="paraname2" />
+    <result column="ISSUCCESS" jdbcType="VARCHAR" property="issuccess" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    FLOWORDERID, CUSTCHANNELID, CLIENTORDERID, MOBILE, PACKAGESIZE, STEPSTATE1, STEPSTATETIME1, 
+    STEPSTATE2, STEPSTATETIME2, STEPSTATE3, STEPSTATETIME3, CALLBACKDISCOUNT, CALLBACKDOSTMONEY, 
+    STEPSTATE4, STEPSTATETIME4, PARANAME1, PARANAME2, ISSUCCESS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_FLOWOPERATION_FLOWORDER
+    where FLOWORDERID = #{floworderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from LAO_FLOWOPERATION_FLOWORDER
+    where FLOWORDERID = #{floworderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.FlowOperationFlowOrder">
+    insert into LAO_FLOWOPERATION_FLOWORDER (FLOWORDERID, CUSTCHANNELID, CLIENTORDERID, 
+      MOBILE, PACKAGESIZE, STEPSTATE1, 
+      STEPSTATETIME1, STEPSTATE2, STEPSTATETIME2, 
+      STEPSTATE3, STEPSTATETIME3, CALLBACKDISCOUNT, 
+      CALLBACKDOSTMONEY, STEPSTATE4, STEPSTATETIME4, 
+      PARANAME1, PARANAME2, ISSUCCESS
+      )
+    values (#{floworderid,jdbcType=VARCHAR}, #{custchannelid,jdbcType=VARCHAR}, #{clientorderid,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{packagesize,jdbcType=VARCHAR}, #{stepstate1,jdbcType=VARCHAR}, 
+      #{stepstatetime1,jdbcType=TIMESTAMP}, #{stepstate2,jdbcType=VARCHAR}, #{stepstatetime2,jdbcType=TIMESTAMP}, 
+      #{stepstate3,jdbcType=VARCHAR}, #{stepstatetime3,jdbcType=TIMESTAMP}, #{callbackdiscount,jdbcType=VARCHAR}, 
+      #{callbackdostmoney,jdbcType=VARCHAR}, #{stepstate4,jdbcType=VARCHAR}, #{stepstatetime4,jdbcType=TIMESTAMP}, 
+      #{paraname1,jdbcType=VARCHAR}, #{paraname2,jdbcType=VARCHAR}, #{issuccess,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.FlowOperationFlowOrder">
+    insert into LAO_FLOWOPERATION_FLOWORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="floworderid != null">
+        FLOWORDERID,
+      </if>
+      <if test="custchannelid != null">
+        CUSTCHANNELID,
+      </if>
+      <if test="clientorderid != null">
+        CLIENTORDERID,
+      </if>
+      <if test="mobile != null">
+        MOBILE,
+      </if>
+      <if test="packagesize != null">
+        PACKAGESIZE,
+      </if>
+      <if test="stepstate1 != null">
+        STEPSTATE1,
+      </if>
+      <if test="stepstatetime1 != null">
+        STEPSTATETIME1,
+      </if>
+      <if test="stepstate2 != null">
+        STEPSTATE2,
+      </if>
+      <if test="stepstatetime2 != null">
+        STEPSTATETIME2,
+      </if>
+      <if test="stepstate3 != null">
+        STEPSTATE3,
+      </if>
+      <if test="stepstatetime3 != null">
+        STEPSTATETIME3,
+      </if>
+      <if test="callbackdiscount != null">
+        CALLBACKDISCOUNT,
+      </if>
+      <if test="callbackdostmoney != null">
+        CALLBACKDOSTMONEY,
+      </if>
+      <if test="stepstate4 != null">
+        STEPSTATE4,
+      </if>
+      <if test="stepstatetime4 != null">
+        STEPSTATETIME4,
+      </if>
+      <if test="paraname1 != null">
+        PARANAME1,
+      </if>
+      <if test="paraname2 != null">
+        PARANAME2,
+      </if>
+      <if test="issuccess != null">
+        ISSUCCESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="floworderid != null">
+        #{floworderid,jdbcType=VARCHAR},
+      </if>
+      <if test="custchannelid != null">
+        #{custchannelid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientorderid != null">
+        #{clientorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="packagesize != null">
+        #{packagesize,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate1 != null">
+        #{stepstate1,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime1 != null">
+        #{stepstatetime1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepstate2 != null">
+        #{stepstate2,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime2 != null">
+        #{stepstatetime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepstate3 != null">
+        #{stepstate3,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime3 != null">
+        #{stepstatetime3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackdiscount != null">
+        #{callbackdiscount,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackdostmoney != null">
+        #{callbackdostmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate4 != null">
+        #{stepstate4,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime4 != null">
+        #{stepstatetime4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraname1 != null">
+        #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null">
+        #{paraname2,jdbcType=VARCHAR},
+      </if>
+      <if test="issuccess != null">
+        #{issuccess,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.FlowOperationFlowOrder">
+    update LAO_FLOWOPERATION_FLOWORDER
+    <set>
+      <if test="custchannelid != null">
+        CUSTCHANNELID = #{custchannelid,jdbcType=VARCHAR},
+      </if>
+      <if test="clientorderid != null">
+        CLIENTORDERID = #{clientorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="packagesize != null">
+        PACKAGESIZE = #{packagesize,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate1 != null">
+        STEPSTATE1 = #{stepstate1,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime1 != null">
+        STEPSTATETIME1 = #{stepstatetime1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepstate2 != null">
+        STEPSTATE2 = #{stepstate2,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime2 != null">
+        STEPSTATETIME2 = #{stepstatetime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stepstate3 != null">
+        STEPSTATE3 = #{stepstate3,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime3 != null">
+        STEPSTATETIME3 = #{stepstatetime3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callbackdiscount != null">
+        CALLBACKDISCOUNT = #{callbackdiscount,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackdostmoney != null">
+        CALLBACKDOSTMONEY = #{callbackdostmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstate4 != null">
+        STEPSTATE4 = #{stepstate4,jdbcType=VARCHAR},
+      </if>
+      <if test="stepstatetime4 != null">
+        STEPSTATETIME4 = #{stepstatetime4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraname1 != null">
+        PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null">
+        PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      </if>
+      <if test="issuccess != null">
+        ISSUCCESS = #{issuccess,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FLOWORDERID = #{floworderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.FlowOperationFlowOrder">
+    update LAO_FLOWOPERATION_FLOWORDER
+    set CUSTCHANNELID = #{custchannelid,jdbcType=VARCHAR},
+      CLIENTORDERID = #{clientorderid,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      PACKAGESIZE = #{packagesize,jdbcType=VARCHAR},
+      STEPSTATE1 = #{stepstate1,jdbcType=VARCHAR},
+      STEPSTATETIME1 = #{stepstatetime1,jdbcType=TIMESTAMP},
+      STEPSTATE2 = #{stepstate2,jdbcType=VARCHAR},
+      STEPSTATETIME2 = #{stepstatetime2,jdbcType=TIMESTAMP},
+      STEPSTATE3 = #{stepstate3,jdbcType=VARCHAR},
+      STEPSTATETIME3 = #{stepstatetime3,jdbcType=TIMESTAMP},
+      CALLBACKDISCOUNT = #{callbackdiscount,jdbcType=VARCHAR},
+      CALLBACKDOSTMONEY = #{callbackdostmoney,jdbcType=VARCHAR},
+      STEPSTATE4 = #{stepstate4,jdbcType=VARCHAR},
+      STEPSTATETIME4 = #{stepstatetime4,jdbcType=TIMESTAMP},
+      PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      ISSUCCESS = #{issuccess,jdbcType=VARCHAR}
+    where FLOWORDERID = #{floworderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

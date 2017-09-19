@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimLogMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimLog" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="LENOVOID" property="lenovoid" jdbcType="VARCHAR" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="REQUESTINFO" property="requestinfo" jdbcType="VARCHAR" />
+    <result column="RESPONSEINFO" property="responseinfo" jdbcType="VARCHAR" />
+    <result column="RESPCODE" property="respcode" jdbcType="VARCHAR" />
+    <result column="INDATE" property="indate" jdbcType="TIMESTAMP" />
+    <result column="TRADE_TYPECODE" property="tradeTypecode" jdbcType="VARCHAR" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LENOVOID, EID, ICCID, REQUESTINFO, RESPONSEINFO, RESPCODE, INDATE, TRADE_TYPECODE, 
+    PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimLog" >
+    insert into LAO_ESIM_LOG (ID, LENOVOID, EID, 
+      ICCID, REQUESTINFO, RESPONSEINFO, 
+      RESPCODE, INDATE, TRADE_TYPECODE, 
+      PARAM1, PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{lenovoid,jdbcType=VARCHAR}, #{eid,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{requestinfo,jdbcType=VARCHAR}, #{responseinfo,jdbcType=VARCHAR}, 
+      #{respcode,jdbcType=VARCHAR}, #{indate,jdbcType=TIMESTAMP}, #{tradeTypecode,jdbcType=VARCHAR}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimLog" >
+    insert into LAO_ESIM_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="lenovoid != null" >
+        LENOVOID,
+      </if>
+      <if test="eid != null" >
+        EID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="requestinfo != null" >
+        REQUESTINFO,
+      </if>
+      <if test="responseinfo != null" >
+        RESPONSEINFO,
+      </if>
+      <if test="respcode != null" >
+        RESPCODE,
+      </if>
+      <if test="indate != null" >
+        INDATE,
+      </if>
+      <if test="tradeTypecode != null" >
+        TRADE_TYPECODE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="lenovoid != null" >
+        #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="requestinfo != null" >
+        #{requestinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="responseinfo != null" >
+        #{responseinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null" >
+        #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeTypecode != null" >
+        #{tradeTypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimLog" >
+    update LAO_ESIM_LOG
+    <set >
+      <if test="lenovoid != null" >
+        LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="eid != null" >
+        EID = #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="requestinfo != null" >
+        REQUESTINFO = #{requestinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="responseinfo != null" >
+        RESPONSEINFO = #{responseinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null" >
+        RESPCODE = #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        INDATE = #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeTypecode != null" >
+        TRADE_TYPECODE = #{tradeTypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimLog" >
+    update LAO_ESIM_LOG
+    set LENOVOID = #{lenovoid,jdbcType=VARCHAR},
+      EID = #{eid,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      REQUESTINFO = #{requestinfo,jdbcType=VARCHAR},
+      RESPONSEINFO = #{responseinfo,jdbcType=VARCHAR},
+      RESPCODE = #{respcode,jdbcType=VARCHAR},
+      INDATE = #{indate,jdbcType=TIMESTAMP},
+      TRADE_TYPECODE = #{tradeTypecode,jdbcType=VARCHAR},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoCustGroupPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustGroupPo" >
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="GROUP_TYPE" property="groupType" jdbcType="CHAR" />
+    <result column="CUST_CLASS_TYPE" property="custClassType" jdbcType="CHAR" />
+    <result column="GROUP_STATUS" property="groupStatus" jdbcType="CHAR" />
+    <result column="GROUP_ADDR" property="groupAddr" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="EPARCHY_CODE" property="eparchyCode" jdbcType="VARCHAR" />
+    <result column="UNIFY_PAY_CODE" property="unifyPayCode" jdbcType="VARCHAR" />
+    <result column="ORG_STRUCT_CODE" property="orgStructCode" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENCE_TYPE" property="busiLicenceType" jdbcType="CHAR" />
+    <result column="BUSI_LICENCE_NO" property="busiLicenceNo" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENCE_VALID_DATE" property="busiLicenceValidDate" jdbcType="TIMESTAMP" />
+    <result column="GROUP_MEMO" property="groupMemo" jdbcType="VARCHAR" />
+    <result column="INTERNATIONAL" property="international" jdbcType="CHAR" />
+    <result column="JURISTIC_PSPT_ID" property="juristicPsptId" jdbcType="VARCHAR" />
+    <result column="JURISTIC_PSPT_TYPE" property="juristicPsptType" jdbcType="CHAR" />
+    <result column="BUSI_TAX_ID" property="busiTaxId" jdbcType="VARCHAR" />
+    <result column="API_KEY" property="apiKey" jdbcType="VARCHAR" />
+    <result column="SELL_TYPE" property="sellType" jdbcType="CHAR" />
+    <result column="COUNTRY_SEAT" property="countrySeat" jdbcType="VARCHAR" />
+    <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, PARTITION_ID, GROUP_ID, CUST_NAME, GROUP_TYPE, CUST_CLASS_TYPE, GROUP_STATUS, 
+    GROUP_ADDR, PROVINCE_CODE, EPARCHY_CODE, UNIFY_PAY_CODE, ORG_STRUCT_CODE, BUSI_LICENCE_TYPE, 
+    BUSI_LICENCE_NO, BUSI_LICENCE_VALID_DATE, GROUP_MEMO, INTERNATIONAL, JURISTIC_PSPT_ID, 
+    JURISTIC_PSPT_TYPE, BUSI_TAX_ID,SELL_TYPE,REGION_CODE,COUNTRY_SEAT<!-- , API_KEY -->
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUST_GROUP
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_CUST_GROUP
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoCustGroupPo" >
+    insert into LAO_CUST_GROUP (CUST_ID, PARTITION_ID, GROUP_ID, 
+      CUST_NAME, GROUP_TYPE, CUST_CLASS_TYPE, 
+      GROUP_STATUS, GROUP_ADDR, PROVINCE_CODE, 
+      EPARCHY_CODE, UNIFY_PAY_CODE, ORG_STRUCT_CODE, 
+      BUSI_LICENCE_TYPE, BUSI_LICENCE_NO, BUSI_LICENCE_VALID_DATE, 
+      GROUP_MEMO, INTERNATIONAL, JURISTIC_PSPT_ID, 
+      JURISTIC_PSPT_TYPE, BUSI_TAX_ID , API_KEY,REGION_CODE,COUNTRY_SEAT
+      )
+    values (#{custId,jdbcType=DECIMAL}, #{partitionId,jdbcType=DECIMAL}, #{groupId,jdbcType=VARCHAR}, 
+      #{custName,jdbcType=VARCHAR}, #{groupType,jdbcType=CHAR}, #{custClassType,jdbcType=CHAR}, 
+      #{groupStatus,jdbcType=CHAR}, #{groupAddr,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{eparchyCode,jdbcType=VARCHAR}, #{unifyPayCode,jdbcType=VARCHAR}, #{orgStructCode,jdbcType=VARCHAR}, 
+      #{busiLicenceType,jdbcType=CHAR}, #{busiLicenceNo,jdbcType=VARCHAR}, #{busiLicenceValidDate,jdbcType=TIMESTAMP}, 
+      #{groupMemo,jdbcType=VARCHAR}, #{international,jdbcType=CHAR}, #{juristicPsptId,jdbcType=VARCHAR}, 
+      #{juristicPsptType,jdbcType=CHAR}, #{busiTaxId,jdbcType=VARCHAR} , #{apiKey,jdbcType=VARCHAR},#{regionCode,jdbcType=VARCHAR},
+      #{countrySeat,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoCustGroupPo" >
+    insert into LAO_CUST_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="partitionId != null" >
+        PARTITION_ID,
+      </if>
+      <if test="groupId != null" >
+        GROUP_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="groupType != null" >
+        GROUP_TYPE,
+      </if>
+      <if test="custClassType != null" >
+        CUST_CLASS_TYPE,
+      </if>
+      <if test="groupStatus != null" >
+        GROUP_STATUS,
+      </if>
+      <if test="groupAddr != null" >
+        GROUP_ADDR,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="eparchyCode != null" >
+        EPARCHY_CODE,
+      </if>
+      <if test="unifyPayCode != null" >
+        UNIFY_PAY_CODE,
+      </if>
+      <if test="orgStructCode != null" >
+        ORG_STRUCT_CODE,
+      </if>
+      <if test="busiLicenceType != null" >
+        BUSI_LICENCE_TYPE,
+      </if>
+      <if test="busiLicenceNo != null" >
+        BUSI_LICENCE_NO,
+      </if>
+      <if test="busiLicenceValidDate != null" >
+        BUSI_LICENCE_VALID_DATE,
+      </if>
+      <if test="groupMemo != null" >
+        GROUP_MEMO,
+      </if>
+      <if test="international != null" >
+        INTERNATIONAL,
+      </if>
+      <if test="juristicPsptId != null" >
+        JURISTIC_PSPT_ID,
+      </if>
+      <if test="juristicPsptType != null" >
+        JURISTIC_PSPT_TYPE,
+      </if>
+      <if test="busiTaxId != null" >
+        BUSI_TAX_ID,
+      </if>
+      <if test="apiKey != null" >
+        API_KEY,
+      </if>
+      <if test="sellType != null" >
+        SELL_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="partitionId != null" >
+        #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=CHAR},
+      </if>
+      <if test="custClassType != null" >
+        #{custClassType,jdbcType=CHAR},
+      </if>
+      <if test="groupStatus != null" >
+        #{groupStatus,jdbcType=CHAR},
+      </if>
+      <if test="groupAddr != null" >
+        #{groupAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eparchyCode != null" >
+        #{eparchyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unifyPayCode != null" >
+        #{unifyPayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructCode != null" >
+        #{orgStructCode,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenceType != null" >
+        #{busiLicenceType,jdbcType=CHAR},
+      </if>
+      <if test="busiLicenceNo != null" >
+        #{busiLicenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenceValidDate != null" >
+        #{busiLicenceValidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupMemo != null" >
+        #{groupMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="international != null" >
+        #{international,jdbcType=CHAR},
+      </if>
+      <if test="juristicPsptId != null" >
+        #{juristicPsptId,jdbcType=VARCHAR},
+      </if>
+      <if test="juristicPsptType != null" >
+        #{juristicPsptType,jdbcType=CHAR},
+      </if>
+      <if test="busiTaxId != null" >
+        #{busiTaxId,jdbcType=VARCHAR},
+      </if>
+      <if test="apiKey != null" >
+        #{apiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        #{sellType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoCustGroupPo" >
+    update LAO_CUST_GROUP
+    <set >
+      <if test="partitionId != null" >
+        PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null" >
+        GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupType != null" >
+        GROUP_TYPE = #{groupType,jdbcType=CHAR},
+      </if>
+      <if test="custClassType != null" >
+        CUST_CLASS_TYPE = #{custClassType,jdbcType=CHAR},
+      </if>
+      <if test="groupStatus != null" >
+        GROUP_STATUS = #{groupStatus,jdbcType=CHAR},
+      </if>
+      <if test="groupAddr != null" >
+        GROUP_ADDR = #{groupAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="eparchyCode != null" >
+        EPARCHY_CODE = #{eparchyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unifyPayCode != null" >
+        UNIFY_PAY_CODE = #{unifyPayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgStructCode != null" >
+        ORG_STRUCT_CODE = #{orgStructCode,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenceType != null" >
+        BUSI_LICENCE_TYPE = #{busiLicenceType,jdbcType=CHAR},
+      </if>
+      <if test="busiLicenceNo != null" >
+        BUSI_LICENCE_NO = #{busiLicenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenceValidDate != null" >
+        BUSI_LICENCE_VALID_DATE = #{busiLicenceValidDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupMemo != null" >
+        GROUP_MEMO = #{groupMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="international != null" >
+        INTERNATIONAL = #{international,jdbcType=CHAR},
+      </if>
+      <if test="juristicPsptId != null" >
+        JURISTIC_PSPT_ID = #{juristicPsptId,jdbcType=VARCHAR},
+      </if>
+      <if test="juristicPsptType != null" >
+        JURISTIC_PSPT_TYPE = #{juristicPsptType,jdbcType=CHAR},
+      </if>
+      <if test="busiTaxId != null" >
+        BUSI_TAX_ID = #{busiTaxId,jdbcType=VARCHAR},
+      </if>
+      <if test="apiKey != null" >
+        API_KEY = #{apiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        SELL_TYPE = #{sellType,jdbcType=CHAR},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoCustGroupPo" >
+    update LAO_CUST_GROUP
+    set PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      GROUP_TYPE = #{groupType,jdbcType=CHAR},
+      CUST_CLASS_TYPE = #{custClassType,jdbcType=CHAR},
+      GROUP_STATUS = #{groupStatus,jdbcType=CHAR},
+      GROUP_ADDR = #{groupAddr,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      EPARCHY_CODE = #{eparchyCode,jdbcType=VARCHAR},
+      UNIFY_PAY_CODE = #{unifyPayCode,jdbcType=VARCHAR},
+      ORG_STRUCT_CODE = #{orgStructCode,jdbcType=VARCHAR},
+      BUSI_LICENCE_TYPE = #{busiLicenceType,jdbcType=CHAR},
+      BUSI_LICENCE_NO = #{busiLicenceNo,jdbcType=VARCHAR},
+      BUSI_LICENCE_VALID_DATE = #{busiLicenceValidDate,jdbcType=TIMESTAMP},
+      GROUP_MEMO = #{groupMemo,jdbcType=VARCHAR},
+      INTERNATIONAL = #{international,jdbcType=CHAR},
+      JURISTIC_PSPT_ID = #{juristicPsptId,jdbcType=VARCHAR},
+      JURISTIC_PSPT_TYPE = #{juristicPsptType,jdbcType=CHAR},
+      BUSI_TAX_ID = #{busiTaxId,jdbcType=VARCHAR},
+      API_KEY = #{apiKey,jdbcType=VARCHAR},
+      COUNTRY_SEAT = #{countrySeat,jdbcType=VARCHAR},
+      REGION_CODE = #{regionCode,jdbcType=VARCHAR}
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </update>
+</mapper>

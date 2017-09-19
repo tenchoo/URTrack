@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoTrafficMmMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoTrafficMm" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="DATA_CYCLE" property="dataCycle" jdbcType="VARCHAR" />
+    <result column="DATA_ADDED" property="dataAdded" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DATA_REMAINING" property="dataRemaining" jdbcType="DECIMAL" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, CHANNEL_CUST_ID, USER_ID, ICCID, MSISDN, OPERATORS_ID, USE_COUNT, DATA_CYCLE, 
+    DATA_ADDED, RECV_TIME, UPDATE_TIME, REMARK, DATA_REMAINING,PLAN_CLASSIFY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRAFFIC_MM
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_TRAFFIC_MM
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoTrafficMm" >
+    insert into LAO_TRAFFIC_MM (BATCH_ID, CHANNEL_CUST_ID, USER_ID, 
+      ICCID, MSISDN, OPERATORS_ID, 
+      USE_COUNT, DATA_CYCLE, DATA_ADDED, 
+      RECV_TIME, UPDATE_TIME, REMARK, 
+      DATA_REMAINING, PLAN_CLASSIFY)
+    values (#{batchId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{iccid,jdbcType=VARCHAR}, #{msisdn,jdbcType=VARCHAR}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{useCount,jdbcType=DECIMAL}, #{dataCycle,jdbcType=VARCHAR}, #{dataAdded,jdbcType=VARCHAR}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{dataRemaining,jdbcType=DECIMAL}, #{planClassify,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoTrafficMm" >
+    insert into LAO_TRAFFIC_MM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT,
+      </if>
+      <if test="dataCycle != null" >
+        DATA_CYCLE,
+      </if>
+      <if test="dataAdded != null" >
+        DATA_ADDED,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="dataRemaining != null" >
+        DATA_REMAINING,
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="dataCycle != null" >
+        #{dataCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="dataAdded != null" >
+        #{dataAdded,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dataRemaining != null" >
+        #{dataRemaining,jdbcType=DECIMAL},
+      </if>
+      <if test="planClassify != null" >
+        #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoTrafficMm" >
+    update LAO_TRAFFIC_MM
+    <set >
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      </if>
+      <if test="dataCycle != null" >
+        DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="dataAdded != null" >
+        DATA_ADDED = #{dataAdded,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dataRemaining != null" >
+        DATA_REMAINING = #{dataRemaining,jdbcType=DECIMAL},
+      </if>
+      <if test="planClassify != null" >
+        PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoTrafficMm" >
+    update LAO_TRAFFIC_MM
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      USE_COUNT = #{useCount,jdbcType=DECIMAL},
+      DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR},
+      DATA_ADDED = #{dataAdded,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DATA_REMAINING = #{dataRemaining,jdbcType=DECIMAL},
+      PLAN_CLASSIFY = #{planClassify,jdbcType=VARCHAR}
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+</mapper>

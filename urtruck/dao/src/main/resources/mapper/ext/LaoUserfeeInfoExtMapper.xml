@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserfeeInfoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserfeeInfo" >
+    <id column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="ACCEPT_MONTH" property="acceptMonth" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="PAY_TAG" property="payTag" jdbcType="CHAR" />
+    <result column="RECV_FEE" property="recvFee" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="BILL_FEE" property="billFee" jdbcType="DECIMAL" />
+    <result column="START_BILL_CYC" property="startBillCyc" jdbcType="DECIMAL" />
+    <result column="END_BILL_CYC" property="endBillCyc" jdbcType="DECIMAL" />
+    <result column="LASTEST_BILL_CYC" property="lastestBillCyc" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CHARGE_ID, ACCEPT_MONTH, CHANNEL_CUST_ID, CUST_ID, USER_ID, MSISDN, ICCID, TRADE_ID, 
+    GOODS_ID, GOODS_RELEASE_ID, OPERATORS_ID, PAY_TAG, RECV_FEE, FEE, BILL_FEE, START_BILL_CYC, 
+    END_BILL_CYC, LASTEST_BILL_CYC, RECV_TIME, UPDATE_TIME, OPER_ID, CANCEL_TAG, CANCEL_OPER_ID, 
+    CANCEL_TIME, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByTradeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USERFEE_INFO
+    where TRADE_ID = #{tradeId,jdbcType=VARCHAR}
+    and BILL_FEE > 0
+  </select>
+</mapper>

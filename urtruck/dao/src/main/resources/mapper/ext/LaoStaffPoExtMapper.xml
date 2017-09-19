@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoStaffPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoStaffPo" >
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="STAFF_PHONE" property="staffPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+  STAFF_ID,STAFF_NAME,REGION_ID,REGION_CODE,REGION_NAME,STAFF_PHONE
+  </sql>
+ <select id="queryStaffs" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lao_staff staff
+  </select>
+</mapper>

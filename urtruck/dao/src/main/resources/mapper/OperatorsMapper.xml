@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.OperatorsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.Operators" >
+    <id column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_P" property="operatorsP" jdbcType="DECIMAL" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="STATUS_DEAL_CLASS" property="statusDealClass" jdbcType="VARCHAR" />
+    <result column="PLAN_DEAL_CLASS" property="planDealClass" jdbcType="VARCHAR" />
+    <result column="TRAFFIC_QUERY_CLASS" property="trafficQueryClass" jdbcType="VARCHAR" />
+    <result column="QUERY_TEL_CLASS" property="queryTelClass" jdbcType="VARCHAR" />
+    <result column="SEND_SEM_CLASS" property="sendSemClass" jdbcType="VARCHAR" />
+    <result column="QUERY_CARD_STATUS" property="queryCardStatus" jdbcType="VARCHAR" />
+    <result column="BATCH_QUERY_CLASS" property="batchQueryClass" jdbcType="VARCHAR" />
+    <result column="ASYNC" property="async" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OPERATORS_ID, OPERATORS_NAME, OPERATORS_P, UPDATEDATE, CREATEDATE, STATUS_DEAL_CLASS, 
+    PLAN_DEAL_CLASS, TRAFFIC_QUERY_CLASS, QUERY_TEL_CLASS, SEND_SEM_CLASS, QUERY_CARD_STATUS, 
+    BATCH_QUERY_CLASS,ASYNC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORS
+    where OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_OPERATORS
+    where OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.Operators" >
+    insert into LAO_OPERATORS (OPERATORS_ID, OPERATORS_NAME, OPERATORS_P, 
+      UPDATEDATE, CREATEDATE, STATUS_DEAL_CLASS, 
+      PLAN_DEAL_CLASS, TRAFFIC_QUERY_CLASS, QUERY_TEL_CLASS, 
+      SEND_SEM_CLASS, QUERY_CARD_STATUS, BATCH_QUERY_CLASS,ASYNC
+      )
+    values (#{operatorsId,jdbcType=DECIMAL}, #{operatorsName,jdbcType=VARCHAR}, #{operatorsP,jdbcType=DECIMAL}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, #{statusDealClass,jdbcType=VARCHAR}, 
+      #{planDealClass,jdbcType=VARCHAR}, #{trafficQueryClass,jdbcType=VARCHAR}, #{queryTelClass,jdbcType=VARCHAR}, 
+      #{sendSemClass,jdbcType=VARCHAR}, #{queryCardStatus,jdbcType=VARCHAR}, #{batchQueryClass,jdbcType=VARCHAR},#{async,jdbcType=VARCHAR},
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.Operators" >
+    insert into LAO_OPERATORS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="operatorsName != null" >
+        OPERATORS_NAME,
+      </if>
+      <if test="operatorsP != null" >
+        OPERATORS_P,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="statusDealClass != null" >
+        STATUS_DEAL_CLASS,
+      </if>
+      <if test="planDealClass != null" >
+        PLAN_DEAL_CLASS,
+      </if>
+      <if test="trafficQueryClass != null" >
+        TRAFFIC_QUERY_CLASS,
+      </if>
+      <if test="queryTelClass != null" >
+        QUERY_TEL_CLASS,
+      </if>
+      <if test="sendSemClass != null" >
+        SEND_SEM_CLASS,
+      </if>
+      <if test="queryCardStatus != null" >
+        QUERY_CARD_STATUS,
+      </if>
+      <if test="batchQueryClass != null" >
+        BATCH_QUERY_CLASS,
+      </if>
+      <if test="async != null" >
+        ASYNC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsName != null" >
+        #{operatorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsP != null" >
+        #{operatorsP,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusDealClass != null" >
+        #{statusDealClass,jdbcType=VARCHAR},
+      </if>
+      <if test="planDealClass != null" >
+        #{planDealClass,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficQueryClass != null" >
+        #{trafficQueryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="queryTelClass != null" >
+        #{queryTelClass,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSemClass != null" >
+        #{sendSemClass,jdbcType=VARCHAR},
+      </if>
+      <if test="queryCardStatus != null" >
+        #{queryCardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="batchQueryClass != null" >
+        #{batchQueryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="async != null" >
+        #{async,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.Operators" >
+    update LAO_OPERATORS
+    <set >
+      <if test="operatorsName != null" >
+        OPERATORS_NAME = #{operatorsName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsP != null" >
+        OPERATORS_P = #{operatorsP,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusDealClass != null" >
+        STATUS_DEAL_CLASS = #{statusDealClass,jdbcType=VARCHAR},
+      </if>
+      <if test="planDealClass != null" >
+        PLAN_DEAL_CLASS = #{planDealClass,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficQueryClass != null" >
+        TRAFFIC_QUERY_CLASS = #{trafficQueryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="queryTelClass != null" >
+        QUERY_TEL_CLASS = #{queryTelClass,jdbcType=VARCHAR},
+      </if>
+      <if test="sendSemClass != null" >
+        SEND_SEM_CLASS = #{sendSemClass,jdbcType=VARCHAR},
+      </if>
+      <if test="queryCardStatus != null" >
+        QUERY_CARD_STATUS = #{queryCardStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="batchQueryClass != null" >
+        BATCH_QUERY_CLASS = #{batchQueryClass,jdbcType=VARCHAR},
+      </if>
+      <if test="async != null" >
+        ASYNC = #{async,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.Operators" >
+    update LAO_OPERATORS
+    set OPERATORS_NAME = #{operatorsName,jdbcType=VARCHAR},
+      OPERATORS_P = #{operatorsP,jdbcType=DECIMAL},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      STATUS_DEAL_CLASS = #{statusDealClass,jdbcType=VARCHAR},
+      PLAN_DEAL_CLASS = #{planDealClass,jdbcType=VARCHAR},
+      TRAFFIC_QUERY_CLASS = #{trafficQueryClass,jdbcType=VARCHAR},
+      QUERY_TEL_CLASS = #{queryTelClass,jdbcType=VARCHAR},
+      SEND_SEM_CLASS = #{sendSemClass,jdbcType=VARCHAR},
+      QUERY_CARD_STATUS = #{queryCardStatus,jdbcType=VARCHAR},
+      BATCH_QUERY_CLASS = #{batchQueryClass,jdbcType=VARCHAR},
+      ASYNC = #{async,jdbcType=VARCHAR}
+    where OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoRuleDefExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoRuleDef" >
+    <id column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RULEGROUP_ID" property="rulegroupId" jdbcType="DECIMAL" />
+    <result column="RULEGROUP_NAME" property="rulegroupName" jdbcType="VARCHAR" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="COND_STAT" property="condStat" jdbcType="VARCHAR" />
+    <result column="CAL_FORMULA" property="calFormula" jdbcType="VARCHAR" />
+    <result column="PRIORITY" property="priority" jdbcType="DECIMAL" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULE_ID, RULEGROUP_ID, RULEGROUP_NAME, RULE_NAME, COND_STAT, CAL_FORMULA, PRIORITY, 
+    OPER_ID, REMARK
+  </sql>
+  <select id="selectRuleByCustId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	SELECT * FROM 
+	(
+	SELECT RULEGROUP_ID,A.RULEGROUP_NAME,A.RULE_ID,A.RULE_NAME,A.COND_STAT,A.CAL_FORMULA,A.PRIORITY, ROWNUM RN 
+	FROM (select a.RULEGROUP_ID as RULEGROUP_ID,a.RULEGROUP_NAME,a.RULE_ID,a.RULE_NAME,a.COND_STAT,a.CAL_FORMULA,A.PRIORITY from LAO_RULE_DEF a, LAO_RULE_REL b where a.RULEGROUP_ID=b.RULEGROUP_ID AND b.CHANNEL_CUST_ID=#{custId,jdbcType=DECIMAL} AND now() BETWEEN b.EFF_DATE and b.EXP_DATE ORDER BY a.PRIORITY) A 
+	WHERE ROWNUM <![CDATA[<=]]> #{end}
+	)
+	WHERE RN <![CDATA[>=]]> #{start} 
+  </select>
+  <select id="selectRules" resultMap="BaseResultMap" >
+    select 
+    DISTINCT RULEGROUP_ID,RULEGROUP_NAME
+    from LAO_RULE_DEF
+  </select>
+  <select id="selectRulesByGroupId" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT * FROM 
+	(
+	SELECT A.*, ROWNUM RN
+	FROM (select * from LAO_RULE_DEF where RULEGROUP_ID = #{groupId,jdbcType=DECIMAL} ORDER BY PRIORITY ASC) A 
+	WHERE ROWNUM <![CDATA[<=]]> #{end}
+	)
+	WHERE RN <![CDATA[>=]]> #{start} 
+  </select>
+  <select id="selectRulesByGroupIdDesc" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+   	*
+    from LAO_RULE_DEF where RULEGROUP_ID = #{ruleGroupId,jdbcType=DECIMAL} ORDER BY PRIORITY DESC
+  </select>
+  <select id="countRulesByCustId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+    SELECT count(*) FROM 
+	(
+	SELECT A.RULE_ID
+	FROM (select a.RULE_ID from LAO_RULE_DEF a, LAO_RULE_REL b where a.RULEGROUP_ID=b.RULEGROUP_ID AND b.CHANNEL_CUST_ID=#{custId,jdbcType=DECIMAL} AND now() BETWEEN b.EFF_DATE and b.EXP_DATE) A
+	)
+  </select>
+  <select id="countRulesByGroupId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+	select count(*) from LAO_RULE_DEF where RULEGROUP_ID = #{ruleGroupId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectRuleDefs" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select * from LAO_RULE_DEF where RULEGROUP_ID = #{ruleGroupId,jdbcType=DECIMAL} ORDER BY PRIORITY ASC
+  </select>
+</mapper>

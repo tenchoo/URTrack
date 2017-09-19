@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserIpManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserIpManager" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="IP_ADDRESS" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="UPDAT_DATE" property="updatDate" jdbcType="TIMESTAMP" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+    <result column="ISDISABLED" property="isdisabled" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <!--条件查询-->
+  <select id="doQueryIP" resultType="java.lang.Integer">
+ 	select 
+    count(CUST_ID)
+    from LAO_USER_IP_MANAGER 
+    where CUST_ID=#{custId} and IP_ADDRESS=#{ipAddress} and ROWNUM=1 and ISDISABLED=0
+  </select>
+   <!--条件查询-->
+  <select id="doQueryIPIsExist" resultType="java.lang.Integer">
+ 	select 
+    count(CUST_ID)
+    from LAO_USER_IP_MANAGER 
+    where CUST_ID=#{custId}
+  </select>
+  
+  <insert id="insert" parameterType="com.urt.po.LaoUserIpManager" >
+    insert into LAO_USER_IP_MANAGER (ID,CUST_ID, IP_ADDRESS, UPDAT_DATE, 
+      CREAT_DATE, PARA_NAME1, PARA_NAME2, 
+      ISDISABLED)
+    values (#{id,jdbcType=DECIMAL},#{custId,jdbcType=DECIMAL}, #{ipAddress,jdbcType=VARCHAR}, #{updatDate,jdbcType=TIMESTAMP}, 
+      #{creatDate,jdbcType=TIMESTAMP}, #{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR}, 
+      #{isdisabled,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserIpManager" >
+    insert into LAO_USER_IP_MANAGER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="ipAddress != null" >
+        IP_ADDRESS,
+      </if>
+      <if test="updatDate != null" >
+        UPDAT_DATE,
+      </if>
+      <if test="creatDate != null" >
+        CREAT_DATE,
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2,
+      </if>
+      <if test="isdisabled != null" >
+        ISDISABLED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="ipAddress != null" >
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updatDate != null" >
+        #{updatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraName1 != null" >
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisabled != null" >
+        #{isdisabled,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+   <update id="updateByIp" parameterType="com.urt.po.LaoUserIpManager" >
+    update LAO_USER_IP_MANAGER
+    set
+      ID = #{id,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      UPDAT_DATE = #{updatDate,jdbcType=TIMESTAMP},
+      CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      ISDISABLED = #{isdisabled,jdbcType=DECIMAL}
+    where CUST_ID = #{custId,jdbcType=DECIMAL} and IP_ADDRESS = #{ipAddress,jdbcType=DECIMAL}
+  </update>
+  <delete id="deleteUserIP">
+    delete from Lao_User_Ip_Manager  where ID = #{id} 
+  </delete> 
+  <update id="updateStop">
+      update LAO_USER_IP_MANAGER set ISDISABLED=1 where ID = #{id} 
+   </update>
+  <update id="updateOpen">
+      update LAO_USER_IP_MANAGER set ISDISABLED=0 where ID = #{id} 
+   </update>
+</mapper>

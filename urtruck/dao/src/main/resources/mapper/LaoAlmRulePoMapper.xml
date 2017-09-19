@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoAlmRulePoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRulePo" >
+    <id column="RULE_ID" property="ruleId" jdbcType="DECIMAL" />
+    <result column="RULE_NAME" property="ruleName" jdbcType="VARCHAR" />
+    <result column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="RECV_OPER_ID" property="recvOperId" jdbcType="VARCHAR" />
+    <result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+    <result column="UPD_TIME" property="updTime" jdbcType="TIMESTAMP" />
+    <result column="UPD_OPER_ID" property="updOperId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULE_ID, RULE_NAME, RULE_TYPE_ID, CHANNEL_CUST_ID, CUST_ID, RECV_TIME, RECV_OPER_ID, 
+    VALID_TAG, UPD_TIME, UPD_OPER_ID, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ALM_RULE
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ALM_RULE
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoAlmRulePo" >
+    insert into LAO_ALM_RULE (RULE_ID, RULE_NAME, RULE_TYPE_ID, 
+      CHANNEL_CUST_ID, CUST_ID, RECV_TIME, 
+      RECV_OPER_ID, VALID_TAG, UPD_TIME, 
+      UPD_OPER_ID, REMARK)
+    values (#{ruleId,jdbcType=DECIMAL}, #{ruleName,jdbcType=VARCHAR}, #{ruleTypeId,jdbcType=DECIMAL}, 
+      #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{recvOperId,jdbcType=VARCHAR}, #{validTag,jdbcType=CHAR}, #{updTime,jdbcType=TIMESTAMP}, 
+      #{updOperId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAlmRulePo" >
+    insert into LAO_ALM_RULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        RULE_ID,
+      </if>
+      <if test="ruleName != null" >
+        RULE_NAME,
+      </if>
+      <if test="ruleTypeId != null" >
+        RULE_TYPE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="recvOperId != null" >
+        RECV_OPER_ID,
+      </if>
+      <if test="validTag != null" >
+        VALID_TAG,
+      </if>
+      <if test="updTime != null" >
+        UPD_TIME,
+      </if>
+      <if test="updOperId != null" >
+        UPD_OPER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleTypeId != null" >
+        #{ruleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recvOperId != null" >
+        #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null" >
+        #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="updTime != null" >
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updOperId != null" >
+        #{updOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoAlmRulePo" >
+    update LAO_ALM_RULE
+    <set >
+      <if test="ruleName != null" >
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleTypeId != null" >
+        RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recvOperId != null" >
+        RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null" >
+        VALID_TAG = #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="updTime != null" >
+        UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updOperId != null" >
+        UPD_OPER_ID = #{updOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoAlmRulePo" >
+    update LAO_ALM_RULE
+    set RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      RECV_OPER_ID = #{recvOperId,jdbcType=VARCHAR},
+      VALID_TAG = #{validTag,jdbcType=CHAR},
+      UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      UPD_OPER_ID = #{updOperId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where RULE_ID = #{ruleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

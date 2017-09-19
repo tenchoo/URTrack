@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoTrafficMMTaskPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoTrafficMMTaskPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="DATA1" jdbcType="DECIMAL" property="data1" />
+    <result column="DATA2" jdbcType="DECIMAL" property="data2" />
+    <result column="OPER_ID" jdbcType="DECIMAL" property="operId" />
+    <result column="TASK_STATE" jdbcType="CHAR" property="taskState" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="COUNT" jdbcType="DECIMAL" property="count" />
+    <result column="VALUE1" jdbcType="VARCHAR" property="value1" />
+    <result column="VALUE2" jdbcType="VARCHAR" property="value2" />
+    <result column="MONTH" jdbcType="VARCHAR" property="month" />
+    <result column="OPERATORID" jdbcType="DECIMAL" property="operatorid" />
+    <result column="GOODSID" jdbcType="DECIMAL" property="goodsid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.urt.po.LaoTrafficMMTaskPo">
+    <result column="BINARY_DATA" jdbcType="BLOB" property="binaryData" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CHANNEL_CUST_ID, DATA1, DATA2, OPER_ID, TASK_STATE, START_TIME, END_TIME, REMARK, 
+    TYPE, CREATE_TIME, COUNT, VALUE1, VALUE2, MONTH, OPERATORID, GOODSID
+  </sql>
+  <sql id="Blob_Column_List">
+    BINARY_DATA
+  </sql>
+ <select id="getTaskCount" resultType="int">
+    select 
+    count(1)
+    from lao_trafficmm_task
+    where channel_cust_id=#{channelCustId,jdbcType=DECIMAL} and to_char(create_time,'yyyymm') =to_char(now(),'yyyymm')
+    and type= #{type} and data1 =#{parseInt}  and data2  =#{parseInt2} and month=#{month} 
+  </select>
+  <select id="getTaskId" resultType="java.lang.Long">
+    select 
+    id
+    from lao_trafficmm_task
+    where channel_cust_id=#{channelCustId,jdbcType=DECIMAL} and to_char(create_time,'yyyymmdd') =to_char(now(),'yyyymmdd')
+    and type= #{type} and data1  = #{parseInt}  and data2  =#{parseInt2} and month=#{month}  
+    <if test="value1!=null and value1!=''">
+  		and value1 = #{value1}
+   	</if>
+   	<if test="value2!=null and value2!=''">
+   		and value2 = #{value2}
+   	</if>
+   	<if test="operatorId!=null and operatorId!=''">
+   		and operatorid = to_number(#{operatorId})
+   	</if> 
+   	<if test="goodsId!=null and goodsId!=''">
+   		and goodsid = to_number(#{goodsId})
+   	</if>  
+      and rownum=1
+  </select>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro安全配置</description>
+
+	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroDbRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+	</bean>
+
+	<!-- 項目自定义的Realm, 所有accountService依赖的dao都需要用depends-on声明 -->
+	<bean id="shiroDbRealm" class="com.urt.web.service.ShiroDbRealm">
+	</bean>
+		
+		
+	<bean id="myCaptchaFilter" class="com.urt.web.web.auth.FormAuthenticationCaptchaFilter">
+	</bean> 
+
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/login/loginSuccess" />
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="myCaptchaFilter" />
+			</map>
+		</property> 
+		<property name="filterChainDefinitions">
+			<value>
+				/login = authc
+				/logout = logout
+				/account/callback* = anon
+				/api/** = anon
+				/servlet/captchaCode/** = anon
+				/laouser/showGoodsRealease* = anon
+				/glaH5/** = anon
+				/glaH5App*/** = anon
+				/login/checkCaptcha/** = anon
+				/register/** = anon
+				/deviceActivation/** = anon
+				/h5/** = anon
+				/paymentService/** = anon
+				/batchFtpImport/billByNumber= anon
+				/batchFtpImport/billByAjaxNumber= anon
+				/XdswLogin/tologin= anon
+				/customer/toLogin= anon
+				/queryService/** = anon
+				/static/** = anon
+				/httpOpenServer/** = anon
+				/statusQuery/** = anon
+				/cust/company/createCustomer/** = anon
+				/flowback/** = anon
+                /flow/** = anon
+                /find/** = anon
+                /findAD/**=anon
+                /dayflowquery/**=anon
+                /deviceorder/**=anon
+                /monthflowquery/**=anon
+                /paymentquery/**=anon
+                /querygoods/**=anon
+                /serviceStatus/**=anon
+                /deviceActive/**=anon
+                /deviceQueryOnline/**=anon
+                /deviceOpenInternet/**=anon
+                /deviceHeartCheck/**=anon
+                /deviceCloseInternet/**=anon
+                /index/**=anon
+                /detail/**=anon
+                /deviceVerifySim/**=anon
+                /deviceFlowQuery/**=anon
+				/admin/** = roles[admin]
+				/favicon.ico = anon
+				/queryCard/** = anon
+				/esimAddGroup/**=anon
+				/esimOperatorChange/**=anon
+				/esimQueryGoods/**=anon
+				/esimFlow/**=anon
+				/esimBuyGoods/**=anon
+				/findAD/**=anon
+				/esimQuitGroup/**=anon
+				/flowSharing/**=anon
+				/esimFlow/**=anon
+				/queryGoods/**=anon
+				/findProductADs/** =anon
+				/flowPay/** = anon
+				/payOrder/** = anon
+				/esimGetFlow/** = anon
+				 /UnicomNotifyChange/** = anon
+	  			/unicomNotify/**=anon
+	  			/UnicomRateChange/** = anon
+	 			/UnicomRateNotify/**=anon
+	 			/esimGivenFlow/** = anon
+	 			/esimLoginOut/** = anon
+	 			/back/** = anon
+	 			/order/** = anon
+	 			/aliPayCallBack/** = anon
+	 			/jasperNotify/** = anon
+	 			/customerQuery/** = anon
+	 			/customerQueryWeb/** = anon
+	 			/PayCreate/** = anon
+	 			/PayNotifyCallBack/** = anon
+	 			/userTotalService/** = anon
+	 			/laouser/showH5GoodsRealease= anon
+	 			/images/** = anon
+	 			/esimCheck/** = anon
+                /esimGoods/** = anon
+	 			/esimOrder/** = anon
+	 			/esimConnect/** = anon
+	 			/esimCancel/** = anon
+				/esimChange/** = anon
+				/esimorderGoods/** = anon
+				/** = user
+			</value>			
+		</property>
+	</bean>
+
+	<!-- 用户授权信息Cache, 采用EhCache -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml" />
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+</beans>

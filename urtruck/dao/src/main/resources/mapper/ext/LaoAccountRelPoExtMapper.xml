@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAccountRelPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAccountRelPo" >
+    <id column="REL_ID" property="relId" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_ID" property="accountId" jdbcType="DECIMAL" />
+    <result column="REL_TYPE" property="relType" jdbcType="VARCHAR" />
+    <result column="REL_ACCOUNT" property="relAccount" jdbcType="VARCHAR" />
+    <result column="REL_LOGINNAME" property="relLoginname" jdbcType="VARCHAR" />
+    <result column="REL_NICKNAME" property="relNickname" jdbcType="VARCHAR" />
+    <result column="REL_IMGURL" property="relImgurl" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REL_ID, ACCOUNT_ID, REL_TYPE, REL_ACCOUNT, REL_LOGINNAME, REL_NICKNAME, REL_IMGURL, 
+    RECV_TIME, REMARK
+  </sql>
+  <select id="queryRelByRelType" resultMap="BaseResultMap" parameterType="com.urt.po.LaoAccountRelPo">
+  	select * from lao_account_rel where REL_ACCOUNT=#{relAccount,jdbcType=VARCHAR}
+  	<if test="relType!=null and relType!=''">
+  		and REL_TYPE=#{relType,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  <select id="queryRelAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from lao_account_rel where 1=1 and REL_ACCOUNT=#{relAccount}
+  </select>
+  <select id="queryRelAccountByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from lao_account_rel where REL_TYPE='1001' and REL_ACCOUNT=#{relAccount}
+  </select>
+</mapper>

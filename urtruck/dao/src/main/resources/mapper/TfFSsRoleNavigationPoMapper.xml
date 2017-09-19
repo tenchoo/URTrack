@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.TfFSsRoleNavigationPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.TfFSsRoleNavigationPo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <id column="NAVIGATION_ID" property="navigationId" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from TF_F_SS_ROLE_NAVIGATION
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+      and NAVIGATION_ID = #{navigationId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.TfFSsRoleNavigationPo" >
+    insert into TF_F_SS_ROLE_NAVIGATION (ROLE_ID, NAVIGATION_ID)
+    values (#{roleId,jdbcType=DECIMAL}, #{navigationId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.TfFSsRoleNavigationPo" >
+    insert into TF_F_SS_ROLE_NAVIGATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="navigationId != null" >
+        NAVIGATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="navigationId != null" >
+        #{navigationId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoPoolMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoPool" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="E_NAME" property="eName" jdbcType="VARCHAR" />
+    <result column="POOL_ID" property="poolId" jdbcType="VARCHAR" />
+    <result column="POOL_DESC" property="poolDesc" jdbcType="VARCHAR" />
+    <result column="IN_MONTH" property="inMonth" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EID, E_NAME, POOL_ID, POOL_DESC, IN_MONTH, UPDATE_TIME, UPDATE_STAFF_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_POOL
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_POOL
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoPool" >
+    insert into LAO_POOL (ID, EID, E_NAME, 
+      POOL_ID, POOL_DESC, IN_MONTH, 
+      UPDATE_TIME, UPDATE_STAFF_ID)
+    values (#{id,jdbcType=DECIMAL}, #{eid,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, 
+      #{poolId,jdbcType=VARCHAR}, #{poolDesc,jdbcType=VARCHAR}, #{inMonth,jdbcType=DECIMAL}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateStaffId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoPool" >
+    insert into LAO_POOL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="eid != null" >
+        EID,
+      </if>
+      <if test="eName != null" >
+        E_NAME,
+      </if>
+      <if test="poolId != null" >
+        POOL_ID,
+      </if>
+      <if test="poolDesc != null" >
+        POOL_DESC,
+      </if>
+      <if test="inMonth != null" >
+        IN_MONTH,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="eName != null" >
+        #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="poolId != null" >
+        #{poolId,jdbcType=VARCHAR},
+      </if>
+      <if test="poolDesc != null" >
+        #{poolDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="inMonth != null" >
+        #{inMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoPool" >
+    update LAO_POOL
+    <set >
+      <if test="eid != null" >
+        EID = #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="eName != null" >
+        E_NAME = #{eName,jdbcType=VARCHAR},
+      </if>
+      <if test="poolId != null" >
+        POOL_ID = #{poolId,jdbcType=VARCHAR},
+      </if>
+      <if test="poolDesc != null" >
+        POOL_DESC = #{poolDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="inMonth != null" >
+        IN_MONTH = #{inMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateStaffId != null" >
+        UPDATE_STAFF_ID = #{updateStaffId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoPool" >
+    update LAO_POOL
+    set EID = #{eid,jdbcType=VARCHAR},
+      E_NAME = #{eName,jdbcType=VARCHAR},
+      POOL_ID = #{poolId,jdbcType=VARCHAR},
+      POOL_DESC = #{poolDesc,jdbcType=VARCHAR},
+      IN_MONTH = #{inMonth,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_STAFF_ID = #{updateStaffId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

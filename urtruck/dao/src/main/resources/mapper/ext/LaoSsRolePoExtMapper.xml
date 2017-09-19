@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsRolePoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsRolePo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="AUTH_TYPE" property="authType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, DESCRIPTION, AUTH_TYPE
+  </sql>
+ 	<select id="queryRoleByPage" resultMap="BaseResultMap" parameterType="map" >
+ 		 select * from LAO_SS_ROLE where 1=1 
+	     <if test="params.param.roleName != null and params.param.roleName!=''" >
+	    	and  ROLE_NAME like CONCAT(CONCAT('%', #{params.param.roleName}), '%') 
+	     </if>
+	     <if test="params.param.description != null and params.param.description!=''" >
+	      	and  DESCRIPTION like CONCAT(CONCAT('%', #{params.param.description}), '%') 
+	     </if>
+ 		 ORDER BY ROLE_ID desc
+ 	</select>
+ 	<select id="queryRoleList" resultMap="BaseResultMap">
+ 		 select 
+	    <include refid="Base_Column_List" />
+	    from LAO_SS_ROLE
+ 	</select>
+ 	<select id="queryRoleListByAccountId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+ 		 select role.* from lao_ss_account_role account_role left join lao_ss_role role on account_role.role_id=role.role_id where account_role.user_id=#{id}
+ 	</select>
+ 	<select id="queryRoleByRoleName" resultMap="BaseResultMap" parameterType="java.lang.String">
+ 		 select * from lao_ss_role  where role_name=#{roleName}
+ 	</select>
+</mapper>

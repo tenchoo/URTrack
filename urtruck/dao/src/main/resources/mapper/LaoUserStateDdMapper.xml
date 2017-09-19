@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserStateDdMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserStateDd" >
+    <result column="IN_DATE" property="inDate" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_NAME" property="channelCustName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE1_NAME" property="value1Name" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="VALUE2_NAME" property="value2Name" jdbcType="VARCHAR" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="STATE_NAME" property="stateName" jdbcType="VARCHAR" />
+    <result column="STATE_ASNAME" property="stateAsname" jdbcType="VARCHAR" />
+    <result column="CARD_NUM" property="cardNum" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    IN_DATE, CHANNEL_CUST_ID, CHANNEL_CUST_NAME, CUST_ID, CUST_NAME, STAFF_ID, STAFF_NAME, 
+    REGION_ID, REGION_NAME, OPERATORS_ID, OPERATORS_NAME, VALUE1, VALUE1_NAME, VALUE2, 
+    VALUE2_NAME, STATE_CODE, STATE_NAME, STATE_ASNAME, CARD_NUM, UPDATE_TIME, REMARK
+  </sql>
+  
+  <!-- 查询客户持有的卡的总数量 -->
+  <select id="selectCardCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT SUM(CARD_NUM) FROM LAO_USER_STATE_DD WHERE CHANNEL_CUST_ID=#{channelCustId} AND IN_DATE = #{dayTime}
+  </select>
+  
+  <!-- 查询客户下卡的详细信息 -->
+  <select id="selectCardDetail" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT VALUE1_NAME,VALUE2_NAME,STATE_NAME,SUM(CARD_NUM) CARD_NUM FROM LAO_USER_STATE_DD  WHERE CHANNEL_CUST_ID=#{channelCustId} AND IN_DATE=#{dayTime}  GROUP BY VALUE1_NAME,VALUE2_NAME,STATE_NAME
+  </select>
+  
+  
+  <!-- 查询数据库中的最新时间 -->
+  <select id="selectNewTimeCard" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT MAX(IN_DATE) FROM LAO_USER_STATE_DD WHERE CHANNEL_CUST_ID=#{channelCustId} ORDER BY IN_DATE DESC
+  </select>
+</mapper>

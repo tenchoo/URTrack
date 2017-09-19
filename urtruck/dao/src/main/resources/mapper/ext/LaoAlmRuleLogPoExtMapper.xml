@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAlmRuleLogPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleLogPo">
+    <result column="ALARM_ID" jdbcType="DECIMAL" property="alarmId" />
+    <result column="CYCLE_ID" jdbcType="DECIMAL" property="cycleId" />
+    <result column="RULE_ID" jdbcType="DECIMAL" property="ruleId" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="DEAL_TAG" jdbcType="CHAR" property="dealTag" />
+    <result column="DEAL_TIME" jdbcType="TIMESTAMP" property="dealTime" />
+    <result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="OPERATE" jdbcType="VARCHAR" property="operate" />
+    <result column="BATCH" jdbcType="VARCHAR" property="batch" />
+    <result column="CARDNUM" jdbcType="DECIMAL" property="cardnum" />
+    <result column="RATE" jdbcType="VARCHAR" property="rate" />
+    <result column="TEMPLETCONTENT" jdbcType="VARCHAR" property="templetcontent" />
+  </resultMap>
+ <select id="queryPage" resultType="map" parameterType="map">
+	select rule.rule_name rulename,to_char(log.deal_time,'yyyy-mm-dd,hh24:mi:ss') sendtime,
+	log.operate operate,(log.alarm_id||'%'||rule_type.rule_type_id) almid,
+	rule_type.rule_type_name ruletype,nvl(log.templetContent,'--') content,
+	nvl(account.login_name,'--') creator
+	from lao_alm_rule_log log	
+	left join lao_alm_rule rule on log.rule_id=rule.rule_id
+	left join lao_alm_rule_type rule_type on rule.RULE_TYPE_ID=rule_type.RULE_TYPE_ID
+	left join lao_ss_account account on rule.recv_oper_id=account.acconut_id
+	where 1=1 
+	<if test="params.param.channelCustId != null and params.param.channelCustId!=''">
+			and log.channel_cust_id=#{params.param.channelCustId}
+	</if>
+	ORDER BY log.deal_time desc
+</select>
+ <select id="queryCardInfo" resultType="map">  
+      select mm.iccid iccid,operator.operators_name operatorname,cust.cust_name custname,mm.use_count usecount,mm.data_remaining remaindata 
+      from lao_traffic_mm mm 
+	  left join lao_customer cust on mm.channel_cust_id=cust.cust_id
+	  left join lao_operators operator on mm.operators_id=operator.operators_id
+	  where mm.data_cycle = to_number(to_char(now(), 'yyyymm')) and mm.iccid in (
+	    select iccid
+  from (select mm.channel_cust_id cust_id,
+               mm.iccid           iccid,
+               mm.use_count       use_count,
+               p.sumcnt           sumcnt
+          from lao_traffic_mm mm
+          left join (select up.user_id,
+                           sum(nvl(decode(op.quantity_unit,
+                                          'M',
+                                          op.quantity_max * 1024,
+                                          'G',
+                                          op.quantity_max * 1024 * 1024),
+                                   0)) sumcnt
+                      from lao_user_operator_plan up, lao_operator_plan op
+                     where now() between up.start_date and up.end_date
+                       and up.plan_id = op.plan_id
+                    
+                     group by up.user_id) p on mm.user_id = p.user_id
+         where mm.data_cycle = to_number(to_char(now(), 'yyyymm'))
+           and CHANNEL_CUST_ID = (select log.channel_cust_id from lao_alm_rule_log log where log.alarm_id=#{almId})) tmp_alarm
+ where tmp_alarm.sumcnt > 0
+   and tmp_alarm.use_count / tmp_alarm.sumcnt <![CDATA[>=]]> (select log.rate from lao_alm_rule_log log where log.alarm_id=#{almId})
+	  )
+  </select>  
+   <select id="queryPoolCardInfo" resultType="map">  
+      select mm.iccid iccid,operator.operators_name operatorname,cust.cust_name custname,mm.use_count usecount,mm.data_remaining remaindata 
+      from lao_traffic_mm mm 
+	  left join lao_customer cust on mm.channel_cust_id=cust.cust_id
+	  left join lao_operators operator on mm.operators_id=operator.operators_id
+	  where mm.iccid in 
+	  (select iccid from lao_traffic_mm mm where mm.channel_cust_id = 
+	  (select log.channel_cust_id from lao_alm_rule_log log where log.alarm_id=#{almId}))
+      
+  </select>  
+  <select id="selectAlmInfo" resultType="map">
+  select rule.rule_name rulename,sum(1) count 
+  from lao_alm_rule rule left join lao_alm_rule_log rl on rule.rule_id=rl.rule_id  
+  where rule.valid_tag='1' and rl.deal_tag='1' and rl.channel_cust_id=#{custId}  
+  group by rule.rule_name  
+  </select>
+  <select id="selectAlmInfoAll" resultType="map">
+    select rulename,count from 
+    (select rule.recv_time revtime,rule.rule_name rulename,sum(1) count 
+     from lao_alm_rule rule left join lao_alm_rule_log rl on rule.rule_id=rl.rule_id  
+     where rule.valid_tag='1' and rl.deal_tag='1' and rl.channel_cust_id=#{custId}  
+     group by rule.recv_time,rule.rule_name) 
+    where rownum<![CDATA[<=]]>5   order by revtime desc  
+  </select>
+</mapper>

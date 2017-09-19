@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPStrategyRelationPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyRelationPo">
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+    <result column="STRATEGY_ID" jdbcType="DECIMAL" property="strategyId" />
+    <result column="OPERATION_ID" jdbcType="DECIMAL" property="operationId" />
+    <result column="DELFLAG" jdbcType="VARCHAR" property="delflag" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, SCHEME_ID,STRATEGY_ID,OPERATION_ID,DELFLAG,CREATETIME,UPDATETIME
+  </sql>
+   <select id="selectByCustId" resultMap="BaseResultMap">
+     select  
+    <include refid="Base_Column_List" />    
+    from lao_dmpstrategy_relation 
+    where DELFLAG='1' and CUST_ID =#{custId} 
+  </select>
+   <update id="deleteBySchemeId">
+    update lao_dmpstrategy_relation
+    set delflag = 0
+    where delflag='1' and scheme_id = #{schemeId}
+  </update>
+</mapper>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoCustomerPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerPo" >
+    <id column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="CHAR" />
+    <result column="CUST_STATE" property="custState" jdbcType="CHAR" />
+    <result column="PSPT_TYPE_CODE" property="psptTypeCode" jdbcType="CHAR" />
+    <result column="PSPT_ID" property="psptId" jdbcType="VARCHAR" />
+    <result column="REMOVE_DATE" property="removeDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_CHANGE" property="removeChange" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_DATE1" property="rsrvDate1" jdbcType="TIMESTAMP" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="IN_STAFF_ID" property="inStaffId" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+    <result column="DEV_CUST" property="devCust" jdbcType="DECIMAL" />
+    <result column="DEV_ACT" property="devAct" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, PARTITION_ID, CUST_NAME, CUST_TYPE, CUST_STATE, PSPT_TYPE_CODE, PSPT_ID, 
+    REMOVE_DATE, REMOVE_CHANGE, RSRV_STR1, RSRV_DATE1, IN_DATE, IN_STAFF_ID, PARENT_ID, 
+    DEV_CUST, DEV_ACT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUSTOMER
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectChildCustList" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUSTOMER
+    start with cust_id = #{custId,jdbcType=DECIMAL}
+    connect by prior cust_id = parent_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_CUSTOMER
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoCustomerPo" >
+    insert into LAO_CUSTOMER (CUST_ID, PARTITION_ID, CUST_NAME, 
+      CUST_TYPE, CUST_STATE, PSPT_TYPE_CODE, 
+      PSPT_ID, REMOVE_DATE, REMOVE_CHANGE, 
+      RSRV_STR1, RSRV_DATE1, IN_DATE, 
+      IN_STAFF_ID, PARENT_ID, DEV_CUST, 
+      DEV_ACT)
+    values (#{custId,jdbcType=DECIMAL}, #{partitionId,jdbcType=DECIMAL}, #{custName,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=CHAR}, #{custState,jdbcType=CHAR}, #{psptTypeCode,jdbcType=CHAR}, 
+      #{psptId,jdbcType=VARCHAR}, #{removeDate,jdbcType=TIMESTAMP}, #{removeChange,jdbcType=VARCHAR}, 
+      #{rsrvStr1,jdbcType=VARCHAR}, #{rsrvDate1,jdbcType=TIMESTAMP}, #{inDate,jdbcType=TIMESTAMP}, 
+      #{inStaffId,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, #{devCust,jdbcType=DECIMAL}, 
+      #{devAct,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoCustomerPo" >
+    insert into LAO_CUSTOMER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="partitionId != null" >
+        PARTITION_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="custState != null" >
+        CUST_STATE,
+      </if>
+      <if test="psptTypeCode != null" >
+        PSPT_TYPE_CODE,
+      </if>
+      <if test="psptId != null" >
+        PSPT_ID,
+      </if>
+      <if test="removeDate != null" >
+        REMOVE_DATE,
+      </if>
+      <if test="removeChange != null" >
+        REMOVE_CHANGE,
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1,
+      </if>
+      <if test="rsrvDate1 != null" >
+        RSRV_DATE1,
+      </if>
+      <if test="inDate != null" >
+        IN_DATE,
+      </if>
+      <if test="inStaffId != null" >
+        IN_STAFF_ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="devCust != null" >
+        DEV_CUST,
+      </if>
+      <if test="devAct != null" >
+        DEV_ACT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="partitionId != null" >
+        #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=CHAR},
+      </if>
+      <if test="custState != null" >
+        #{custState,jdbcType=CHAR},
+      </if>
+      <if test="psptTypeCode != null" >
+        #{psptTypeCode,jdbcType=CHAR},
+      </if>
+      <if test="psptId != null" >
+        #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="removeDate != null" >
+        #{removeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeChange != null" >
+        #{removeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvDate1 != null" >
+        #{rsrvDate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inDate != null" >
+        #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inStaffId != null" >
+        #{inStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="devCust != null" >
+        #{devCust,jdbcType=DECIMAL},
+      </if>
+      <if test="devAct != null" >
+        #{devAct,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoCustomerPo" >
+    update LAO_CUSTOMER
+    <set >
+      <if test="partitionId != null" >
+        PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=CHAR},
+      </if>
+      <if test="custState != null" >
+        CUST_STATE = #{custState,jdbcType=CHAR},
+      </if>
+      <if test="psptTypeCode != null" >
+        PSPT_TYPE_CODE = #{psptTypeCode,jdbcType=CHAR},
+      </if>
+      <if test="psptId != null" >
+        PSPT_ID = #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="removeDate != null" >
+        REMOVE_DATE = #{removeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeChange != null" >
+        REMOVE_CHANGE = #{removeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvStr1 != null" >
+        RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvDate1 != null" >
+        RSRV_DATE1 = #{rsrvDate1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inDate != null" >
+        IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inStaffId != null" >
+        IN_STAFF_ID = #{inStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="devCust != null" >
+        DEV_CUST = #{devCust,jdbcType=DECIMAL},
+      </if>
+      <if test="devAct != null" >
+        DEV_ACT = #{devAct,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoCustomerPo" >
+    update LAO_CUSTOMER
+    set PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      CUST_TYPE = #{custType,jdbcType=CHAR},
+      CUST_STATE = #{custState,jdbcType=CHAR},
+      PSPT_TYPE_CODE = #{psptTypeCode,jdbcType=CHAR},
+      PSPT_ID = #{psptId,jdbcType=VARCHAR},
+      REMOVE_DATE = #{removeDate,jdbcType=TIMESTAMP},
+      REMOVE_CHANGE = #{removeChange,jdbcType=VARCHAR},
+      RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      RSRV_DATE1 = #{rsrvDate1,jdbcType=TIMESTAMP},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      IN_STAFF_ID = #{inStaffId,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      DEV_CUST = #{devCust,jdbcType=DECIMAL},
+      DEV_ACT = #{devAct,jdbcType=DECIMAL}
+    where CUST_ID = #{custId,jdbcType=DECIMAL}
+  </update>
+</mapper>

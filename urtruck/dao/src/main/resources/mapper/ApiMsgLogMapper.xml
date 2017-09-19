@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ApiMsgLogMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.ApiMsgLog">
+    <id column="MSG_ID" jdbcType="DECIMAL" property="msgId" />
+    <result column="EVENT_ID" jdbcType="VARCHAR" property="eventId" />
+    <result column="EVENT_TYPE" jdbcType="VARCHAR" property="eventType" />
+    <result column="RULE_NAME" jdbcType="VARCHAR" property="ruleName" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="MSG_CONTEXT" jdbcType="VARCHAR" property="msgContext" />
+    <result column="DEAL_TAG" jdbcType="CHAR" property="dealTag" />
+    <result column="DEAL_RESULT" jdbcType="VARCHAR" property="dealResult" />
+    <result column="OPERATOR_ID" jdbcType="DECIMAL" property="operatorId" />
+    <result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_ACCOUNT" jdbcType="VARCHAR" property="updateAccount" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MSG_ID, EVENT_ID, EVENT_TYPE, RULE_NAME, ICCID, MSG_CONTEXT, DEAL_TAG, DEAL_RESULT, 
+    OPERATOR_ID, RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_API_MSG_LOG
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_API_MSG_LOG
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.ApiMsgLog">
+    insert into LAO_API_MSG_LOG (MSG_ID, EVENT_ID, EVENT_TYPE, 
+      RULE_NAME, ICCID, MSG_CONTEXT, 
+      DEAL_TAG, DEAL_RESULT, OPERATOR_ID, 
+      RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT, 
+      REMARK)
+    values (#{msgId,jdbcType=DECIMAL}, #{eventId,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR}, 
+      #{ruleName,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{msgContext,jdbcType=VARCHAR}, 
+      #{dealTag,jdbcType=CHAR}, #{dealResult,jdbcType=VARCHAR}, #{operatorId,jdbcType=DECIMAL}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateAccount,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.ApiMsgLog">
+    insert into LAO_API_MSG_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        MSG_ID,
+      </if>
+      <if test="eventId != null">
+        EVENT_ID,
+      </if>
+      <if test="eventType != null">
+        EVENT_TYPE,
+      </if>
+      <if test="ruleName != null">
+        RULE_NAME,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="msgContext != null">
+        MSG_CONTEXT,
+      </if>
+      <if test="dealTag != null">
+        DEAL_TAG,
+      </if>
+      <if test="dealResult != null">
+        DEAL_RESULT,
+      </if>
+      <if test="operatorId != null">
+        OPERATOR_ID,
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateAccount != null">
+        UPDATE_ACCOUNT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=DECIMAL},
+      </if>
+      <if test="eventId != null">
+        #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null">
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContext != null">
+        #{msgContext,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null">
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="dealResult != null">
+        #{dealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null">
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccount != null">
+        #{updateAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.ApiMsgLog">
+    update LAO_API_MSG_LOG
+    <set>
+      <if test="eventId != null">
+        EVENT_ID = #{eventId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        EVENT_TYPE = #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null">
+        RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContext != null">
+        MSG_CONTEXT = #{msgContext,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null">
+        DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="dealResult != null">
+        DEAL_RESULT = #{dealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccount != null">
+        UPDATE_ACCOUNT = #{updateAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.ApiMsgLog">
+    update LAO_API_MSG_LOG
+    set EVENT_ID = #{eventId,jdbcType=VARCHAR},
+      EVENT_TYPE = #{eventType,jdbcType=VARCHAR},
+      RULE_NAME = #{ruleName,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSG_CONTEXT = #{msgContext,jdbcType=VARCHAR},
+      DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      DEAL_RESULT = #{dealResult,jdbcType=VARCHAR},
+      OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_ACCOUNT = #{updateAccount,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where MSG_ID = #{msgId,jdbcType=DECIMAL}
+  </update>
+  
+  </mapper>

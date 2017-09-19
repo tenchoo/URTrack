@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.ChargeOrderExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.ChargeOrder">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="ORDERID" jdbcType="VARCHAR" property="orderid" />
+    <result column="FLOWSIZE" jdbcType="VARCHAR" property="flowsize" />
+    <result column="PAYAMOUNT" jdbcType="DECIMAL" property="payamount" />
+    <result column="PAYSTATUS" jdbcType="DECIMAL" property="paystatus" />
+    <result column="CHARGESTATUS" jdbcType="DECIMAL" property="chargestatus" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="CHARGEDATE" jdbcType="TIMESTAMP" property="chargedate" />
+    <result column="PAYTYPE" jdbcType="DECIMAL" property="paytype" />
+    <result column="PAYORDERID" jdbcType="VARCHAR" property="payorderid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERNAME, USERID, ICCID, ORDERID, FLOWSIZE, PAYAMOUNT, PAYSTATUS, CHARGESTATUS, 
+    CREATEDATE, UPDATEDATE, CHARGEDATE, PAYTYPE, PAYORDERID
+  </sql>
+ 
+	<!--分页加上时间查询  -->
+	<select id="doQueryList" parameterType="java.lang.String" resultMap="BaseResultMap">
+	SELECT
+	<include refid="Base_Column_List" />
+	
+	FROM (SELECT tt.*, ROWNUM AS rowno
+	FROM (SELECT t.*
+	FROM LAO_CHARGE_ORDER t
+	<where>
+	    <if test="startTime != null and endTime != null " >
+	      and  createdate BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="userId != null">
+	    and  userId=#{userId} and paystatus =1 
+	    </if>
+    </where>
+	order by createDate desc)tt<![CDATA[
+	where ROWNUM <= #{endRow,jdbcType=DECIMAL})tb
+	WHERE tb.rowno > #{startRow,jdbcType=DECIMAL}  	
+	]]> 
+  </select>
+  
+  <!-- 查询总共条数 -->
+  <select id="doQueryCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT count(id)
+	FROM LAO_CHARGE_ORDER 
+	<where>
+	    <if test="startTime != null and endTime != null " >
+	      and  createdate BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="userId != null">
+	    and  userId=#{userId} and paystatus =1 
+	    </if>
+    </where>
+  </select>
+</mapper>

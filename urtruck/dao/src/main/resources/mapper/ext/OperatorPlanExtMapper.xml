@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.OperatorPlanExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.OperatorPlan" >
+    <id column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="PLAN_NAME" property="planName" jdbcType="VARCHAR" />
+    <result column="OPERATORS" property="operators" jdbcType="DECIMAL" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="TIME_LENGTH" property="timeLength" jdbcType="DECIMAL" />
+    <result column="TIME_UNIT" property="timeUnit" jdbcType="VARCHAR" />
+    <result column="QUANTITY_MAX" property="quantityMax" jdbcType="DECIMAL" />
+    <result column="QUANTITY_UNIT" property="quantityUnit" jdbcType="CHAR" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="PLAN_STATE" property="planState" jdbcType="CHAR" />
+    <result column="ENABLE_TAG" property="enableTag" jdbcType="VARCHAR" />
+    <result column="INVALID_TYPE" property="invalidType" jdbcType="VARCHAR" />
+    <result column="PLAN_TYPE" property="planType" jdbcType="VARCHAR" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PLAN_ID, PLAN_NAME, OPERATORS, OPERATORS_PID, TIME_LENGTH, TIME_UNIT, QUANTITY_MAX, 
+    QUANTITY_UNIT, EXP_DATE, PLAN_STATE, ENABLE_TAG, INVALID_TYPE, PLAN_TYPE, COST_PRICE, 
+    PLAN_CLASSIFY
+  </sql>
+  
+   <select id="findOperatorPlan" resultMap="BaseResultMap" parameterType="com.urt.po.OperatorPlan" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATOR_PLAN where OPERATORS = #{operators,jdbcType=DECIMAL} 
+    <if test="planClassify!=null">
+    	and PLAN_CLASSIFY=#{planClassify,jdbcType=VARCHAR}
+    </if>
+  <!--   <if test="enableTag!=null">
+    	and ENABLE_TAG=#{enableTag,jdbcType=VARCHAR}
+    </if>
+    <if test="planType!=null">
+    	and PLAN_TYPE=#{planType,jdbcType=VARCHAR}
+    </if> -->
+    
+   </select>
+   
+   <select id="queryByOperatorsPid" resultMap="BaseResultMap" parameterType="String">
+   		select <include refid="Base_Column_List" />
+		from LAO_OPERATOR_PLAN
+   		where operators_pid = #{operatorsPid,jdbcType=VARCHAR} 
+   </select>
+   
+   <select id="queryByPlanName" resultMap="BaseResultMap" parameterType="String">
+   		select <include refid="Base_Column_List" />
+		from LAO_OPERATOR_PLAN
+   		where PLAN_NAME = #{planName,jdbcType=VARCHAR} 
+   </select>
+   <select id="queryForNotSend" resultType="java.util.Map" parameterType="String">
+	select a.plan_name planName,nvl(decode(a.quantity_unit,'M',a.quantity_max,'G',a.quantity_max*1024),0) packCount,
+  	a.time_length timeLength,a.time_unit timeUnit   
+	from lao_user_operator_plan b, lao_operator_plan a ,lao_goods d,lao_user e
+	where  b.opeartors_deal_rst !='0'
+	and now() between b.start_date and b.end_date
+	and b.plan_id=a.plan_id
+	and d.goods_type in ('4','5','6')
+	and exists(select 1 from lao_user_goods c 
+	where b.goods_release_id=c.goods_release_id
+	and b.goods_id=c.goods_id
+	and b.user_id=c.user_id
+	and now() between c.start_date and c.end_date
+	and c.goods_id=d.goods_id)
+  	and b.user_id= e.user_id
+  	and e.ICCID = #{iccid,jdbcType=VARCHAR}
+   </select>
+</mapper>

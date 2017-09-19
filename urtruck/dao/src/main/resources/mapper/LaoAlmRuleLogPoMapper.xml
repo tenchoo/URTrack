@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoAlmRuleLogPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleLogPo">
+    <result column="ALARM_ID" jdbcType="DECIMAL" property="alarmId" />
+    <result column="CYCLE_ID" jdbcType="DECIMAL" property="cycleId" />
+    <result column="RULE_ID" jdbcType="DECIMAL" property="ruleId" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="DEAL_TAG" jdbcType="CHAR" property="dealTag" />
+    <result column="DEAL_TIME" jdbcType="TIMESTAMP" property="dealTime" />
+    <result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="OPERATE" jdbcType="VARCHAR" property="operate" />
+    <result column="BATCH" jdbcType="VARCHAR" property="batch" />
+    <result column="CARDNUM" jdbcType="DECIMAL" property="cardnum" />
+    <result column="RATE" jdbcType="VARCHAR" property="rate" />
+    <result column="TEMPLETCONTENT" jdbcType="VARCHAR" property="templetcontent" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoAlmRuleLogPo">
+    insert into LAO_ALM_RULE_LOG (ALARM_ID, CYCLE_ID, RULE_ID, 
+      CHANNEL_CUST_ID, CUST_ID, USER_ID, 
+      ICCID, DEAL_TAG, DEAL_TIME, 
+      OPER_ID, REMARK, OPERATE, 
+      BATCH, CARDNUM, RATE, 
+      TEMPLETCONTENT)
+    values (#{alarmId,jdbcType=DECIMAL}, #{cycleId,jdbcType=DECIMAL}, #{ruleId,jdbcType=DECIMAL}, 
+      #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{iccid,jdbcType=VARCHAR}, #{dealTag,jdbcType=CHAR}, #{dealTime,jdbcType=TIMESTAMP}, 
+      #{operId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{operate,jdbcType=VARCHAR}, 
+      #{batch,jdbcType=VARCHAR}, #{cardnum,jdbcType=DECIMAL}, #{rate,jdbcType=VARCHAR}, 
+      #{templetcontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAlmRuleLogPo">
+    insert into LAO_ALM_RULE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        ALARM_ID,
+      </if>
+      <if test="cycleId != null">
+        CYCLE_ID,
+      </if>
+      <if test="ruleId != null">
+        RULE_ID,
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="dealTag != null">
+        DEAL_TAG,
+      </if>
+      <if test="dealTime != null">
+        DEAL_TIME,
+      </if>
+      <if test="operId != null">
+        OPER_ID,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="operate != null">
+        OPERATE,
+      </if>
+      <if test="batch != null">
+        BATCH,
+      </if>
+      <if test="cardnum != null">
+        CARDNUM,
+      </if>
+      <if test="rate != null">
+        RATE,
+      </if>
+      <if test="templetcontent != null">
+        TEMPLETCONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null">
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null">
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null">
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="dealTime != null">
+        #{dealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null">
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operate != null">
+        #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null">
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnum != null">
+        #{cardnum,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="templetcontent != null">
+        #{templetcontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

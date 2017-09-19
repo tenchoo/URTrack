@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoReptInfoPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoReptInfoPo">
+    <id column="REPT_ID" jdbcType="DECIMAL" property="reptId" />
+    <result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+    <result column="REPT_NAME" jdbcType="VARCHAR" property="reptName" />
+    <result column="DISPLAY_INFO" jdbcType="VARCHAR" property="displayInfo" />
+    <result column="COL_IDS" jdbcType="VARCHAR" property="colIds" />
+    <result column="COL_ATTR" jdbcType="VARCHAR" property="colAttr" />
+    <result column="SQL_INFO" jdbcType="VARCHAR" property="sqlInfo" />
+    <result column="COND_COLS" jdbcType="VARCHAR" property="condCols" />
+    <result column="COND_SOURCE" jdbcType="VARCHAR" property="condSource" />
+    <result column="DISPLAY_TYPE" jdbcType="VARCHAR" property="displayType" />
+    <result column="VALID_TAG" jdbcType="CHAR" property="validTag" />
+    <result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="COL_KEY" jdbcType="VARCHAR" property="colKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REPT_ID, TRADE_TYPE_CODE, REPT_NAME, DISPLAY_INFO, COL_IDS, COL_ATTR, SQL_INFO, COND_COLS, 
+    COND_SOURCE, DISPLAY_TYPE, VALID_TAG, RECV_TIME, UPDATE_TIME, REMARK, COL_KEY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_REPT_INFO
+    where REPT_ID = #{reptId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_REPT_INFO
+    where REPT_ID = #{reptId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoReptInfoPo">
+    insert into LAO_REPT_INFO (REPT_ID, TRADE_TYPE_CODE, REPT_NAME, 
+      DISPLAY_INFO, COL_IDS, COL_ATTR, 
+      SQL_INFO, COND_COLS, COND_SOURCE, 
+      DISPLAY_TYPE, VALID_TAG, RECV_TIME, 
+      UPDATE_TIME, REMARK, COL_KEY
+      )
+    values (#{reptId,jdbcType=DECIMAL}, #{tradeTypeCode,jdbcType=DECIMAL}, #{reptName,jdbcType=VARCHAR}, 
+      #{displayInfo,jdbcType=VARCHAR}, #{colIds,jdbcType=VARCHAR}, #{colAttr,jdbcType=VARCHAR}, 
+      #{sqlInfo,jdbcType=VARCHAR}, #{condCols,jdbcType=VARCHAR}, #{condSource,jdbcType=VARCHAR}, 
+      #{displayType,jdbcType=VARCHAR}, #{validTag,jdbcType=CHAR}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{colKey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoReptInfoPo">
+    insert into LAO_REPT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reptId != null">
+        REPT_ID,
+      </if>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE,
+      </if>
+      <if test="reptName != null">
+        REPT_NAME,
+      </if>
+      <if test="displayInfo != null">
+        DISPLAY_INFO,
+      </if>
+      <if test="colIds != null">
+        COL_IDS,
+      </if>
+      <if test="colAttr != null">
+        COL_ATTR,
+      </if>
+      <if test="sqlInfo != null">
+        SQL_INFO,
+      </if>
+      <if test="condCols != null">
+        COND_COLS,
+      </if>
+      <if test="condSource != null">
+        COND_SOURCE,
+      </if>
+      <if test="displayType != null">
+        DISPLAY_TYPE,
+      </if>
+      <if test="validTag != null">
+        VALID_TAG,
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="colKey != null">
+        COL_KEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reptId != null">
+        #{reptId,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTypeCode != null">
+        #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="reptName != null">
+        #{reptName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayInfo != null">
+        #{displayInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="colIds != null">
+        #{colIds,jdbcType=VARCHAR},
+      </if>
+      <if test="colAttr != null">
+        #{colAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlInfo != null">
+        #{sqlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="condCols != null">
+        #{condCols,jdbcType=VARCHAR},
+      </if>
+      <if test="condSource != null">
+        #{condSource,jdbcType=VARCHAR},
+      </if>
+      <if test="displayType != null">
+        #{displayType,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null">
+        #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null">
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="colKey != null">
+        #{colKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoReptInfoPo">
+    update LAO_REPT_INFO
+    <set>
+      <if test="tradeTypeCode != null">
+        TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      </if>
+      <if test="reptName != null">
+        REPT_NAME = #{reptName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayInfo != null">
+        DISPLAY_INFO = #{displayInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="colIds != null">
+        COL_IDS = #{colIds,jdbcType=VARCHAR},
+      </if>
+      <if test="colAttr != null">
+        COL_ATTR = #{colAttr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlInfo != null">
+        SQL_INFO = #{sqlInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="condCols != null">
+        COND_COLS = #{condCols,jdbcType=VARCHAR},
+      </if>
+      <if test="condSource != null">
+        COND_SOURCE = #{condSource,jdbcType=VARCHAR},
+      </if>
+      <if test="displayType != null">
+        DISPLAY_TYPE = #{displayType,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null">
+        VALID_TAG = #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="colKey != null">
+        COL_KEY = #{colKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REPT_ID = #{reptId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoReptInfoPo">
+    update LAO_REPT_INFO
+    set TRADE_TYPE_CODE = #{tradeTypeCode,jdbcType=DECIMAL},
+      REPT_NAME = #{reptName,jdbcType=VARCHAR},
+      DISPLAY_INFO = #{displayInfo,jdbcType=VARCHAR},
+      COL_IDS = #{colIds,jdbcType=VARCHAR},
+      COL_ATTR = #{colAttr,jdbcType=VARCHAR},
+      SQL_INFO = #{sqlInfo,jdbcType=VARCHAR},
+      COND_COLS = #{condCols,jdbcType=VARCHAR},
+      COND_SOURCE = #{condSource,jdbcType=VARCHAR},
+      DISPLAY_TYPE = #{displayType,jdbcType=VARCHAR},
+      VALID_TAG = #{validTag,jdbcType=CHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COL_KEY = #{colKey,jdbcType=VARCHAR}
+    where REPT_ID = #{reptId,jdbcType=DECIMAL}
+  </update>
+</mapper>

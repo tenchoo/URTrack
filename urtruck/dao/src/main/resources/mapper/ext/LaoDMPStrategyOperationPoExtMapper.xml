@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPStrategyOperationPoExtMapper" >
+   <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyOperationPo" >
+    <result column="STRATEGY_ID" property="strategyId" jdbcType="DECIMAL" />
+    <result column="OPERATION_ID" property="operationId" jdbcType="DECIMAL" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="SCHEME_ID" property="schemeId" jdbcType="DECIMAL" />
+  </resultMap>
+   
+  <select id="getOperations" resultType="com.urt.po.LaoDMPOperationPo">
+   select 
+    o.id,o.operation_name,o.operation_comment,o.operatorimpl,o.delflag,o.parameter1,o.parameter2,o.parameter3,o.parameter4 
+    from lao_dmpstrategy_operation so
+    left join lao_dmp_operation o on so.operation_id=o.id
+    where so.delflag='1' and so.strategy_id=#{strategyId}	
+  </select>
+</mapper>

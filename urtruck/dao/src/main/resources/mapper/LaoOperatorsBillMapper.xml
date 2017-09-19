@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoOperatorsBillMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsBill" >
+    <id column="OPERATORS_BILL_ID" property="operatorsBillId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="OUT_BILL_ID" property="outBillId" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_PID" property="operatorsPid" jdbcType="VARCHAR" />
+    <result column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="USE_COUNT" property="useCount" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="REAL_FEE" property="realFee" jdbcType="DECIMAL" />
+    <result column="BALANCE_TAG" property="balanceTag" jdbcType="CHAR" />
+    <result column="GLA_FEE" property="glaFee" jdbcType="DECIMAL" />
+    <result column="GLA_RESULT" property="glaResult" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OPERATORS_BILL_ID, PARTITION_ID, CYCLE_ID, OUT_BILL_ID, OPERATORS_ID, CHANNEL_CUST_ID, 
+    USER_ID, ICCID, MSISDN, OPERATORS_PID, PLAN_ID, PRODUCT_NAME, USE_COUNT, FEE, REAL_FEE, 
+    BALANCE_TAG, GLA_FEE, GLA_RESULT, RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT_ID, RSRV_INFO1, 
+    RSRV_INFO2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORS_BILL
+    where OPERATORS_BILL_ID = #{operatorsBillId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_OPERATORS_BILL
+    where OPERATORS_BILL_ID = #{operatorsBillId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoOperatorsBill" >
+    insert into LAO_OPERATORS_BILL (OPERATORS_BILL_ID, PARTITION_ID, CYCLE_ID, 
+      OUT_BILL_ID, OPERATORS_ID, CHANNEL_CUST_ID, 
+      USER_ID, ICCID, MSISDN, 
+      OPERATORS_PID, PLAN_ID, PRODUCT_NAME, 
+      USE_COUNT, FEE, REAL_FEE, 
+      BALANCE_TAG, GLA_FEE, GLA_RESULT, 
+      RECV_TIME, UPDATE_TIME, UPDATE_ACCOUNT_ID, 
+      RSRV_INFO1, RSRV_INFO2)
+    values (#{operatorsBillId,jdbcType=DECIMAL}, #{partitionId,jdbcType=DECIMAL}, #{cycleId,jdbcType=DECIMAL}, 
+      #{outBillId,jdbcType=VARCHAR}, #{operatorsId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{msisdn,jdbcType=VARCHAR}, 
+      #{operatorsPid,jdbcType=VARCHAR}, #{planId,jdbcType=DECIMAL}, #{productName,jdbcType=VARCHAR}, 
+      #{useCount,jdbcType=VARCHAR}, #{fee,jdbcType=DECIMAL}, #{realFee,jdbcType=DECIMAL}, 
+      #{balanceTag,jdbcType=CHAR}, #{glaFee,jdbcType=DECIMAL}, #{glaResult,jdbcType=VARCHAR}, 
+      #{recvTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateAccountId,jdbcType=VARCHAR}, 
+      #{rsrvInfo1,jdbcType=VARCHAR}, #{rsrvInfo2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoOperatorsBill" >
+    insert into LAO_OPERATORS_BILL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operatorsBillId != null" >
+        OPERATORS_BILL_ID,
+      </if>
+      <if test="partitionId != null" >
+        PARTITION_ID,
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID,
+      </if>
+      <if test="outBillId != null" >
+        OUT_BILL_ID,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID,
+      </if>
+      <if test="planId != null" >
+        PLAN_ID,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="realFee != null" >
+        REAL_FEE,
+      </if>
+      <if test="balanceTag != null" >
+        BALANCE_TAG,
+      </if>
+      <if test="glaFee != null" >
+        GLA_FEE,
+      </if>
+      <if test="glaResult != null" >
+        GLA_RESULT,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID,
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1,
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operatorsBillId != null" >
+        #{operatorsBillId,jdbcType=DECIMAL},
+      </if>
+      <if test="partitionId != null" >
+        #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="outBillId != null" >
+        #{outBillId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsPid != null" >
+        #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="useCount != null" >
+        #{useCount,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="realFee != null" >
+        #{realFee,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceTag != null" >
+        #{balanceTag,jdbcType=CHAR},
+      </if>
+      <if test="glaFee != null" >
+        #{glaFee,jdbcType=DECIMAL},
+      </if>
+      <if test="glaResult != null" >
+        #{glaResult,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoOperatorsBill" >
+    update LAO_OPERATORS_BILL
+    <set >
+      <if test="partitionId != null" >
+        PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="outBillId != null" >
+        OUT_BILL_ID = #{outBillId,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsPid != null" >
+        OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      </if>
+      <if test="planId != null" >
+        PLAN_ID = #{planId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="useCount != null" >
+        USE_COUNT = #{useCount,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null" >
+        FEE = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="realFee != null" >
+        REAL_FEE = #{realFee,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceTag != null" >
+        BALANCE_TAG = #{balanceTag,jdbcType=CHAR},
+      </if>
+      <if test="glaFee != null" >
+        GLA_FEE = #{glaFee,jdbcType=DECIMAL},
+      </if>
+      <if test="glaResult != null" >
+        GLA_RESULT = #{glaResult,jdbcType=VARCHAR},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo1 != null" >
+        RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsrvInfo2 != null" >
+        RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPERATORS_BILL_ID = #{operatorsBillId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoOperatorsBill" >
+    update LAO_OPERATORS_BILL
+    set PARTITION_ID = #{partitionId,jdbcType=DECIMAL},
+      CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      OUT_BILL_ID = #{outBillId,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR},
+      PLAN_ID = #{planId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      USE_COUNT = #{useCount,jdbcType=VARCHAR},
+      FEE = #{fee,jdbcType=DECIMAL},
+      REAL_FEE = #{realFee,jdbcType=DECIMAL},
+      BALANCE_TAG = #{balanceTag,jdbcType=CHAR},
+      GLA_FEE = #{glaFee,jdbcType=DECIMAL},
+      GLA_RESULT = #{glaResult,jdbcType=VARCHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      RSRV_INFO1 = #{rsrvInfo1,jdbcType=VARCHAR},
+      RSRV_INFO2 = #{rsrvInfo2,jdbcType=VARCHAR}
+    where OPERATORS_BILL_ID = #{operatorsBillId,jdbcType=DECIMAL}
+  </update>
+</mapper>

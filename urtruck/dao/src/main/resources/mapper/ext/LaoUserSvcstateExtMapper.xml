@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserSvcstateExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserSvcstate" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="SERVICE_ID" property="serviceId" jdbcType="DECIMAL" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_RST" property="opeartorsDealRst" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_CODE" property="opeartorsDealCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_NUM" property="opeartorsDealNum" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="queryCardCycle" resultType="map" parameterType="map">
+  select to_char(us.start_date, 'yyyy-mm-dd') statedate,
+       static_name statename
+  from (select us.state_code, min(us.start_date) start_date
+          from lao_user_svcstate us, lao_user ur
+         where us.user_id = ur.user_id
+           and ur.iccid = #{iccid}
+           <if test="channelCustId != null and channelCustId!=''" >
+             and ur.CHANNEL_CUST_ID=#{channelCustId}
+	       </if>   
+           and us.opeartors_deal_rst <![CDATA[<>]]> 1
+         group by us.state_code) us,
+       lao_service_status ss,
+       (select st.static_code, st.static_name
+          from lao_ss_static st
+         where st.tab_name = 'LAO_SERVICE_STATUS') st
+ where us.state_code = ss.state_code
+   and ss.outsidestate = st.static_code
+ order by us.start_date
+  </select>
+</mapper>

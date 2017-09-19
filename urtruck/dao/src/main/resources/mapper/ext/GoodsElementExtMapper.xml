@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.GoodsElementExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.GoodsElement">
+    <id column="ELEMENT_ID" jdbcType="DECIMAL" property="elementId" />
+    <result column="ELEMENT_TYPE" jdbcType="CHAR" property="elementType" />
+    <result column="ORIGINAL_ID" jdbcType="DECIMAL" property="originalId" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="PACKAGE_TYPE" jdbcType="CHAR" property="packageType" />
+    <result column="GOODS_INDEX" jdbcType="DECIMAL" property="goodsIndex" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ELEMENT_ID, ELEMENT_TYPE, ORIGINAL_ID, START_DATE, END_DATE, PACKAGE_TYPE, GOODS_INDEX, 
+    GOODS_ID, PLAN_CLASSIFY
+  </sql>
+   <select id="findGoodsElementByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_ELEMENT
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL} ORDER BY GOODS_INDEX asc
+  </select> 
+  <insert id="inserts" parameterType="java.util.List">
+    insert into LAO_GOODS_ELEMENT (ELEMENT_ID, ELEMENT_TYPE, ORIGINAL_ID, START_DATE, END_DATE, PACKAGE_TYPE, GOODS_INDEX, GOODS_ID) 
+    <foreach collection="list" item="item" index="index" separator="union all">
+    	(select #{item.elementId}, #{item.elementType}, #{item.originalId}, #{item.startDate}, #{item.endDate}, #{item.packageType},#{item.goodsIndex}, #{item.goodsId} from dual)
+    </foreach>
+  </insert>
+</mapper>

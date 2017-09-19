@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoRuleRelMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoRuleRel" >
+    <id column="RULEGROUP_ID" property="rulegroupId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="SALE_MANAGER" property="saleManager" jdbcType="VARCHAR" />
+    <result column="EFF_DATE" property="effDate" jdbcType="TIMESTAMP" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="EPARCHY_CODE" property="eparchyCode" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULEGROUP_ID, CHANNEL_CUST_ID, SALE_MANAGER, EFF_DATE, EXP_DATE, EPARCHY_CODE, STATE, 
+    OPER_ID, UPDATE_TIME, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_RULE_REL
+    where RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_RULE_REL
+    where RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoRuleRel" >
+    insert into LAO_RULE_REL (RULEGROUP_ID, CHANNEL_CUST_ID, SALE_MANAGER, 
+      EFF_DATE, EXP_DATE, EPARCHY_CODE, 
+      STATE, OPER_ID, UPDATE_TIME, 
+      REMARK)
+    values (#{rulegroupId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{saleManager,jdbcType=VARCHAR}, 
+      #{effDate,jdbcType=TIMESTAMP}, #{expDate,jdbcType=TIMESTAMP}, #{eparchyCode,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{operId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoRuleRel" >
+    insert into LAO_RULE_REL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rulegroupId != null" >
+        RULEGROUP_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="saleManager != null" >
+        SALE_MANAGER,
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="eparchyCode != null" >
+        EPARCHY_CODE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="operId != null" >
+        OPER_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rulegroupId != null" >
+        #{rulegroupId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="saleManager != null" >
+        #{saleManager,jdbcType=VARCHAR},
+      </if>
+      <if test="effDate != null" >
+        #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eparchyCode != null" >
+        #{eparchyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="operId != null" >
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoRuleRel" >
+    update LAO_RULE_REL
+    <set >
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="saleManager != null" >
+        SALE_MANAGER = #{saleManager,jdbcType=VARCHAR},
+      </if>
+      <if test="effDate != null" >
+        EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eparchyCode != null" >
+        EPARCHY_CODE = #{eparchyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="operId != null" >
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoRuleRel" >
+    update LAO_RULE_REL
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      SALE_MANAGER = #{saleManager,jdbcType=VARCHAR},
+      EFF_DATE = #{effDate,jdbcType=TIMESTAMP},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      EPARCHY_CODE = #{eparchyCode,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where RULEGROUP_ID = #{rulegroupId,jdbcType=DECIMAL}
+  </update>
+</mapper>

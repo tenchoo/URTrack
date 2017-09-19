@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.Goods" >
+    <id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="GOODS_PRICES" property="goodsPrices" jdbcType="VARCHAR" />
+    <result column="CREATE_STAFF_ID" property="createStaffId" jdbcType="DECIMAL" />
+    <result column="GOODS_DESC" property="goodsDesc" jdbcType="VARCHAR" />
+    <result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+    <result column="ACTIVE_WAY" property="activeWay" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_ID, GOODS_NAME, GOODS_PIC, OPERATORS_ID, UPDATEDATE, CREATEDATE, GOODS_PRICES, 
+    CREATE_STAFF_ID, GOODS_DESC, GOODS_TYPE, ACTIVE_WAY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_GOODS
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.Goods" >
+    insert into LAO_GOODS (GOODS_ID, GOODS_NAME, GOODS_PIC, 
+      OPERATORS_ID, UPDATEDATE, CREATEDATE, 
+      GOODS_PRICES, CREATE_STAFF_ID, GOODS_DESC, 
+      GOODS_TYPE, ACTIVE_WAY)
+    values (#{goodsId,jdbcType=DECIMAL}, #{goodsName,jdbcType=VARCHAR}, #{goodsPic,jdbcType=VARCHAR}, 
+      #{operatorsId,jdbcType=DECIMAL}, #{updatedate,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{goodsPrices,jdbcType=VARCHAR}, #{createStaffId,jdbcType=DECIMAL}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsType,jdbcType=VARCHAR}, #{activeWay,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.Goods" >
+    insert into LAO_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="goodsPic != null" >
+        GOODS_PIC,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="goodsPrices != null" >
+        GOODS_PRICES,
+      </if>
+      <if test="createStaffId != null" >
+        CREATE_STAFF_ID,
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC,
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE,
+      </if>
+      <if test="activeWay != null" >
+        ACTIVE_WAY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsPrices != null" >
+        #{goodsPrices,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaffId != null" >
+        #{createStaffId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsDesc != null" >
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="activeWay != null" >
+        #{activeWay,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.Goods" >
+    update LAO_GOODS
+    <set >
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        GOODS_PIC = #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsPrices != null" >
+        GOODS_PRICES = #{goodsPrices,jdbcType=VARCHAR},
+      </if>
+      <if test="createStaffId != null" >
+        CREATE_STAFF_ID = #{createStaffId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsDesc != null" >
+        GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="activeWay != null" >
+        ACTIVE_WAY = #{activeWay,jdbcType=CHAR},
+      </if>
+    </set>
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.Goods" >
+    update LAO_GOODS
+    set GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      GOODS_PIC = #{goodsPic,jdbcType=VARCHAR},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      GOODS_PRICES = #{goodsPrices,jdbcType=VARCHAR},
+      CREATE_STAFF_ID = #{createStaffId,jdbcType=DECIMAL},
+      GOODS_DESC = #{goodsDesc,jdbcType=VARCHAR},
+      GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      ACTIVE_WAY = #{activeWay,jdbcType=CHAR}
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+  </update>
+</mapper>

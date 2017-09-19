@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAlmRuleTypePoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleTypePo">
+		<result column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+		<result column="RULE_TYPE_NAME" property="ruleTypeName"
+			jdbcType="VARCHAR" />
+		<result column="RULE_TYPE_DESC" property="ruleTypeDesc"
+			jdbcType="VARCHAR" />
+		<result column="RULE_LEVEL" property="ruleLevel" jdbcType="CHAR" />
+		<result column="RULE_P_ID" property="rulePId" jdbcType="DECIMAL" />
+		<result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+		<result column="EXE_TAG" property="exeTag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getLevel1" resultType="map">
+		select RULE_TYPE_ID as
+		id,RULE_TYPE_NAME as name from lao_alm_rule_type
+		where rule_level=1
+	</select>
+	<select id="getLevel2" resultType="map" parameterType="java.lang.Integer">
+		select RULE_TYPE_ID as id,RULE_TYPE_NAME as name from
+		lao_alm_rule_type where rule_level=2
+		<if test="_parameter!=null">
+			and RULE_P_ID=#{pid}
+		</if>
+	</select>
+	<select id="getRuleTypeById" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select * from lao_alm_rule_type where
+		RULE_TYPE_ID=#{ruleTypeId}
+	</select>
+</mapper>

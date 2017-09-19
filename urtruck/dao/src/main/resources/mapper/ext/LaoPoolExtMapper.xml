@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoPoolExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoPool" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="E_NAME" property="eName" jdbcType="VARCHAR" />
+    <result column="POOL_ID" property="poolId" jdbcType="VARCHAR" />
+    <result column="POOL_DESC" property="poolDesc" jdbcType="VARCHAR" />
+    <result column="IN_MONTH" property="inMonth" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, EID, E_NAME, POOL_ID, POOL_DESC, IN_MONTH, UPDATE_TIME, UPDATE_STAFF_ID
+  </sql>
+  <select id="findLaoPool" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_POOL
+  </select>
+  
+</mapper>

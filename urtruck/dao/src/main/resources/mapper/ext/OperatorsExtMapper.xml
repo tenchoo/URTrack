@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.OperatorsExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.Operators">
+    <id column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="OPERATORS_NAME" jdbcType="VARCHAR" property="operatorsName" />
+    <result column="OPERATORS_P" jdbcType="DECIMAL" property="operatorsP" />
+    <result column="UPDATEDATE" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="STATUS_DEAL_CLASS" jdbcType="VARCHAR" property="statusDealClass" />
+    <result column="PLAN_DEAL_CLASS" jdbcType="VARCHAR" property="planDealClass" />
+    <result column="TRAFFIC_QUERY_CLASS" jdbcType="VARCHAR" property="trafficQueryClass" />
+    <result column="QUERY_TEL_CLASS" jdbcType="VARCHAR" property="queryTelClass" />
+    <result column="SEND_SEM_CLASS" jdbcType="VARCHAR" property="sendSemClass" />
+    <result column="QUERY_CARD_STATUS" jdbcType="VARCHAR" property="queryCardStatus" />
+    <result column="BATCH_QUERY_CLASS" property="batchQueryClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OPERATORS_ID, OPERATORS_NAME, OPERATORS_P, UPDATEDATE, CREATEDATE, STATUS_DEAL_CLASS, 
+    PLAN_DEAL_CLASS, TRAFFIC_QUERY_CLASS, QUERY_TEL_CLASS, SEND_SEM_CLASS, QUERY_CARD_STATUS,BATCH_QUERY_CLASS
+  </sql>
+
+   <select id="findOperators" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORS
+   </select>
+   <select id="selOperatorsByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from LAO_OPERATORS where 1=1
+    <if test="operatorsName!=null">
+    AND OPERATORS_NAME LIKE '%'||#{operatorsName}||'%'
+    </if>
+   </select>
+    <select id="queryOperatorName" resultType="java.lang.String" parameterType="java.lang.String">
+   	select a.operators_name from lao_operators a where a.operators_id=#{operators}
+   </select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoAlmRuleElemPoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleElemPo">
+		<id column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+		<id column="ELEMENT_ID" property="elementId" jdbcType="DECIMAL" />
+		<result column="DISPLAY_INDEX" property="displayIndex"
+			jdbcType="DECIMAL" />
+		<result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+		<result column="CHANNEL_CUST_ID" property="channelCustId"
+			jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="ELEM_GROUP" property="elemGroup" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		RULE_TYPE_ID, ELEMENT_ID, DISPLAY_INDEX, VALID_TAG, CHANNEL_CUST_ID, REMARK,
+		ELEM_GROUP
+	</sql>
+	<select id="getElementsByRuleType" parameterType="com.urt.po.LaoAlmRuleElemPo" resultType="map">
+		select * from lao_alm_rule_elem tb_rule_elem left join lao_alm_element
+		tb_element on tb_rule_elem.element_id=tb_element.element_id where 1=1
+		<if test="ruleTypeId!=null">
+			and tb_rule_elem.rule_type_id=#{ruleTypeId}
+		</if>
+		<!-- <if test="channelCustId!=null">
+			and tb_rule_elem.channel_cust_id=${channelCustId};
+		</if> -->
+		order by tb_rule_elem.elem_group asc,tb_rule_elem.display_index asc
+	</select>
+</mapper>

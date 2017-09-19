@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPLogPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPLogPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="GROUP_ID" jdbcType="DECIMAL" property="groupId" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="STRATEGY_ID" jdbcType="DECIMAL" property="strategyId" />
+    <result column="TRIGGER_CAUSE" jdbcType="VARCHAR" property="triggerCause" />
+    <result column="IS_AGAINST" jdbcType="VARCHAR" property="isAgainst" />
+    <result column="OPERATION_ID" jdbcType="DECIMAL" property="operationId" />
+    <result column="IS_SUCCESS" jdbcType="VARCHAR" property="isSuccess" />
+    <result column="OPERATE_TIME" jdbcType="TIMESTAMP" property="operateTime" />
+    <result column="OPERATE_TYPE" jdbcType="VARCHAR" property="operateType" />
+    <result column="OPERATE_USER" jdbcType="VARCHAR" property="operateUser" />
+    <result column="OPERATION_COMMENT" jdbcType="VARCHAR" property="operationComment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CUST_ID, GROUP_ID, IMEI, STRATEGY_ID, TRIGGER_CAUSE, IS_AGAINST, OPERATION_ID, 
+    IS_SUCCESS, OPERATE_TIME, OPERATE_TYPE, OPERATE_USER, OPERATION_COMMENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DMP_LOG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPLogPo">
+    insert into LAO_DMP_LOG (ID, CUST_ID, GROUP_ID, 
+      IMEI, STRATEGY_ID, TRIGGER_CAUSE, 
+      IS_AGAINST, OPERATION_ID, IS_SUCCESS, 
+      OPERATE_TIME, OPERATE_TYPE, OPERATE_USER, 
+      OPERATION_COMMENT)
+    values (#{id,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, #{groupId,jdbcType=DECIMAL}, 
+      #{imei,jdbcType=VARCHAR}, #{strategyId,jdbcType=DECIMAL}, #{triggerCause,jdbcType=VARCHAR}, 
+      #{isAgainst,jdbcType=VARCHAR}, #{operationId,jdbcType=DECIMAL}, #{isSuccess,jdbcType=VARCHAR}, 
+      #{operateTime,jdbcType=TIMESTAMP}, #{operateType,jdbcType=VARCHAR}, #{operateUser,jdbcType=VARCHAR}, 
+      #{operationComment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPLogPo">
+    insert into LAO_DMP_LOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="imei != null">
+        IMEI,
+      </if>
+      <if test="strategyId != null">
+        STRATEGY_ID,
+      </if>
+      <if test="triggerCause != null">
+        TRIGGER_CAUSE,
+      </if>
+      <if test="isAgainst != null">
+        IS_AGAINST,
+      </if>
+      <if test="operationId != null">
+        OPERATION_ID,
+      </if>
+      <if test="isSuccess != null">
+        IS_SUCCESS,
+      </if>
+      <if test="operateTime != null">
+        OPERATE_TIME,
+      </if>
+      <if test="operateType != null">
+        OPERATE_TYPE,
+      </if>
+      <if test="operateUser != null">
+        OPERATE_USER,
+      </if>
+      <if test="operationComment != null">
+        OPERATION_COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null">
+        #{strategyId,jdbcType=DECIMAL},
+      </if>
+      <if test="triggerCause != null">
+        #{triggerCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgainst != null">
+        #{isAgainst,jdbcType=VARCHAR},
+      </if>
+      <if test="operationId != null">
+        #{operationId,jdbcType=DECIMAL},
+      </if>
+      <if test="isSuccess != null">
+        #{isSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null">
+        #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUser != null">
+        #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationComment != null">
+        #{operationComment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDMPLogPo">
+    update LAO_DMP_LOG
+    <set>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId,jdbcType=DECIMAL},
+      </if>
+      <if test="imei != null">
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null">
+        STRATEGY_ID = #{strategyId,jdbcType=DECIMAL},
+      </if>
+      <if test="triggerCause != null">
+        TRIGGER_CAUSE = #{triggerCause,jdbcType=VARCHAR},
+      </if>
+      <if test="isAgainst != null">
+        IS_AGAINST = #{isAgainst,jdbcType=VARCHAR},
+      </if>
+      <if test="operationId != null">
+        OPERATION_ID = #{operationId,jdbcType=DECIMAL},
+      </if>
+      <if test="isSuccess != null">
+        IS_SUCCESS = #{isSuccess,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateType != null">
+        OPERATE_TYPE = #{operateType,jdbcType=VARCHAR},
+      </if>
+      <if test="operateUser != null">
+        OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationComment != null">
+        OPERATION_COMMENT = #{operationComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDMPLogPo">
+    update LAO_DMP_LOG
+    set CUST_ID = #{custId,jdbcType=DECIMAL},
+      GROUP_ID = #{groupId,jdbcType=DECIMAL},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      STRATEGY_ID = #{strategyId,jdbcType=DECIMAL},
+      TRIGGER_CAUSE = #{triggerCause,jdbcType=VARCHAR},
+      IS_AGAINST = #{isAgainst,jdbcType=VARCHAR},
+      OPERATION_ID = #{operationId,jdbcType=DECIMAL},
+      IS_SUCCESS = #{isSuccess,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      OPERATE_TYPE = #{operateType,jdbcType=VARCHAR},
+      OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      OPERATION_COMMENT = #{operationComment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

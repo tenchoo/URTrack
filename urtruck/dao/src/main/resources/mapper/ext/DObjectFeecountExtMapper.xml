@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.DObjectFeecountExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DObjectFeecountExt" >
+    <id column="ATTR_ID" property="attrId" jdbcType="DECIMAL" />
+    <id column="ATTR_TYPE" property="attrType" jdbcType="CHAR" />
+    <id column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="OBJECT_NAME" property="objectName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <collection property="grpnetFeecount" resultMap="GrpnetFeecount" >
+    </collection>
+  </resultMap>
+  
+    <resultMap id="GrpnetFeecount" type="com.urt.po.GrpnetFeecount">
+    <id column="FEECOUNT_ID" property="feecountId" jdbcType="DECIMAL" />
+    <result column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="COMPUTE_METHOD" property="computeMethod" jdbcType="DECIMAL" />
+    <result column="BASE_UNIT" property="baseUnit" jdbcType="VARCHAR" />
+    <result column="UNIT_FEE" property="unitFee" jdbcType="DECIMAL" />
+    <result column="MIN_VALUE" property="minValue" jdbcType="DECIMAL" />
+    <result column="MAX_VALUE" property="maxValue" jdbcType="DECIMAL" />
+    <result column="MIN_PRICE" property="minPrice" jdbcType="DECIMAL" />
+    <result column="MAX_PRICE" property="maxPrice" jdbcType="DECIMAL" />
+    <result column="TOP_VALUE" property="topValue" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+  	a.OBJECT_ID, 
+  	a.OBJECT_NAME, 
+  	a.ATTR_TYPE, 
+  	a.ATTR_ID, 
+  	a.REMARK,
+  	b.FEECOUNT_ID ,
+  	b.COMPUTE_METHOD , 
+  	b.BASE_UNIT , 
+  	b.UNIT_FEE , 
+  	b.MIN_VALUE , 
+  	b.MAX_VALUE , 
+    b.MIN_PRICE , 
+    b.MAX_PRICE , 
+    b.TOP_VALUE 
+    from LAO_D_OBJECT a 
+    join LAO_GRPNET_FEECOUNT b on a.OBJECT_ID = b.OBJECT_ID
+  </select>
+</mapper>

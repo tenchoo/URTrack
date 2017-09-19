@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPStrategyPoExtMapper" >
+   <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="STRATEGY_NAME" jdbcType="VARCHAR" property="strategyName" />
+    <result column="STATEGY_COMMENT" jdbcType="VARCHAR" property="stategyComment" />
+    <result column="STRATEGYIMPL" jdbcType="VARCHAR" property="strategyimpl" />
+    <result column="DELFLAG" jdbcType="VARCHAR" property="delflag" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="PARAMETER1" jdbcType="VARCHAR" property="parameter1" />
+    <result column="PARAMETER2" jdbcType="VARCHAR" property="parameter2" />
+    <result column="PARAMETER3" jdbcType="VARCHAR" property="parameter3" />
+    <result column="PARAMETER4" jdbcType="VARCHAR" property="parameter4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, STRATEGY_NAME, STATEGY_COMMENT, STRATEGYIMPL, DELFLAG, CREATETIME, UPDATETIME, 
+    PARAMETER1, PARAMETER2, PARAMETER3, PARAMETER4
+  </sql>
+  <select id="getStrategys" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lao_dmp_strategy 
+		where DELFLAG = 1 order by CREATETIME desc
+ </select>
+ <select id="selectById" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lao_dmp_strategy 
+		where DELFLAG = 1 and id=#{strategyId}   
+ </select>
+ <select id="getStrategis" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lao_dmp_strategy ds 
+		where ds.delflag='1' and ds.id in(select distinct dsr.strategy_id from lao_dmpstrategy_relation dsr where dsr.delflag='1' and dsr.scheme_id=#{id})  
+ </select>
+</mapper>

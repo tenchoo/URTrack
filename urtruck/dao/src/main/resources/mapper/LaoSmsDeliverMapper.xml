@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSmsDeliverMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSmsDeliver" >
+    <result column="DELIVER_ID" property="deliverId" jdbcType="DECIMAL" />
+    <result column="SRC_NUMBER" property="srcNumber" jdbcType="VARCHAR" />
+    <result column="DEST_NUMBER" property="destNumber" jdbcType="VARCHAR" />
+    <result column="SMS_CONTENT" property="smsContent" jdbcType="VARCHAR" />
+    <result column="PUSH_DATE" property="pushDate" jdbcType="TIMESTAMP" />
+    <result column="SMS_ID" property="smsId" jdbcType="DECIMAL" />
+    <result column="PUSH_STATE" property="pushState" jdbcType="DECIMAL" />
+    <result column="PUSH_DESC" property="pushDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DELIVER_ID, SRC_NUMBER, DEST_NUMBER, SMS_CONTENT, PUSH_DATE, SMS_ID, PUSH_STATE ,PUSH_DESC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SMS_DELIVER s
+  </select>
+  
+  <insert id="insert" parameterType="com.urt.po.LaoSmsDeliver" >
+    insert into LAO_SMS_DELIVER (DELIVER_ID, SRC_NUMBER, DEST_NUMBER, 
+      SMS_CONTENT, PUSH_DATE, SMS_ID, 
+      PUSH_STATE, PUSH_DESC)
+    values (#{deliverId,jdbcType=DECIMAL}, #{srcNumber,jdbcType=VARCHAR}, #{destNumber,jdbcType=VARCHAR}, 
+      #{smsContent,jdbcType=VARCHAR}, #{pushDate,jdbcType=TIMESTAMP}, #{smsId,jdbcType=DECIMAL}, 
+      #{pushState,jdbcType=DECIMAL}, #{pushDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSmsDeliver" >
+    insert into LAO_SMS_DELIVER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deliverId != null" >
+        DELIVER_ID,
+      </if>
+      <if test="srcNumber != null" >
+        SRC_NUMBER,
+      </if>
+      <if test="destNumber != null" >
+        DEST_NUMBER,
+      </if>
+      <if test="smsContent != null" >
+        SMS_CONTENT,
+      </if>
+      <if test="pushDate != null" >
+        PUSH_DATE,
+      </if>
+      <if test="smsId != null" >
+        SMS_ID,
+      </if>
+      <if test="pushState != null" >
+        PUSH_STATE,
+      </if>
+      <if test="pushDesc != null" >
+        PUSH_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deliverId != null" >
+        #{deliverId,jdbcType=DECIMAL},
+      </if>
+      <if test="srcNumber != null" >
+        #{srcNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="destNumber != null" >
+        #{destNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContent != null" >
+        #{smsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pushDate != null" >
+        #{pushDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsId != null" >
+        #{smsId,jdbcType=DECIMAL},
+      </if>
+      <if test="pushState != null" >
+        #{pushState,jdbcType=DECIMAL},
+      </if>
+      <if test="pushDesc != null" >
+        #{pushDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+<!--   <update id=updateByPrimaryKeySelective parameterType="com.urt.po.LaoSmsDeliver"> -->
+<!--     update LAO_SMS_DELIVER -->
+<!--     <set> -->
+<!--       <if test="smsContent != null"> -->
+<!--         SMS_CONTENT = #{smsContent,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="pushDate != null"> -->
+<!--         PUSH_DATE = #{pushDate,jdbcType=TIMESTAMP}, -->
+<!--       </if> -->
+<!--     </set> -->
+<!--     where DELIVER_ID = #{deliverId,jdbcType=VARCHAR} -->
+<!--   </update> -->
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSmsDeliver">
+    update LAO_SMS_DELIVER
+    <set>
+      <if test="pushDate != null" >
+        PUSH_DATE = #{pushDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsId != null" >
+        SMS_CONTENT = #{smsContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </update>
+</mapper>

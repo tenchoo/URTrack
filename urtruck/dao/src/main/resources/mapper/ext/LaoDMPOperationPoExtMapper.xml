@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPOperationPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPOperationPo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
+    <result column="OPERATION_COMMENT" property="operationComment" jdbcType="VARCHAR" />
+    <result column="OPERATORIMPL" property="operatorimpl" jdbcType="VARCHAR" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="PARAMETER1" property="parameter1" jdbcType="VARCHAR" />
+    <result column="PARAMETER2" property="parameter2" jdbcType="VARCHAR" />
+    <result column="PARAMETER3" property="parameter3" jdbcType="VARCHAR" />
+    <result column="PARAMETER4" property="parameter4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, OPERATION_NAME, OPERATION_COMMENT, OPERATORIMPL, DELFLAG, CREATETIME, UPDATETIME, 
+    PARAMETER1, PARAMETER2, PARAMETER3, PARAMETER4
+  </sql>
+  <select id="getOperations" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from lao_dmp_operation 
+		where DELFLAG = 1 order by CREATETIME desc
+ </select>
+  <select id="selectById" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMP_OPERATION
+    where DELFLAG = 1 and ID = #{operationId}
+  </select>
+  <select id="getOperationsBystategy" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lao_dmp_operation do 
+    where do.delflag='1' and do.id in(select dsr.operation_id from lao_dmpstrategy_relation dsr where dsr.delflag='1' and dsr.scheme_id=#{id} and dsr.strategy_id=#{strategyId}) order by parameter1 desc
+  </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserStateMMPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserStateMMPo" >
+    <result column="IN_DATE" property="inDate" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_NAME" property="channelCustName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_NAME" property="operatorsName" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="VALUE1_NAME" property="value1Name" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="VALUE2_NAME" property="value2Name" jdbcType="VARCHAR" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="STATE_NAME" property="stateName" jdbcType="VARCHAR" />
+    <result column="STATE_ASNAME" property="stateAsname" jdbcType="VARCHAR" />
+    <result column="SUM_FLOW" property="sumFlow" jdbcType="DECIMAL" />
+    <result column="CARD_NUM" property="cardNum" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ <select id="queryNumByAdmin" resultType="java.util.Map">		
+	select substr(mm.staff_id, 3, 2) as gid,
+       mm.value1_name as static_name,
+       mm.operators_id as operatorsid,
+       mm.state_code as stateid,
+       sum(mm.sum_flow) as flow,
+       sum(mm.card_num) as num
+from lao_user_state_mm mm
+group by  substr(mm.staff_id, 3, 2),
+          mm.value1_name, 
+          mm.operators_id,
+          mm.state_code
+	</select>
+</mapper>

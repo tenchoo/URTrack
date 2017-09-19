@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ServiceStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.ServiceStatus" >
+    <id column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="SERVICE_ID" property="serviceId" jdbcType="DECIMAL" />
+    <result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="STATECHANGE_ID" property="statechangeId" jdbcType="VARCHAR" />
+    <result column="OUTSIDESTATE" property="outsidestate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STATE_CODE, SERVICE_ID, SERVICE_NAME, CREATEDATE, UPDATEDATE, STARTDATE, ENDDATE, 
+    OPERATORS_ID, STATECHANGE_ID, OUTSIDESTATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVICE_STATUS
+    where STATE_CODE = #{stateCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LAO_SERVICE_STATUS
+    where STATE_CODE = #{stateCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.ServiceStatus" >
+    insert into LAO_SERVICE_STATUS (STATE_CODE, SERVICE_ID, SERVICE_NAME, 
+      CREATEDATE, UPDATEDATE, STARTDATE, 
+      ENDDATE, OPERATORS_ID, STATECHANGE_ID, 
+      OUTSIDESTATE)
+    values (#{stateCode,jdbcType=VARCHAR}, #{serviceId,jdbcType=DECIMAL}, #{serviceName,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, 
+      #{enddate,jdbcType=TIMESTAMP}, #{operatorsId,jdbcType=DECIMAL}, #{statechangeId,jdbcType=VARCHAR}, 
+      #{outsidestate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.ServiceStatus" >
+    insert into LAO_SERVICE_STATUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stateCode != null" >
+        STATE_CODE,
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="startdate != null" >
+        STARTDATE,
+      </if>
+      <if test="enddate != null" >
+        ENDDATE,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="statechangeId != null" >
+        STATECHANGE_ID,
+      </if>
+      <if test="outsidestate != null" >
+        OUTSIDESTATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="statechangeId != null" >
+        #{statechangeId,jdbcType=VARCHAR},
+      </if>
+      <if test="outsidestate != null" >
+        #{outsidestate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.ServiceStatus" >
+    update LAO_SERVICE_STATUS
+    <set >
+      <if test="serviceId != null" >
+        SERVICE_ID = #{serviceId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceName != null" >
+        SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null" >
+        STARTDATE = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        ENDDATE = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="statechangeId != null" >
+        STATECHANGE_ID = #{statechangeId,jdbcType=VARCHAR},
+      </if>
+      <if test="outsidestate != null" >
+        OUTSIDESTATE = #{outsidestate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STATE_CODE = #{stateCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.ServiceStatus" >
+    update LAO_SERVICE_STATUS
+    set SERVICE_ID = #{serviceId,jdbcType=DECIMAL},
+      SERVICE_NAME = #{serviceName,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      UPDATEDATE = #{updatedate,jdbcType=TIMESTAMP},
+      STARTDATE = #{startdate,jdbcType=TIMESTAMP},
+      ENDDATE = #{enddate,jdbcType=TIMESTAMP},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      STATECHANGE_ID = #{statechangeId,jdbcType=VARCHAR},
+      OUTSIDESTATE = #{outsidestate,jdbcType=VARCHAR}
+    where STATE_CODE = #{stateCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

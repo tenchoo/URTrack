@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.IccidLibExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidLib" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="DEVICETYPE" property="devicetype" jdbcType="VARCHAR" />
+    <result column="PRIVATEKEY" property="privatekey" jdbcType="VARCHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="VARCHAR" />
+    <result column="INITPRODUCT" property="initproduct" jdbcType="VARCHAR" />
+    <result column="CARDSTATUS" property="cardstatus" jdbcType="VARCHAR" />
+    <result column="OPERATORS" property="operators" jdbcType="VARCHAR" />
+    <result column="CTYPE" property="ctype" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE1" property="attribute1" jdbcType="VARCHAR" />
+    <result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE2" property="attribute2" jdbcType="VARCHAR" />
+    <result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+    <result column="IF_MAINTENANCE" property="ifMaintenance" jdbcType="VARCHAR" />
+    <result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ACTIVED" property="actived" jdbcType="VARCHAR" />
+    <result column="BATCH_ID" property="batchId" jdbcType="VARCHAR" />
+    
+     <result column="TEST_CYCLE" property="testCycle" jdbcType="DECIMAL" />
+    <result column="VIC" property="vic" jdbcType="VARCHAR" />
+    <result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+    <result column="BUY_ORDER_NO" property="buyOrderNo" jdbcType="VARCHAR" />
+    <result column="TEST_GOODS_RLS_ID" property="testGoodsRlsId"
+			jdbcType="DECIMAL" />
+     <result column="CYCLE_STATE" property="cycleState" jdbcType="CHAR" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+	ID, ICCID, DEVICETYPE, PRIVATEKEY, CARDTYPE, INITPRODUCT,CARDSTATUS,OPERATORS,CTYPE, 
+	ATTRIBUTE1, VALUE1, ATTRIBUTE2, VALUE2,IF_MAINTENANCE, CUSTID,IN_DATE, MSISDN,ACTIVED, BATCH_ID, TEST_CYCLE,
+	VIC, IMSI, BUY_ORDER_NO, TEST_GOODS_RLS_ID, CYCLE_STATE
+  </sql>
+   <!--根据iccid更新 -->
+  <update id="updateByIccid" parameterType="com.urt.po.IccidLib" >
+    update LAO_ICCID_LIB
+    set ID = #{id,jdbcType=DECIMAL},
+      DEVICETYPE = #{devicetype,jdbcType=VARCHAR},
+      PRIVATEKEY = #{privatekey,jdbcType=VARCHAR},
+      CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      INITPRODUCT = #{initproduct,jdbcType=VARCHAR},
+      CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      OPERATORS = #{operators,jdbcType=VARCHAR},
+      CTYPE = #{ctype,jdbcType=VARCHAR},
+      ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR},
+      VALUE1 = #{value1,jdbcType=VARCHAR},
+      ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR},
+      VALUE2 = #{value2,jdbcType=VARCHAR},
+      IF_MAINTENANCE = #{ifMaintenance,jdbcType=VARCHAR},
+      CUSTID = #{custid,jdbcType=VARCHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      ACTIVED = #{actived,jdbcType=VARCHAR},
+      BATCH_ID = #{batchId,jdbcType=VARCHAR}
+    where ICCID = #{iccid,jdbcType=VARCHAR}
+  </update>
+  <insert id="batchInsert"  parameterType="java.util.List">  
+   insert into lao_iccid_lib (ID, ICCID,CUSTID, DEVICETYPE, 
+      PRIVATEKEY, CARDTYPE, INITPRODUCT, 
+      CARDSTATUS, OPERATORS, CTYPE,ATTRIBUTE1, VALUE1, ATTRIBUTE2, VALUE2,IF_MAINTENANCE,IN_DATE,MSISDN,ACTIVED,BATCH_ID)   
+    <foreach collection="list" item="item" index="index"  separator="union all"  >
+    	(select  #{item.id},#{item.iccid},#{item.custid},#{item.devicetype},#{item.privatekey},#{item.cardtype},#{item.initproduct},#{item.cardstatus},#{item.operators},#{item.ctype},#{item.attribute1},#{item.value1},#{item.attribute2},#{item.value2},#{item.ifMaintenance}, #{item.inDate}, #{item.msisdn},#{item.actived},#{item.batchId} from dual)  
+    </foreach>
+</insert> 
+	<select id="selectByIccid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_ICCID_LIB
+	    where ICCID = #{iccid,jdbcType=VARCHAR}
+	</select>
+	<select id="countAmount" resultType="java.lang.Integer"  parameterType="java.lang.String" >
+	    select count(id) from LAO_ICCID_LIB
+	    <where>
+		<if test="startIccid != null and startIccid !='' and endIccid != null and endIccid !='' " >
+	      and  iccid BETWEEN #{startIccid,jdbcType=VARCHAR} AND #{endIccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="startIccid != null and startIccid !='' and endIccid == null" >
+	       and iccid<![CDATA[>=]]>#{startIccid,jdbcType=VARCHAR} 
+	    </if>
+	      <if test="startIccid != null and startIccid !='' and endIccid== '' " >
+	       and iccid<![CDATA[>=]]>#{startIccid,jdbcType=VARCHAR} 
+	    </if>
+	    <if test="endIccid != null and endIccid !='' and startIccid == null" >
+	      and  iccid<![CDATA[<=]]>#{endIccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="endIccid != null and endIccid !='' and startIccid =='' " >
+	      and  iccid<![CDATA[<=]]>#{endIccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="attribute1 != null and attribute1 != '' " >
+	      and  ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="value1 != null and value1 != ''" >
+	      and  VALUE1 = #{value1,jdbcType=VARCHAR}
+	    </if>
+	     <if test="attribute2 != null and attribute2 != '' " >
+	      and  ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR}
+	    </if>
+	    <if test="value2 != null and value2 != '' " >
+	      and  VALUE2 = #{value2,jdbcType=VARCHAR}
+	    </if>
+	    <if test="custid != null and custid != '' ">
+	      and  CUSTID = #{custid,jdbcType=VARCHAR}
+	    </if>
+	    and ACTIVED = 1
+    </where>
+	</select>
+	
+	<!--多条件查询  -->
+	<select id="doQueryList" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select lib.*,status.service_name as serviceName, op.operators_name as operatorsName,good.goods_name as goodName,cust.CUST_NAME as custName,lss.static_name as att1,lss1.static_name as att2,lss2.static_name as val1,lss3.static_name as val2 from 
+	(SELECT
+	<include refid="Base_Column_List" />
+	FROM (SELECT tt.*, ROWNUM AS rowno
+	FROM (SELECT t.*
+	FROM LAO_ICCID_LIB t 
+	<where>
+		<if test="startIccid != null and startIccid != '' and endIccid != null and endIccid != '' " >
+	      and  iccid BETWEEN #{startIccid,jdbcType=VARCHAR} AND #{endIccid,jdbcType=VARCHAR}
+	    </if>
+	   <if test="startIccid != null and startIccid !='' and endIccid == null" >
+	       and iccid<![CDATA[>=]]>#{startIccid,jdbcType=VARCHAR} 
+	    </if>
+	      <if test="startIccid != null and startIccid !='' and endIccid== '' " >
+	       and iccid<![CDATA[>=]]>#{startIccid,jdbcType=VARCHAR} 
+	    </if>
+	    <if test="endIccid != null and endIccid !='' and startIccid == null" >
+	      and  iccid<![CDATA[<=]]>#{endIccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="endIccid != null and endIccid !='' and startIccid =='' " >
+	      and  iccid<![CDATA[<=]]>#{endIccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="attribute1 != null and attribute1 != '' " >
+	      and  ATTRIBUTE1 = #{attribute1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="value1 != null and value1 != ''" >
+	      and  VALUE1 = #{value1,jdbcType=VARCHAR}
+	    </if>
+	    <if test="value2 != null and value2 != '' " >
+	      and  VALUE2 = #{value2,jdbcType=VARCHAR}
+	    </if>
+	    <if test="custid != null and custid != '' ">
+	      and  CUSTID = #{custid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="attribute2 != null and attribute2 != '' " >
+	      and  ATTRIBUTE2 = #{attribute2,jdbcType=VARCHAR}
+	    </if>
+	    and ACTIVED = 1
+    </where>
+	order by t.iccid asc)tt<![CDATA[
+	where ROWNUM <= #{endRow,jdbcType=DECIMAL})tb
+	WHERE tb.rowno > #{startRow,jdbcType=DECIMAL}  	
+	]]>)lib
+	 left join lao_customer cust on lib.CUSTID=cust.CUST_ID
+	 left join lao_ss_static  lss on lib.CUSTID=lss.cust_id and lss.col_name='attribute1' and  lss.static_code=lib.attribute1
+	 left join lao_ss_static lss1 on lib.CUSTID=lss1.cust_id and lss1.col_name='attribute2' and  lss1.static_code=lib.attribute2
+	 left join lao_ss_static lss2 on lib.CUSTID=lss2.cust_id and lss2.col_name='VALUE1' and  lss2.static_code=lib.value1
+	 left join lao_ss_static lss3 on lib.CUSTID=lss3.cust_id and lss3.col_name='VALUE2' and  lss3.static_code=lib.value2 
+   	 left join lao_goods good on good.goods_id = lib.initproduct 
+     left join lao_operators op on op.operators_id = lib.operators 
+      left join lao_service_status status on status.state_code = lib.cardstatus order by lib.iccid
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+  	select count(*) from LAO_ICCID_LIB
+  </select>
+  <select id="queryIccidByCustId" resultType="java.lang.String" parameterType="java.lang.String">
+  	select ICCID from LAO_ICCID_LIB where CUSTID = #{custId,jdbcType=VARCHAR}
+  </select>
+  <select id="queryCardInfo" resultType="java.util.Map" parameterType="java.util.Map">
+  	SELECT * FROM (SELECT ROWNUM AS rowno, t.* FROM lao_iccid_lib t where ROWNUM <![CDATA[<=]]> #{end}) iccid WHERE iccid.rowno <![CDATA[>=]]> #{begin}
+  </select>
+  <select id="ifOrderProduct" parameterType="java.lang.String" resultMap="BaseResultMap">
+	  select a.* from lao_user a, lao_goods_release b,lao_goods c
+	 where a.channel_cust_id = b.channel_group_id
+	   and a.attribute1 = b.group_attr_n1
+	   and a.value1 = b.group_attr_v1
+	   and a.attribute2 = b.group_attr_n2
+	   and a.value2 = b.group_attr_v2
+	   and a.iccid= #{iccid,jdbcType=VARCHAR}
+	   and b.goods_id= #{goodsId,jdbcType=VARCHAR}
+	   and now() between b.start_date and b.end_date
+	   and a.operators_id=c.operators_id
+	   and c.goods_id=b.goods_id
+	   and rownum = 1
+  </select>
+  <select id="selectDetailByPage" resultMap="BaseResultMap" parameterType="map" >
+		select  
+		<include refid="Base_Column_List" />
+		from LAO_ICCID_LIB
+		where 1 = 1
+	    <if test="params.param.batchId != null and params.param.batchId!=''" >
+	    	and  BATCH_ID= #{params.param.batchId} 
+	    </if>
+	    
+  </select>
+  <select id="selectOneDetailByBatchId" resultType="java.util.Map" parameterType="java.lang.String" >
+  select cu.cust_name ,st1.static_name val1,st2.static_name val2,op.operators_name,
+  st.service_name,gd.goods_name,gr.release_cycle,gr.unit,gr.release_price
+  from LAO_iccid_lib lib
+  left join lao_customer cu on lib.custid=cu.cust_id
+  left join lao_ss_static st1 on st1.static_id= lib.value1
+  left join lao_ss_static st2 on st2.static_id= lib.value2
+  left join lao_operators op on op.operators_id=lib.operators
+  left join lao_service_status st on st.state_code = lib.cardstatus
+  left join lao_goods_release gr on gr.goods_release_id=lib.initproduct 
+  left join lao_goods gd on gd.goods_id=gr.goods_id
+  where BATCH_ID = #{batchId,jdbcType=VARCHAR}
+  and rownum =1
+	
+  </select>
+  <select id="selectDetailByBatchId" resultType="java.util.Map" parameterType="java.lang.String" >
+ 	select ICCID,CARDSTATUS,OPERATORS,CUSTID,MSISDN from lao_iccid_lib where BATCH_ID = #{batchId,jdbcType=VARCHAR}
+
+  </select>
+   <select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_ICCID_LIB
+	    where 1=1 
+	    <if test="iccid!=null and iccid!=''">	 
+	     and ICCID = #{iccid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="msisdn!=null and msisdn!=''">	 
+	     and MSISDN = #{msisdn,jdbcType=VARCHAR}
+	    </if>
+	</select>
+  
+  <select id="selectByListIccid" resultMap="BaseResultMap" parameterType="java.util.List" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_ICCID_LIB
+	    where 
+       ICCID in
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+	</select>
+  
+    <select id="selectByListMsison" resultMap="BaseResultMap" parameterType="java.util.List" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from LAO_ICCID_LIB
+	    where 
+       MSISDN in
+       <foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+            #{item}  
+        </foreach>
+	</select>
+    
+  <update id="updateByIccidSelective" parameterType="java.util.List" >
+  <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";">
+    update LAO_ICCID_LIB
+    <set >
+      <if test="item.devicetype != null" >
+        DEVICETYPE = #{item.devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.privatekey != null" >
+        PRIVATEKEY = #{item.privatekey,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cardtype != null" >
+        CARDTYPE = #{item.cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.initproduct != null" >
+        INITPRODUCT = #{item.initproduct,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cardstatus != null" >
+        CARDSTATUS = #{item.cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="item.operators != null" >
+        OPERATORS = #{item.operators,jdbcType=VARCHAR},
+      </if>
+      <if test="item.ctype != null" >
+        CTYPE = #{item.ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute1 != null" >
+        ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value1 != null" >
+        VALUE1 = #{item.value1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute2 != null" >
+        ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value2 != null" >
+        VALUE2 = #{item.value2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.ifMaintenance != null" >
+        IF_MAINTENANCE = #{item.ifMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="item.custid != null" >
+        CUSTID = #{item.custid,jdbcType=VARCHAR},
+      </if>
+       <if test="item.inDate != null" >
+         IN_DATE = #{item.inDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="item.msisdn != null" >
+         MSISDN = #{item.msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="item.actived != null" >
+         ACTIVED = #{item.actived,jdbcType=VARCHAR},
+      </if>
+      <if test="item.batchId != null" >
+         BATCH_ID = #{item.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 
+        ICCID = #{item.iccid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  
+  <update id="updateByMsisonSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";">
+    update LAO_ICCID_LIB
+    <set >
+      <if test="item.devicetype != null" >
+        DEVICETYPE = #{item.devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.privatekey != null" >
+        PRIVATEKEY = #{item.privatekey,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cardtype != null" >
+        CARDTYPE = #{item.cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.initproduct != null" >
+        INITPRODUCT = #{item.initproduct,jdbcType=VARCHAR},
+      </if>
+      <if test="item.cardstatus != null" >
+        CARDSTATUS = #{item.cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="item.operators != null" >
+        OPERATORS = #{item.operators,jdbcType=VARCHAR},
+      </if>
+      <if test="item.ctype != null" >
+        CTYPE = #{item.ctype,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute1 != null" >
+        ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value1 != null" >
+        VALUE1 = #{item.value1,jdbcType=VARCHAR},
+      </if>
+      <if test="item.attribute2 != null" >
+        ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.value2 != null" >
+        VALUE2 = #{item.value2,jdbcType=VARCHAR},
+      </if>
+      <if test="item.ifMaintenance != null" >
+        IF_MAINTENANCE = #{item.ifMaintenance,jdbcType=VARCHAR},
+      </if>
+      <if test="item.custid != null" >
+        CUSTID = #{item.custid,jdbcType=VARCHAR},
+      </if>
+       <if test="item.inDate != null" >
+         IN_DATE = #{item.inDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="item.msisdn != null" >
+         MSISDN = #{item.msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="item.actived != null" >
+         ACTIVED = #{item.actived,jdbcType=VARCHAR},
+      </if>
+      <if test="item.batchId != null" >
+         BATCH_ID = #{item.batchId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 
+        MSISDN = #{item.msisdn,jdbcType=VARCHAR}
+    </foreach>
+		
+  </update>
+  
+  <insert id="batchInsertTSP" parameterType="java.util.List">
+		insert into lao_iccid_lib (ID, ICCID,CUSTID,
+		DEVICETYPE, PRIVATEKEY, CARDTYPE, INITPRODUCT, 
+		test_goods_rls_id, OPERATORS,
+		CTYPE,ATTRIBUTE1,
+		VALUE1, ATTRIBUTE2, VALUE2,IN_DATE,MSISDN,ACTIVED,BATCH_ID,
+		test_cycle,buy_order_no,CYCLE_STATE,cardstatus,if_maintenance)
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			(select
+			#{item.id},#{item.iccid},#{item.custid},#{item.devicetype},#{item.privatekey},#{item.cardtype},
+			#{item.initproduct},#{item.testGoodsRlsId},#{item.operators},#{item.ctype},#{item.attribute1},
+			#{item.value1},#{item.attribute2},#{item.value2},
+			#{item.inDate}, #{item.msisdn},#{item.actived},#{item.batchId},#{item.testCycle},
+			#{item.buyOrderNo},#{item.cycleState},#{item.cardstatus},#{item.ifMaintenance}from
+			dual)
+		</foreach>
+	</insert>
+	
+  	<select id="selectDetailByPageTSP" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_ICCID_LIB where 1 = 1
+		<if test="params.param.batchId != null 
+		and params.param.batchId!=''">  and BATCH_ID= #{params.param.batchId}  <!-- and BATCH_ID='4011940350000024' --></if>
+	</select>
+</mapper>

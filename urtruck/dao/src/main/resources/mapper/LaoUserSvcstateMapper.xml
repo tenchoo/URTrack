@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserSvcstateMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserSvcstate" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="SERVICE_ID" property="serviceId" jdbcType="DECIMAL" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_RST" property="opeartorsDealRst" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_CODE" property="opeartorsDealCode" jdbcType="VARCHAR" />
+    <result column="OPEARTORS_DEAL_NUM" property="opeartorsDealNum" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, SERVICE_ID, START_DATE, END_DATE, UPDATE_TIME, STATE_CODE, OPEARTORS_DEAL_RST, 
+    OPEARTORS_DEAL_CODE, OPEARTORS_DEAL_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_SVCSTATE
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_SVCSTATE
+    where USER_ID = #{userId,jdbcType=DECIMAL} and now() between  START_DATE and END_DATE  AND ROWNUM=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_USER_SVCSTATE
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserSvcstate" >
+    insert into LAO_USER_SVCSTATE (USER_ID, SERVICE_ID, START_DATE, 
+      END_DATE, UPDATE_TIME, STATE_CODE, 
+      OPEARTORS_DEAL_RST, OPEARTORS_DEAL_CODE, OPEARTORS_DEAL_NUM
+      )
+    values (#{userId,jdbcType=DECIMAL}, #{serviceId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=VARCHAR}, 
+      #{opeartorsDealRst,jdbcType=VARCHAR}, #{opeartorsDealCode,jdbcType=VARCHAR}, #{opeartorsDealNum,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserSvcstate" >
+    insert into LAO_USER_SVCSTATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="serviceId != null" >
+        SERVICE_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="stateCode != null" >
+        STATE_CODE,
+      </if>
+      <if test="opeartorsDealRst != null" >
+        OPEARTORS_DEAL_RST,
+      </if>
+      <if test="opeartorsDealCode != null" >
+        OPEARTORS_DEAL_CODE,
+      </if>
+      <if test="opeartorsDealNum != null" >
+        OPEARTORS_DEAL_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealRst != null" >
+        #{opeartorsDealRst,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealCode != null" >
+        #{opeartorsDealCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealNum != null" >
+        #{opeartorsDealNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserSvcstate" >
+    update LAO_USER_SVCSTATE
+    <set >
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stateCode != null" >
+        STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealRst != null" >
+        OPEARTORS_DEAL_RST = #{opeartorsDealRst,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealCode != null" >
+        OPEARTORS_DEAL_CODE = #{opeartorsDealCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeartorsDealNum != null" >
+        OPEARTORS_DEAL_NUM = #{opeartorsDealNum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserSvcstate" >
+    update LAO_USER_SVCSTATE
+    set END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATE_CODE = #{stateCode,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_RST = #{opeartorsDealRst,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_CODE = #{opeartorsDealCode,jdbcType=VARCHAR},
+      OPEARTORS_DEAL_NUM = #{opeartorsDealNum,jdbcType=DECIMAL}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and SERVICE_ID = #{serviceId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

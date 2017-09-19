@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoAlmRuleTypePoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleTypePo" >
+    <result column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+    <result column="RULE_TYPE_NAME" property="ruleTypeName" jdbcType="VARCHAR" />
+    <result column="RULE_TYPE_DESC" property="ruleTypeDesc" jdbcType="VARCHAR" />
+    <result column="RULE_LEVEL" property="ruleLevel" jdbcType="CHAR" />
+    <result column="RULE_P_ID" property="rulePId" jdbcType="DECIMAL" />
+    <result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+    <result column="EXE_TAG" property="exeTag" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoAlmRuleTypePo" >
+    insert into LAO_ALM_RULE_TYPE (RULE_TYPE_ID, RULE_TYPE_NAME, RULE_TYPE_DESC, 
+      RULE_LEVEL, RULE_P_ID, VALID_TAG, 
+      EXE_TAG, REMARK)
+    values (#{ruleTypeId,jdbcType=DECIMAL}, #{ruleTypeName,jdbcType=VARCHAR}, #{ruleTypeDesc,jdbcType=VARCHAR}, 
+      #{ruleLevel,jdbcType=CHAR}, #{rulePId,jdbcType=DECIMAL}, #{validTag,jdbcType=CHAR}, 
+      #{exeTag,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAlmRuleTypePo" >
+    insert into LAO_ALM_RULE_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleTypeId != null" >
+        RULE_TYPE_ID,
+      </if>
+      <if test="ruleTypeName != null" >
+        RULE_TYPE_NAME,
+      </if>
+      <if test="ruleTypeDesc != null" >
+        RULE_TYPE_DESC,
+      </if>
+      <if test="ruleLevel != null" >
+        RULE_LEVEL,
+      </if>
+      <if test="rulePId != null" >
+        RULE_P_ID,
+      </if>
+      <if test="validTag != null" >
+        VALID_TAG,
+      </if>
+      <if test="exeTag != null" >
+        EXE_TAG,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleTypeId != null" >
+        #{ruleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="ruleTypeName != null" >
+        #{ruleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleTypeDesc != null" >
+        #{ruleTypeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleLevel != null" >
+        #{ruleLevel,jdbcType=CHAR},
+      </if>
+      <if test="rulePId != null" >
+        #{rulePId,jdbcType=DECIMAL},
+      </if>
+      <if test="validTag != null" >
+        #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="exeTag != null" >
+        #{exeTag,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

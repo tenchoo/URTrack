@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.GoodsReleaseExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.GoodsRelease" >
+    <id column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="CHANNEL_GROUP_ID" property="channelGroupId" jdbcType="DECIMAL" />
+    <result column="GROUP_ATTR_N1" property="groupAttrN1" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_V1" property="groupAttrV1" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_N2" property="groupAttrN2" jdbcType="VARCHAR" />
+    <result column="GROUP_ATTR_V2" property="groupAttrV2" jdbcType="VARCHAR" />
+    <result column="RELEASE_PRICE" property="releasePrice" jdbcType="VARCHAR" />
+    <result column="RELEASE_CYCLE" property="releaseCycle" jdbcType="VARCHAR" />
+    <result column="POOL_ID" property="poolId" jdbcType="DECIMAL" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="BASE_PLAN_ID" property="basePlanId" jdbcType="DECIMAL" />
+    <result column="SMS" property="sms" jdbcType="DECIMAL" />
+    <result column="SPEECH_SOUNDS" property="speechSounds" jdbcType="DECIMAL" />
+    <result column="SILENT_PERIOD" property="silentPeriod" jdbcType="VARCHAR" />
+    <result column="EXTENSION_MODEL" property="extensionModel" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_LEVEL" property="discountLevel" jdbcType="DECIMAL" />
+    <result column="DISCOUNT_RATE" property="discountRate" jdbcType="DECIMAL" />
+    <result column="EXCESS_TACTICS" property="excessTactics" jdbcType="DECIMAL" />
+    <result column="EXCESS_RATE" property="excessRate" jdbcType="DECIMAL" />
+    <result column="IS_ALL_NORM_PLAN" property="isAllNormPlan" jdbcType="DECIMAL" />
+    <result column="IS_BIND_IMEI" property="isBindImei" jdbcType="DECIMAL" />
+    <result column="IS_PRIVATE_NETWORK" property="isPrivateNetwork" jdbcType="DECIMAL" />
+    <result column="APN_REALM" property="apnRealm" jdbcType="VARCHAR" />
+    <result column="IS_DEFAULT_PLAN" property="isDefaultPlan" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RELS_CUST_ID" property="relsCustId" jdbcType="DECIMAL" />
+    <result column="PAR_RELS_ID" property="parRelsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_NAME" property="goodsReleaseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_RELEASE_ID, GOODS_ID, START_DATE, END_DATE, CHANNEL_GROUP_ID, GROUP_ATTR_N1, 
+    GROUP_ATTR_V1, GROUP_ATTR_N2, GROUP_ATTR_V2, RELEASE_PRICE, RELEASE_CYCLE, POOL_ID, 
+    UNIT, BASE_PLAN_ID, SMS, SPEECH_SOUNDS, SILENT_PERIOD, EXTENSION_MODEL, DISCOUNT_LEVEL, 
+    DISCOUNT_RATE, EXCESS_TACTICS, EXCESS_RATE, IS_ALL_NORM_PLAN, IS_BIND_IMEI, IS_PRIVATE_NETWORK, 
+    APN_REALM, IS_DEFAULT_PLAN, REMARK,RELS_CUST_ID,PAR_RELS_ID,GOODS_RELEASE_NAME
+  </sql>
+
+	<select id="findAll" resultMap="BaseResultMap">
+         select b.*,e.goods_name goodsName from ( select release.*,customer.cust_name as custName,lss.static_name ssq,lss1.static_name ssw,lss2.static_name sse,lss3.static_name ssr from lao_goods_release release  left join lao_customer customer on release.channel_group_id = customer.cust_id
+   left join lao_ss_static  lss on release.channel_group_id=lss.cust_id and lss.col_name='attribute1' and  lss.static_code=release.group_attr_n1
+   left join lao_ss_static lss1 on release.channel_group_id=lss1.cust_id and lss1.col_name='attribute2' and  lss1.static_code=release.group_attr_n2
+   left join lao_ss_static lss2 on release.channel_group_id=lss2.cust_id and lss2.col_name='VALUE1' and  lss2.static_code=release.group_attr_v1
+   left join lao_ss_static lss3 on release.channel_group_id=lss3.cust_id and lss3.col_name='VALUE2' and  lss3.static_code=release.group_attr_v2
+         ) b left join lao_goods e on b.goods_id  = e.goods_id where b.end_date >now()
+	</select>
+	<select id="findByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_RELEASE
+    where GOODS_ID = #{goodsId,jdbcType=DECIMAL} 
+    and END_DATE > now()
+    ORDER BY GOODS_RELEASE_ID DESC
+  </select>
+  
+  	<select id="findByChannelGroupId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_RELEASE
+    where CHANNEL_GROUP_ID = #{channelGroupId,jdbcType=DECIMAL}
+    and END_DATE > now()
+     ORDER BY GOODS_RELEASE_ID DESC
+  </select>
+  
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >	
+   	    select b.*,e.goods_name goodsName from ( select release.*,customer.cust_name as custName,lss.static_name ssq,lss1.static_name ssw,lss2.static_name sse,lss3.static_name ssr from lao_goods_release release  left join lao_customer customer on release.channel_group_id = customer.cust_id
+	 left join lao_ss_static  lss on release.channel_group_id=lss.cust_id and lss.col_name='attribute1' and  lss.static_code=release.group_attr_n1
+	 left join lao_ss_static lss1 on release.channel_group_id=lss1.cust_id and lss1.col_name='attribute2' and  lss1.static_code=release.group_attr_n2
+	 left join lao_ss_static lss2 on release.channel_group_id=lss2.cust_id and lss2.col_name='VALUE1' and  lss2.static_code=release.group_attr_v1
+	 left join lao_ss_static lss3 on release.channel_group_id=lss3.cust_id and lss3.col_name='VALUE2' and  lss3.static_code=release.group_attr_v2
+         ) b left join lao_goods e on b.goods_id  = e.goods_id 
+           where 1=1 
+        <if test="params.param.custName != null and params.param.custName!=''" >
+		and b.custname like CONCAT(CONCAT('%', #{params.param.custName}), '%') 
+		</if>
+		<if test="params.param.relsCustId != null and params.param.relsCustId!=''">
+			and b.RELS_CUST_ID=#{params.param.relsCustId}
+	   </if>
+        and END_DATE > now()   
+  </select>
+</mapper>

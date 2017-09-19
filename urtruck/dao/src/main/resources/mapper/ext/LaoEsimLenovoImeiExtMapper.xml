@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimLenovoImeiExtMapper" >
+ <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimLenovoImei">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="LENOVOID" jdbcType="VARCHAR" property="lenovoid" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="FLAG" jdbcType="VARCHAR" property="flag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, LENOVOID, IMEI, CREATEDATE, ENDTIME, FLAG
+  </sql>
+   <select id="getImeisByLenovoId" resultType="java.lang.String">
+	 select imei from LAO_ESIM_LENOVO_IMEI  where lenovoid=#{lenovoId,jdbcType=VARCHAR} and flag='1'
+  </select>
+  <select id="getImeiInfo" resultType="map" parameterType="java.lang.String" >
+	 select ei.devicetype deviceType,ei.devicename deviceName 
+	 from LAO_ESIM_LENOVO_IMEI li left join LAO_ESIM_IMEI ei on li.imei=ei.imei 
+	 where li.lenovoid=#{lenovoId,jdbcType=VARCHAR} and flag='1'
+  </select>
+  
+  <select id="getlenovoInfo" resultType="map" parameterType="java.lang.String" >
+	 select lenovoid from LAO_ESIM_LENOVO_IMEI where lenovoid=#{lenovoId,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="getImeiFlowInfo" parameterType="java.lang.String" resultType="map">
+	    select li.imei devicetype,operators,sum(to_number(currentuseflow)) useflow 
+	   from lao_esim_lenovo_imei li left join lao_esim_detail ed on li.lenovoid=ed.lenovoid 
+	   where li.lenovoid=#{lenovoId,jdbcType=VARCHAR} and li.imei=ed.imei and flag='1'
+	   group by li.lenovoid,li.imei,operators
+  </select>
+  
+  <select id="getCount"  resultType="Integer">
+	   select count(0)
+	   from lao_esim_lenovo_imei
+	   where lenovoid=#{lenovoId,jdbcType=VARCHAR} and imei=#{imei,jdbcType=VARCHAR} and flag='1'
+  </select>
+  
+  <delete id="deletesLenovoId">
+  	  update lao_esim_lenovo_imei set endtime=now(),flag='2'
+	   where lenovoid=#{lenovoId,jdbcType=VARCHAR} and imei=#{imei,jdbcType=VARCHAR} and flag='1'
+  </delete>
+</mapper>

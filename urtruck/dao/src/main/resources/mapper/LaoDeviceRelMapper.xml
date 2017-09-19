@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDeviceRelMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDeviceRel">
+    <id column="REL_ID" jdbcType="DECIMAL" property="relId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="ID_TYPE" jdbcType="VARCHAR" property="idType" />
+    <result column="DEVICE_ID" jdbcType="VARCHAR" property="deviceId" />
+    <result column="REL_TYPE" jdbcType="VARCHAR" property="relType" />
+    <result column="REL_ACCOUNT" jdbcType="VARCHAR" property="relAccount" />
+    <result column="VALID_TAG" jdbcType="CHAR" property="validTag" />
+    <result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+    <result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="REL_LOGINGNAME" jdbcType="VARCHAR" property="relLogingname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REL_ID, USER_ID, ICCID, ID_TYPE, DEVICE_ID, REL_TYPE, REL_ACCOUNT, VALID_TAG, RECV_TIME, 
+    OPER_ID, UPDATE_TIME, REMARK, REL_LOGINGNAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICE_REL
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_DEVICE_REL
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDeviceRel">
+    insert into LAO_DEVICE_REL (REL_ID, USER_ID, ICCID, 
+      ID_TYPE, DEVICE_ID, REL_TYPE, 
+      REL_ACCOUNT, VALID_TAG, RECV_TIME, 
+      OPER_ID, UPDATE_TIME, REMARK, 
+      REL_LOGINGNAME)
+    values (#{relId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, 
+      #{idType,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{relType,jdbcType=VARCHAR}, 
+      #{relAccount,jdbcType=VARCHAR}, #{validTag,jdbcType=CHAR}, #{recvTime,jdbcType=TIMESTAMP}, 
+      #{operId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{relLogingname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDeviceRel">
+    insert into LAO_DEVICE_REL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="relId != null">
+        REL_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="idType != null">
+        ID_TYPE,
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID,
+      </if>
+      <if test="relType != null">
+        REL_TYPE,
+      </if>
+      <if test="relAccount != null">
+        REL_ACCOUNT,
+      </if>
+      <if test="validTag != null">
+        VALID_TAG,
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME,
+      </if>
+      <if test="operId != null">
+        OPER_ID,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="relLogingname != null">
+        REL_LOGINGNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="relId != null">
+        #{relId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="relType != null">
+        #{relType,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccount != null">
+        #{relAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null">
+        #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null">
+        #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null">
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relLogingname != null">
+        #{relLogingname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDeviceRel">
+    update LAO_DEVICE_REL
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        ID_TYPE = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="relType != null">
+        REL_TYPE = #{relType,jdbcType=VARCHAR},
+      </if>
+      <if test="relAccount != null">
+        REL_ACCOUNT = #{relAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="validTag != null">
+        VALID_TAG = #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="recvTime != null">
+        RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operId != null">
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relLogingname != null">
+        REL_LOGINGNAME = #{relLogingname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDeviceRel">
+    update LAO_DEVICE_REL
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      ID_TYPE = #{idType,jdbcType=VARCHAR},
+      DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+      REL_TYPE = #{relType,jdbcType=VARCHAR},
+      REL_ACCOUNT = #{relAccount,jdbcType=VARCHAR},
+      VALID_TAG = #{validTag,jdbcType=CHAR},
+      RECV_TIME = #{recvTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      REL_LOGINGNAME = #{relLogingname,jdbcType=VARCHAR}
+    where REL_ID = #{relId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoBPaylogExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoBPaylog">
+		<id column="CHARGE_ID" jdbcType="DECIMAL" property="chargeId" />
+		<result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+		<result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+		<result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="PAY_FEE_MODE_CODE" jdbcType="DECIMAL" property="payFeeModeCode" />
+		<result column="PAYMENT_OP" jdbcType="DECIMAL" property="paymentOp" />
+		<result column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+		<result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+		<result column="PAY_TAG" jdbcType="CHAR" property="payTag" />
+		<result column="RECV_FEE" jdbcType="DECIMAL" property="recvFee" />
+		<result column="FEE" jdbcType="DECIMAL" property="fee" />
+		<result column="DISCNT_FEE" jdbcType="DECIMAL" property="discntFee" />
+		<result column="REAL_FEE" jdbcType="DECIMAL" property="realFee" />
+		<result column="RES_TYPE" jdbcType="VARCHAR" property="resType" />
+		<result column="RES_NUM" jdbcType="DECIMAL" property="resNum" />
+		<result column="USER_ITEM1" jdbcType="VARCHAR" property="userItem1" />
+		<result column="USER_ITEM2" jdbcType="VARCHAR" property="userItem2" />
+		<result column="USER_ITEM3" jdbcType="VARCHAR" property="userItem3" />
+		<result column="USER_ITEM4" jdbcType="VARCHAR" property="userItem4" />
+		<result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+		<result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+		<result column="SALE_MANAGER" jdbcType="VARCHAR" property="saleManager" />
+		<result column="RECV_OPER_ID" jdbcType="VARCHAR" property="recvOperId" />
+		<result column="FEECNT_TAG" jdbcType="CHAR" property="feecntTag" />
+		<result column="FEECNT_TIME" jdbcType="TIMESTAMP" property="feecntTime" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="CANCEL_TAG" jdbcType="CHAR" property="cancelTag" />
+		<result column="CANCEL_OPER_ID" jdbcType="VARCHAR" property="cancelOperId" />
+		<result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
+		<result column="RSRV_INFO1" jdbcType="VARCHAR" property="rsrvInfo1" />
+		<result column="RSRV_INFO2" jdbcType="VARCHAR" property="rsrvInfo2" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CHARGE_ID, CHANNEL_CUST_ID, CUST_ID, USER_ID, PAY_FEE_MODE_CODE, PAYMENT_OP,
+		TRADE_ID,
+		TRADE_TYPE_CODE, PAY_TAG, RECV_FEE, FEE, DISCNT_FEE, REAL_FEE, RES_TYPE, RES_NUM,
+		USER_ITEM1, USER_ITEM2, USER_ITEM3, USER_ITEM4, GOODS_ID, RECV_TIME,
+		SALE_MANAGER,
+		RECV_OPER_ID, FEECNT_TAG, FEECNT_TIME, REMARK, CANCEL_TAG, CANCEL_OPER_ID,
+		CANCEL_TIME,
+		RSRV_INFO1, RSRV_INFO2
+	</sql>
+	<select id="selectPayStatus" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select NVL(sum(RECV_FEE),0) from LAO_B_PAYLOG where
+		CHANNEL_CUST_ID=#{custId} and RECV_TIME <![CDATA[>]]>
+		#{curMonth} and PAY_TAG=#{payTag} and PAYMENT_OP = 10004
+	</select>
+	<!-- <select id="selectByCustId" parameterType="java.util.Map" resultMap="BaseResultMap"> 
+		select <include refid="Base_Column_List" /> from LAO_B_PAYLOG where CHANNEL_CUST_ID=#{custId} 
+		and RECV_TIME between #{startDate} and #{endDate} order by RECV_TIME DESC 
+		SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (SELECT * FROM LAO_B_PAYLOG where 
+		CHANNEL_CUST_ID=#{custId} and RECV_TIME between #{startDate} and #{endDate} 
+		order by RECV_TIME DESC) A WHERE ROWNUM <![CDATA[<=]]> #{end} ) WHERE RN 
+		<![CDATA[>=]]> #{start} </select> -->
+	<select id="selectByCustId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT * FROM
+		(
+		SELECT A.*,e.goods_name goodsName, ROWNUM RN
+		FROM (SELECT * FROM LAO_B_PAYLOG where CHANNEL_CUST_ID=#{custId} and
+		RECV_TIME between #{startDate} and #{endDate} order by RECV_TIME DESC)
+		A
+		left join lao_goods e on A.goods_id = e.goods_id
+		WHERE ROWNUM <![CDATA[<=]]>
+		#{end}
+		)
+		WHERE RN <![CDATA[>=]]>
+		#{start}
+	</select>
+
+	<select id="countByCustId" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*) from LAO_B_PAYLOG where CHANNEL_CUST_ID=#{custId} and
+		RECV_TIME between #{startDate} and #{endDate}
+	</select>
+
+	<select id="revenueByPage" parameterType="java.util.Map"
+		resultType="map">
+		select ll.* , uu.iccid, uu.msisdn, ope.operators_name, good.goods_name
+		,status.outsidestate, ss.static_name, cus.cust_name
+		from lao_b_paylog ll
+		left join lao_user uu on uu.user_id = ll.user_id
+		left join lao_operators ope on ope.operators_id = uu.operators_id
+		left join lao_goods good on good.goods_id = ll.goods_id
+		left join lao_service_status status on status.state_code = uu.state_code
+		left join lao_ss_static ss on ss.static_id = ll.payment_op
+		left join lao_customer cus on cus.cust_id = ll.channel_cust_id
+		<where>
+			<if
+				test="params.result.channelCustId != null and params.result.channelCustId !=''">
+				ll.CHANNEL_CUST_ID =
+				#{params.result.channelCustId,jdbcType=DECIMAL}
+			</if>
+			<if test="params.result.userId != null and params.result.userId !=''">
+				and uu.user_id = #{params.result.userId,jdbcType=DECIMAL}
+			</if>
+			<if
+				test="params.result.paymentOp != null and params.result.paymentOp !=''">
+				and ll.payment_op = #{params.result.paymentOp,jdbcType=DECIMAL}
+			</if>
+			<if
+				test="params.result.feecntTime != null and params.result.feecntTime !='' and params.result.recvTime != null and params.result.recvTime !=''">
+				and ll.recv_time between #{params.result.recvTime} and
+				#{params.result.feecntTime}
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="RevenueAssociationResult" type="com.urt.po.LaoBPaylogPo">
+		<id column="CHARGE_ID" jdbcType="DECIMAL" property="chargeId" />
+		<result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+		<result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+		<result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="PAY_FEE_MODE_CODE" jdbcType="DECIMAL" property="payFeeModeCode" />
+		<result column="PAYMENT_OP" jdbcType="DECIMAL" property="paymentOp" />
+		<result column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+		<result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+		<result column="PAY_TAG" jdbcType="CHAR" property="payTag" />
+		<result column="RECV_FEE" jdbcType="DECIMAL" property="recvFee" />
+		<result column="FEE" jdbcType="DECIMAL" property="fee" />
+		<result column="DISCNT_FEE" jdbcType="DECIMAL" property="discntFee" />
+		<result column="REAL_FEE" jdbcType="DECIMAL" property="realFee" />
+		<result column="RES_TYPE" jdbcType="VARCHAR" property="resType" />
+		<result column="RES_NUM" jdbcType="DECIMAL" property="resNum" />
+		<result column="USER_ITEM1" jdbcType="VARCHAR" property="userItem1" />
+		<result column="USER_ITEM2" jdbcType="VARCHAR" property="userItem2" />
+		<result column="USER_ITEM3" jdbcType="VARCHAR" property="userItem3" />
+		<result column="USER_ITEM4" jdbcType="VARCHAR" property="userItem4" />
+		<result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+		<result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+		<result column="SALE_MANAGER" jdbcType="VARCHAR" property="saleManager" />
+		<result column="RECV_OPER_ID" jdbcType="VARCHAR" property="recvOperId" />
+		<result column="FEECNT_TAG" jdbcType="CHAR" property="feecntTag" />
+		<result column="FEECNT_TIME" jdbcType="TIMESTAMP" property="feecntTime" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="CANCEL_TAG" jdbcType="CHAR" property="cancelTag" />
+		<result column="CANCEL_OPER_ID" jdbcType="VARCHAR" property="cancelOperId" />
+		<result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
+		<result column="RSRV_INFO1" jdbcType="VARCHAR" property="rsrvInfo1" />
+		<result column="RSRV_INFO2" jdbcType="VARCHAR" property="rsrvInfo2" />
+
+		<result column="iccid" jdbcType="VARCHAR" property="iccid" />
+		<result column="msisdn" jdbcType="VARCHAR" property="msisdn" />
+		<result column="operators_name" jdbcType="VARCHAR" property="operatorName" />
+		<result column="goods_name" jdbcType="VARCHAR" property="goodName" />
+		<result column="outsidestate" jdbcType="VARCHAR" property="status" />
+		<result column="static_name" jdbcType="VARCHAR" property="staticName" />
+		<result column="cust_name" jdbcType="VARCHAR" property="custName" />
+		<!-- <association property="dept" resultMap="BaseResultMap"></association> -->
+	</resultMap>
+
+	<select id="revenue" resultMap="RevenueAssociationResult">
+		select ll.* , uu.iccid, uu.msisdn, ope.operators_name, good.goods_name
+		,status.outsidestate, ss.static_name, cus.cust_name
+		from lao_b_paylog ll
+		left join lao_user uu on uu.user_id = ll.user_id
+		left join lao_operators ope on ope.operators_id = uu.operators_id
+		left join lao_goods good on good.goods_id = ll.goods_id
+		left join lao_service_status status on status.state_code = uu.state_code
+		left join lao_ss_static ss on ss.static_id = ll.payment_op
+		left join lao_customer cus on cus.cust_id = ll.channel_cust_id
+		<where>
+			<if test="channelCustId != null and channelCustId !=''">
+				ll.CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL}
+			</if>
+			<if test="userId != null and userId !=''">
+				and uu.user_id = #{userId,jdbcType=DECIMAL}
+			</if>
+			<if test="paymentOp != null and paymentOp !=''">
+				and ll.payment_op = #{paymentOp,jdbcType=DECIMAL}
+			</if>
+			<if
+				test="feecntTime != null and feecntTime !='' and recvTime != null and recvTime !=''">
+				and ll.recv_time between #{recvTime} and #{feecntTime}
+			</if>
+		</where>
+	</select>
+	<select id="countMoneyByCustId" resultType="Long" parameterType="Long">
+		select sum(t.real_fee) countmoney from Lao_b_Paylog t
+		where
+		t.channel_cust_id=#{custId}
+		and
+		t.recv_time
+		<![CDATA[>=]]> TRUNC( now(), 'MM')
+		and
+		t.recv_time <![CDATA[<=]]> last_day<![CDATA[(]]>now() <![CDATA[)]]>
+	</select>
+</mapper>

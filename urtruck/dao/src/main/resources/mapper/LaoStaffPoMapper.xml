@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoStaffPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoStaffPo" >
+    <result column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+    <result column="REGION_NAME" property="regionName" jdbcType="VARCHAR" />
+    <result column="STAFF_PHONE" property="staffPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoStaffPo" >
+    insert into LAO_STAFF (STAFF_ID, STAFF_NAME, REGION_ID, 
+      REGION_CODE, REGION_NAME, STAFF_PHONE
+      )
+    values (#{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, 
+      #{regionCode,jdbcType=VARCHAR}, #{regionName,jdbcType=VARCHAR}, #{staffPhone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoStaffPo" >
+    insert into LAO_STAFF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="regionId != null" >
+        REGION_ID,
+      </if>
+      <if test="regionCode != null" >
+        REGION_CODE,
+      </if>
+      <if test="regionName != null" >
+        REGION_NAME,
+      </if>
+      <if test="staffPhone != null" >
+        STAFF_PHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPhone != null" >
+        #{staffPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

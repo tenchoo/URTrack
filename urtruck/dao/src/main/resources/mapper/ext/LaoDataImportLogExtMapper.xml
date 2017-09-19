@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDataImportLogExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDataImportLog">
+    <id column="IMP_ID" jdbcType="DECIMAL" property="impId" />
+    <result column="IMP_TYPE" jdbcType="VARCHAR" property="impType" />
+    <result column="IMP_NAME" jdbcType="VARCHAR" property="impName" />
+    <result column="IMP_DATE" jdbcType="VARCHAR" property="impDate" />
+    <result column="OPERATOR_TYPE" jdbcType="VARCHAR" property="operatorType" />
+    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+    <result column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_STAFF" jdbcType="VARCHAR" property="updateStaff" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    IMP_ID, IMP_TYPE, IMP_NAME, IMP_DATE, OPERATOR_TYPE, OPERATOR_NAME, OPERATORS_ID, 
+    UPDATE_TIME, UPDATE_STAFF, REMARK
+  </sql>
+   <select id="selectUpdateTime" resultType="java.util.Map">
+    select to_char(max(update_time),'yyyy/MM/dd') updatetime, operator_name OPERATORNAME from lao_dataimport_log where imp_type='1'
+    group by operator_name
+  </select>
+</mapper>

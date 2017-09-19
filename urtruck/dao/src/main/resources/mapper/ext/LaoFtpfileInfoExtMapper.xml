@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoFtpFileInfoExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoFtpfileInfo">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+		<result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="TRADETYPECODE" property="tradetypecode"
+			jdbcType="VARCHAR" />
+		<result column="ERRORDESC" property="errordesc" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="PROCESSMODE" property="processmode" jdbcType="DECIMAL" />
+		<result column="GOODSRELEASEID" property="goodsreleaseid"
+			jdbcType="DECIMAL" />
+		<result column="OPERATORS_PID" property="operatorsPid"
+			jdbcType="DECIMAL" />
+		<result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+		 <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+		<result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, FILE_NAME, ICCID, MSISDN, CREATEDATE, TRADETYPECODE, ERRORDESC,
+		STATUS, PROCESSMODE,
+		GOODSRELEASEID, OPERATORS_PID, CUSTID, UPDATEDATE, PARA_NAME2
+	</sql>
+	
+
+	<select id="queryBytypeCodeAndfileName" resultType="Map" parameterType="com.urt.po.LaoFtpfileInfo" >
+	  select f.file_name, f.iccid, f.tradetypecode,f.goodsreleaseid
+      from Lao_Ftpfile_Info f
+     where 1=1 
+     <if test="fileName!=null">
+		  and f.file_name =#{fileName}
+	  </if>
+	  <if test="tradetypecode!=null">
+		   and f.tradetypecode=#{tradetypecode}
+	  </if>
+      <if test="status!=null">
+		   and f.status=#{status}
+	  </if>
+	</select>
+	
+	
+	<update id="updateIccid" parameterType="map" >
+	  update Lao_Ftpfile_Info f  set f.status=#{selectVal} where f.file_name=#{fileName} and f.tradetypecode=#{typeCode}
+	</update>
+	
+	
+	<insert id="batchInsert"  parameterType="java.util.List">  
+		   insert into Lao_Ftpfile_Info (ID, FILE_NAME, ICCID, MSISDN, CREATEDATE, TRADETYPECODE, ERRORDESC,
+				STATUS, PROCESSMODE,
+				GOODSRELEASEID, OPERATORS_PID, CUSTID, UPDATEDATE, PARA_NAME2)   
+		    <foreach collection="list" item="item" index="index"  separator="union all"  >
+		    	(select  #{item.id,jdbcType=DECIMAL},#{item.fileName,jdbcType=VARCHAR},
+		    	#{item.iccid,jdbcType=VARCHAR},#{item.msisdn,jdbcType=VARCHAR},#{item.createdate,jdbcType=TIMESTAMP},#{item.tradetypecode},
+		    	#{item.errordesc,jdbcType=VARCHAR},#{item.status,jdbcType=DECIMAL},#{item.processmode,jdbcType=DECIMAL},
+		    	#{item.goodsreleaseid,jdbcType=DECIMAL},#{item.operatorsPid,jdbcType=DECIMAL},#{item.custid,jdbcType=VARCHAR},
+		    	#{item.updatedate,jdbcType=TIMESTAMP},#{item.paraName2,jdbcType=VARCHAR} from dual)  
+		    </foreach>
+   </insert> 
+
+    <update id="batchUpdate" parameterType="map">
+  <!--   <foreach collection="list" item="info" index="index" open="" close="" separator=";" > -->
+        update Lao_Ftpfile_Info f
+        <set>
+            f.status=#{status}
+        </set>
+        where f.file_name=#{fileName} and f.tradetypecode=#{type} and f.iccid in 
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+        #{item.iccid,jdbcType=VARCHAR}
+        </foreach>
+        
+      <!--   <where>
+            f.file_name=<![CDATA[']]>${info.fileName} <![CDATA[']]>
+                 and f.tradetypecode=<![CDATA[']]>${info.tradetypecode}<![CDATA[']]> 
+                 and f.iccid=<![CDATA[']]>${info.iccid}<![CDATA[']]>
+        </where> -->
+   <!--  </foreach> -->
+</update>
+    
+    
+    
+</mapper>

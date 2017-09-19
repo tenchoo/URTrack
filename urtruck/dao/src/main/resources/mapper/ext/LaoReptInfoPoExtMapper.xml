@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoReptInfoPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoReptInfoPo">
+    <id column="REPT_ID" jdbcType="DECIMAL" property="reptId" />
+    <result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+    <result column="REPT_NAME" jdbcType="VARCHAR" property="reptName" />
+    <result column="DISPLAY_INFO" jdbcType="VARCHAR" property="displayInfo" />
+    <result column="COL_IDS" jdbcType="VARCHAR" property="colIds" />
+    <result column="COL_ATTR" jdbcType="VARCHAR" property="colAttr" />
+    <result column="SQL_INFO" jdbcType="VARCHAR" property="sqlInfo" />
+    <result column="COND_COLS" jdbcType="VARCHAR" property="condCols" />
+    <result column="COND_SOURCE" jdbcType="VARCHAR" property="condSource" />
+    <result column="DISPLAY_TYPE" jdbcType="VARCHAR" property="displayType" />
+    <result column="VALID_TAG" jdbcType="CHAR" property="validTag" />
+    <result column="RECV_TIME" jdbcType="TIMESTAMP" property="recvTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="COL_KEY" jdbcType="VARCHAR" property="colKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REPT_ID, TRADE_TYPE_CODE, REPT_NAME, DISPLAY_INFO, COL_IDS, COL_ATTR, SQL_INFO, COND_COLS, 
+    COND_SOURCE, DISPLAY_TYPE, VALID_TAG, RECV_TIME, UPDATE_TIME, REMARK, COL_KEY
+  </sql>
+  
+  <select id="selectByTradeTypeCode" parameterType="Long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from LAO_REPT_INFO 
+  	WHERE REPT_ID = #{reptId,jdbcType=DECIMAL}
+  	and VALID_TAG =1
+  </select>
+  <select id="selectCodeAndName" resultMap="BaseResultMap">
+  	select 
+  	REPT_ID,REPT_NAME,TRADE_TYPE_CODE
+  	from LAO_REPT_INFO 
+  	WHERE TRADE_TYPE_CODE in(6,8,9) and VALID_TAG =1  
+  </select>
+  <select id="selectByType" parameterType="int" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from LAO_REPT_INFO 
+  	WHERE TRADE_TYPE_CODE = #{typeCode,jdbcType=DECIMAL}
+  	and VALID_TAG =1
+  </select>
+</mapper>

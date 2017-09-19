@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoDownloadfileConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDownloadfileConfig" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="FILEPREFIX_NAME" property="fileprefixName" jdbcType="VARCHAR" />
+    <result column="FILESUFFIX_DATE" property="filesuffixDate" jdbcType="TIMESTAMP" />
+    <result column="ISDOWNLOAD" property="isdownload" jdbcType="DECIMAL" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FILEPREFIX_NAME, FILESUFFIX_DATE, ISDOWNLOAD, PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DOWNLOADFILE_CONFIG
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_DOWNLOADFILE_CONFIG
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDownloadfileConfig" >
+    insert into LAO_DOWNLOADFILE_CONFIG (ID, FILEPREFIX_NAME, FILESUFFIX_DATE, 
+      ISDOWNLOAD, PARA_NAME1, PARA_NAME2
+      )
+    values (#{id,jdbcType=DECIMAL}, #{fileprefixName,jdbcType=VARCHAR}, #{filesuffixDate,jdbcType=TIMESTAMP}, 
+      #{isdownload,jdbcType=DECIMAL}, #{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDownloadfileConfig" >
+    insert into LAO_DOWNLOADFILE_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fileprefixName != null" >
+        FILEPREFIX_NAME,
+      </if>
+      <if test="filesuffixDate != null" >
+        FILESUFFIX_DATE,
+      </if>
+      <if test="isdownload != null" >
+        ISDOWNLOAD,
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="fileprefixName != null" >
+        #{fileprefixName,jdbcType=VARCHAR},
+      </if>
+      <if test="filesuffixDate != null" >
+        #{filesuffixDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdownload != null" >
+        #{isdownload,jdbcType=DECIMAL},
+      </if>
+      <if test="paraName1 != null" >
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDownloadfileConfig" >
+    update LAO_DOWNLOADFILE_CONFIG
+    <set >
+      <if test="fileprefixName != null" >
+        FILEPREFIX_NAME = #{fileprefixName,jdbcType=VARCHAR},
+      </if>
+      <if test="filesuffixDate != null" >
+        FILESUFFIX_DATE = #{filesuffixDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdownload != null" >
+        ISDOWNLOAD = #{isdownload,jdbcType=DECIMAL},
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDownloadfileConfig" >
+    update LAO_DOWNLOADFILE_CONFIG
+    set FILEPREFIX_NAME = #{fileprefixName,jdbcType=VARCHAR},
+      FILESUFFIX_DATE = #{filesuffixDate,jdbcType=TIMESTAMP},
+      ISDOWNLOAD = #{isdownload,jdbcType=DECIMAL},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

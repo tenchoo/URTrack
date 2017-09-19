@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimUserGoodsExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoEsimUserGoods">
+		<result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+		<result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+		<result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+		<result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+		<result column="BINDDATE" property="binddate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+		<result column="GOODSSTATUS" property="goodsstatus" jdbcType="VARCHAR" />
+		<result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+		<result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="findOrderGoodsByUsername" resultType="java.util.Map"
+		parameterType="String">
+
+		select eg.goods_id,
+		eg.goods_name,
+		eg.goods_price,
+		eg.goods_pic,
+		eg.country_id,
+		eg.countryname,
+		eugg.iccid,
+		eugg.startdate,
+		eugg.enddate,
+		eugg.goodsstatus,
+		eugg.eid,
+		eugg.profileid,
+		eugg.curentuserstatus,
+		eugg.dpaddress
+		from lao_esim_goods eg,
+		(select eug.goods_id,
+		eu.iccid,
+		eu.eid,
+		eu.profileid,
+		eu.dpaddress,
+		eu.curentuserstatus,
+		eug.startdate,
+		eug.enddate,
+		eug.goodsstatus
+		from lao_esim_user eu, lao_esim_user_goods eug
+		where eug.user_id = eu.user_id and eu.lenovoId=#{username} ) eugg
+		where eg.goods_id = eugg.goods_id
+	</select>
+
+	<update id="updateByUserId" parameterType="com.urt.po.LaoEsimUserGoods" >
+     update LAO_ESIM_USER_GOODS
+     <set>
+        <!-- <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if> -->
+      <if test="goodsId != null" >
+        GOODS_ID=#{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startdate != null" >
+       STARTDATE=#{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null" >
+        ENDDATE=#{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="binddate != null" >
+        BINDDATE=#{binddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE=#{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE=#{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsstatus != null" >
+        GOODSSTATUS=#{goodsstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        PARAM1=#{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2=#{param2,jdbcType=VARCHAR},
+      </if>
+     </set>
+      where  USER_ID=#{userId,jdbcType=DECIMAL}
+  </update>
+</mapper>

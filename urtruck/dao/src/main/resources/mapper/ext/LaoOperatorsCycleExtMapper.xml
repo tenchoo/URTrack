@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoOperatorsCycleExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsCycle" >
+    <id column="CYC_ID" property="cycId" jdbcType="DECIMAL" />
+    <result column="ID_TYPE" property="idType" jdbcType="CHAR" />
+    <result column="ID_VALUE" property="idValue" jdbcType="VARCHAR" />
+    <result column="CYCLE_DAY" property="cycleDay" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="MONTH_ACCT_STATUS" property="monthAcctStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CYC_ID, ID_TYPE, ID_VALUE, CYCLE_DAY, START_DATE, END_DATE, UPDATE_TIME, UPDATE_ACCOUNT_ID, 
+    REMARK, MONTH_ACCT_STATUS
+  </sql>
+  
+  <update id="updateCycle" parameterType="com.urt.po.LaoOperatorsCycle" >
+    update LAO_OPERATORS_CYCLE
+      set
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+     
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+     
+        UPDATE_TIME = now()
+     
+    where ID_VALUE = #{idValue,jdbcType=VARCHAR}
+    and ID_TYPE = #{idType,jdbcType=CHAR}
+    and CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </update>
+  <select id="getOperatorsCycle" resultMap="BaseResultMap" >
+  	select * from LAO_OPERATORS_CYCLE 
+  	where  ID_VALUE = #{idValue,jdbcType=VARCHAR}
+    and ID_TYPE = #{idType,jdbcType=CHAR}
+    and CYC_ID = #{cycId,jdbcType=DECIMAL}
+  </select>
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.GoodsOrderExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUser" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="SCORE_VALUE" property="scoreValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_CLASS" property="creditClass" jdbcType="DECIMAL" />
+    <result column="BASIC_CREDIT_VALUE" property="basicCreditValue" jdbcType="DECIMAL" />
+    <result column="CREDIT_VALUE" property="creditValue" jdbcType="DECIMAL" />
+    <result column="ACCT_TAG" property="acctTag" jdbcType="CHAR" />
+    <result column="PREPAY_TAG" property="prepayTag" jdbcType="CHAR" />
+    <result column="IN_DATE" property="inDate" jdbcType="TIMESTAMP" />
+    <result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" />
+    <result column="REMOVE_TAG" property="removeTag" jdbcType="CHAR" />
+    <result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+    <result column="PRE_DESTROY_TIME" property="preDestroyTime" jdbcType="TIMESTAMP" />
+    <result column="FIRST_CALL_TIME" property="firstCallTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_STOP_TIME" property="lastStopTime" jdbcType="TIMESTAMP" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+    <result column="STATUS_CODE" property="statusCode" jdbcType="VARCHAR" />
+    <result column="ALIVE_CHECK_TIME" property="aliveCheckTime" jdbcType="DECIMAL" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="STATE_CODE" property="stateCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="GoodsResultMap" type="com.urt.po.Goods" >
+    <id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="VARCHAR" />
+    <result column="GOODS_PRICES" property="goodsPrices" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, CHANNEL_CUST_ID, CUST_ID, OPERATORS_ID,
+    ICCID, STATE_CODE
+  </sql>
+
+   <!--select id="queryLaoUser" resultMap="BaseResultMap">
+	    select <include refid="Base_Column_List" /> from LAO_USER
+   </select-->
+   
+   <select id="queryLaoUser" resultType="com.urt.po.LaoUser">
+	select USER_ID as userId,
+	       CHANNEL_CUST_ID as channelCustId,
+	       (select cust_name
+	          from LAO_CUST_GROUP c
+	         where c.cust_id = u.CHANNEL_CUST_ID) as channelCustName,
+	       CUST_ID as custId,
+	       (select cust_name from LAO_CUST_PERSON a where a.cust_id = u.CUST_ID) as custName,
+	       OPERATORS_ID as operatorsId,
+	       (select operators_name
+	          from LAO_OPERATORS o
+	         where o.operators_id = u.OPERATORS_ID) as operatorsName,
+	       ICCID as iccid,
+	       STATE_CODE as stateCode
+	  from LAO_USER u 
+   </select>
+   
+   <select id="queryLaoUserCon" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    select 
+	    USER_ID as userId,
+        CHANNEL_CUST_ID as channelCustId,
+        (select cust_name from LAO_CUST_GROUP b where b.cust_id = uu.CHANNEL_CUST_ID) as channelCustName,
+        CUST_ID as custId,
+        (select cust_name from LAO_CUST_PERSON a where a.cust_id = uu.CUST_ID) as custName,
+        uu.OPERATORS_ID as operatorsId,
+        (select operators_name from LAO_OPERATORS oo where oo.operators_id = uu.OPERATORS_ID) as operatorsName,
+        ICCID as iccid,
+        STATE_CODE as stateCode
+	    from LAO_USER uu
+	    <where>
+	    	<if test="custId!=null and custId!=''">
+<!-- 	    		channel_cust_id like CONCAT(CONCAT('%', #{custId}),'%')
+ -->	    		channel_cust_id = #{custId}
+	    	</if>
+	    	<if test="operatorsId!=null and operatorsId!=''">
+<!-- 	    		and operators_id like CONCAT(CONCAT('%',#{operatorsId}),'%')
+ -->	    		and operators_id = #{operatorsId}
+	    	</if>
+	    	<if test="iccid!=null and iccid!=''">
+<!-- 	    		and iccid like CONCAT(CONCAT('%',#{iccid}),'%')
+ -->	    		and iccid = #{iccid}
+	    	</if>
+	    	<if test="value1!=null and value1!=''">
+<!-- 	    		and value1 like CONCAT(CONCAT('%',#{value1}),'%')
+ -->	    		and value1 like = #{value1}
+	    	</if>
+	    	<if test="value2!=null and value2!=''">
+<!-- 	    		and value2 like CONCAT(CONCAT('%',#{value2}),'%')
+ -->	    		and value2 = #{value2}
+	    	</if>
+	    </where>	
+   </select>
+   
+   <select id="queryLaoGoods" resultType="com.urt.po.Goods" parameterType="java.util.Map" >
+	    select g.goods_id as goodsId,g.goods_name as goodsName,g.goods_desc as goodsDesc,g.goods_pic as goodsPic,g.operators_id as operatorsId,
+	    (select operators_name from LAO_OPERATORS oo where g.operators_id = oo.operators_id) as operatorsName,
+	    gs.release_price as goodsPrices,gs.RELEASE_CYCLE as releaseCycle,gs.GOODS_RELEASE_ID as goodsReleaseId, gs.unit as unit
+        from lao_goods g left join lao_goods_release gs on g.goods_id = gs.goods_id	
+        <where>
+ 	    	<if test="custId!=null and custId!=''">
+	    		gs.channel_group_id = #{custId} and now() between gs.start_date and gs.end_date 
+	    	</if>
+	    	<if test="operatorsId!=null and operatorsId!=''">
+	    		and g.operators_id = #{operatorsId,jdbcType=DECIMAL}
+	    	</if>
+ 	    	<if test="value1!=null and value1!=''">
+	    		and (gs.group_attr_v1 = #{value1} or gs.group_attr_v1='')
+	    	</if>
+	    	<if test="value2!=null and value2!=''">
+	    		and (gs.group_attr_v2 = #{value2} or gs.group_attr_v2='')
+	    	</if> 
+	    	 and END_DATE > now() 
+	    </where>
+   </select>
+   
+   
+   
+   <select id="queryLaoUserByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+	 select a.* from lao_user a left join lao_ss_account b on a.cust_id = b.cust_id where b.cust_id = #{custId,jdbcType=DECIMAL}
+   </select>
+      
+      <select id="queryLaoGoodsTSP" resultType="com.urt.po.Goods" parameterType="java.util.Map" >
+	    select g.goods_id as goodsId,g.goods_name as goodsName,g.goods_desc as goodsDesc,g.goods_pic as goodsPic,g.operators_id as operatorsId,
+	    (select operators_name from LAO_OPERATORS oo where g.operators_id = oo.operators_id) as operatorsName,
+	    gs.release_price as goodsPrices,gs.RELEASE_CYCLE as releaseCycle,gs.GOODS_RELEASE_ID as goodsReleaseId, gs.unit as unit
+        from lao_goods g left join lao_goods_release gs on g.goods_id = gs.goods_id	where GOODS_TYPE != '7'
+        
+ 	    	<if test="custId!=null and custId!=''">
+	    		and gs.channel_group_id = #{custId} and now() between gs.start_date and gs.end_date 
+	    	</if>
+	    	<if test="operatorsId!=null and operatorsId!=''">
+	    		and g.operators_id = #{operatorsId,jdbcType=DECIMAL}
+	    	</if>
+ 	    	<if test="value1!=null and value1!=''">
+	    		and (gs.group_attr_v1 = #{value1} or gs.group_attr_v1='')
+	    	</if>
+	    	<if test="value2!=null and value2!=''">
+	    		and (gs.group_attr_v2 = #{value2} or gs.group_attr_v2='')
+	    	</if> 
+	    	 and END_DATE > now() 
+   </select>
+   
+    <select id="queryLaoTestGoods" resultType="com.urt.po.Goods" parameterType="java.util.Map" >
+	    select g.goods_id as goodsId,g.goods_name as goodsName,g.goods_desc as goodsDesc,g.goods_pic as goodsPic,g.operators_id as operatorsId,
+	    (select operators_name from LAO_OPERATORS oo where g.operators_id = oo.operators_id) as operatorsName,
+	    gs.release_price as goodsPrices,gs.RELEASE_CYCLE as releaseCycle,gs.GOODS_RELEASE_ID as goodsReleaseId, gs.unit as unit
+        from lao_goods g left join lao_goods_release gs on g.goods_id = gs.goods_id	where GOODS_TYPE = '7'
+
+ 	    	<if test="custId!=null and custId!=''">
+	    		and gs.channel_group_id = #{custId} and now() between gs.start_date and gs.end_date 
+	    	</if>
+	    	<if test="operatorsId!=null and operatorsId!=''">
+	    		and g.operators_id = #{operatorsId,jdbcType=DECIMAL}
+	    	</if>
+ 	    	<if test="value1!=null and value1!=''">
+	    		and (gs.group_attr_v1 = #{value1} or gs.group_attr_v1='')
+	    	</if>
+	    	<if test="value2!=null and value2!=''">
+	    		and (gs.group_attr_v2 = #{value2} or gs.group_attr_v2='')
+	    	</if> 
+	    	 and END_DATE > now() 
+   </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.FlowOperationLogExtMapper">
+ <resultMap id="BaseResultMap" type="com.urt.po.FlowOperationLog">
+    <id column="LOGID" jdbcType="DECIMAL" property="logid" />
+    <result column="FLOWORDERID" jdbcType="VARCHAR" property="floworderid" />
+    <result column="REQUESTSYSTEM" jdbcType="VARCHAR" property="requestsystem" />
+    <result column="RESPONSESYSTEM" jdbcType="VARCHAR" property="responsesystem" />
+    <result column="REQUESTPARM" jdbcType="VARCHAR" property="requestparm" />
+    <result column="RESPONSEPARM" jdbcType="VARCHAR" property="responseparm" />
+    <result column="CALLSERVER" jdbcType="VARCHAR" property="callserver" />
+    <result column="CALLTIME" jdbcType="TIMESTAMP" property="calltime" />
+    <result column="RESPCODE" jdbcType="VARCHAR" property="respcode" />
+    <result column="RESPDESC" jdbcType="VARCHAR" property="respdesc" />
+    <result column="CALLISSUCCESS" jdbcType="VARCHAR" property="callissuccess" />
+    <result column="PARANAME1" jdbcType="VARCHAR" property="paraname1" />
+    <result column="PARANAME2" jdbcType="VARCHAR" property="paraname2" />
+    <result column="STEPSTATE" jdbcType="VARCHAR" property="stepstate" />
+  </resultMap>
+  <delete id="updateResponseparm" parameterType="java.lang.String">
+   update LAO_FLOWOPERATION_LOG
+    set  RESPONSEPARM=#{responseparm,jdbcType=VARCHAR}
+    where FLOWORDERID=#{floworderid,jdbcType=VARCHAR} and STEPSTATE='4' 
+  </delete>
+ </mapper>
+  

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoDMPStrategyEditPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPStrategyEditPo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="CHANNELCUST_ID" property="channelcustId" jdbcType="DECIMAL" />
+    <result column="TARGITTYPE" property="targittype" jdbcType="VARCHAR" />
+    <result column="SCHEME_NAME" property="schemeName" jdbcType="VARCHAR" />
+    <result column="SCHEME_COMMENT" property="schemeComment" jdbcType="VARCHAR" />
+    <result column="DELFLAG" property="delflag" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CHANNELCUST_ID, TARGITTYPE, SCHEME_NAME, SCHEME_COMMENT, DELFLAG, CREATETIME, 
+    UPDATETIME
+  </sql>
+   <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select 
+ 	<include refid="Base_Column_List" />  
+ 	from lao_dmpstrategy_edit where delflag <![CDATA[<>]]> '0' 
+ 	and channelcust_id=#{params.param.channelcustId}
+ 	ORDER BY createtime desc
+  </select>
+ <select id="selectByCustId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMPSTRATEGY_EDIT
+    where DELFLAG='1' and CHANNELCUST_ID = #{custId} 
+    order by CREATETIME
+  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DMPSTRATEGY_EDIT
+    where ID = #{schemeId,jdbcType=DECIMAL}
+  </select>
+   <select id="getSchemesByGroupId" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List" />  
+   from lao_dmpstrategy_edit dse 
+   where dse.delflag='1' and dse.id in(select dsg.scheme_id from lao_dmpscheme_group dsg where dsg.group_id=#{groupId} and dsg.delflag='1')
+  </select>
+  <update id="delStrategyEdit">
+   update LAO_DMPSTRATEGY_EDIT
+   set DELFLAG = '0',UPDATETIME = now()
+   where ID = #{schemeId,jdbcType=DECIMAL}
+  </update>
+  <update id="blockUp">
+   update LAO_DMPSTRATEGY_EDIT
+   set DELFLAG = '2',UPDATETIME = now()
+   where ID = #{schemeId,jdbcType=DECIMAL}
+  </update>
+  <update id="startUsing">
+   update LAO_DMPSTRATEGY_EDIT
+   set DELFLAG = '1',UPDATETIME = now()
+   where ID = #{schemeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoCustomerNoticePoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerNoticePo">
+    <id column="NOTICEID" jdbcType="DECIMAL" property="noticeid" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="NOTICE_TYPE" jdbcType="VARCHAR" property="noticeType" />
+    <result column="NOTICE_TITLE" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="NOTICE_CONTENT" jdbcType="VARCHAR" property="noticeContent" />
+    <result column="CREATOR" jdbcType="DECIMAL" property="creator" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="NOTICEFLAG" jdbcType="DECIMAL" property="noticeflag" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="PARAMETER1" jdbcType="VARCHAR" property="parameter1" />
+    <result column="PARAMETER2" jdbcType="VARCHAR" property="parameter2" />
+    <result column="PARAMETER3" jdbcType="VARCHAR" property="parameter3" />
+    <result column="CLICK_NUMBER" jdbcType="DECIMAL" property="clickNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    NOTICEID, CHANNEL_CUST_ID, CUST_ID, USER_ID, NOTICE_TYPE, NOTICE_TITLE, NOTICE_CONTENT, 
+    CREATOR, START_TIME, NOTICEFLAG, END_TIME, CREATE_TIME, UPDATETIME, PARAMETER1, PARAMETER2, 
+    PARAMETER3, CLICK_NUMBER
+  </sql>
+  <select id="selectNotice" parameterType="long" resultType="map">
+  SELECT * from (SELECT
+	notice_title,
+	to_char (start_time, 'YYYY-MM-DD') starttime
+FROM
+	(
+		SELECT
+			notice_title,
+			start_time
+		FROM
+			lao_customer_notice
+		WHERE
+			now() BETWEEN start_time
+		AND end_time
+		AND noticeflag = 0
+		AND notice_type = 1
+	)
+UNION
+SELECT
+	notice_title,
+	to_char (start_time, 'YYYY-MM-DD') starttime
+FROM
+	(
+		SELECT
+			notice_title,
+			start_time
+		FROM
+			lao_customer_notice
+		WHERE
+			now() BETWEEN start_time
+		AND end_time
+		AND noticeflag = 0
+		AND notice_type = 2
+		<if test="_parameter != null and _parameter!=''" >
+		AND channel_cust_id =#{custId}
+		</if>
+		
+	)
+) temp  where rownum <![CDATA[<=]]> 7 ORDER BY temp.starttime DESC 
+  </select>
+  <select id="selectNoticeAll" resultType="map">
+  	select NOTICEID,notice_title,to_char(start_time,'YYYY-MM-DD') starttime from lao_customer_notice 
+  	where channel_cust_id = #{custId} order by start_time desc
+  </select>
+ <select id="queryPage" resultType="map" parameterType="map">
+ 	  	SELECT * from (SELECT
+	NOTICEID noticeId,notice_title noticeTitle,
+	to_char (start_time, 'YYYY-MM-DD') starttime
+FROM
+	(
+		SELECT
+      NOTICEID,
+			notice_title,
+			start_time
+		FROM
+			lao_customer_notice
+		WHERE
+			now() BETWEEN start_time
+		AND end_time
+		AND noticeflag = 0
+		AND notice_type = 1
+	)
+UNION
+SELECT
+  NOTICEID,
+	notice_title,
+	to_char (start_time, 'YYYY-MM-DD') starttime
+FROM
+	(
+		SELECT
+      NOTICEID,
+			notice_title,
+			start_time
+		FROM
+			lao_customer_notice
+		WHERE
+			now() BETWEEN start_time
+		AND end_time
+		AND noticeflag = 0
+		AND notice_type = 2
+		<if test="params.param.channelCustId != null and params.param.channelCustId!=''" >
+		AND channel_cust_id =#{params.param.channelCustId}
+		</if>
+	)
+) temp  ORDER BY temp.starttime DESC 
+ </select>
+ <select id="selectNoticeContent" parameterType="long" resultType="map">
+ 	select NOTICE_TITLE,NOTICE_CONTENT,to_char(START_TIME,'YYYY-MM-DD hh:mm') starttime,CLICK_NUMBER from lao_customer_notice where NOTICEID = #{noticeId}
+ </select>
+ <select id="selectClickNum" parameterType="long" resultType="Integer">
+ 	select CLICK_NUMBER from lao_customer_notice where NOTICEID=#{noticeId}
+ </select>
+ <update id="updateClickNum">
+ 	update lao_customer_notice set CLICK_NUMBER=CLICK_NUMBER+1 where NOTICEID=#{noticeId}
+ </update>
+</mapper>

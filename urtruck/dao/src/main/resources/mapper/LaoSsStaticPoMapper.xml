@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsStaticPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsStaticPo" >
+    <id column="STATIC_ID" property="staticId" jdbcType="DECIMAL" />
+    <result column="STATIC_CODE" property="staticCode" jdbcType="VARCHAR" />
+    <result column="STATIC_NAME" property="staticName" jdbcType="VARCHAR" />
+    <result column="TAB_NAME" property="tabName" jdbcType="VARCHAR" />
+    <result column="COL_NAME" property="colName" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STATIC_ID, STATIC_CODE, STATIC_NAME, TAB_NAME, COL_NAME, CUST_ID, PID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_STATIC
+    where STATIC_ID = #{staticId,jdbcType=DECIMAL}
+  </select>
+  <select id="getStaticByCustIdCode" resultMap="BaseResultMap" parameterType="com.urt.po.LaoSsStaticPo" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_STATIC where STATIC_CODE = #{staticCode} and CUST_ID=#{custId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from LAO_SS_STATIC
+    where STATIC_ID = #{staticId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsStaticPo" >
+    insert into LAO_SS_STATIC (STATIC_ID, STATIC_CODE, STATIC_NAME, 
+      TAB_NAME, COL_NAME, CUST_ID, 
+      PID)
+    values (#{staticId,jdbcType=DECIMAL}, #{staticCode,jdbcType=VARCHAR}, #{staticName,jdbcType=VARCHAR}, 
+      #{tabName,jdbcType=VARCHAR}, #{colName,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsStaticPo" >
+    insert into LAO_SS_STATIC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staticId != null" >
+        STATIC_ID,
+      </if>
+      <if test="staticCode != null" >
+        STATIC_CODE,
+      </if>
+      <if test="staticName != null" >
+        STATIC_NAME,
+      </if>
+      <if test="tabName != null" >
+        TAB_NAME,
+      </if>
+      <if test="colName != null" >
+        COL_NAME,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="pid != null" >
+        PID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staticId != null" >
+        #{staticId,jdbcType=DECIMAL},
+      </if>
+      <if test="staticCode != null" >
+        #{staticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staticName != null" >
+        #{staticName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabName != null" >
+        #{tabName,jdbcType=VARCHAR},
+      </if>
+      <if test="colName != null" >
+        #{colName,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsStaticPo" >
+    update LAO_SS_STATIC
+    <set >
+      <if test="staticCode != null" >
+        STATIC_CODE = #{staticCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staticName != null" >
+        STATIC_NAME = #{staticName,jdbcType=VARCHAR},
+      </if>
+      <if test="tabName != null" >
+        TAB_NAME = #{tabName,jdbcType=VARCHAR},
+      </if>
+      <if test="colName != null" >
+        COL_NAME = #{colName,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        PID = #{pid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where STATIC_ID = #{staticId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsStaticPo" >
+    update LAO_SS_STATIC
+    set STATIC_CODE = #{staticCode,jdbcType=VARCHAR},
+      STATIC_NAME = #{staticName,jdbcType=VARCHAR},
+      TAB_NAME = #{tabName,jdbcType=VARCHAR},
+      COL_NAME = #{colName,jdbcType=VARCHAR},
+      CUST_ID = #{custId,jdbcType=VARCHAR},
+      PID = #{pid,jdbcType=DECIMAL}
+    where STATIC_ID = #{staticId,jdbcType=DECIMAL}
+  </update>
+  <select id="queryStatic" resultType="java.util.Map" parameterType="com.urt.po.LaoSsStaticPo">
+  	select * from lao_ss_static where 1=1
+  	<if test="colName!=null">
+  		and COL_NAME=#{colName}
+  	</if>  
+  	<if test="custId!=null">
+  		and CUST_ID=#{custId}
+  	</if>  
+  	<if test="staticCode!=null">
+  		and STATIC_CODE=#{staticCode}
+  	</if>  
+  	<if test="pid!=null">
+  		and PID=#{pid}
+  	</if>  
+  </select>
+  <select id="queryStaticByClo" resultType="java.util.Map" parameterType="com.urt.po.LaoSsStaticPo">
+  	select * from lao_ss_static where 1=1 and COL_NAME=#{colName} and CUST_ID=#{custId}
+  </select>
+  <select id="queryStaticByCode" resultType="java.util.Map" parameterType="com.urt.po.LaoSsStaticPo">
+  	select * from lao_ss_static where 1=1 and STATIC_CODE=#{staticCode} and CUST_ID=#{custId}
+  </select>
+  <select id="queryStaticByParent" resultType="java.util.Map" parameterType="com.urt.po.LaoSsStaticPo">
+  	select * from lao_ss_static where 1=1 and PID=#{pid} and CUST_ID=#{custId}
+  </select>
+  <select id="queryProductTypeByCustId" resultType="java.util.Map" parameterType="java.lang.String">
+  	select * from lao_ss_static where 1=1 and COL_NAME='VALUE1' and CUST_ID=#{custId}
+  </select>
+  <select id="queryProductVersionByPid" resultType="java.util.Map" parameterType="com.urt.po.LaoSsStaticPo">
+  	select * from lao_ss_static where 1=1 and COL_NAME='VALUE2'
+  	<if test="pid != null" >
+       and PID = #{pid}
+    </if>
+  	<if test="custId != null" >
+       and CUST_ID = #{custId}
+    </if>
+  </select>
+</mapper>

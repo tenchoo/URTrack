@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoIccidAssignLibExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoIccidAssignLibPo">
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="DEVICETYPE" jdbcType="VARCHAR" property="devicetype" />
+    <result column="PRIVATEKEY" jdbcType="VARCHAR" property="privatekey" />
+    <result column="CARDTYPE" jdbcType="VARCHAR" property="cardtype" />
+    <result column="INITPRODUCT" jdbcType="VARCHAR" property="initproduct" />
+    <result column="CARDSTATUS" jdbcType="VARCHAR" property="cardstatus" />
+    <result column="OPERATORS" jdbcType="VARCHAR" property="operators" />
+    <result column="CTYPE" jdbcType="VARCHAR" property="ctype" />
+    <result column="ATTRIBUTE1" jdbcType="VARCHAR" property="attribute1" />
+    <result column="VALUE1" jdbcType="VARCHAR" property="value1" />
+    <result column="ATTRIBUTE2" jdbcType="VARCHAR" property="attribute2" />
+    <result column="VALUE2" jdbcType="VARCHAR" property="value2" />
+    <result column="IF_MAINTENANCE" jdbcType="VARCHAR" property="ifMaintenance" />
+    <result column="CUSTID" jdbcType="VARCHAR" property="custid" />
+    <result column="IN_DATE" jdbcType="TIMESTAMP" property="inDate" />
+    <result column="MSISDN" jdbcType="VARCHAR" property="msisdn" />
+    <result column="ACTIVED" jdbcType="CHAR" property="actived" />
+    <result column="BATCH_ID" jdbcType="VARCHAR" property="batchId" />
+    <result column="TEST_CYCLE" jdbcType="DECIMAL" property="testCycle" />
+    <result column="VIC" jdbcType="VARCHAR" property="vic" />
+    <result column="IMSI" jdbcType="VARCHAR" property="imsi" />
+    <result column="BUY_ORDER_NO" jdbcType="VARCHAR" property="buyOrderNo" />
+    <result column="TEST_GOODS_RLS_ID" jdbcType="DECIMAL" property="testGoodsRlsId" />
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CYCLE_STATE" jdbcType="CHAR" property="cycleState" />
+  </resultMap>
+ 	<sql id="Base_Column_List" >
+	ID, ICCID, DEVICETYPE, PRIVATEKEY, CARDTYPE, INITPRODUCT,CARDSTATUS,OPERATORS,CTYPE, 
+	ATTRIBUTE1, VALUE1, ATTRIBUTE2, VALUE2,IF_MAINTENANCE, CUSTID,IN_DATE, MSISDN,ACTIVED, BATCH_ID, TEST_CYCLE,
+	VIC, IMSI, BUY_ORDER_NO, TEST_GOODS_RLS_ID, CYCLE_STATE
+  </sql>
+	<select id="selectDetailByPage" resultMap="BaseResultMap" parameterType="map" >
+		select  
+		<include refid="Base_Column_List" />
+		from LAO_ICCID_ASSIGN_LIB
+		where 1 = 1
+	    <if test="params.param.batchId != null and params.param.batchId!=''" >
+	    	and  BATCH_ID= #{params.param.batchId} 
+	    </if>
+	    
+  </select>
+	 <insert id="insertSelective" parameterType="java.util.List">
+    insert into LAO_ICCID_ASSIGN_LIB (ICCID, DEVICETYPE, PRIVATEKEY, 
+      CARDTYPE, INITPRODUCT, CARDSTATUS, 
+      OPERATORS, CTYPE, ATTRIBUTE1, 
+      VALUE1, ATTRIBUTE2, VALUE2, 
+      IF_MAINTENANCE, CUSTID, IN_DATE, 
+      MSISDN, ACTIVED, BATCH_ID, 
+      TEST_CYCLE, VIC, IMSI, 
+      BUY_ORDER_NO, TEST_GOODS_RLS_ID, ID, 
+      CYCLE_STATE)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+     (#{item.iccid,jdbcType=VARCHAR}, #{item.devicetype,jdbcType=VARCHAR}, #{item.privatekey,jdbcType=VARCHAR}, 
+      #{item.cardtype,jdbcType=VARCHAR}, #{item.initproduct,jdbcType=VARCHAR}, #{item.cardstatus,jdbcType=VARCHAR}, 
+      #{item.operators,jdbcType=VARCHAR}, #{item.ctype,jdbcType=VARCHAR}, #{item.attribute1,jdbcType=VARCHAR}, 
+      #{item.value1,jdbcType=VARCHAR}, #{item.attribute2,jdbcType=VARCHAR}, #{item.value2,jdbcType=VARCHAR}, 
+      #{item.ifMaintenance,jdbcType=VARCHAR}, #{item.custid,jdbcType=VARCHAR}, #{item.inDate,jdbcType=TIMESTAMP}, 
+      #{item.msisdn,jdbcType=VARCHAR}, #{item.actived,jdbcType=CHAR}, #{item.batchId,jdbcType=VARCHAR}, 
+      #{item.testCycle,jdbcType=DECIMAL}, #{item.vic,jdbcType=VARCHAR}, #{item.imsi,jdbcType=VARCHAR}, 
+      #{item.buyOrderNo,jdbcType=VARCHAR}, #{item.testGoodsRlsId,jdbcType=DECIMAL}, #{item.id,jdbcType=DECIMAL}, 
+      #{item.cycleState,jdbcType=CHAR})
+    </foreach>
+  </insert>
+ 
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoCustomerNoticePoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustomerNoticePo">
+    <id column="NOTICEID" jdbcType="DECIMAL" property="noticeid" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="NOTICE_TYPE" jdbcType="VARCHAR" property="noticeType" />
+    <result column="NOTICE_TITLE" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="NOTICE_CONTENT" jdbcType="VARCHAR" property="noticeContent" />
+    <result column="CREATOR" jdbcType="DECIMAL" property="creator" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="NOTICEFLAG" jdbcType="DECIMAL" property="noticeflag" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="PARAMETER1" jdbcType="VARCHAR" property="parameter1" />
+    <result column="PARAMETER2" jdbcType="VARCHAR" property="parameter2" />
+    <result column="PARAMETER3" jdbcType="VARCHAR" property="parameter3" />
+    <result column="CLICK_NUMBER" jdbcType="DECIMAL" property="clickNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    NOTICEID, CHANNEL_CUST_ID, CUST_ID, USER_ID, NOTICE_TYPE, NOTICE_TITLE, NOTICE_CONTENT, 
+    CREATOR, START_TIME, NOTICEFLAG, END_TIME, CREATE_TIME, UPDATETIME, PARAMETER1, PARAMETER2, 
+    PARAMETER3, CLICK_NUMBER
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_CUSTOMER_NOTICE
+    where NOTICEID = #{noticeid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_CUSTOMER_NOTICE
+    where NOTICEID = #{noticeid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoCustomerNoticePo">
+    insert into LAO_CUSTOMER_NOTICE (NOTICEID, CHANNEL_CUST_ID, CUST_ID, 
+      USER_ID, NOTICE_TYPE, NOTICE_TITLE, 
+      NOTICE_CONTENT, CREATOR, START_TIME, 
+      NOTICEFLAG, END_TIME, CREATE_TIME, 
+      UPDATETIME, PARAMETER1, PARAMETER2, 
+      PARAMETER3, CLICK_NUMBER)
+    values (#{noticeid,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=DECIMAL}, #{noticeType,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, 
+      #{noticeContent,jdbcType=VARCHAR}, #{creator,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{noticeflag,jdbcType=DECIMAL}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{parameter1,jdbcType=VARCHAR}, #{parameter2,jdbcType=VARCHAR}, 
+      #{parameter3,jdbcType=VARCHAR}, #{clickNumber,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoCustomerNoticePo">
+    insert into LAO_CUSTOMER_NOTICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        NOTICEID,
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="noticeType != null">
+        NOTICE_TYPE,
+      </if>
+      <if test="noticeTitle != null">
+        NOTICE_TITLE,
+      </if>
+      <if test="noticeContent != null">
+        NOTICE_CONTENT,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="noticeflag != null">
+        NOTICEFLAG,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+      <if test="parameter1 != null">
+        PARAMETER1,
+      </if>
+      <if test="parameter2 != null">
+        PARAMETER2,
+      </if>
+      <if test="parameter3 != null">
+        PARAMETER3,
+      </if>
+      <if test="clickNumber != null">
+        CLICK_NUMBER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        #{noticeid,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null">
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeflag != null">
+        #{noticeflag,jdbcType=DECIMAL},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null">
+        #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null">
+        #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null">
+        #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNumber != null">
+        #{clickNumber,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoCustomerNoticePo">
+    update LAO_CUSTOMER_NOTICE
+    <set>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeType != null">
+        NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null">
+        NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null">
+        NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeflag != null">
+        NOTICEFLAG = #{noticeflag,jdbcType=DECIMAL},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parameter1 != null">
+        PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter2 != null">
+        PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter3 != null">
+        PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNumber != null">
+        CLICK_NUMBER = #{clickNumber,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where NOTICEID = #{noticeid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoCustomerNoticePo">
+    update LAO_CUSTOMER_NOTICE
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      NOTICE_CONTENT = #{noticeContent,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=DECIMAL},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      NOTICEFLAG = #{noticeflag,jdbcType=DECIMAL},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      PARAMETER1 = #{parameter1,jdbcType=VARCHAR},
+      PARAMETER2 = #{parameter2,jdbcType=VARCHAR},
+      PARAMETER3 = #{parameter3,jdbcType=VARCHAR},
+      CLICK_NUMBER = #{clickNumber,jdbcType=DECIMAL}
+    where NOTICEID = #{noticeid,jdbcType=DECIMAL}
+  </update>
+</mapper>

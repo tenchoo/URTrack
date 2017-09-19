@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoSsRoleNavigationPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsRoleNavigationPo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <id column="NAVIGATION_ID" property="navigationId" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="queryListByRoleId" parameterType="Long" resultMap="BaseResultMap">
+  	select *
+    from LAO_SS_ROLE_NAVIGATION
+	where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteRoleNavigationByRoleId" parameterType="Long" >
+    delete from LAO_SS_ROLE_NAVIGATION
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </delete>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoEsimDetailExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimDetail">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="LENOVOID" jdbcType="VARCHAR" property="lenovoid" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="STARTSURPLUSFLOW" jdbcType="VARCHAR" property="startsurplusflow" />
+    <result column="ENDSURPLUSFLOW" jdbcType="VARCHAR" property="endsurplusflow" />
+    <result column="CURRENTUSEFLOW" jdbcType="VARCHAR" property="currentuseflow" />
+    <result column="OPERATORS" jdbcType="VARCHAR" property="operators" />
+    <result column="CURRENTISUSETAG" jdbcType="VARCHAR" property="currentisusetag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, LENOVOID, IMEI, STARTDATE, ENDDATE, ICCID, STARTSURPLUSFLOW, ENDSURPLUSFLOW, 
+    CURRENTUSEFLOW, OPERATORS, CURRENTISUSETAG
+  </sql>
+  <select id="getEsimDetails" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_DETAIL
+    where LENOVOID = #{lenovoId,jdbcType=VARCHAR} and IMEI=#{imei,jdbcType=VARCHAR} and CURRENTISUSETAG='0'
+    order by startdate desc 
+  </select>
+  <select id="getEsimDetailsOnly" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+   from LAO_ESIM_DETAIL   where LENOVOID = #{lenovoId,jdbcType=VARCHAR} and IMEI=#{imei,jdbcType=VARCHAR} and currentisusetag='0' and rownum=1 order by startdate desc  
+  </select>
+  <update id="updateRemainData">
+    uadate LAO_ESIM_DETAIL 
+    set ENDSURPLUSFLOW=#{remainData,jdbcType=VARCHAR},
+        CURRENTUSEFLOW=to_char(to_number(STARTSURPLUSFLOW)-to_number(#{remainData,jdbcType=VARCHAR})),
+        CURRENTISUSETAG='0'
+    where  ICCID=#{iccid,jdbcType=VARCHAR} and CURRENTISUSETAG='1'
+  </update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoPicturesPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoPicturesPo" >
+    <id column="PIC_ID" property="picId" jdbcType="DECIMAL" />
+    <result column="PIC_NAME" property="picName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.urt.po.LaoPicturesPo" extends="BaseResultMap" >
+    <result column="PIC_CONTENT" property="picContent" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PIC_ID, PIC_NAME, REMARK
+  </sql>
+  <sql id="Blob_Column_List" >
+    PIC_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from LAO_PICTURES
+    where PIC_ID = #{picId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_PICTURES
+    where PIC_ID = #{picId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoPicturesPo" >
+    insert into LAO_PICTURES (PIC_ID, PIC_NAME, REMARK, 
+      PIC_CONTENT)
+    values (#{picId,jdbcType=DECIMAL}, #{picName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{picContent,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoPicturesPo" >
+    insert into LAO_PICTURES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        PIC_ID,
+      </if>
+      <if test="picName != null" >
+        PIC_NAME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="picContent != null" >
+        PIC_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="picId != null" >
+        #{picId,jdbcType=DECIMAL},
+      </if>
+      <if test="picName != null" >
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picContent != null" >
+        #{picContent,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoPicturesPo" >
+    update LAO_PICTURES
+    <set >
+      <if test="picName != null" >
+        PIC_NAME = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picContent != null" >
+        PIC_CONTENT = #{picContent,jdbcType=BLOB},
+      </if>
+    </set>
+    where PIC_ID = #{picId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.urt.po.LaoPicturesPo" >
+    update LAO_PICTURES
+    set PIC_NAME = #{picName,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      PIC_CONTENT = #{picContent,jdbcType=BLOB}
+    where PIC_ID = #{picId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoPicturesPo" >
+    update LAO_PICTURES
+    set PIC_NAME = #{picName,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where PIC_ID = #{picId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoDCommparaPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDCommparaPo" >
+    <id column="PARA_ID" property="paraId" jdbcType="DECIMAL" />
+    <result column="PARA_NAME" property="paraName" jdbcType="VARCHAR" />
+    <result column="PARA_TYPE" property="paraType" jdbcType="VARCHAR" />
+    <result column="PARA_CODE" property="paraCode" jdbcType="VARCHAR" />
+    <result column="PARA_CODE1" property="paraCode1" jdbcType="VARCHAR" />
+    <result column="PARA_CODE2" property="paraCode2" jdbcType="VARCHAR" />
+    <result column="PARA_CODE3" property="paraCode3" jdbcType="VARCHAR" />
+    <result column="PARA_CODE4" property="paraCode4" jdbcType="VARCHAR" />
+    <result column="PARA_CODE5" property="paraCode5" jdbcType="VARCHAR" />
+    <result column="PARA_CODE6" property="paraCode6" jdbcType="VARCHAR" />
+    <result column="USE_TAG" property="useTag" jdbcType="CHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PARA_ID, PARA_NAME, PARA_TYPE, PARA_CODE, PARA_CODE1, PARA_CODE2, PARA_CODE3, PARA_CODE4, 
+    PARA_CODE5, PARA_CODE6, USE_TAG, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_COMMPARA
+    where PARA_ID = #{paraId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_D_COMMPARA
+    where PARA_ID = #{paraId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoDCommparaPo" >
+    insert into LAO_D_COMMPARA (PARA_ID, PARA_NAME, PARA_TYPE, 
+      PARA_CODE, PARA_CODE1, PARA_CODE2, 
+      PARA_CODE3, PARA_CODE4, PARA_CODE5, 
+      PARA_CODE6, USE_TAG, REMARK
+      )
+    values (#{paraId,jdbcType=DECIMAL}, #{paraName,jdbcType=VARCHAR}, #{paraType,jdbcType=VARCHAR}, 
+      #{paraCode,jdbcType=VARCHAR}, #{paraCode1,jdbcType=VARCHAR}, #{paraCode2,jdbcType=VARCHAR}, 
+      #{paraCode3,jdbcType=VARCHAR}, #{paraCode4,jdbcType=VARCHAR}, #{paraCode5,jdbcType=VARCHAR}, 
+      #{paraCode6,jdbcType=VARCHAR}, #{useTag,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDCommparaPo" >
+    insert into LAO_D_COMMPARA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paraId != null" >
+        PARA_ID,
+      </if>
+      <if test="paraName != null" >
+        PARA_NAME,
+      </if>
+      <if test="paraType != null" >
+        PARA_TYPE,
+      </if>
+      <if test="paraCode != null" >
+        PARA_CODE,
+      </if>
+      <if test="paraCode1 != null" >
+        PARA_CODE1,
+      </if>
+      <if test="paraCode2 != null" >
+        PARA_CODE2,
+      </if>
+      <if test="paraCode3 != null" >
+        PARA_CODE3,
+      </if>
+      <if test="paraCode4 != null" >
+        PARA_CODE4,
+      </if>
+      <if test="paraCode5 != null" >
+        PARA_CODE5,
+      </if>
+      <if test="paraCode6 != null" >
+        PARA_CODE6,
+      </if>
+      <if test="useTag != null" >
+        USE_TAG,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paraId != null" >
+        #{paraId,jdbcType=DECIMAL},
+      </if>
+      <if test="paraName != null" >
+        #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="paraType != null" >
+        #{paraType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode != null" >
+        #{paraCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode1 != null" >
+        #{paraCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode2 != null" >
+        #{paraCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode3 != null" >
+        #{paraCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode4 != null" >
+        #{paraCode4,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode5 != null" >
+        #{paraCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode6 != null" >
+        #{paraCode6,jdbcType=VARCHAR},
+      </if>
+      <if test="useTag != null" >
+        #{useTag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoDCommparaPo" >
+    update LAO_D_COMMPARA
+    <set >
+      <if test="paraName != null" >
+        PARA_NAME = #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="paraType != null" >
+        PARA_TYPE = #{paraType,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode != null" >
+        PARA_CODE = #{paraCode,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode1 != null" >
+        PARA_CODE1 = #{paraCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode2 != null" >
+        PARA_CODE2 = #{paraCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode3 != null" >
+        PARA_CODE3 = #{paraCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode4 != null" >
+        PARA_CODE4 = #{paraCode4,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode5 != null" >
+        PARA_CODE5 = #{paraCode5,jdbcType=VARCHAR},
+      </if>
+      <if test="paraCode6 != null" >
+        PARA_CODE6 = #{paraCode6,jdbcType=VARCHAR},
+      </if>
+      <if test="useTag != null" >
+        USE_TAG = #{useTag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PARA_ID = #{paraId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoDCommparaPo" >
+    update LAO_D_COMMPARA
+    set PARA_NAME = #{paraName,jdbcType=VARCHAR},
+      PARA_TYPE = #{paraType,jdbcType=VARCHAR},
+      PARA_CODE = #{paraCode,jdbcType=VARCHAR},
+      PARA_CODE1 = #{paraCode1,jdbcType=VARCHAR},
+      PARA_CODE2 = #{paraCode2,jdbcType=VARCHAR},
+      PARA_CODE3 = #{paraCode3,jdbcType=VARCHAR},
+      PARA_CODE4 = #{paraCode4,jdbcType=VARCHAR},
+      PARA_CODE5 = #{paraCode5,jdbcType=VARCHAR},
+      PARA_CODE6 = #{paraCode6,jdbcType=VARCHAR},
+      USE_TAG = #{useTag,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where PARA_ID = #{paraId,jdbcType=DECIMAL}
+  </update>
+</mapper>

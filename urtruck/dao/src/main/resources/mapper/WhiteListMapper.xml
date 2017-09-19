@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.WhiteListMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.WhiteList">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="CELL" jdbcType="VARCHAR" property="cell" />
+    <result column="WTYPE" jdbcType="DECIMAL" property="wtype" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="MODIFYDATE" jdbcType="TIMESTAMP" property="modifydate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.WhiteList">
+    insert into LAO_WHITELIST (ID, CELL, WTYPE, 
+      CREATEDATE, MODIFYDATE)
+    values (#{id,jdbcType=DECIMAL}, #{cell,jdbcType=VARCHAR}, #{wtype,jdbcType=DECIMAL}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP})
+  </insert>
+  <!--条件查询 -->
+   <select id="doQueryCount" resultType="java.lang.Integer">
+ 	select count(id) from LAO_WHITELIST where cell = #{cell} and wtype = #{type}
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.urt.po.WhiteList">
+    insert into LAO_WHITELIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="cell != null">
+        CELL,
+      </if>
+      <if test="wtype != null">
+        WTYPE,
+      </if>
+      <if test="createdate != null">
+        CREATEDATE,
+      </if>
+      <if test="modifydate != null">
+        MODIFYDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="cell != null">
+        #{cell,jdbcType=VARCHAR},
+      </if>
+      <if test="wtype != null">
+        #{wtype,jdbcType=DECIMAL},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

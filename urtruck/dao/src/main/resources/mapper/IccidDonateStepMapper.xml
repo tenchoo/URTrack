@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.IccidDonateStepMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.IccidDonateStep">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="STEPID" jdbcType="VARCHAR" property="stepid" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="PLAN" jdbcType="VARCHAR" property="plan" />
+    <result column="TOTALFLOWSIZE" jdbcType="VARCHAR" property="totalflowsize" />
+    <result column="TOTALSTEP" jdbcType="DECIMAL" property="totalstep" />
+    <result column="CURRENTSTEP" jdbcType="DECIMAL" property="currentstep" />
+    <result column="REMAINSTEP" jdbcType="DECIMAL" property="remainstep" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <!--条件查询-->
+  <select id="doQueryFirst" resultMap="BaseResultMap">
+ 	select 
+    *
+    from LAO_ICCID_DONATE_STEP 
+    where iccid=#{iccid} and userId=#{userId} and ROWNUM=1
+  </select>
+  <!-- 根据id更新 -->
+   <update id="update" parameterType="com.urt.po.IccidDonateStep">
+    update LAO_ICCID_DONATE_STEP
+    set STEPID = #{stepid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      PLAN = #{plan,jdbcType=VARCHAR},
+      TOTALFLOWSIZE = #{totalflowsize,jdbcType=VARCHAR},
+      TOTALSTEP = #{totalstep,jdbcType=DECIMAL},
+      CURRENTSTEP = #{currentstep,jdbcType=DECIMAL},
+      REMAINSTEP = #{remainstep,jdbcType=DECIMAL}, 
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <insert id="insert" parameterType="com.urt.po.IccidDonateStep">
+    insert into LAO_ICCID_DONATE_STEP (ID, STEPID, USERID, 
+      ICCID, PLAN, TOTALFLOWSIZE, 
+      TOTALSTEP, CURRENTSTEP, REMAINSTEP, 
+      CREATETIME, UPDATETIME)
+    values (LAO_ICCID_DONATE_STEP_ID_SEQ.nextval, #{stepid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{plan,jdbcType=VARCHAR}, #{totalflowsize,jdbcType=VARCHAR}, 
+      #{totalstep,jdbcType=DECIMAL}, #{currentstep,jdbcType=DECIMAL}, #{remainstep,jdbcType=DECIMAL}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.urt.po.IccidDonateStep">
+    insert into LAO_ICCID_DONATE_STEP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="stepid != null">
+        STEPID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="plan != null">
+        PLAN,
+      </if>
+      <if test="totalflowsize != null">
+        TOTALFLOWSIZE,
+      </if>
+      <if test="totalstep != null">
+        TOTALSTEP,
+      </if>
+      <if test="currentstep != null">
+        CURRENTSTEP,
+      </if>
+      <if test="remainstep != null">
+        REMAINSTEP,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="stepid != null">
+        #{stepid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="plan != null">
+        #{plan,jdbcType=VARCHAR},
+      </if>
+      <if test="totalflowsize != null">
+        #{totalflowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="totalstep != null">
+        #{totalstep,jdbcType=DECIMAL},
+      </if>
+      <if test="currentstep != null">
+        #{currentstep,jdbcType=DECIMAL},
+      </if>
+      <if test="remainstep != null">
+        #{remainstep,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

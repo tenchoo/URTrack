@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoEsimGoodsExtMapper">
+	<resultMap id="BaseResultMap" type="com.urt.po.LaoEsimGoods">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+		<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+		<result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR" />
+		<result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+		<result column="ISPUBLIC" property="ispublic" jdbcType="DECIMAL" />
+		<result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+		<result column="COUNTRYNAME" property="countryname" jdbcType="VARCHAR" />
+		<result column="GOODS_CYCLE" property="goodsCycle" jdbcType="VARCHAR" />
+		<result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+		<result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, GOODS_ID, GOODS_NAME, GOODS_PRICE, GOODS_PIC, CREATEDATE, GOODS_TYPE,
+		ISPUBLIC,
+		COUNTRY_ID, COUNTRYNAME, GOODS_CYCLE, PARAM1, PARAM2
+	</sql>
+	<select id="queryGoods" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_ESIM_GOODS
+		where ISPUBLIC = 0
+	</select>
+	<select id="findGoodByGoodsId" resultMap="BaseResultMap"
+		parameterType="Long">
+		select
+		<include refid="Base_Column_List" />
+		from LAO_ESIM_GOODS
+		where ISPUBLIC = 0 and GOODS_ID=#{goodsId,jdbcType=DECIMAL}
+	</select>
+	<select id="findGoodsByUsername" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from lao_esim_goods gr
+		where gr.goods_id = (select g.goods_id
+		from lao_esim_user eu, lao_esim_user_goods g
+		where eu.user_id = g.user_id and eu.lenovoid=#{username})
+	</select>
+
+
+
+</mapper>

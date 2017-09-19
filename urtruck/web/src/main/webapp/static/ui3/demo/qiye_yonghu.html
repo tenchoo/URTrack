@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>企业用户首页</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/unit/Chart.js"></script>
+</head>
+<body class="add_bg">
+	<div class="wrap_header">
+		<div class="header">
+			<span class="welcome">欢迎您访问联想懂的上网！</span>
+			<div class="user_info">
+				<p><span class="user">你好，XXXXXX个人用户！</span><a href="">[安全退出]</a><span class="question">常见问题<em><img src="images/sj_icon.png"></em></span></p>
+				<div class="answer_wrap">
+					<span class="square fix"></span>
+					<div class="answer">
+						<ul>
+							<li><a href="">什么问题1</a></li>
+							<li><a href="">什么问题2</a></li>
+							<li><a href="">什么问题3</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="logo2"><img src="images/logo2.png" alt=""></div>
+		<div class="nav">
+			<ul>
+				<li><a href="">首页</a></li>
+				<li><a href="">SIM卡管理</a></li>
+				<li><a href="">流量池管理</a></li>
+				<li><a href="">异常告警</a></li>
+				<li><a href="">账户管理</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="container">
+			<!-- 加载内容放这里 -->
+			<div class="model_q whole" style="margin-top:30px;">
+				<h3><span>整体情况</span></h3>
+				<div class="disk">
+					<!-- <canvas id="canvas" height="172" width="172"></canvas> -->
+					<div id="echartsPie" style="width:222px;height:222px"></div>
+					<span class="disk_title">运营商</span>
+					<!-- <div class="d">电信</div>
+					<div class="l">联通</div>
+					<div class="y">移动</div> -->
+					<p><i></i>移动：4034</p>
+					<p><i></i>联通：4034</p>
+					<p><i></i>电信：4034</p>
+					<script type="text/javascript" src="js/unit/echarts.min.js"></script>
+					<script>
+					var option = {
+						    // tooltip: {
+						    //     trigger: 'item',
+						    //     formatter: "{a} <br/>{b}: {c} ({d}%)"
+						    // },
+						    color:['#4bceff','#009e96','#0194ff'],
+						    legend: {
+						        orient: 'vertical',
+						        x: 'left'
+						    },
+						    series: [
+						        {
+						            name:'访问来源',
+						            type:'pie',
+						            selectedMode: 'single',
+						            radius: [0, '30%'],
+
+						            label: {
+						                normal: {
+						                    position: 'inner'
+						                }
+						            },
+						            labelLine: {
+						                normal: {
+						                    show: false
+						                }
+						            }
+						        },
+						        {
+						            name:'访问来源',
+						            type:'pie',
+						            radius: ['25%', '55%'],
+
+						            data:[
+						                {value:335, name:'联通'},
+						                {value:310, name:'移动'},
+						                {value:234, name:'电信'}
+						            ]
+						        }
+						    ]
+						};
+						var myDoughnut = echarts.init(document.getElementById("echartsPie"))
+							myDoughnut.setOption(option);
+					</script>
+				</div>
+				<div class="disk_line">
+					<p>SIM卡基本状态</p>
+					<canvas id="canvas4" height="135px" width="434px"></canvas>
+					<script type="text/javascript">
+						var barChartData = {
+							labels : ["待激活","在网","停机"],
+							datasets : [
+								{
+									fillColor : "rgba(86,209,255,1)",
+									data : [200,59,90]
+								},
+								{
+									fillColor : "rgba(8,151,255,1)",
+									data : [28,48,40]
+								},
+								{
+									fillColor : "rgba(8,161,153,1)",
+									data : [96,27,100]
+								}
+							]
+							
+						}
+
+						var myLine = new Chart(document.getElementById("canvas4").getContext("2d")).Bar(barChartData);
+					</script>
+				</div>
+			</div>
+			<div class="model_q survey" style="margin-top:30px;">
+				<h3><span>信息概况</span><em>自定义视图</em></h3>
+				<div class="m_l">
+					<span><i></i><em>总连接数</em></span>
+					<p>40000000035</p>
+				</div>
+				<div class="m_l">
+					<span><i></i><em>环比</em></span>
+					<p>20%</p>
+				</div>
+				<div class="m_l">
+					<span><i></i><em>本月新增</em></span>
+					<p>7400035</p>
+				</div>
+			</div>
+			<div class="article_wrap">
+				<div class="model_q whole">
+					<h3><span>本月情况</span></h3>
+					<div class="disk">
+						<div id="echartsPie2" style="width:280px;height:220px"></div>
+						<span class="disk_title disk_title2">本月<br/>产品订购</span>
+						<p><i></i><span>1G</span> 1个月到期</p>
+						<p><i></i><span>200M</span> 1个月到期</p>
+						<p><i></i><span>30M</span> 1个月到期</p>
+						<script>
+						var option = {
+							    // tooltip: {
+							    //     trigger: 'item',
+							    //     formatter: "{a} <br/>{b}: {c} ({d}%)"
+							    // },
+							     color:['#4bceff','#009e96','#0194ff'],
+							    legend: {
+							        orient: 'vertical',
+							        x: 'left'
+							    },
+							    series: [
+							        {
+							            name:'访问来源',
+							            type:'pie',
+							            selectedMode: 'single',
+							            radius: [0, '30%'],
+
+							            label: {
+							                normal: {
+							                    position: 'inner'
+							                }
+							            },
+							            labelLine: {
+							                normal: {
+							                    show: false
+							                }
+							            }
+							        },
+							        {
+							            name:'访问来源',
+							            type:'pie',
+							            radius: ['25%', '40%'],
+
+							            data:[
+							                {value:335, name:'1G 29120'},
+							                {value:310, name:'200M 291'},
+							                {value:234, name:'30M 20'}
+							            ]
+							        }
+							    ]
+							};
+							var myDoughnut = echarts.init(document.getElementById("echartsPie2"))
+								myDoughnut.setOption(option);
+						</script>
+					</div>
+					<div class="disk_line">
+					  	<p>近15天流量使用统计</p>
+						<canvas id="canvas3" height="135px" width="414px"></canvas>
+						<script type="text/javascript">
+					         var lineChartData = {
+					         	//折线图需要为每个数据点设置一标签。这是显示在X轴上
+								labels : ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],
+								//数据集（y轴数据范围随数据集合中的data中的最大或最小数据而动态改变的）
+								datasets : [
+									{
+										// 颜色的使用类似于CSS，你也可以使用RGB、HEX或者HSL
+					　　　　　　　　　　// rgba颜色中最后一个值代表透明度
+					　　　　　　　　　　// 填充颜色
+										fillColor : "rgba(1,148,255,0.1)",
+										// 线的颜色
+										strokeColor : "rgba(1,148,255,1)",
+										// 点的填充颜色
+										pointColor : "rgba(255,255,255,1)",
+										// 点的边线颜色
+										pointStrokeColor : "rgba(1,148,255,1)",
+										// 与x轴标示对应的数据
+										data : [0,15,82,12,300,2,8,32,65,59,500,81,56,500,40]
+									}
+								]
+							};
+							
+							var myLine = new Chart(document.getElementById("canvas3").getContext("2d")).Line(lineChartData);
+					    </script>
+				    </div>
+				</div>
+				<div class="model_q survey survey_list">
+					<img src="images/ul_icon.png">
+					<h3><span>重要通知</span><em style="background:none">查看更多</em></h3>
+					<ul>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+						<li>平台维护时间更新<span>017-05-12</span></li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>	
+	    </div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsResourcePoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsResourcePo" >
+    <id column="RESOURCE_ID" property="resourceId" jdbcType="DECIMAL" />
+    <result column="RES_CODE" property="resCode" jdbcType="VARCHAR" />
+    <result column="RES_NAME" property="resName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESOURCE_ID, RES_CODE, RES_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_RESOURCE
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_SS_RESOURCE
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsResourcePo" >
+    insert into LAO_SS_RESOURCE (RESOURCE_ID, RES_CODE, RES_NAME
+      )
+    values (#{resourceId,jdbcType=DECIMAL}, #{resCode,jdbcType=VARCHAR}, #{resName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsResourcePo" >
+    insert into LAO_SS_RESOURCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="resCode != null" >
+        RES_CODE,
+      </if>
+      <if test="resName != null" >
+        RES_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resCode != null" >
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null" >
+        #{resName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsResourcePo" >
+    update LAO_SS_RESOURCE
+    <set >
+      <if test="resCode != null" >
+        RES_CODE = #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null" >
+        RES_NAME = #{resName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsResourcePo" >
+    update LAO_SS_RESOURCE
+    set RES_CODE = #{resCode,jdbcType=VARCHAR},
+      RES_NAME = #{resName,jdbcType=VARCHAR}
+    where RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

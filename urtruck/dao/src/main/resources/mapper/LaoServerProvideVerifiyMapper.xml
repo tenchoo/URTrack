@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoServerProvideVerifiyMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoServerProvideVerifiy" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="RANDOMID" property="randomid" jdbcType="VARCHAR" />
+    <result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+    <result column="SERVERNAME" property="servername" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, RANDOMID, CUSTID, SERVERNAME, CREATEDATE, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVER_PROVIDE_VERIFIY
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectByRandomId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SERVER_PROVIDE_VERIFIY
+    where RANDOMID = #{randomid,jdbcType=VARCHAR} and CUSTID = #{custid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_SERVER_PROVIDE_VERIFIY
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoServerProvideVerifiy" >
+    insert into LAO_SERVER_PROVIDE_VERIFIY (ID, RANDOMID, CUSTID, 
+      SERVERNAME, CREATEDATE, PARAM1, 
+      PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{randomid,jdbcType=VARCHAR}, #{custid,jdbcType=VARCHAR}, 
+      #{servername,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{param1,jdbcType=VARCHAR}, 
+      #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoServerProvideVerifiy" >
+    insert into LAO_SERVER_PROVIDE_VERIFIY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="randomid != null" >
+        RANDOMID,
+      </if>
+      <if test="custid != null" >
+        CUSTID,
+      </if>
+      <if test="servername != null" >
+        SERVERNAME,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="randomid != null" >
+        #{randomid,jdbcType=VARCHAR},
+      </if>
+      <if test="custid != null" >
+        #{custid,jdbcType=VARCHAR},
+      </if>
+      <if test="servername != null" >
+        #{servername,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoServerProvideVerifiy" >
+    update LAO_SERVER_PROVIDE_VERIFIY
+    <set >
+      <if test="randomid != null" >
+        RANDOMID = #{randomid,jdbcType=VARCHAR},
+      </if>
+      <if test="custid != null" >
+        CUSTID = #{custid,jdbcType=VARCHAR},
+      </if>
+      <if test="servername != null" >
+        SERVERNAME = #{servername,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoServerProvideVerifiy" >
+    update LAO_SERVER_PROVIDE_VERIFIY
+    set RANDOMID = #{randomid,jdbcType=VARCHAR},
+      CUSTID = #{custid,jdbcType=VARCHAR},
+      SERVERNAME = #{servername,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

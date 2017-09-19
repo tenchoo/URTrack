@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.TradeOperatorPlanExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeOperatorPlan">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <id column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <id column="GOODS_INDEX" jdbcType="DECIMAL" property="goodsIndex" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="PLAN_ID" jdbcType="DECIMAL" property="planId" />
+    <result column="OPERATORS_ID" jdbcType="DECIMAL" property="operatorsId" />
+    <result column="OPERATORS_PID" jdbcType="VARCHAR" property="operatorsPid" />
+    <result column="ENABLE_TAG" jdbcType="VARCHAR" property="enableTag" />
+    <result column="INVALID_TYPE" jdbcType="VARCHAR" property="invalidType" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="PACKAGE_TYPE" jdbcType="CHAR" property="packageType" />
+    <result column="PLAN_TYPE" jdbcType="VARCHAR" property="planType" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, USER_ID, GOODS_ID, GOODS_INDEX, MODIFY_TAG, PLAN_ID, OPERATORS_ID, 
+    OPERATORS_PID, ENABLE_TAG, INVALID_TYPE, START_DATE, END_DATE, PACKAGE_TYPE, PLAN_TYPE, 
+    ACCEPT_DATE,PLAN_CLASSIFY
+  </sql>
+  <select id="selectByTradeId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_OPERATOR_PLAN
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+
+</mapper>

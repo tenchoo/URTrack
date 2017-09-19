@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.TradeDiscontExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeDiscont">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <id column="DISCNT_ID" jdbcType="DECIMAL" property="discntId" />
+    <id column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, USER_ID, DISCNT_ID, START_DATE, GOODS_ID, END_DATE, MODIFY_TAG, 
+    ACCEPT_DATE
+  </sql>
+  <select id="selectByTradeId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_DISCNT
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+
+</mapper>

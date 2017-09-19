@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoFAcctdepositExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFAcctdeposit" >
+    <id column="ACCT_BALANCE_ID" property="acctBalanceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="INIT_MONEY" property="initMoney" jdbcType="DECIMAL" />
+    <result column="DEPOSIT_MONEY" property="depositMoney" jdbcType="DECIMAL" />
+    <result column="INVOICE_FEE" property="invoiceFee" jdbcType="DECIMAL" />
+    <result column="PRINT_FEE" property="printFee" jdbcType="DECIMAL" />
+    <result column="START_CYC_ID" property="startCycId" jdbcType="DECIMAL" />
+    <result column="END_CYC_ID" property="endCycId" jdbcType="DECIMAL" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="CASH_TAG" property="cashTag" jdbcType="CHAR" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_STR2" property="rsrvStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCT_BALANCE_ID, CHANNEL_CUST_ID, INIT_MONEY, DEPOSIT_MONEY, INVOICE_FEE, PRINT_FEE, 
+    START_CYC_ID, END_CYC_ID, START_DATE, END_DATE, CASH_TAG, UPDATE_STAFF_ID, UPDATE_TIME, 
+    OPER_ID, REMARK, RSRV_STR1, RSRV_STR2
+  </sql>
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_F_ACCTDEPOSIT
+    where CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL}
+  </select>
+  <select id="countUsersByCustId" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select count(1) from lao_user where channel_cust_id=#{channelCustId,jdbcType=DECIMAL} and remove_tag=0
+  </select>
+  
+   <update id="updateByCustId" parameterType="com.urt.po.LaoFAcctdeposit" >
+    update LAO_F_ACCTDEPOSIT
+    <set >            
+      <if test="cashTag != null" >
+        CASH_TAG = #{cashTag,jdbcType=CHAR},
+      </if>    
+    </set>
+    where  CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL} 
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoFAcctDepositPo" >
+    update LAO_F_ACCTDEPOSIT
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      INIT_MONEY = #{initMoney,jdbcType=DECIMAL},
+      DEPOSIT_MONEY = DEPOSIT_MONEY +#{depositMoney,jdbcType=DECIMAL},
+      INVOICE_FEE = #{invoiceFee,jdbcType=DECIMAL},
+      PRINT_FEE = #{printFee,jdbcType=DECIMAL},
+      START_CYC_ID = #{startCycId,jdbcType=DECIMAL},
+      END_CYC_ID = #{endCycId,jdbcType=DECIMAL},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      CASH_TAG = #{cashTag,jdbcType=CHAR},
+      UPDATE_STAFF_ID = #{updateStaffId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RSRV_STR1 = #{rsrvStr1,jdbcType=VARCHAR},
+      RSRV_STR2 = #{rsrvStr2,jdbcType=VARCHAR}
+    where ACCT_BALANCE_ID = #{acctBalanceId,jdbcType=DECIMAL}
+  </update>
+</mapper>
+

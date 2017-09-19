@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoGoodsOperativeMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoGoodsOperative" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PICTUREURL" property="pictureurl" jdbcType="VARCHAR" />
+    <result column="PICTURELINKURL" property="picturelinkurl" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="DECIMAL" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+    <result column="GOODSID" property="goodsid" jdbcType="DECIMAL" />
+    <result column="DISPLAYTAG" property="displaytag" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PICTUREURL, PICTURELINKURL, ISSHOW, PARAM1, PARAM2, GOODSID, DISPLAYTAG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_OPERATIVE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_GOODS_OPERATIVE
+    where ISSHOW =0
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from LAO_GOODS_OPERATIVE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoGoodsOperative" >
+    insert into LAO_GOODS_OPERATIVE (ID, PICTUREURL, PICTURELINKURL, 
+      ISSHOW, PARAM1, PARAM2, 
+      GOODSID, DISPLAYTAG)
+    values (#{id,jdbcType=DECIMAL}, #{pictureurl,jdbcType=VARCHAR}, #{picturelinkurl,jdbcType=VARCHAR}, 
+      #{isshow,jdbcType=DECIMAL}, #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR}, 
+      #{goodsid,jdbcType=DECIMAL}, #{displaytag,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoGoodsOperative" >
+    insert into LAO_GOODS_OPERATIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="pictureurl != null" >
+        PICTUREURL,
+      </if>
+      <if test="picturelinkurl != null" >
+        PICTURELINKURL,
+      </if>
+      <if test="isshow != null" >
+        ISSHOW,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+      <if test="goodsid != null" >
+        GOODSID,
+      </if>
+      <if test="displaytag != null" >
+        DISPLAYTAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="pictureurl != null" >
+        #{pictureurl,jdbcType=VARCHAR},
+      </if>
+      <if test="picturelinkurl != null" >
+        #{picturelinkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=DECIMAL},
+      </if>
+      <if test="displaytag != null" >
+        #{displaytag,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoGoodsOperative" >
+    update LAO_GOODS_OPERATIVE
+    <set >
+      <if test="pictureurl != null" >
+        PICTUREURL = #{pictureurl,jdbcType=VARCHAR},
+      </if>
+      <if test="picturelinkurl != null" >
+        PICTURELINKURL = #{picturelinkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        ISSHOW = #{isshow,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        GOODSID = #{goodsid,jdbcType=DECIMAL},
+      </if>
+      <if test="displaytag != null" >
+        DISPLAYTAG = #{displaytag,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoGoodsOperative" >
+    update LAO_GOODS_OPERATIVE
+    set PICTUREURL = #{pictureurl,jdbcType=VARCHAR},
+      PICTURELINKURL = #{picturelinkurl,jdbcType=VARCHAR},
+      ISSHOW = #{isshow,jdbcType=DECIMAL},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR},
+      GOODSID = #{goodsid,jdbcType=DECIMAL},
+      DISPLAYTAG = #{displaytag,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimTradeFeeSubMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimTradeFeeSub" >
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="OLDFEE" property="oldfee" jdbcType="VARCHAR" />
+    <result column="FEE" property="fee" jdbcType="VARCHAR" />
+    <result column="PAYORDERID" property="payorderid" jdbcType="VARCHAR" />
+    <result column="PAYTAG" property="paytag" jdbcType="DECIMAL" />
+    <result column="PAYDATE" property="paydate" jdbcType="TIMESTAMP" />
+    <result column="PAYTYPE" property="paytype" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimTradeFeeSub" >
+    insert into LAO_ESIM_TRADEFEESUB (TRADE_ID, GOODS_ID, OLDFEE, 
+      FEE, PAYORDERID, PAYTAG, 
+      PAYDATE, PAYTYPE, CREATEDATE, 
+      PARAM1, PARAM2)
+    values (#{tradeId,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{oldfee,jdbcType=VARCHAR}, 
+      #{fee,jdbcType=VARCHAR}, #{payorderid,jdbcType=VARCHAR}, #{paytag,jdbcType=DECIMAL}, 
+      #{paydate,jdbcType=TIMESTAMP}, #{paytype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimTradeFeeSub" >
+    insert into LAO_ESIM_TRADEFEESUB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        TRADE_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="oldfee != null" >
+        OLDFEE,
+      </if>
+      <if test="fee != null" >
+        FEE,
+      </if>
+      <if test="payorderid != null" >
+        PAYORDERID,
+      </if>
+      <if test="paytag != null" >
+        PAYTAG,
+      </if>
+      <if test="paydate != null" >
+        PAYDATE,
+      </if>
+      <if test="paytype != null" >
+        PAYTYPE,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tradeId != null" >
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="oldfee != null" >
+        #{oldfee,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="payorderid != null" >
+        #{payorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="paytag != null" >
+        #{paytag,jdbcType=DECIMAL},
+      </if>
+      <if test="paydate != null" >
+        #{paydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

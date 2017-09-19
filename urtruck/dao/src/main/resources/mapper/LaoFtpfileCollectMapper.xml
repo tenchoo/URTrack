@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoFtpfileCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoFtpfileCollect" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="TRADETYPECODE" property="tradetypecode" jdbcType="VARCHAR" />
+    <result column="CARDTOTAL" property="cardtotal" jdbcType="DECIMAL" />
+    <result column="SUCCESSNUM" property="successnum" jdbcType="DECIMAL" />
+    <result column="FAILNUM" property="failnum" jdbcType="DECIMAL" />
+    <result column="PENDINGNUM" property="pendingnum" jdbcType="DECIMAL" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FILE_NAME, CREATE_DATE, UPDATE_DATE, TRADETYPECODE, CARDTOTAL, SUCCESSNUM, FAILNUM, 
+    PENDINGNUM, PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_FTPFILE_COLLECT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_FTPFILE_COLLECT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoFtpfileCollect" >
+    insert into LAO_FTPFILE_COLLECT (ID, FILE_NAME, CREATE_DATE, 
+      UPDATE_DATE, TRADETYPECODE, CARDTOTAL, 
+      SUCCESSNUM, FAILNUM, PENDINGNUM, 
+      PARA_NAME1, PARA_NAME2)
+    values (#{id,jdbcType=DECIMAL}, #{fileName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{tradetypecode,jdbcType=VARCHAR}, #{cardtotal,jdbcType=DECIMAL}, 
+      #{successnum,jdbcType=DECIMAL}, #{failnum,jdbcType=DECIMAL}, #{pendingnum,jdbcType=DECIMAL}, 
+      #{paraName1,jdbcType=VARCHAR}, #{paraName2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoFtpfileCollect" >
+    insert into LAO_FTPFILE_COLLECT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="tradetypecode != null" >
+        TRADETYPECODE,
+      </if>
+      <if test="cardtotal != null" >
+        CARDTOTAL,
+      </if>
+      <if test="successnum != null" >
+        SUCCESSNUM,
+      </if>
+      <if test="failnum != null" >
+        FAILNUM,
+      </if>
+      <if test="pendingnum != null" >
+        PENDINGNUM,
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1,
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradetypecode != null" >
+        #{tradetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtotal != null" >
+        #{cardtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="successnum != null" >
+        #{successnum,jdbcType=DECIMAL},
+      </if>
+      <if test="failnum != null" >
+        #{failnum,jdbcType=DECIMAL},
+      </if>
+      <if test="pendingnum != null" >
+        #{pendingnum,jdbcType=DECIMAL},
+      </if>
+      <if test="paraName1 != null" >
+        #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoFtpfileCollect" >
+    update LAO_FTPFILE_COLLECT
+    <set >
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradetypecode != null" >
+        TRADETYPECODE = #{tradetypecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtotal != null" >
+        CARDTOTAL = #{cardtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="successnum != null" >
+        SUCCESSNUM = #{successnum,jdbcType=DECIMAL},
+      </if>
+      <if test="failnum != null" >
+        FAILNUM = #{failnum,jdbcType=DECIMAL},
+      </if>
+      <if test="pendingnum != null" >
+        PENDINGNUM = #{pendingnum,jdbcType=DECIMAL},
+      </if>
+      <if test="paraName1 != null" >
+        PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraName2 != null" >
+        PARA_NAME2 = #{paraName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoFtpfileCollect" >
+    update LAO_FTPFILE_COLLECT
+    set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      TRADETYPECODE = #{tradetypecode,jdbcType=VARCHAR},
+      CARDTOTAL = #{cardtotal,jdbcType=DECIMAL},
+      SUCCESSNUM = #{successnum,jdbcType=DECIMAL},
+      FAILNUM = #{failnum,jdbcType=DECIMAL},
+      PENDINGNUM = #{pendingnum,jdbcType=DECIMAL},
+      PARA_NAME1 = #{paraName1,jdbcType=VARCHAR},
+      PARA_NAME2 = #{paraName2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

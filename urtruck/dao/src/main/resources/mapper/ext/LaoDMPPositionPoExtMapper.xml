@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoDMPPositionPoExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPPositionPo">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+    <result column="LATITUDE" jdbcType="DECIMAL" property="latitude" />
+    <result column="LONGTITUDE" jdbcType="DECIMAL" property="longtitude" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="SPEED" jdbcType="DECIMAL" property="speed" />
+    <result column="ERRORINFO" jdbcType="VARCHAR" property="errorinfo" />
+    <result column="MCC" jdbcType="VARCHAR" property="mcc" />
+    <result column="MNC" jdbcType="VARCHAR" property="mnc" />
+    <result column="MBASESTATIONID" jdbcType="DECIMAL" property="mbasestationid" />
+    <result column="MSYSTEMID" jdbcType="DECIMAL" property="msystemid" />
+    <result column="MNETWORKID" jdbcType="DECIMAL" property="mnetworkid" />
+    <result column="LAC" jdbcType="DECIMAL" property="lac" />
+    <result column="CID" jdbcType="DECIMAL" property="cid" />
+    <result column="REGISTEREDSTATE" jdbcType="VARCHAR" property="registeredstate" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, IMEI, LATITUDE, LONGTITUDE, ADDRESS, SPEED, ERRORINFO, MCC, MNC, MBASESTATIONID, 
+    MSYSTEMID, MNETWORKID, LAC, CID, REGISTEREDSTATE, CREATETIME, UPDATETIME
+  </sql>
+   <sql id="Position_Column_List">
+    LATITUDE, LONGTITUDE
+  </sql>
+     <select id="selectLongitudeAndLatitude" resultMap="BaseResultMap" parameterType="String">
+    select 
+    <include refid="Base_Column_List" /> 
+    from (select  <include refid="Base_Column_List" />  from  LAO_DMPPOSITION_DATA order by createtime desc)
+    where IMEI = #{imei} and rownum=1
+   </select> 
+ 
+</mapper>

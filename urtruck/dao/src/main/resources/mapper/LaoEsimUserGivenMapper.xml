@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimUserGivenMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimUserGiven" >
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="EID" property="eid" jdbcType="VARCHAR" />
+    <result column="EIDTARGER" property="eidtarger" jdbcType="VARCHAR" />
+    <result column="LENOVOID" property="lenovoid" jdbcType="VARCHAR" />
+    <result column="LENOVOIDTARGER" property="lenovoidtarger" jdbcType="VARCHAR" />
+    <result column="GOODSID" property="goodsid" jdbcType="DECIMAL" />
+    <result column="GIVENDATE" property="givendate" jdbcType="TIMESTAMP" />
+    <result column="LENOVOIDTARGERISBUNDINGDATE" property="lenovoidtargerisbundingdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimUserGiven" >
+    insert into LAO_ESIM_USER_GIVEN (USER_ID, EID, EIDTARGER, 
+      LENOVOID, LENOVOIDTARGER, GOODSID, 
+      GIVENDATE, LENOVOIDTARGERISBUNDINGDATE, 
+      PARAM1, PARAM2)
+    values (#{userId,jdbcType=DECIMAL}, #{eid,jdbcType=VARCHAR}, #{eidtarger,jdbcType=VARCHAR}, 
+      #{lenovoid,jdbcType=VARCHAR}, #{lenovoidtarger,jdbcType=VARCHAR}, #{goodsid,jdbcType=DECIMAL}, 
+      #{givendate,jdbcType=TIMESTAMP}, #{lenovoidtargerisbundingdate,jdbcType=TIMESTAMP}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimUserGiven" >
+    insert into LAO_ESIM_USER_GIVEN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="eid != null" >
+        EID,
+      </if>
+      <if test="eidtarger != null" >
+        EIDTARGER,
+      </if>
+      <if test="lenovoid != null" >
+        LENOVOID,
+      </if>
+      <if test="lenovoidtarger != null" >
+        LENOVOIDTARGER,
+      </if>
+      <if test="goodsid != null" >
+        GOODSID,
+      </if>
+      <if test="givendate != null" >
+        GIVENDATE,
+      </if>
+      <if test="lenovoidtargerisbundingdate != null" >
+        LENOVOIDTARGERISBUNDINGDATE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=VARCHAR},
+      </if>
+      <if test="eidtarger != null" >
+        #{eidtarger,jdbcType=VARCHAR},
+      </if>
+      <if test="lenovoid != null" >
+        #{lenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="lenovoidtarger != null" >
+        #{lenovoidtarger,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=DECIMAL},
+      </if>
+      <if test="givendate != null" >
+        #{givendate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lenovoidtargerisbundingdate != null" >
+        #{lenovoidtargerisbundingdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByUserId" parameterType="com.urt.po.LaoEsimUserGiven" >
+     update LAO_ESIM_USER_GIVEN
+      set 
+      EIDTARGER = #{eidtarger,jdbcType=VARCHAR},
+       LENOVOIDTARGERISBUNDINGDATE= #{lenovoidtargerisbundingdate,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+  </update>
+  <select id="findByUserId" parameterType="Long" resultMap="BaseResultMap">
+     select *  from LAO_ESIM_USER_GIVEN  where USER_ID=#{userId,jdbcType=DECIMAL}
+  </select>
+</mapper>

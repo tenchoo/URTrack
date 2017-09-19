@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoDMPDeviceAttributePoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoDMPDeviceAttributePo">
+    <result column="CARDDATAID" jdbcType="VARCHAR" property="carddataid" />
+    <result column="ATTRIBUTENAME" jdbcType="VARCHAR" property="attributename" />
+    <result column="ATTRIBUTEVALUE" jdbcType="VARCHAR" property="attributevalue" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoDMPDeviceAttributePo">
+    insert into LAO_DMPDEVICE_ATTRIBUTE (CARDDATAID, ATTRIBUTENAME, ATTRIBUTEVALUE
+      )
+    values (#{carddataid,jdbcType=VARCHAR}, #{attributename,jdbcType=VARCHAR}, #{attributevalue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoDMPDeviceAttributePo">
+    insert into LAO_DMPDEVICE_ATTRIBUTE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carddataid != null">
+        CARDDATAID,
+      </if>
+      <if test="attributename != null">
+        ATTRIBUTENAME,
+      </if>
+      <if test="attributevalue != null">
+        ATTRIBUTEVALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carddataid != null">
+        #{carddataid,jdbcType=VARCHAR},
+      </if>
+      <if test="attributename != null">
+        #{attributename,jdbcType=VARCHAR},
+      </if>
+      <if test="attributevalue != null">
+        #{attributevalue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

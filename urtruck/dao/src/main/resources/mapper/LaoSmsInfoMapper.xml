@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoSmsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSmsInfo">
+    <id column="SMS_ID" jdbcType="DECIMAL" property="smsId" />
+    <result column="CHANNEL_CUST_ID" jdbcType="DECIMAL" property="channelCustId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="MSISDN" jdbcType="VARCHAR" property="msisdn" />
+    <result column="SMS_CONTEXT" jdbcType="VARCHAR" property="smsContext" />
+    <result column="SEND_TIME" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="TEMPLETE_ID" jdbcType="DECIMAL" property="templeteId" />
+    <result column="OPER_ID" jdbcType="VARCHAR" property="operId" />
+    <result column="DEAL_TAG" jdbcType="CHAR" property="dealTag" />
+    <result column="RESULT_INFO" jdbcType="VARCHAR" property="resultInfo" />
+    <result column="ERROR_CODE" jdbcType="VARCHAR" property="errorCode" />
+    <result column="SMS_CORP" jdbcType="VARCHAR" property="smsCorp" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="OUT_SMSID" jdbcType="VARCHAR" property="outSmsid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SMS_ID, CHANNEL_CUST_ID, USER_ID, ICCID, MSISDN, SMS_CONTEXT, SEND_TIME, TEMPLETE_ID, 
+    OPER_ID, DEAL_TAG, RESULT_INFO, ERROR_CODE, SMS_CORP, UPDATE_TIME, REMARK, OUT_SMSID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SMS_INFO
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_SMS_INFO
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSmsInfo">
+    insert into LAO_SMS_INFO (SMS_ID, CHANNEL_CUST_ID, USER_ID, 
+      ICCID, MSISDN, SMS_CONTEXT, 
+      SEND_TIME, TEMPLETE_ID, OPER_ID, 
+      DEAL_TAG, RESULT_INFO, ERROR_CODE, 
+      SMS_CORP, UPDATE_TIME, REMARK, 
+      OUT_SMSID)
+    values (#{smsId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{iccid,jdbcType=VARCHAR}, #{msisdn,jdbcType=VARCHAR}, #{smsContext,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=TIMESTAMP}, #{templeteId,jdbcType=DECIMAL}, #{operId,jdbcType=VARCHAR}, 
+      #{dealTag,jdbcType=CHAR}, #{resultInfo,jdbcType=VARCHAR}, #{errorCode,jdbcType=VARCHAR}, 
+      #{smsCorp,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{outSmsid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSmsInfo">
+    insert into LAO_SMS_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="smsId != null">
+        SMS_ID,
+      </if>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="iccid != null">
+        ICCID,
+      </if>
+      <if test="msisdn != null">
+        MSISDN,
+      </if>
+      <if test="smsContext != null">
+        SMS_CONTEXT,
+      </if>
+      <if test="sendTime != null">
+        SEND_TIME,
+      </if>
+      <if test="templeteId != null">
+        TEMPLETE_ID,
+      </if>
+      <if test="operId != null">
+        OPER_ID,
+      </if>
+      <if test="dealTag != null">
+        DEAL_TAG,
+      </if>
+      <if test="resultInfo != null">
+        RESULT_INFO,
+      </if>
+      <if test="errorCode != null">
+        ERROR_CODE,
+      </if>
+      <if test="smsCorp != null">
+        SMS_CORP,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="outSmsid != null">
+        OUT_SMSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="smsId != null">
+        #{smsId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null">
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null">
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContext != null">
+        #{smsContext,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templeteId != null">
+        #{templeteId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null">
+        #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null">
+        #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null">
+        #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCorp != null">
+        #{smsCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outSmsid != null">
+        #{outSmsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSmsInfo">
+    update LAO_SMS_INFO
+    <set>
+      <if test="channelCustId != null">
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null">
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="msisdn != null">
+        MSISDN = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="smsContext != null">
+        SMS_CONTEXT = #{smsContext,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templeteId != null">
+        TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL},
+      </if>
+      <if test="operId != null">
+        OPER_ID = #{operId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealTag != null">
+        DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      </if>
+      <if test="resultInfo != null">
+        RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCode != null">
+        ERROR_CODE = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCorp != null">
+        SMS_CORP = #{smsCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outSmsid != null">
+        OUT_SMSID = #{outSmsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSmsInfo">
+    update LAO_SMS_INFO
+    set CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      MSISDN = #{msisdn,jdbcType=VARCHAR},
+      SMS_CONTEXT = #{smsContext,jdbcType=VARCHAR},
+      SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      TEMPLETE_ID = #{templeteId,jdbcType=DECIMAL},
+      OPER_ID = #{operId,jdbcType=VARCHAR},
+      DEAL_TAG = #{dealTag,jdbcType=CHAR},
+      RESULT_INFO = #{resultInfo,jdbcType=VARCHAR},
+      ERROR_CODE = #{errorCode,jdbcType=VARCHAR},
+      SMS_CORP = #{smsCorp,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      OUT_SMSID = #{outSmsid,jdbcType=VARCHAR}
+    where SMS_ID = #{smsId,jdbcType=DECIMAL}
+  </update>
+</mapper>

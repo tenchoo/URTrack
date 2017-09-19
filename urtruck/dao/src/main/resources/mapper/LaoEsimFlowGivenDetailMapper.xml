@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimFlowGivenDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimFlowGivenDetail" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="GIVENLENOVOID" property="givenlenovoid" jdbcType="VARCHAR" />
+    <result column="BGIVENLENOVOID" property="bgivenlenovoid" jdbcType="VARCHAR" />
+    <result column="FLOWSIZE" property="flowsize" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GIVENLENOVOID, BGIVENLENOVOID, FLOWSIZE, CREATEDATE, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_FLOW_GIVEN_DETAIL
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_FLOW_GIVEN_DETAIL
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimFlowGivenDetail" >
+    insert into LAO_ESIM_FLOW_GIVEN_DETAIL (ID, GIVENLENOVOID, BGIVENLENOVOID, 
+      FLOWSIZE, CREATEDATE, PARAM1, 
+      PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{givenlenovoid,jdbcType=VARCHAR}, #{bgivenlenovoid,jdbcType=VARCHAR}, 
+      #{flowsize,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{param1,jdbcType=VARCHAR}, 
+      #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimFlowGivenDetail" >
+    insert into LAO_ESIM_FLOW_GIVEN_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="givenlenovoid != null" >
+        GIVENLENOVOID,
+      </if>
+      <if test="bgivenlenovoid != null" >
+        BGIVENLENOVOID,
+      </if>
+      <if test="flowsize != null" >
+        FLOWSIZE,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="givenlenovoid != null" >
+        #{givenlenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="bgivenlenovoid != null" >
+        #{bgivenlenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowsize != null" >
+        #{flowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimFlowGivenDetail" >
+    update LAO_ESIM_FLOW_GIVEN_DETAIL
+    <set >
+      <if test="givenlenovoid != null" >
+        GIVENLENOVOID = #{givenlenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="bgivenlenovoid != null" >
+        BGIVENLENOVOID = #{bgivenlenovoid,jdbcType=VARCHAR},
+      </if>
+      <if test="flowsize != null" >
+        FLOWSIZE = #{flowsize,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimFlowGivenDetail" >
+    update LAO_ESIM_FLOW_GIVEN_DETAIL
+    set GIVENLENOVOID = #{givenlenovoid,jdbcType=VARCHAR},
+      BGIVENLENOVOID = #{bgivenlenovoid,jdbcType=VARCHAR},
+      FLOWSIZE = #{flowsize,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

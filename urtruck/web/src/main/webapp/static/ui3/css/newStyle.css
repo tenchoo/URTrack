@@ -1,0 +1,91 @@
+@charset "utf-8";
+/*平台选择页*/
+.platBox{width:870px;position:absolute;top:30%;left:50%;margin-left:-435px;}
+.cmpBox{float:left;cursor:pointer;}
+.dmpBox{float:right;cursor:pointer;}
+.cmpImg,.dmpImg{height:195px;transition: all 0.6s;}
+.cmpName,.dmpName{height:66px;padding-top:10px;font-size:17px;color:#fff;font-family:"MicrosoftYaHei";font-family:"微软雅黑";}
+.cmpBox:hover .cmpName,.dmpBox:hover .dmpName{background:url(../images/plat_hover.png);-webkit-animation: nameMove 1s;}
+.cmpBox:hover .cmpImg,.dmpBox:hover .dmpImg{transform: scale(1.2);}
+.start01,.start02,.start03,.start04,.start05,.start06,.start07,.start08{position:absolute;-webkit-animation: twinkling 2s infinite linear}
+.start01{width:84px;height:84px;left:10%;top:10%;}
+.start02{width:30px;height:30px;left:50%;top:20%;}
+.start03{width:24px;height:24px;left:45%;top:50%;}
+.start04{width:16px;height:16px;left:48%;top:55%;}
+.start05{width:24px;height:24px;left:65%;top:70%;}
+.start06{width:16px;height:16px;left:90%;top:35%;}
+.start07{width:16px;height:16px;left:30%;top:25%;}
+.start08{width:16px;height:16px;left:95%;top:15%;}
+//按钮
+@-webkit-keyframes nameMove{
+    0%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes nameMove{
+       0%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+//星星闪烁动画
+@-webkit-keyframes twinkling{
+    0%{
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.5;
+    }
+}
+@keyframes twinkling{
+    0%{
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.5;
+    }
+}
+/*配置页*/
+.item li{float:left;width:25%;}
+.item li{text-align:left;margin-bottom:20px;}
+.itemNor,.itemOn,.itemOut{width:14px;height:15px;display:inline-block;margin-right:15px;}
+.itemNor{background:url(../images/icon_ItemNormal.png);}
+.itemOn{background:url(../images/icon_ItemOn.png);}
+.itemOut{background:url(../images/icon_ItemOut.png);}
+
+/*通知页*/
+.msgList li{text-align:left;cursor:pointer;word-wrap:break-word;word-break:break-all;border-bottom:1px dashed #ddd;padding-left:37px;background-image:url(../images/msgList_ico.png);
+background-position:15px 19px;background-repeat:no-repeat; clear: both;overflow: hidden;}
+.msgList li:hover a,.msgList li:hover span{color:#0194ff;}
+.msgList li a{float:left;width:90%;display:inline-block;padding:15px 0 10px 0;}
+.msgList li span{float:right;width:8%;display:inline-block;padding:15px 0 10px 0;}
+article{text-indent:20px;height:540px;line-height:25px;text-align:left;padding:20px 30px;}
+.msgList li:nth-child(2n) {
+	background-image:url(../images/msgList_ico.png);
+	background-position:15px 19px;background-repeat:no-repeat;
+    background-color: #f7f7f7;
+    /* background:url(../images/msgList_ico.png) no-repeat 15px 19px #f7f7f7; */
+}
+
+
+/*页码*/
+.pages{padding-bottom:20px;}
+
+.pages span,.pages a,.pages i{display:inline-block;}
+
+.pages span,.pages a{padding:10px;border:1px solid #ddd;cursor:pointer;}
+.pages button{margin-left:10px;background:#fff;padding:10px;border:1px solid #ddd;cursor:pointer;}
+.pages input{width:50px;padding:10px;border:1px solid #ddd;margin:0 10px;}
+.pages .on,.pages span:hover,.pages a:hover{background:#0194ff;color:#fff;}
+.pages i{font-style:normal;}

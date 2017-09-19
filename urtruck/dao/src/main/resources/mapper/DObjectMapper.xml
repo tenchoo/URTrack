@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.DObjectMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DObject" >
+    <id column="ATTR_ID" property="attrId" jdbcType="DECIMAL" />
+    <id column="ATTR_TYPE" property="attrType" jdbcType="CHAR" />
+    <id column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="OBJECT_NAME" property="objectName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ATTR_ID, ATTR_TYPE, OBJECT_ID, OBJECT_NAME, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_D_OBJECT
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+      and ATTR_TYPE = #{attrType,jdbcType=CHAR}
+      and OBJECT_ID = #{objectId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_D_OBJECT
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+      and ATTR_TYPE = #{attrType,jdbcType=CHAR}
+      and OBJECT_ID = #{objectId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.DObject" >
+    insert into LAO_D_OBJECT (ATTR_ID, ATTR_TYPE, OBJECT_ID, 
+      OBJECT_NAME, REMARK)
+    values (#{attrId,jdbcType=DECIMAL}, #{attrType,jdbcType=CHAR}, #{objectId,jdbcType=DECIMAL}, 
+      #{objectName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.DObject" >
+    insert into LAO_D_OBJECT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        ATTR_ID,
+      </if>
+      <if test="attrType != null" >
+        ATTR_TYPE,
+      </if>
+      <if test="objectId != null" >
+        OBJECT_ID,
+      </if>
+      <if test="objectName != null" >
+        OBJECT_NAME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attrId != null" >
+        #{attrId,jdbcType=DECIMAL},
+      </if>
+      <if test="attrType != null" >
+        #{attrType,jdbcType=CHAR},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=DECIMAL},
+      </if>
+      <if test="objectName != null" >
+        #{objectName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.DObject" >
+    update LAO_D_OBJECT
+    <set >
+      <if test="objectName != null" >
+        OBJECT_NAME = #{objectName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+      and ATTR_TYPE = #{attrType,jdbcType=CHAR}
+      and OBJECT_ID = #{objectId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.DObject" >
+    update LAO_D_OBJECT
+    set OBJECT_NAME = #{objectName,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+      and ATTR_TYPE = #{attrType,jdbcType=CHAR}
+      and OBJECT_ID = #{objectId,jdbcType=DECIMAL}
+  </update>
+</mapper>

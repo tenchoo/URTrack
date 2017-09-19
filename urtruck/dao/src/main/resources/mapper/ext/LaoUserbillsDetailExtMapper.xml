@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoUserbillsDetailExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserbillsDetail" >
+    <id column="BILL_DETAIL_ID" property="billDetailId" jdbcType="DECIMAL" />
+    <result column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="OPERATOS_ID" property="operatosId" jdbcType="DECIMAL" />
+    <result column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="OWE_FEE" property="oweFee" jdbcType="DECIMAL" />
+    <result column="LEFT_BILL_FEE" property="leftBillFee" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BILL_DETAIL_ID, CHARGE_ID, CYCLE_ID, CHANNEL_CUST_ID, CUST_ID, USER_ID, TRADE_ID, 
+    GOODS_ID, GOODS_RELEASE_ID, OPERATOS_ID, PLAN_ID, ITEM_ID, FEE, OWE_FEE, LEFT_BILL_FEE, 
+    RECV_TIME, UPDATE_TIME, OPER_ID, CANCEL_TAG, CANCEL_OPER_ID, CANCEL_TIME, RSRV_INFO1, 
+    RSRV_INFO2
+  </sql>
+  
+  <resultMap id="UserBillsDetailsMap" type="com.urt.po.LaoUserbillsDetailPo" >
+    <id column="BILL_DETAIL_ID" property="billDetailId" jdbcType="DECIMAL" />
+    <result column="CHARGE_ID" property="chargeId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="TRADE_ID" property="tradeId" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="OPERATOS_ID" property="operatosId" jdbcType="DECIMAL" />
+    <result column="PLAN_ID" property="planId" jdbcType="DECIMAL" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="OWE_FEE" property="oweFee" jdbcType="DECIMAL" />
+    <result column="LEFT_BILL_FEE" property="leftBillFee" jdbcType="DECIMAL" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPER_ID" property="operId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TAG" property="cancelTag" jdbcType="CHAR" />
+    <result column="CANCEL_OPER_ID" property="cancelOperId" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+    
+     <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="msisdn" jdbcType="VARCHAR" property="msisdn" />
+    <result column="operators_name" jdbcType="VARCHAR" property="operatosName" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="outsidestate" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  
+  <select id="queryUserBillsDetailsByPage" resultMap="UserBillsDetailsMap" parameterType="map">
+    select ll.* , uu.iccid, uu.msisdn,  ope.operators_name, good.goods_name , cus.cust_name, status.outsidestate
+	    from LAO_USERBILLS_DETAIL ll  
+	    left join  lao_user uu on uu.user_id = ll.user_id
+	    left join  lao_operators ope on ope.operators_id = uu.operators_id
+	    left join  lao_goods good on good.goods_id = ll.goods_id
+	    left join  lao_customer cus on cus.cust_id = ll.cust_id
+	    left join  lao_service_status status on status.state_code = uu.state_code
+    <where>
+	    <if test="params.userbill.custId != null and params.userbill.custId !=''">	
+	    	 ll.CUST_ID = #{params.userbill.custId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="params.userbill.cycleId != null and params.userbill.cycleId !=''">	
+	    	and ll.CYCLE_ID = #{params.userbill.cycleId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="params.userbill.operatosId != null and params.userbill.operatosId !=''">	
+	    	and ll.OPERATOS_ID = #{params.userbill.operatosId,jdbcType=DECIMAL}
+	    </if>
+	    order by ll.CYCLE_ID desc
+    </where>
+  </select>
+  
+  <select id="countTotal" resultType="java.lang.Long" >
+    select nvl(SUM(ll.fee), 0) - nvl(SUM(ll.owe_fee), 0)
+    from LAO_USERBILLS_DETAIL ll
+    <where>
+	    <if test="custId != null and custId !=''">	
+	    	 ll.CUST_ID = #{custId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="cycleId != null and cycleId !=''">	
+	    	and ll.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="operatosId != null and operatosId !=''">	
+	    	and ll.OPERATOS_ID = #{operatosId,jdbcType=DECIMAL}
+	    </if>
+    </where>
+  </select>
+  
+  <select id="queryUserBillsDetails" resultMap="UserBillsDetailsMap" >
+    select ll.* , uu.iccid, uu.msisdn,  ope.operators_name, good.goods_name , cus.cust_name, status.outsidestate
+	    from LAO_USERBILLS_DETAIL ll  
+	    left join  lao_user uu on uu.user_id = ll.user_id
+	    left join  lao_operators ope on ope.operators_id = uu.operators_id
+	    left join  lao_goods good on good.goods_id = ll.goods_id
+	    left join  lao_customer cus on cus.cust_id = ll.cust_id
+	    left join  lao_service_status status on status.state_code = uu.state_code
+    <where>
+	    <if test="custId != null and custId !=''">	
+	    	 ll.CUST_ID = #{custId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="cycleId != null and cycleId !=''">	
+	    	and ll.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+	    </if>
+	    <if test="operatosId != null and operatosId !=''">	
+	    	and ll.OPERATOS_ID = #{operatosId,jdbcType=DECIMAL}
+	    </if>
+	    order by ll.CYCLE_ID desc
+    </where>
+  </select>
+  
+  <select id="getUserBillDetailByChargeId" resultMap="BaseResultMap" >
+  	select *
+  	from  LAO_USERBILLS_DETAIL
+  	where CHARGE_ID = #{chargeId,jdbcType=DECIMAL}
+  </select>
+</mapper>

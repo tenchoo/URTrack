@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.TradeDiscontMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.TradeDiscont">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <id column="DISCNT_ID" jdbcType="DECIMAL" property="discntId" />
+    <id column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="MODIFY_TAG" jdbcType="CHAR" property="modifyTag" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, USER_ID, DISCNT_ID, START_DATE, GOODS_ID, END_DATE, MODIFY_TAG, 
+    ACCEPT_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE_DISCNT
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and DISCNT_ID = #{discntId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from LAO_TRADE_DISCNT
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and DISCNT_ID = #{discntId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.TradeDiscont">
+    insert into LAO_TRADE_DISCNT (TRADE_ID, ACCEPT_MONTH, USER_ID, 
+      DISCNT_ID, START_DATE, GOODS_ID, 
+      END_DATE, MODIFY_TAG, ACCEPT_DATE
+      )
+    values (#{tradeId,jdbcType=DECIMAL}, #{acceptMonth,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, 
+      #{discntId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, #{goodsId,jdbcType=DECIMAL}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{modifyTag,jdbcType=CHAR}, #{acceptDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.TradeDiscont">
+    insert into LAO_TRADE_DISCNT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        TRADE_ID,
+      </if>
+      <if test="acceptMonth != null">
+        ACCEPT_MONTH,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="discntId != null">
+        DISCNT_ID,
+      </if>
+      <if test="startDate != null">
+        START_DATE,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="modifyTag != null">
+        MODIFY_TAG,
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tradeId != null">
+        #{tradeId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptMonth != null">
+        #{acceptMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="discntId != null">
+        #{discntId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTag != null">
+        #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="acceptDate != null">
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.TradeDiscont">
+    update LAO_TRADE_DISCNT
+    <set>
+      <if test="goodsId != null">
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTag != null">
+        MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      </if>
+      <if test="acceptDate != null">
+        ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and DISCNT_ID = #{discntId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.TradeDiscont">
+    update LAO_TRADE_DISCNT
+    set GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      MODIFY_TAG = #{modifyTag,jdbcType=CHAR},
+      ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP}
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+      and ACCEPT_MONTH = #{acceptMonth,jdbcType=DECIMAL}
+      and USER_ID = #{userId,jdbcType=DECIMAL}
+      and DISCNT_ID = #{discntId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

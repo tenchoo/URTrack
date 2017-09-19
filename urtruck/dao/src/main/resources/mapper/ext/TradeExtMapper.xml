@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.TradeExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.Trade">
+    <id column="TRADE_ID" jdbcType="DECIMAL" property="tradeId" />
+    <id column="ACCEPT_MONTH" jdbcType="DECIMAL" property="acceptMonth" />
+    <result column="TRADE_TYPE_CODE" jdbcType="DECIMAL" property="tradeTypeCode" />
+    <result column="IN_MODE_CODE" jdbcType="CHAR" property="inModeCode" />
+    <result column="SUBSCRIBE_STATE" jdbcType="CHAR" property="subscribeState" />
+    <result column="GOODS_ID" jdbcType="DECIMAL" property="goodsId" />
+    <result column="GOODS_RELEASE_ID" jdbcType="DECIMAL" property="goodsReleaseId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="CHANNAL_CUST_ID" jdbcType="DECIMAL" property="channalCustId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="ICCID" jdbcType="VARCHAR" property="iccid" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="ACCEPT_DATE" jdbcType="TIMESTAMP" property="acceptDate" />
+    <result column="EXEC_TIME" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="FINISH_DATE" jdbcType="TIMESTAMP" property="finishDate" />
+    <result column="FEE" jdbcType="VARCHAR" property="fee" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="FEE_STATE" jdbcType="CHAR" property="feeState" />
+    <result column="FEE_TIME" jdbcType="TIMESTAMP" property="feeTime" />
+    <result column="FEE_STAFF_ID" jdbcType="CHAR" property="feeStaffId" />
+    <result column="IF_MAINTENANCE" jdbcType="CHAR" property="ifMaintenance" />
+    <result column="ORDER_ID" jdbcType="DECIMAL" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TRADE_ID, ACCEPT_MONTH, TRADE_TYPE_CODE, IN_MODE_CODE, SUBSCRIBE_STATE, GOODS_ID, 
+    USER_ID, CHANNAL_CUST_ID, CUST_ID, ICCID, CUST_NAME, ACCEPT_DATE, EXEC_TIME, FINISH_DATE, 
+    FEE, INVOICE_NO, FEE_STATE, FEE_TIME, FEE_STAFF_ID, IF_MAINTENANCE, ORDER_ID,GOODS_RELEASE_ID
+  </sql>
+  <select id="selectPayDetailByIccid" resultType="TradeFeeSub" parameterType="map">
+   select tradefee.trade_id tradeId,tradefee.fee fee,tradefee.oldfee oldFee,tradefee.pay_type payType,tradefee.pay_date payDate 
+   from lao_trade  trade 
+   left join lao_tradefee_sub tradefee on trade.trade_id=tradefee.trade_id 
+   where trade.iccid=#{params.param.iccid,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectByTradeId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE
+    where TRADE_ID = #{tradeId,jdbcType=DECIMAL}
+  </select>
+  
+    <select id="tradingFailure"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRADE
+    where ICCID= #{iccid,jdbcType=VARCHAR} 
+    and TRADE_TYPE_CODE <![CDATA[<>]]> 3
+  </select>
+  
+<select id="selectRecord" resultType="map">
+ select cu.cust_name custname,tr.iccid iccid,lg.goods_name goodsname,oper.operators_name operatorsname,count(1) count,tfs.fee fee,to_char(tr.accept_date,'YYYY-MM-DD HH24:MI:SS') orderdate
+from lao_trade tr
+left join lao_customer cu on tr.channal_cust_id=cu.cust_id
+left join lao_goods lg on lg.goods_id=tr.goods_id
+left join lao_tradefee_sub tfs on tfs.trade_id=tr.trade_id
+left join lao_operators oper on lg.operators_id=oper.operators_id
+where tr.trade_type_code =120
+	<if test="custId != null and custId!=''" >
+		and  cu.CUST_ID=#{custId} 
+	</if>
+	<if test="monthId != null and monthId!=''" >
+		and  to_char(tr.accept_date,'yyyyMM')=#{monthId} 
+	</if>
+group by cu.cust_name,tr.iccid,lg.goods_name,oper.operators_name,tfs.fee,tr.accept_date
+order by tr.accept_date desc
+</select>
+<select id="queryPage" parameterType="map" resultType="map">
+select * from (select a.*,rownum rn from (select * from (select cu.cust_name custname,tr.iccid iccid,decode(lg.goods_name,'',' ',lg.goods_name) goodsname,decode(oper.operators_name,'',' ',oper.operators_name) operatorsname,count(1) count,decode(tfs.fee,'',' ',tfs.fee) fee,to_char(tr.accept_date,'YYYY-MM-DD HH24:MI:SS') orderdate
+from lao_trade tr
+left join lao_customer cu on tr.channal_cust_id=cu.cust_id
+left join lao_goods lg on lg.goods_id=tr.goods_id
+left join lao_tradefee_sub tfs on tfs.trade_id=tr.trade_id
+left join lao_operators oper on lg.operators_id=oper.operators_id
+where tr.trade_type_code =120
+	<if test="params.param.custId != null and params.param.custId!=''" >
+		and  cu.CUST_ID=#{params.param.custId} 
+	</if>
+	<if test="params.monthId != null and params.monthId!=''" >
+		and  to_char(tr.accept_date,'yyyyMM')=#{params.monthId} 
+	</if>
+group by cu.cust_name,tr.iccid,lg.goods_name,oper.operators_name,tfs.fee,tr.accept_date) u 
+order by u.orderdate desc) a
+where rownum<![CDATA[<=]]>${pageNo}<![CDATA[*]]>${pageSize}) b 
+where rn<![CDATA[>]]>(${pageNo}<![CDATA[-]]>1)<![CDATA[*]]>${pageSize}
+</select>
+<select id="getTotalRecord" parameterType="map" resultType="long">
+    select count(1) from (select cu.cust_name custname,tr.iccid iccid,lg.goods_name goodsname,oper.operators_name operatorsname,count(1) count,tfs.fee fee,to_char(tr.accept_date,'YYYY-MM-DD HH24:MI:SS') orderdate
+from lao_trade tr
+left join lao_customer cu on tr.channal_cust_id=cu.cust_id
+left join lao_goods lg on lg.goods_id=tr.goods_id
+left join lao_tradefee_sub tfs on tfs.trade_id=tr.trade_id
+left join lao_operators oper on lg.operators_id=oper.operators_id
+where tr.trade_type_code =120
+	<if test="params.param.custId != null and params.param.custId!=''" >
+		and  cu.CUST_ID=#{params.param.custId} 
+	</if>
+	<if test="params.monthId != null and params.monthId!=''" >
+		and  to_char(tr.accept_date,'yyyyMM')=#{params.monthId} 
+	</if>
+group by cu.cust_name,tr.iccid,lg.goods_name,oper.operators_name,tfs.fee,tr.accept_date)
+  </select>
+</mapper>

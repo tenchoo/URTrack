@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoOperatorsbillResultMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsbillResult" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="TOTAL_COST" property="totalCost" jdbcType="DECIMAL" />
+    <result column="GLA_TOTAL_COST" property="glaTotalCost" jdbcType="DECIMAL" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, CYCLE_ID, OPERATORS_ID, TOTAL_COST, GLA_TOTAL_COST, SUM_NUM, SUCC_NUM, 
+    FAIL_NUM, UPDATE_TIME, UPDATE_ACCOUNT_ID, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORSBILL_RESULT
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_OPERATORSBILL_RESULT
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoOperatorsbillResult" >
+    insert into LAO_OPERATORSBILL_RESULT (BATCH_ID, CYCLE_ID, OPERATORS_ID, 
+      TOTAL_COST, GLA_TOTAL_COST, SUM_NUM, 
+      SUCC_NUM, FAIL_NUM, UPDATE_TIME, 
+      UPDATE_ACCOUNT_ID, REMARK)
+    values (#{batchId,jdbcType=DECIMAL}, #{cycleId,jdbcType=DECIMAL}, #{operatorsId,jdbcType=DECIMAL}, 
+      #{totalCost,jdbcType=DECIMAL}, #{glaTotalCost,jdbcType=DECIMAL}, #{sumNum,jdbcType=DECIMAL}, 
+      #{succNum,jdbcType=DECIMAL}, #{failNum,jdbcType=DECIMAL}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateAccountId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoOperatorsbillResult" >
+    insert into LAO_OPERATORSBILL_RESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        BATCH_ID,
+      </if>
+      <if test="cycleId != null" >
+        CYCLE_ID,
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID,
+      </if>
+      <if test="totalCost != null" >
+        TOTAL_COST,
+      </if>
+      <if test="glaTotalCost != null" >
+        GLA_TOTAL_COST,
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM,
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM,
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="batchId != null" >
+        #{batchId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycleId != null" >
+        #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="glaTotalCost != null" >
+        #{glaTotalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="sumNum != null" >
+        #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoOperatorsbillResult" >
+    update LAO_OPERATORSBILL_RESULT
+    <set >
+      <if test="cycleId != null" >
+        CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      </if>
+      <if test="operatorsId != null" >
+        OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCost != null" >
+        TOTAL_COST = #{totalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="glaTotalCost != null" >
+        GLA_TOTAL_COST = #{glaTotalCost,jdbcType=DECIMAL},
+      </if>
+      <if test="sumNum != null" >
+        SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      </if>
+      <if test="succNum != null" >
+        SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      </if>
+      <if test="failNum != null" >
+        FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateAccountId != null" >
+        UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoOperatorsbillResult" >
+    update LAO_OPERATORSBILL_RESULT
+    set CYCLE_ID = #{cycleId,jdbcType=DECIMAL},
+      OPERATORS_ID = #{operatorsId,jdbcType=DECIMAL},
+      TOTAL_COST = #{totalCost,jdbcType=DECIMAL},
+      GLA_TOTAL_COST = #{glaTotalCost,jdbcType=DECIMAL},
+      SUM_NUM = #{sumNum,jdbcType=DECIMAL},
+      SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+      FAIL_NUM = #{failNum,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_ACCOUNT_ID = #{updateAccountId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where BATCH_ID = #{batchId,jdbcType=DECIMAL}
+  </update>
+</mapper>

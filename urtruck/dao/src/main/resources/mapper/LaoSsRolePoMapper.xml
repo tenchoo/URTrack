@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoSsRolePoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsRolePo" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="AUTH_TYPE" property="authType" jdbcType="CHAR" />
+    <result column="PRIORITY" property="priority" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, DESCRIPTION, AUTH_TYPE, PRIORITY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_ROLE
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectLowPriorityRole" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_ROLE
+    <![CDATA[ where PRIORITY >= #{priority,jdbcType=DECIMAL} or PRIORITY is null]]>   
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_SS_ROLE
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsRolePo" >
+    insert into LAO_SS_ROLE (ROLE_ID, ROLE_NAME, DESCRIPTION, 
+      AUTH_TYPE, PRIORITY)
+    values (#{roleId,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{authType,jdbcType=CHAR},#{priority,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsRolePo" >
+    insert into LAO_SS_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE,
+      </if>
+      <if test="priority != null" >
+        PRIORITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=CHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsRolePo" >
+    update LAO_SS_ROLE
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE = #{authType,jdbcType=CHAR},
+      </if>
+      <if test="priority != null">
+      	PRIORITY = #{priority,jdbcType=DECIMAL}
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsRolePo" >
+    update LAO_SS_ROLE
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      AUTH_TYPE = #{authType,jdbcType=CHAR},
+      PRIORITY = #{priority,jdbcType=DECIMAL}
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+</mapper>

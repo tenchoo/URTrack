@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.DeviceProductPoExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DeviceProductPo" >
+    <id column="ADID" property="adid" jdbcType="VARCHAR" />
+    <result column="IMGURL" property="imgurl" jdbcType="VARCHAR" />
+    <result column="ADPRICE" property="adprice" jdbcType="VARCHAR" />
+    <result column="ADNAME" property="adname" jdbcType="VARCHAR" />
+    <result column="ADLINKURL" property="adlinkurl" jdbcType="VARCHAR" />
+    <result column="ADLINTRODUCE" property="adlintroduce" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="PARANAME1" property="paraname1" jdbcType="VARCHAR" />
+    <result column="PARANAME2" property="paraname2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADID, IMGURL, ADPRICE, ADNAME, ADLINKURL, ADLINTRODUCE, ISSHOW, PARANAME1, PARANAME2
+  </sql>
+  <select id="selectShowAds" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICEPRODUCT_AD
+    where ISSHOW = '1' and PARANAME1=#{tag}
+  </select>
+</mapper>

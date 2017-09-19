@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoTrafficMmExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoTrafficMm" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="DATA_CYCLE" property="dataCycle" jdbcType="VARCHAR" />
+    <result column="DATA_ADDED" property="dataAdded" jdbcType="VARCHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DATA_REMAINING" property="dataRemaining" jdbcType="DECIMAL" />
+    <result column="PLAN_CLASSIFY" property="planClassify" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, CHANNEL_CUST_ID, USER_ID, ICCID, MSISDN, OPERATORS_ID, USE_COUNT, DATA_CYCLE, 
+    DATA_ADDED, RECV_TIME, UPDATE_TIME, REMARK, DATA_REMAINING,PLAN_CLASSIFY
+  </sql>
+   <select id="selectEightCount" resultType="java.util.Map" parameterType="map" >
+      select groupcount,sum(1) sum from (select FLOOR((to_number(use_count)<![CDATA[-]]>#{maxMinFlow,jdbcType=DECIMAL})<![CDATA[/]]>#{avgFlowOfEight,jdbcType=DECIMAL}) groupcount from lao_traffic_mm
+      where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=to_char(add_months(now(),-1),'yyyymm') AND to_number(use_count) <![CDATA[<]]> #{minMaxFlow,jdbcType=DECIMAL} AND to_number(use_count) <![CDATA[>]]>#{maxMinFlow,jdbcType=DECIMAL})
+      group by  groupcount
+  </select>
+  <!-- <select id="selectEightCount" resultType="java.util.Map" parameterType="Long" >
+      select SUM(1) from lao_traffic_mm
+      where channel_cust_id=#{channelCustId} and data_cycle=to_char(add_months(now(),-1),'yyyymm') AND to_number(use_count) <![CDATA[<]]> #{minMaxFlow,jdbcType=DECIMAL} AND to_number(use_count) <![CDATA[>]]>#{maxMinFlow,jdbcType=DECIMAL}
+      group by  FLOOR((to_number(use_count)<![CDATA[-]]>#{maxMinFlow,jdbcType=DECIMAL})<![CDATA[/]]>10.125) 
+  </select> -->
+  <select id="selectMinMaxFiveCount" resultType="BigDecimal" parameterType="Long" >
+      select count(1) sumPrefixNum
+      from lao_traffic_mm
+      where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=to_char(add_months(now(),-1),'yyyymm') and to_number(use_count) <![CDATA[>=]]>#{minMaxFlow,jdbcType=DECIMAL} 
+  </select>
+  <select id="selectBackFiveCount" resultType="BigDecimal">
+      select count(1) sumPrefixNum
+      from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month} and to_number(use_count) <![CDATA[>=]]>#{minmf,jdbcType=DECIMAL} 
+       <if test="useCount1 != null">
+	     and use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and use_count  <![CDATA[<=]]> #{useCount2}
+       </if> 
+        <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>  
+  </select>
+  <select id="selectBackFiveCountOfRe" resultType="BigDecimal">
+      select count(1) sumPrefixNum 
+      from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month} and to_number(data_remaining) <![CDATA[>=]]>#{minmf,jdbcType=DECIMAL} 
+       <if test="useCount1 != null">
+	     and data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>  
+  </select>
+  <select id="selectMaxMinFiveCount" resultType="BigDecimal" parameterType="Long" >
+      select count(1) sumPrefixNum
+      from lao_traffic_mm
+      where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=to_char(add_months(now(),-1),'yyyymm') and to_number(use_count) <![CDATA[<=]]>#{maxMinFlow,jdbcType=DECIMAL} 
+  </select>
+  <select id="selectPreFiveCount" resultType="BigDecimal">
+      select count(1) sumPrefixNum
+      from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month}and to_number(use_count) <![CDATA[<=]]>#{maxmf,jdbcType=DECIMAL} 
+        <if test="useCount1 != null">
+	     and use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and use_count  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>   
+  </select>
+  <select id="selectPreFiveCountOfre" resultType="BigDecimal">
+      select count(1) sumPrefixNum
+      from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month} and to_number(data_remaining) <![CDATA[<=]]>#{maxmf,jdbcType=DECIMAL} 
+        <if test="useCount1 != null">
+	     and ltm.data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and ltm.data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if> 
+        <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>   
+  </select>
+  <select id="selectMinMaxFiveFlow" resultType="BigDecimal">
+      select min(to_number(use_count)) from 
+	  (select use_count,ROWNUM from 
+	  (select to_number(use_count) use_count  from lao_traffic_mm
+	  where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =to_char(add_months(now(),-1),'yyyymm') order by to_number(use_count) DESC) D)
+	  where ROWNUM <![CDATA[<]]>#{useSum,jdbcType=DECIMAL}<![CDATA[*]]>0.05
+  </select>
+  <select id="selectMaxMinFiveFlow" resultType="BigDecimal" parameterType="Long" >
+      select max(to_number(use_count)) from 
+	  (select use_count,ROWNUM from 
+	  (select to_number(use_count) use_count  from lao_traffic_mm
+	  where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =to_char(add_months(now(),-1),'yyyymm') order by to_number(use_count) ASC) D)
+	  where ROWNUM <![CDATA[<]]>#{useSum,jdbcType=DECIMAL}<![CDATA[*]]>0.05
+  </select>
+  <select id="selectPrefixFlow" resultType="java.util.Map" parameterType="Long" >
+      select min(to_number(use_count)) minflow,max(to_number(use_count)) maxflow,avg(to_number(use_count)) avgflow，count(1) usesum from lao_traffic_mm 
+      where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=to_char(add_months(now(),-1),'yyyymm')
+  </select>
+  <select id="selectMaxFlowCount" resultType="java.util.Map" parameterType="Long" >
+          select * 
+	   from (
+	   select iccid,use_count usecount 
+	   from lao_traffic_mm 
+	   where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle = to_char(now(),'yyyymm')  
+	   order by to_number（use_count） desc
+	   ) where rownum<![CDATA[<]]>6
+  </select>
+  
+    <!-- 管理员首页 start-->
+  <select id="selectTop5ByUseFlow" resultType="java.util.Map">
+      select * from (
+    select a.channel_cust_id,b.cust_name,CAST(sum(use_count)/1024/1024 AS NUMBER (10, 2) )USECOUNT 
+    from lao_traffic_mm a, LAO_CUST_GROUP b 
+    where a.data_cycle=to_char(now(),'yyyymm')
+    AND A.CHANNEL_CUST_ID=B.CUST_ID
+  group by a.channel_cust_id,b.cust_name 
+  order by sum(use_count) desc 
+  ) where rownum<![CDATA[<]]>6
+  </select>
+  <select id="selectTop5ByAverageUseFlow" resultType="java.util.Map">
+	select *
+  from (select a.channel_cust_id,
+               b.cust_name,
+                CAST(sum(use_count) / 1024  / count(1) AS NUMBER (10, 2) ) USECOUNT 
+          from lao_traffic_mm a, lao_customer b, lao_user c
+         where a.data_cycle = to_char(now(), 'yyyymm')
+           and a.channel_cust_id = c.channel_cust_id
+           AND A.CHANNEL_CUST_ID=B.CUST_ID
+           and c.remove_tag = '0'
+           and A.USER_ID =c.user_id
+         group by a.channel_cust_id, b.cust_name  ORDER BY  USECOUNT DESC
+        )  WHERE ROWNUM <![CDATA[<]]>6
+  </select>
+  <select id="selectTop5ByCustConsume" resultType="java.util.Map">
+	  select * from (select channel_cust_id,b.cust_name,sum(recv_fee) SUMFEE from lao_b_paylog a, lao_customer b
+	  where a.cancel_tag='0'and a.payment_op='10004'and a.recv_time > to_date(to_char(now(),'yyyymm')||'01000000','yyyymmddhh24miss')
+	  and a.pay_tag='2'
+	  and a.channel_cust_id=b.cust_id
+	  group by a.channel_cust_id,b.cust_name
+	  order by sum(recv_fee) desc) where rownum <![CDATA[<]]>6
+  </select>
+  <select id="selectTop5ByAverageConsume" resultType="java.util.Map">
+  	select * from (select payment_op,to_char(recv_time,'yyyymm') recvTime,a.channel_cust_id,b.cust_name,sum(recv_fee)/count(c.user_id) avgFee from lao_b_paylog a, lao_customer b,lao_user c
+	where a.cancel_tag='0'and a.payment_op='10004'and a.recv_time > to_date(to_char(now(),'yyyymm')||'01000000','yyyymmddhh24miss')
+	and a.pay_tag='2'
+	and a.channel_cust_id=b.cust_id
+	and a.channel_cust_id=c.channel_cust_id
+	and c.remove_tag='0'
+	group by a.payment_op,to_char(a.recv_time,'yyyymm'),a.channel_cust_id,b.cust_name
+	order by sum(recv_fee)/count(c.user_id) desc) where rownum <![CDATA[<]]>6
+  </select>
+  <select id="selectTop5ByPersonal" resultType="java.util.Map">
+  	select * from (select payment_op,to_char(recv_time,'yyyymm') recvTime,channel_cust_id,b.cust_name,sum(recv_fee) sumFee from lao_b_paylog a, lao_customer b
+	where a.cancel_tag='0'and a.payment_op='10004'and a.recv_time > to_date(to_char(now(),'yyyymm')||'01000000','yyyymmddhh24miss')
+	and a.pay_tag='1'
+	and a.channel_cust_id=b.cust_id
+	group by a.payment_op,to_char(a.recv_time,'yyyymm'),a.channel_cust_id,b.cust_name
+	order by sum(recv_fee) desc) where rownum <![CDATA[<]]>6
+  </select>
+  <select id="selectLast5ByPersonal" resultType="java.util.Map">
+  	select * from (select payment_op,to_char(recv_time,'yyyymm') recvTime,channel_cust_id,b.cust_name,sum(recv_fee) sumFee from lao_b_paylog a, lao_customer b
+	where a.cancel_tag='0'and a.payment_op='10004'and a.recv_time > to_date(to_char(now(),'yyyymm')||'01000000','yyyymmddhh24miss')
+	and a.pay_tag='1'
+	and a.channel_cust_id=b.cust_id
+	group by a.payment_op,to_char(a.recv_time,'yyyymm'),a.channel_cust_id,b.cust_name
+	order by sum(recv_fee) asc) where rownum <![CDATA[<]]>6
+  </select>
+  <select id="selectCountByState" resultType="java.util.Map">
+  select b.outsidestate ,d.static_name, sum(1) SUMCOUNT 
+	  from lao_user a, lao_service_status b,lao_ss_static d 
+	  where a.state_code=b.state_code 
+	  and b.outsidestate = d.static_code
+	  and d.tab_name='LAO_SERVICE_STATUS' 
+	  and d.col_name='OUTSIDESTATE'
+	  group by b.outsidestate ,d.static_name
+  </select>
+  <select id="selectCountByOperators" resultType="java.util.Map">
+	select a.operators_id,b.operators_name,sum(1) SUMCOUNT from lao_user a,lao_operators b 
+	where a.operators_id=b.operators_id group by a.operators_id,b.operators_name
+  </select>
+  <select id="selectTop10ByCust" resultType="java.util.Map">
+  	select * from (select a.channel_cust_id,b.cust_name,count(1) SUMCOUNT from lao_user a, lao_customer b 
+	where a.channel_cust_id=b.cust_id group by a.channel_cust_id,b.cust_name order by count(1) desc) 
+	where rownum <![CDATA[<]]>11
+  </select>
+  <select id="selectUserCountByYear" resultType="java.util.Map">
+  	select to_char(open_date,'yyyymm') CYCDATE,count(1) SUMCOUNT from lao_user 
+  	where to_char(open_date,'yyyymm') >= to_char(add_months(now(),-12),'yyyymm') group by to_char(open_date,'yyyymm')
+  	order by to_char(open_date,'yyyymm') asc 
+  </select>
+  <select id="selectCountByTrade" resultType="java.util.Map">
+	select a.trade_type_code,b.trade_type_name,sum(1) sumcount from lao_trade a,lao_trade_type b where to_char(a.accept_date,'yyyymm')=to_char(now(),'yyyymm') 
+	and a.trade_type_code=b.trade_type_code group by a.trade_type_code ,b.trade_type_name
+  </select>
+  <select id="selectFlowCountByMonth" resultType="java.util.Map">
+	select data_cycle ,CAST(sum(use_count)/1024/1024 AS NUMBER (10, 2) )sumcount 
+  from lao_traffic_detail 
+  where data_cycle >= to_char(add_months(now(),-1),'yyyymmdd') 
+  group by data_cycle
+  order by data_cycle asc
+    </select>
+  <select id="selectComeByPayment" resultType="java.util.Map">
+  	select a.payment_op,b.static_name,sum(real_fee) sumcount from lao_b_paylog a，lao_ss_static b 
+	where a.cancel_tag='0'
+	and b.tab_name ='lao_b_paylog' and b.col_name='PAYMENT_OP' and a.payment_op=b.static_code
+	group by a.payment_op,b.static_name
+  </select>
+  <select id="selectConsumeBy6Month" resultType="java.util.Map">
+	select payment_op,to_char(recv_time,'yyyymm') cycdate,sum(recv_fee) sumcount from lao_b_paylog 
+	where cancel_tag='0'and payment_op='10004'and recv_time > to_date(to_char(add_months(now(),-6),'yyyymm')||'01000000','yyyymmddhh24miss')
+	group by payment_op,to_char(recv_time,'yyyymm') 
+	order by to_char(recv_time,'yyyymm') asc
+  </select>
+  
+  <select id="queryPage" resultType="java.util.Map">
+  		select 
+              a.iccid iccid,
+              a.msisdn msisdn,
+              lc.cust_name custname,
+              l.operators_name dataAdded,
+              c.static_name staticNameA,
+              d.static_name staticNameB, 
+              j.static_name cardStatus
+               from Lao_User a,
+               lao_operators l,
+               lao_ss_static c,
+               lao_ss_static d,
+               lao_service_status f,
+               lao_customer lc,
+               lao_ss_static j 
+               where (a.channel_cust_id = c.cust_id or c.cust_id=-1) 
+               and (a.channel_cust_id = d.cust_id   or d.cust_id=-1) 
+               and a.value1 = c.static_code 
+               and a.value2 = d.static_code 
+               and a.state_code = f.state_code 
+               and f.outsidestate=j.static_code 
+               and j.tab_name='LAO_SERVICE_STATUS' 
+               and j.col_name='OUTSIDESTATE'   
+               and a.operators_id=l.operators_id 
+               and a.channel_cust_id = lc.cust_id
+               <if test="params.param.paramNum != null and params.param.paramNum!=''">
+			and (a.iccid = #{params.param.paramNum} or a.msisdn = #{params.param.paramNum})
+		</if>
+               <if test="params.param.custId != null and params.param.custId!=''">
+			and a.channel_cust_id = #{params.param.custId}
+		</if>
+  </select>
+  <!-- 管理员首页 end-->
+  						
+  <select id="selectMinFlowCount" resultType="java.util.Map" parameterType="Long" >
+	   select * 
+	   from (
+	   select iccid,use_count usecount 
+	   from lao_traffic_mm 
+	   where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle = to_char(now(),'yyyymm')  
+	   order by to_number(use_count) asc
+	   ) where rownum<![CDATA[<]]>6
+
+  </select>
+  <select id="selectMonthFlowCount" resultType="java.util.Map" parameterType="Long" >
+	   select data_cycle datcycle,sum(use_count) flowsum 
+	   from lao_traffic_detail 
+	   where channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle <![CDATA[>]]> to_char(now()-15,'yyyymmdd') 
+	   group by data_cycle
+  </select>
+  <select id="selectCountByChannel" resultType="java.lang.Integer" parameterType="map" >
+	   select count(*) from Lao_User where 
+	   channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust)
+  </select>
+  
+  <select id="selectByChannelCustId" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from lao_user where 
+    channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust)
+	
+  </select>
+  <select id="selectByTraffic" resultType="java.util.Map"  parameterType="map" >
+   select b.batch_id,b.iccid,b.msisdn,b.data_added,b.use_count,b.update_time,b.data_remaining, c.static_name staticNameA,d.static_name staticNameB
+   from Lao_User a,LAO_TRAFFIC_MM b,
+   lao_ss_static c,lao_ss_static d 
+   where a.channel_cust_id = c.cust_id
+   and a.channel_cust_id = d.cust_id
+   and a.value1 = c.static_code
+   and a.value2 = d.static_code
+   and a.user_id = b.user_id
+   and b.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust)
+   and b.DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR}
+	<if test="useCount1 != null">
+	and b.USE_COUNT  <![CDATA[>=]]> #{useCount1,jdbcType=DECIMAL}
+    </if>
+	<if test="useCount2 != null">
+	and b.USE_COUNT  <![CDATA[<=]]> #{useCount2,jdbcType=DECIMAL}
+    </if>
+	<if test="dataRemaining1 != null">
+	and b.DATA_REMAINING <![CDATA[>=]]> #{dataRemaining1,jdbcType=DECIMAL}
+    </if>
+	<if test="dataRemaining2 != null">
+	and b.DATA_REMAINING <![CDATA[<=]]> #{dataRemaining2,jdbcType=DECIMAL}
+    </if>
+  </select>
+  <select id="selectUseByTraffic" resultType="java.util.Map">
+     select b.batch_id,b.iccid,b.msisdn,b.data_added,b.use_count,b.update_time,b.data_remaining, c.static_name staticNameA,d.static_name staticNameB,e.start_use_date,
+   e.end_date,f.cardstatus,f.devicetype,g.device_id imei,h.device_id imsi
+   from Lao_User a,LAO_TRAFFIC_MM b,
+   lao_ss_static c,lao_ss_static d,
+   lao_user_goods e,lao_iccid_lib f,
+   (select * from lao_device_rel i where i.id_type='IMEI') g,(select * from lao_device_rel i where i.id_type='IMSI') h,lao_goods i
+   where a.channel_cust_id = c.cust_id
+   and a.channel_cust_id = d.cust_id
+   and a.value1 = c.static_code
+   and a.value2 = d.static_code
+   and a.user_id = b.user_id
+   and a.user_id = e.user_id
+   and a.iccid =f.iccid
+   and a.iccid=g.iccid
+   and a.iccid=h.iccid
+   and  e.goods_id=i.goods_id
+   and b.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust)
+   and b.DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR}
+   and now() between e.start_date and e.end_date
+   and i.goods_type<![CDATA[<>]]>'1'
+   <if test="useCount1 != null">
+  and b.USE_COUNT  <![CDATA[>=]]> #{useCount1,jdbcType=DECIMAL}
+    </if>
+  <if test="useCount2 != null">
+  and b.USE_COUNT  <![CDATA[<=]]> #{useCount2,jdbcType=DECIMAL}
+    </if>
+  </select>
+  <select id="selectRemainByTraffic" resultType="java.util.Map">
+   <!-- select b.batch_id,b.iccid,b.msisdn,b.data_added,b.use_count,b.update_time,b.data_remaining, c.static_name staticNameA,d.static_name staticNameB
+   from Lao_User a,LAO_TRAFFIC_MM b,
+   lao_ss_static c,lao_ss_static d 
+   where a.channel_cust_id = c.cust_id
+   and a.channel_cust_id = d.cust_id
+   and a.value1 = c.static_code
+   and a.value2 = d.static_code
+   and a.user_id = b.user_id
+   and b.CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL}
+   and b.DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR}
+	<if test="useCount1 != null">
+	and b.DATA_REMAINING  <![CDATA[>=]]> #{useCount1,jdbcType=DECIMAL}
+    </if>
+	<if test="useCount2 != null">
+	and b.DATA_REMAINING  <![CDATA[<=]]> #{useCount2,jdbcType=DECIMAL}
+    </if> -->
+   <!--  select b.batch_id,b.iccid,b.msisdn,b.data_added,b.use_count,b.update_time,b.data_remaining, c.static_name staticNameA,d.static_name staticNameB,e.start_use_date,
+   e.end_date,f.cardstatus,f.devicetype,g.device_id imei,h.device_id imsi
+   from Lao_User a,LAO_TRAFFIC_MM b,
+   lao_ss_static c,lao_ss_static d,
+   lao_user_goods e,lao_iccid_lib f,
+   (select * from lao_device_rel i where i.id_type='IMEI') g,(select * from lao_device_rel i where i.id_type='IMSI') h
+   where a.channel_cust_id = c.cust_id
+   and a.channel_cust_id = d.cust_id
+   and a.value1 = c.static_code
+   and a.value2 = d.static_code
+   and a.user_id = b.user_id
+   and a.user_id = e.user_id
+   and a.iccid =f.iccid
+   and a.iccid=g.iccid
+   and a.iccid=h.iccid
+   and b.CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL}
+   and b.DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR}
+   
+  <if test="useCount1 != null">
+  and b.DATA_REMAINING  <![CDATA[>=]]> #{useCount1,jdbcType=DECIMAL}
+    </if>
+  <if test="useCount2 != null">
+  and b.DATA_REMAINING  <![CDATA[<=]]> #{useCount2,jdbcType=DECIMAL}
+    </if> -->
+     select b.batch_id,b.iccid,b.msisdn,b.data_added,b.use_count,b.update_time,b.data_remaining, c.static_name staticNameA,d.static_name staticNameB,e.start_use_date,
+   e.end_date,f.cardstatus,f.devicetype,g.device_id imei,h.device_id imsi
+   from Lao_User a,LAO_TRAFFIC_MM b,
+   lao_ss_static c,lao_ss_static d,
+   lao_user_goods e,lao_iccid_lib f,
+   (select * from lao_device_rel i where i.id_type='IMEI') g,(select * from lao_device_rel i where i.id_type='IMSI') h,lao_goods i
+   where a.channel_cust_id = c.cust_id
+   and a.channel_cust_id = d.cust_id
+   and a.value1 = c.static_code
+   and a.value2 = d.static_code
+   and a.user_id = b.user_id
+   and a.user_id = e.user_id
+   and a.iccid =f.iccid
+   and a.iccid=g.iccid
+   and a.iccid=h.iccid
+   and  e.goods_id=i.goods_id
+   and b.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust)
+   and b.DATA_CYCLE = #{dataCycle,jdbcType=VARCHAR}
+   and now() between e.start_date and e.end_date
+   and i.goods_type<![CDATA[<>]]>'1'
+    <if test="useCount1 != null">
+    and b.DATA_REMAINING  <![CDATA[>=]]> #{useCount1,jdbcType=DECIMAL}
+    </if>
+  <if test="useCount2 != null">
+    and b.DATA_REMAINING  <![CDATA[<=]]> #{useCount2,jdbcType=DECIMAL}
+    </if> 
+  </select>
+  <select id="selectByUseId" resultMap="BaseResultMap" > 
+  	select 
+  	<include refid="Base_Column_List" />
+  	from LAO_TRAFFIC_MM where USER_ID = #{userId,jdbcType=DECIMAL} and DATA_CYCLE= #{dataCycleMm,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserPlanInfoByIccid" resultMap="BaseResultMap" parameterType="Long">
+  	select <include refid="Base_Column_List" /> from LAO_TRAFFIC_MM WHERE to_char(now(),'yyyy-mm')=to_char(lao_alm_rule_log.RECV_TIME,'yyyy-mm') and ICCID=#{iccid}
+  </select>
+  <select id="getFlowCellByCustIdPlanId" resultType="java.util.Map" parameterType="java.util.Map">
+  	<!-- select sum(mm.data_remaining) residual_flow,sum(mm.use_count) use_count,mm.channel_cust_id cust_id,tb_plan.plan_id plan_id from lao_traffic_mm mm  left join lao_user_operator_plan tb_plan on mm.user_id=tb_plan.user_id where mm.channel_cust_id=#{custId} group by mm.channel_cust_id,tb_plan.plan_id -->
+  	<!-- select nvl(sum(decode(p.quantity_unit,
+                      'M',
+                      p.quantity_max * 1024,
+                      'G',
+                      p.quantity_max * 1024 * 1024)),
+           0) residual_flow,
+       sum(mm.use_count) use_count,
+       mm.channel_cust_id cust_id,
+       tb_plan.plan_id plan_id
+  from lao_traffic_mm mm
+  left join lao_user_operator_plan tb_plan
+    on mm.user_id = tb_plan.user_id
+  left join lao_operator_plan p
+    on tb_plan.plan_id = p.plan_id
+ where mm.channel_cust_id = #{custId}
+   and now() between tb_plan.start_date and tb_plan.end_date
+ group by mm.channel_cust_id, tb_plan.plan_id -->
+ select * from (
+select nvl(sum(decode(p.quantity_unit,
+                      'M',
+                      p.quantity_max * 1024,
+                      'G',
+                      p.quantity_max * 1024 * 1024)),
+           0) residual_flow,
+       sum(mm.use_count) use_count,
+       mm.channel_cust_id cust_id,
+       tb_plan.plan_id plan_id
+  from lao_traffic_mm mm
+  left join lao_user_operator_plan tb_plan on mm.user_id = tb_plan.user_id
+  left join lao_operator_plan p on tb_plan.plan_id = p.plan_id
+  left join lao_goods  g on tb_plan.goods_id = g.goods_id 
+ where mm.channel_cust_id = #{custId} and mm.operators_id!=1 and g.goods_type!=1 
+   and now() between tb_plan.start_date and tb_plan.end_date
+ group by mm.channel_cust_id, tb_plan.plan_id) tmp_alarm where tmp_alarm.residual_flow > 0 and tmp_alarm.use_count/tmp_alarm.residual_flow <![CDATA[>=]]> #{rate} 
+  </select>
+  <select id="getLaoTrafficMms" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_TRAFFIC_MM where data_cycle=to_char(now(),'yyyymm') and CHANNEL_CUST_ID=#{custId}
+  </select>
+  
+  <select id="getLaoTrafficMmsByCustId" resultType="java.util.Map" parameterType="map" >
+   <!-- select mm.channel_cust_id cust_id,mm.iccid iccid,mm.use_count use_count,p.sumcnt sumcnt from lao_traffic_mm mm
+left join (
+select up.user_id, sum(nvl(decode(op.quantity_unit, 'M', op.quantity_max * 1024,'G',op.quantity_max * 1024 * 1024), 0)) sumcnt 
+from lao_user_operator_plan up, lao_operator_plan op
+where now() between up.start_date and up.end_date
+and up.plan_id=op.plan_id
+group by up.user_id) p
+on mm.user_id = p.user_id
+where mm.data_cycle = to_number(to_char(now(),'yyyymm')) and and CHANNEL_CUST_ID=#{custId} -->
+select cust_id,count(cust_id) count_num,wm_concat(iccid) iccids from (
+select mm.channel_cust_id cust_id,mm.iccid iccid,mm.use_count use_count,p.sumcnt sumcnt from lao_traffic_mm mm
+left join (
+select up.user_id, sum(nvl(decode(op.quantity_unit, 'M', op.quantity_max * 1024,'G',op.quantity_max * 1024 * 1024), 0)) sumcnt 
+from lao_user_operator_plan up, lao_operator_plan op
+where now() between up.start_date and up.end_date
+and up.plan_id=op.plan_id
+group by up.user_id) p
+on mm.user_id = p.user_id
+where mm.data_cycle = to_number(to_char(now(),'yyyymm')) and CHANNEL_CUST_ID=#{custId} 
+) tmp_alarm where tmp_alarm.sumcnt>0 and tmp_alarm.use_count/tmp_alarm.sumcnt <![CDATA[>=]]> #{rate} group by cust_id
+  </select>
+  
+   <select id="getCardNum" resultType="int">
+<!-- 		select cust_id,count(cust_id) count_num,wm_concat(iccid) iccids from ( -->
+<!-- 		select mm.channel_cust_id cust_id,mm.iccid iccid,mm.use_count use_count,p.sumcnt sumcnt from lao_traffic_mm mm -->
+<!-- 		left join ( -->
+<!-- 		select up.user_id, sum(nvl(decode(op.quantity_unit, 'M', op.quantity_max * 1024,'G',op.quantity_max * 1024 * 1024), 0)) sumcnt  -->
+<!-- 		from lao_user_operator_plan up, lao_operator_plan op -->
+<!-- 		where now() between up.start_date and up.end_date -->
+<!-- 		and up.plan_id=op.plan_id -->
+<!-- 		group by up.user_id) p -->
+<!-- 		on mm.user_id = p.user_id -->
+<!-- 		where mm.data_cycle = to_number(to_char(now(),'yyyymm')) and CHANNEL_CUST_ID=#{custId}  -->
+<!-- 		) tmp_alarm where tmp_alarm.sumcnt>0 and tmp_alarm.use_count/tmp_alarm.sumcnt <![CDATA[>=]]> #{rate} group by cust_id -->
+  select count(1) cardnum from 
+  (select mm.channel_cust_id cust_id,
+               mm.iccid           iccid,
+               mm.use_count       use_count,
+               p.sumcnt           sumcnt
+          from lao_traffic_mm mm
+          left join (select up.user_id,
+                           sum(nvl(decode(op.quantity_unit,
+                                          'M',
+                                          op.quantity_max * 1024,
+                                          'G',
+                                          op.quantity_max * 1024 * 1024),
+                                   0)) sumcnt
+                      from lao_user_operator_plan up, lao_operator_plan op
+                     where now() between up.start_date and up.end_date
+                       and up.plan_id = op.plan_id
+                     group by up.user_id) p on mm.user_id = p.user_id
+         where mm.data_cycle = to_number(to_char(now(), 'yyyymm'))
+           and CHANNEL_CUST_ID = #{custId}) tmp_alarm
+ where tmp_alarm.sumcnt <![CDATA[>]]> 0
+   and tmp_alarm.use_count / tmp_alarm.sumcnt <![CDATA[>=]]> #{rate}
+  </select>
+  <select id="selectUseData" resultType="java.util.Map" >
+    select max(to_number(ltm.use_count)) maxflow,count(1) sum 
+    from lao_traffic_mm ltm,lao_user lu
+    where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) 
+    and ltm.data_cycle=#{month} 
+      <if test="useCount1 != null">
+	     and ltm.use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and ltm.use_count  <![CDATA[<=]]> #{useCount2}
+       </if>
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>  
+  </select>
+  <select id="selectRemainData" resultType="java.util.Map" >
+    select max(to_number(data_remaining)) maxflow,count(1) sum from lao_traffic_mm ltm,lao_user lu 
+    where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) 
+    and data_cycle=#{month}
+       <if test="useCount1 != null">
+	     and data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if>
+        <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>   
+  </select>
+  <select id="selectMaxFlowPrefiveOfUse" resultType="BigDecimal">
+      select max(to_number(use_count)) from 
+	  (select use_count,ROWNUM from 
+	  (select to_number(ltm.use_count) use_count  from lao_traffic_mm ltm ,lao_user lu 
+	  where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =#{month}
+	   <if test="useCount1 != null">
+	     and ltm.use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and ltm.use_count  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>    
+	   order by to_number(use_count) ASC) D)
+	  where ROWNUM <![CDATA[<]]>#{sum,jdbcType=DECIMAL}<![CDATA[*]]>0.05
+  </select>
+   <select id="selectMaxFlowPrefiveOfUseOfRe" resultType="BigDecimal">
+      select max(to_number(remaiming)) from 
+	  (select remaiming,ROWNUM from 
+	  (select to_number(ltm.data_remaining) remaiming  from lao_traffic_mm ltm ,lao_user lu
+	  where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =#{month} 
+	   <if test="useCount1 != null">
+	     and data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if> 
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if>  
+	   order by to_number(data_remaining) ASC) D)
+	  where ROWNUM <![CDATA[<=]]>#{sum,jdbcType=DECIMAL}<![CDATA[*]]>0.05
+  </select>
+  <select id="selectMinFlowBack" resultType="BigDecimal">
+      select min(to_number(use_count)) from 
+	  (select use_count,ROWNUM from 
+	  (select to_number(use_count) use_count  from lao_traffic_mm ltm,lao_user lu
+	  where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =#{month} 
+	   <if test="useCount1 != null">
+	     and use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and use_count  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if> 
+	   		<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if> 
+	   order by to_number(use_count) DESC) D)
+	  where ROWNUM <![CDATA[<=]]>ceil(#{sum,jdbcType=DECIMAL}<![CDATA[*]]>0.05) and use_count<![CDATA[<>]]>0
+  </select>
+  <select id="selectMinFlowBackOfRe" resultType="BigDecimal">
+      select min(to_number(data_remaining)) from 
+	  (select data_remaining,ROWNUM from 
+	  (select to_number(data_remaining) data_remaining  from lao_traffic_mm ltm,lao_user lu
+	  where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle =#{month} 
+	   <if test="useCount1 != null">
+	     and data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if> 
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if> 
+	   order by to_number(data_remaining) DESC) D)
+	  where ROWNUM <![CDATA[<=]]>ceil(#{sum,jdbcType=DECIMAL}<![CDATA[*]]>0.05) and data_remaining<![CDATA[<>]]>0
+  </select>
+  <select id="selectEight" resultType="java.util.Map">
+      select groupcount,sum(1) sum from (select FLOOR((to_number(use_count)<![CDATA[-]]>#{maxmf,jdbcType=DECIMAL})<![CDATA[/]]>#{avgFlowOfEight,jdbcType=DECIMAL}) groupcount from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month} AND to_number(use_count) <![CDATA[<]]> #{minmf,jdbcType=DECIMAL} AND to_number(use_count) <![CDATA[>]]>#{maxmf,jdbcType=DECIMAL}
+      <if test="useCount1 != null">
+	     and ltm.use_count  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and ltm.use_count  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		  and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	<if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if> 
+	   	) 
+       group by  groupcount
+  </select>
+  <select id="selectEightOfRe" resultType="java.util.Map">
+      select groupcount,sum(1) sum from (select FLOOR((to_number(data_remaining)<![CDATA[-]]>#{maxmf,jdbcType=DECIMAL})<![CDATA[/]]>#{avgFlowOfEight,jdbcType=DECIMAL}) groupcount from lao_traffic_mm ltm,lao_user lu
+      where ltm.user_id=lu.user_id and ltm.channel_cust_id in(SELECT CUST_ID FROM lao_customer START WITH CUST_ID=#{channelCustId} CONNECT BY PRIOR cust_id=dev_cust) and data_cycle=#{month} AND to_number(data_remaining) <![CDATA[<]]> #{minmf,jdbcType=DECIMAL} AND to_number(data_remaining) <![CDATA[>]]>#{maxmf,jdbcType=DECIMAL}
+       <if test="useCount1 != null">
+	     and ltm.data_remaining  <![CDATA[>=]]> #{useCount1}
+      </if>
+       <if test="useCount2 != null">
+         and ltm.data_remaining  <![CDATA[<=]]> #{useCount2}
+       </if> 
+       <if test="value1!=null and value1!=''">
+   		  and lu.value1 = #{value1}
+	   	</if>
+	   	<if test="value2!=null and value2!=''">
+	   		and lu.value2 = #{value2}
+	   	</if>
+	   	 <if test="operatorId!=null and operatorId!=''">
+	   		and ltm.operators_id = to_number(#{operatorId})
+	   	</if>
+	   	<if test="goodsId!=null and goodsId!=''">
+	   		and ltm.iccid in(select iccid from lao_trade lt where to_char(lt.accept_date,'yyyyMM')=ltm.data_cycle and lt.goods_id=to_number(#{goodsId}))
+	   	</if> 
+	   	)
+      group by  groupcount
+  </select>
+  <select id="getNotSendFlowSum" resultType="BigDecimal" parameterType="java.lang.Long">
+	select nvl(sum(decode(a.quantity_unit,'M',a.quantity_max,'G',a.quantity_max*1024)),0)   
+	from lao_user_operator_plan b, lao_operator_plan a ,lao_goods d
+	where b.user_id= #{userId,jdbcType=DECIMAL} 
+	and b.opeartors_deal_rst !='0'
+	and now() between b.start_date and b.end_date
+	and b.plan_id=a.plan_id
+	and d.goods_type='4'
+	and exists(select 1 from lao_user_goods c 
+	where b.goods_release_id=c.goods_release_id
+	and b.goods_id=c.goods_id
+	and b.user_id=c.user_id
+	and now() between c.start_date and c.end_date
+	and c.goods_id=d.goods_id)
+  </select>
+</mapper>

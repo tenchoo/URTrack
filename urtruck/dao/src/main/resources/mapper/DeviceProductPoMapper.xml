@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.DeviceProductPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DeviceProductPo" >
+    <id column="ADID" property="adid" jdbcType="VARCHAR" />
+    <result column="IMGURL" property="imgurl" jdbcType="VARCHAR" />
+    <result column="ADPRICE" property="adprice" jdbcType="VARCHAR" />
+    <result column="ADNAME" property="adname" jdbcType="VARCHAR" />
+    <result column="ADLINKURL" property="adlinkurl" jdbcType="VARCHAR" />
+    <result column="ADLINTRODUCE" property="adlintroduce" jdbcType="VARCHAR" />
+    <result column="ISSHOW" property="isshow" jdbcType="VARCHAR" />
+    <result column="PARANAME1" property="paraname1" jdbcType="VARCHAR" />
+    <result column="PARANAME2" property="paraname2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ADID, IMGURL, ADPRICE, ADNAME, ADLINKURL, ADLINTRODUCE, ISSHOW, PARANAME1, PARANAME2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_DEVICEPRODUCT_AD
+    where ADID = #{adid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LAO_DEVICEPRODUCT_AD
+    where ADID = #{adid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.DeviceProductPo" >
+    insert into LAO_DEVICEPRODUCT_AD (ADID, IMGURL, ADPRICE, 
+      ADNAME, ADLINKURL, ADLINTRODUCE, 
+      ISSHOW, PARANAME1, PARANAME2
+      )
+    values (#{adid,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{adprice,jdbcType=VARCHAR}, 
+      #{adname,jdbcType=VARCHAR}, #{adlinkurl,jdbcType=VARCHAR}, #{adlintroduce,jdbcType=VARCHAR}, 
+      #{isshow,jdbcType=VARCHAR}, #{paraname1,jdbcType=VARCHAR}, #{paraname2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.DeviceProductPo" >
+    insert into LAO_DEVICEPRODUCT_AD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adid != null" >
+        ADID,
+      </if>
+      <if test="imgurl != null" >
+        IMGURL,
+      </if>
+      <if test="adprice != null" >
+        ADPRICE,
+      </if>
+      <if test="adname != null" >
+        ADNAME,
+      </if>
+      <if test="adlinkurl != null" >
+        ADLINKURL,
+      </if>
+      <if test="adlintroduce != null" >
+        ADLINTRODUCE,
+      </if>
+      <if test="isshow != null" >
+        ISSHOW,
+      </if>
+      <if test="paraname1 != null" >
+        PARANAME1,
+      </if>
+      <if test="paraname2 != null" >
+        PARANAME2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adid != null" >
+        #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adprice != null" >
+        #{adprice,jdbcType=VARCHAR},
+      </if>
+      <if test="adname != null" >
+        #{adname,jdbcType=VARCHAR},
+      </if>
+      <if test="adlinkurl != null" >
+        #{adlinkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adlintroduce != null" >
+        #{adlintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null" >
+        #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null" >
+        #{paraname2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.DeviceProductPo" >
+    update LAO_DEVICEPRODUCT_AD
+    <set >
+      <if test="imgurl != null" >
+        IMGURL = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adprice != null" >
+        ADPRICE = #{adprice,jdbcType=VARCHAR},
+      </if>
+      <if test="adname != null" >
+        ADNAME = #{adname,jdbcType=VARCHAR},
+      </if>
+      <if test="adlinkurl != null" >
+        ADLINKURL = #{adlinkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="adlintroduce != null" >
+        ADLINTRODUCE = #{adlintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        ISSHOW = #{isshow,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname1 != null" >
+        PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      </if>
+      <if test="paraname2 != null" >
+        PARANAME2 = #{paraname2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADID = #{adid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.DeviceProductPo" >
+    update LAO_DEVICEPRODUCT_AD
+    set IMGURL = #{imgurl,jdbcType=VARCHAR},
+      ADPRICE = #{adprice,jdbcType=VARCHAR},
+      ADNAME = #{adname,jdbcType=VARCHAR},
+      ADLINKURL = #{adlinkurl,jdbcType=VARCHAR},
+      ADLINTRODUCE = #{adlintroduce,jdbcType=VARCHAR},
+      ISSHOW = #{isshow,jdbcType=VARCHAR},
+      PARANAME1 = #{paraname1,jdbcType=VARCHAR},
+      PARANAME2 = #{paraname2,jdbcType=VARCHAR}
+    where ADID = #{adid,jdbcType=VARCHAR}
+  </update>
+</mapper>

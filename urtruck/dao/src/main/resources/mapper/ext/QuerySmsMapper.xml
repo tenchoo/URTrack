@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.QuerySmsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoQuerySms" >
+    <result column="DELIVER_ID" property="deliverId" jdbcType="DECIMAL" />
+    <result column="SRC_NUMBER" property="msisdn" jdbcType="VARCHAR" />
+    <result column="DEST_NUMBER" property="destNumber" jdbcType="VARCHAR" />
+    <result column="SMS_CONTENT" property="smsContent" jdbcType="VARCHAR" />
+    <result column="PUSH_DATE" property="sendDate" jdbcType="TIMESTAMP" />
+    <result column="SMS_ID" property="smsId" jdbcType="DECIMAL" />
+    <result column="PUSH_STATE" property="pushState" jdbcType="DECIMAL" />
+    <result column="PUSH_DESC" property="pushDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DELIVER_ID, SRC_NUMBER, DEST_NUMBER, SMS_CONTENT, PUSH_DATE, SMS_ID, PUSH_STATE ,PUSH_DESC
+  </sql>
+  <!-- <select id="selectSms" resultMap="BaseResultMap">
+    select d.sms_id,d.sms_content,d.push_date,d.src_number
+ 	from lao_sms_deliver d join lao_sms_info s on d.sms_id = s.sms_id
+       where to_char(d.push_date,'YYYY-MM-DD') >= #{startDate} 
+       and to_char(d.push_date,'YYYY-MM-DD') <= #{endDate} 
+       and s.channel_cust_id = #{custId}
+  </select> -->
+  <select id="selectSms" resultMap="BaseResultMap">
+     select d.sms_id,d.sms_content,d.push_date,d.src_number
+ 	from lao_sms_deliver d
+  </select>
+</mapper>

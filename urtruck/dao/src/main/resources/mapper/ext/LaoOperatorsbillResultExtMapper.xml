@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoOperatorsbillResultExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoOperatorsbillResult" >
+    <id column="BATCH_ID" property="batchId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="OPERATORS_ID" property="operatorsId" jdbcType="DECIMAL" />
+    <result column="TOTAL_COST" property="totalCost" jdbcType="DECIMAL" />
+    <result column="GLA_TOTAL_COST" property="glaTotalCost" jdbcType="DECIMAL" />
+    <result column="SUM_NUM" property="sumNum" jdbcType="DECIMAL" />
+    <result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+    <result column="FAIL_NUM" property="failNum" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_ACCOUNT_ID" property="updateAccountId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BATCH_ID, CYCLE_ID, OPERATORS_ID, TOTAL_COST, GLA_TOTAL_COST, SUM_NUM, SUCC_NUM, 
+    FAIL_NUM, UPDATE_TIME, UPDATE_ACCOUNT_ID, REMARK
+  </sql>
+  <select id="getOperatorsbillResultList" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATORSBILL_RESULT
+    <where>
+			<if test="params.result.cycleId != null and params.result.cycleId !=''">
+				and CYCLE_ID = #{params.result.cycleId,jdbcType=DECIMAL} 
+			</if>
+			<if test="params.result.operatorsId != null and params.result.operatorsId !=''">
+				and OPERATORS_ID = #{params.result.operatorsId,jdbcType=DECIMAL}
+			</if>
+   <!--  and nvl(sum_num,0) = nvl(succ_num,0)+ nvl(fail_num,0) -->
+	and nvl(SUM_NUM,0) !=0
+	</where>
+  </select>
+</mapper>

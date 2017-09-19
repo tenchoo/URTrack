@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Copyright 1999-2011 Alibaba Group.
+ -  
+ - Licensed under the Apache License, Version 2.0 (the "License");
+ - you may not use this file except in compliance with the License.
+ - You may obtain a copy of the License at
+ -  
+ -      http://www.apache.org/licenses/LICENSE-2.0
+ -  
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd ">
+
+			
+	<dubbo:application name="${dubbo.application.name}" owner="${dubbo.application.owner}"  />
+	<dubbo:registry protocol="${dubbo.monitor.protocol}" address="${dubbo.registry.address}" />
+	<dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+	
+
+	<!-- 权限管理 start -->
+	<!-- yuanzj -->
+	<dubbo:service interface="com.urt.interfaces.alarm.AlarmService" ref="alarmService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.authority.LaoAccountRelService" ref="laoAccountRelService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.customer.LaoCustGroupService" ref="laoCustGroupService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.customer.LaoCustPersonService" ref="custPersonService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.customer.LaoCustConcatService" ref="laoCustConcatService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.customer.LaoCustomerService" ref="customerService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.realNameVerify.RealNameVerifyServiece" ref="realNameVerifyServiece" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.authority.LaoSsAccountService" ref="laoSsAccountService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.authority.LoginService" ref="loginService"  timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.authority.LaoSsRoleService" ref="laoSsRoleService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.authority.LaoSsNavigationService" ref="laoSsNavigationService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.apiMsg.ApiMsgLogService" ref="apiMsgLogService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- <dubbo:service interface="com.urt.interfaces.authority.TfFSsUserService" ref="tfFSsUserService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service> -->
+	<dubbo:service interface="com.urt.interfaces.authority.TagService" ref="tagService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.DongguanCMC.MemberMethod" ref="memberMethod" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.unicom.DeviceService" ref="deviceService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.unicom.QueryBalanceService" ref="queryBalanceService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.unicom.PaymentService" ref="paymentService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 权限管理 end -->
+	
+	<!-- 产品配置 -->	
+	<dubbo:service interface="com.urt.interfaces.Goods.DiscontService" ref="discontService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.GoodsElementService" ref="goodsElementService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.GoodsReleaseService" ref="goodsReleaseService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.GoodsService" ref="goodsService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.OperatorPlanService" ref="operatorPlanService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.OperatorsService" ref="operatorsService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.CustomerService" ref="customerGoodService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Trade.TradeService" ref="tradeService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.GoodsOrderService" ref="goodsOrderService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Goods.PayService" ref="payService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.Trade.TradeFeeSubService" ref="tradeFeeSubService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	<dubbo:service interface="com.urt.interfaces.Goods.ServiceStatusService" ref="serviceStatusService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!--卡操作配置  -->
+	<dubbo:service interface="com.urt.interfaces.User.UserService" ref="userService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.cardOper.CardOperService" ref="cardOperService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.User.UserHisService" ref="userHisService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 集群网账单 -->
+	<dubbo:service interface="com.urt.interfaces.grpnet.BatchFtpImportService" ref="batchFtpImportService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.grpnet.GrpnetImpbillService" ref="grpnetImpbillService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.grpnet.BBillService" ref="bBillService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.grpnet.GrpNetExpBillService" ref="grpNetExpBillService" timeout="3600000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.User.UserQueryCardStateTest" ref="userQueryCardStateTest" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.grpnet.ColonyBillStatusQueryService" ref="colonyBillStatusQueryService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+<!-- 能力开发平台【车联网】 -->
+	<dubbo:service interface="com.urt.interfaces.http.ServerCheckService" ref="serverCheckService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.CardActiveService" ref="cardActiveService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.CardDetailService" ref="cardDetailService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.OrderProductService" ref="orderProductService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+	<!-- create  ip and  appkey -->
+	<dubbo:service interface="com.urt.interfaces.http.AppkeyAndIpCreate" ref="appkeyAndIpCreate" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- flow query -->
+	<dubbo:service interface="com.urt.interfaces.http.FlowQueryServer" ref="flowQueryServer" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 批处理 -->
+	<dubbo:service interface="com.urt.interfaces.batch.BatchService" ref="batchServer" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	<!-- 短信处理wangxb20 -->
+	<dubbo:service interface="com.urt.interfaces.http.SendSmsServer" ref="sendSmsServer" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.sendMessage.SendMessageService" ref="sendMessageService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	<!-- 流量查询 -->
+	<dubbo:service interface="com.urt.interfaces.traffic.TrafficQueryService" ref="trafficQueryService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 定时 批量流量查询 -->
+	<dubbo:service interface="com.urt.interfaces.traffic.TimerTrafficQueryService" ref="timerTrafficQueryService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.traffic.BatchInsertTrafficQueryService" ref="batchInsertTrafficQueryService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.traffic.BatchTrafficQueryService" ref="batchTrafficQueryService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 用户数据列表 -->
+	<dubbo:service interface="com.urt.interfaces.User.UserTotalService" ref="userTotalService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	<!-- 余额中心 -->
+	<dubbo:service interface="com.urt.interfaces.remain.RemainService" ref="remainService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	 <!-- 会话控制 -->
+	<dubbo:service interface="com.urt.interfaces.session.SessionOperService" ref="sessionOperService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 流量订购 -->
+	<dubbo:service interface="com.urt.interfaces.flow.FlowOrderService" ref="flowOrderService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- device+ -->
+	<dubbo:service interface="com.urt.interfaces.http.device.DeviceProductService" ref="deviceProductService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.device.DeviceService" ref="deviceServiceImpl" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- redis+service -->
+	<dubbo:service interface="com.urt.interfaces.device.RedisService" ref="redisServiceImpl" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 异常处理类 -->
+	<dubbo:service interface="com.urt.interfaces.exception.BusiExceptionService" ref="busiExceptionService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- CMPP -->
+	<dubbo:service interface="com.urt.interfaces.cmpp.LaoCmppService" ref="laoCmppService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- esim -->
+	<dubbo:service interface="com.urt.interfaces.esim.ESIMService" ref="esimService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- pay -->
+	<dubbo:service interface="com.urt.interfaces.pay.PayOrderService" ref="payOrderService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- ProductADS -->
+	<dubbo:service interface="com.urt.interfaces.http.device.QueryProductADSService" ref="queryProductADSService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 麦驰流量订购 -->
+	<dubbo:service interface="com.urt.interfaces.http.maichi.FlowPayService" ref="flowPayService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 管理员首页 -->
+	<dubbo:service interface="com.urt.interfaces.homePage.AdminHomePageService" ref="adminHomePageService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 任务操作 -->
+	<dubbo:service interface="com.urt.interfaces.task.TrafficTaskService" ref="trafficTaskService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 设备绑定 -->
+	<dubbo:service interface="com.urt.interfaces.device.DeviceRelService" ref="deviceRelService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!--批量删除资费计划  -->
+	<dubbo:service interface="com.urt.interfaces.removeRatePlan.RemoveRatePlanService" ref="removeRatePlanService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- dmp+redis+service -->
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPService" ref="dmpService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPUserService" ref="dmpUserService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPDeviceManageService" ref="dmpDeviceManageService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.dmp.DMPLogService" ref="dmpLogService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPOperationService" ref="dmpOperationService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPCardGroupService" ref="dmpCardGroupService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.dmp.DMPStrategyEditService" ref="dmpStrategyEditService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<!-- 出账相关处理类 -->
+	<dubbo:service interface="com.urt.interfaces.chargeOff.ChargeOffService" ref="chargeOffService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.chargeOff.UserBillsDetailService" ref="userBillsDetailService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.chargeOff.UserFeeInfoService" ref="userFeeInfoService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}" retries="0"></dubbo:service>
+    <!-- 能力开放 -->
+    <dubbo:service interface="com.urt.interfaces.ability.LaoUserIpManagerService" ref="laoUserIpManagerService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ability.LaoAbilityService" ref="laoAbilityService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- EcCMCC -->
+     <dubbo:service interface="com.urt.interfaces.EcCMCC.EcBaseMethod" ref="ecBaseMethod" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 用户首页 -->
+    <dubbo:service interface="com.urt.interfaces.userIndex.CorporateClientService" ref="corporateService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.userIndex.ChannelCustInfoOutlineService" ref="infoOutlineService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.userIndex.ChannelCustAlmInfoService" ref="almInfoService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.userIndex.ExpireWarnInfoService" ref="expireWarnService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 浙江移动 -->
+    <dubbo:service interface="com.urt.interfaces.ZheJiangCMC.QueryMethodZJ" ref="queryMethodZJ" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ZheJiangCMC.MemberMethodZJ" ref="memberMethodZJ" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 北京移动 -->
+    <dubbo:service interface="com.urt.interfaces.BeiJingCMC.QueryMethodBJ" ref="queryMethodBJ" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 江苏移动 -->
+    <dubbo:service interface="com.urt.interfaces.JiangSuCMC.QueryMethodJS" ref="queryMethodJS" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 东莞移动3.0 -->
+    <dubbo:service interface="com.urt.interfaces.DongguanCMC3.InterfaceMethod" ref="interfaceMethod" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 上海移动CMC -->
+	<dubbo:service interface="com.urt.interfaces.ShangHaiCMC.CI_CommonNotification" ref="cI_CommonNotification" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_QueryDataPoolUsage" ref="sI_QueryDataPoolUsage" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.ShangHaiCMC.QueryLaoPool" ref="queryLaoPool" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_QueryDataPoolInfo" ref="sI_QueryDataPoolInfo" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- esim -->
+    <dubbo:service interface="com.urt.interfaces.esim.Es2Service" ref="es2Service" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    
+    <dubbo:service interface="com.urt.interfaces.esim.EsimService2" ref="esimService2" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    
+    <dubbo:service interface="com.urt.interfaces.esim.EsimUserService" ref="esimUserService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+     <!--图片存储  -->
+    <dubbo:service interface="com.urt.interfaces.handlePic.HandlePicService" ref="handlePicService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 报表 -->
+    <dubbo:service interface="com.urt.interfaces.reports.FinanciaReportsService" ref="financiaReportsService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.reports.BalanceReportsService" ref="balanceReportsService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.report.ReportFormService" ref="reportFormService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.reports.ExpireService" ref="expireService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+     <!-- 卡周期 -->
+    <dubbo:service interface="com.urt.interfaces.reports.CardCycleService" ref="cardCycleServiceImpl" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    
+    <!-- lbs卡定位 -->
+    <dubbo:service interface="com.urt.interfaces.lbs.LocationSlisService" ref="locationSlisService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 个性话需求 -->
+    <dubbo:service interface="com.urt.interfaces.ofo.BusinessService" ref="businessService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	 <!-- 企业中心 -->
+    <dubbo:service interface="com.urt.interfaces.CustomerCentre.CustomerCentreService" ref="customerCentreService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+    <dubbo:service interface="com.urt.interfaces.CustomerCentre.CustomerQueryService" ref="customerQueryService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	
+	<dubbo:service interface="com.urt.interfaces.User.UserStateMmService" ref="userStateService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+
+	<dubbo:service interface="com.urt.interfaces.reorder.ReorderService" ref="reorderService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.order.OrderService" ref="orderService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	 <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_ActivateAPN" ref="sI_ActivateAPN" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_ActivateSmsService" ref="sI_ActivateSmsService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_ActivateVoiceService" ref="sI_ActivateVoiceService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_ChangeSIMPhase" ref="sI_ChangeSIMPhase" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_OrderPackage" ref="sI_OrderPackage" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <dubbo:service interface="com.urt.interfaces.ShangHaiCMC.SI_QueryDataPoolMembers" ref="sI_QueryDataPoolMembers" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoAlarmService" ref="laoMnoAlarmService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoCardInfoService" ref="laoMnoCardInfoService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoInterfaceCheckService" ref="laoMnoInterfaceCheckService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoPackageService" ref="laoMnoPackageService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoProvideServerService" ref="laoMnoProvideServerService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoServerConfigService" ref="laoMnoServerConfigService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoServerTaskService" ref="laoMnoServerTaskService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoSmsService" ref="laoMnoSmsService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoSystemConfigService" ref="laoMnoSystemConfigService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+	<dubbo:service interface="com.urt.interfaces.http.mno.LaoMnoSystemIpService" ref="laoMnoSystemIpService" timeout="200000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    <!-- 微信企业网站定制 -->
+    <dubbo:service interface="com.urt.interfaces.webDesign.WebDesignService" ref="webDesignService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+    
+    <dubbo:service interface="com.urt.interfaces.laoIccidassignbatch.LaoIccidAssignBatchService" ref="laoIccidAssignBatchService" timeout="100000" owner="${dubbo.application.owner}" group="${dubbo.service.group}"></dubbo:service>
+</beans>

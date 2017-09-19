@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoSsAccountPoMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoSsAccountPo">
+    <id column="ACCONUT_ID" jdbcType="DECIMAL" property="acconutId" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SALT" jdbcType="VARCHAR" property="salt" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="RELATED_TYPE" jdbcType="VARCHAR" property="relatedType" />
+    <result column="RELATED_ID" jdbcType="VARCHAR" property="relatedId" />
+    <result column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="PLAIN_PASSWORD" jdbcType="VARCHAR" property="plainPassword" />
+    <result column="FST_STRUCT" jdbcType="VARCHAR" property="fstStruct" />
+    <result column="SEC_STRUCT" jdbcType="VARCHAR" property="secStruct" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ACCONUT_ID, LOGIN_NAME, NICKNAME, PASSWORD, SALT, STATUS, CREATE_DATE, REMARK, RELATED_TYPE, 
+    RELATED_ID, CUST_ID, PLAIN_PASSWORD, FST_STRUCT, SEC_STRUCT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_SS_ACCOUNT
+    where ACCONUT_ID = #{acconutId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from LAO_SS_ACCOUNT
+    where ACCONUT_ID = #{acconutId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoSsAccountPo">
+    insert into LAO_SS_ACCOUNT (ACCONUT_ID, LOGIN_NAME, NICKNAME, 
+      PASSWORD, SALT, STATUS, 
+      CREATE_DATE, REMARK, RELATED_TYPE, 
+      RELATED_ID, CUST_ID, PLAIN_PASSWORD, 
+      FST_STRUCT, SEC_STRUCT)
+    values (#{acconutId,jdbcType=DECIMAL}, #{loginName,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{relatedType,jdbcType=VARCHAR}, 
+      #{relatedId,jdbcType=VARCHAR}, #{custId,jdbcType=DECIMAL}, #{plainPassword,jdbcType=VARCHAR}, 
+      #{fstStruct,jdbcType=VARCHAR}, #{secStruct,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoSsAccountPo">
+    insert into LAO_SS_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="acconutId != null">
+        ACCONUT_ID,
+      </if>
+      <if test="loginName != null">
+        LOGIN_NAME,
+      </if>
+      <if test="nickname != null">
+        NICKNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="salt != null">
+        SALT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="relatedType != null">
+        RELATED_TYPE,
+      </if>
+      <if test="relatedId != null">
+        RELATED_ID,
+      </if>
+      <if test="custId != null">
+        CUST_ID,
+      </if>
+      <if test="plainPassword != null">
+        PLAIN_PASSWORD,
+      </if>
+      <if test="fstStruct != null">
+        FST_STRUCT,
+      </if>
+      <if test="secStruct != null">
+        SEC_STRUCT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="acconutId != null">
+        #{acconutId,jdbcType=DECIMAL},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedType != null">
+        #{relatedType,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedId != null">
+        #{relatedId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="plainPassword != null">
+        #{plainPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fstStruct != null">
+        #{fstStruct,jdbcType=VARCHAR},
+      </if>
+      <if test="secStruct != null">
+        #{secStruct,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoSsAccountPo">
+    update LAO_SS_ACCOUNT
+    <set>
+      <if test="loginName != null">
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        SALT = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedType != null">
+        RELATED_TYPE = #{relatedType,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedId != null">
+        RELATED_ID = #{relatedId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        CUST_ID = #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="plainPassword != null">
+        PLAIN_PASSWORD = #{plainPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fstStruct != null">
+        FST_STRUCT = #{fstStruct,jdbcType=VARCHAR},
+      </if>
+      <if test="secStruct != null">
+        SEC_STRUCT = #{secStruct,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ACCONUT_ID = #{acconutId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoSsAccountPo">
+    update LAO_SS_ACCOUNT
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SALT = #{salt,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RELATED_TYPE = #{relatedType,jdbcType=VARCHAR},
+      RELATED_ID = #{relatedId,jdbcType=VARCHAR},
+      CUST_ID = #{custId,jdbcType=DECIMAL},
+      PLAIN_PASSWORD = #{plainPassword,jdbcType=VARCHAR},
+      FST_STRUCT = #{fstStruct,jdbcType=VARCHAR},
+      SEC_STRUCT = #{secStruct,jdbcType=VARCHAR}
+    where ACCONUT_ID = #{acconutId,jdbcType=DECIMAL}
+  </update>
+</mapper>

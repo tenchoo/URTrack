@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.ext.LaoOperatorPlanExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.OperatorPlan">
+    <id column="PLAN_ID" jdbcType="DECIMAL" property="planId" />
+    <result column="PLAN_NAME" jdbcType="VARCHAR" property="planName" />
+    <result column="OPERATORS" jdbcType="DECIMAL" property="operators" />
+    <result column="OPERATORS_PID" jdbcType="VARCHAR" property="operatorsPid" />
+    <result column="TIME_LENGTH" jdbcType="DECIMAL" property="timeLength" />
+    <result column="TIME_UNIT" jdbcType="VARCHAR" property="timeUnit" />
+    <result column="QUANTITY_MAX" jdbcType="DECIMAL" property="quantityMax" />
+    <result column="QUANTITY_UNIT" jdbcType="CHAR" property="quantityUnit" />
+    <result column="EXP_DATE" jdbcType="TIMESTAMP" property="expDate" />
+    <result column="PLAN_STATE" jdbcType="CHAR" property="planState" />
+    <result column="ENABLE_TAG" jdbcType="VARCHAR" property="enableTag" />
+    <result column="INVALID_TYPE" jdbcType="VARCHAR" property="invalidType" />
+    <result column="PLAN_TYPE" jdbcType="VARCHAR" property="planType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PLAN_ID, PLAN_NAME, OPERATORS, OPERATORS_PID, TIME_LENGTH, TIME_UNIT, QUANTITY_MAX, 
+    QUANTITY_UNIT, EXP_DATE, PLAN_STATE, ENABLE_TAG, INVALID_TYPE, PLAN_TYPE
+  </sql>
+  <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_OPERATOR_PLAN
+    where OPERATORS_PID = #{operatorsPid,jdbcType=VARCHAR}
+  </select>
+</mapper>

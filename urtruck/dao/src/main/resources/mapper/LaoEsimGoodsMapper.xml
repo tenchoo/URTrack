@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimGoods" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="VARCHAR" />
+    <result column="GOODS_PIC" property="goodsPic" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="GOODS_TYPE" property="goodsType" jdbcType="VARCHAR" />
+    <result column="ISPUBLIC" property="ispublic" jdbcType="DECIMAL" />
+    <result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+    <result column="COUNTRYNAME" property="countryname" jdbcType="VARCHAR" />
+    <result column="GOODS_CYCLE" property="goodsCycle" jdbcType="VARCHAR" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, GOODS_ID, GOODS_NAME, GOODS_PRICE, GOODS_PIC, CREATEDATE, GOODS_TYPE, ISPUBLIC, 
+    COUNTRY_ID, COUNTRYNAME, GOODS_CYCLE, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_GOODS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from LAO_ESIM_GOODS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimGoods" >
+    insert into LAO_ESIM_GOODS (ID, GOODS_ID, GOODS_NAME, 
+      GOODS_PRICE, GOODS_PIC, CREATEDATE, 
+      GOODS_TYPE, ISPUBLIC, COUNTRY_ID, 
+      COUNTRYNAME, GOODS_CYCLE, PARAM1, 
+      PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=VARCHAR}, #{goodsPic,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{goodsType,jdbcType=VARCHAR}, #{ispublic,jdbcType=DECIMAL}, #{countryId,jdbcType=VARCHAR}, 
+      #{countryname,jdbcType=VARCHAR}, #{goodsCycle,jdbcType=VARCHAR}, #{param1,jdbcType=VARCHAR}, 
+      #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimGoods" >
+    insert into LAO_ESIM_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="goodsPrice != null" >
+        GOODS_PRICE,
+      </if>
+      <if test="goodsPic != null" >
+        GOODS_PIC,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE,
+      </if>
+      <if test="ispublic != null" >
+        ISPUBLIC,
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID,
+      </if>
+      <if test="countryname != null" >
+        COUNTRYNAME,
+      </if>
+      <if test="goodsCycle != null" >
+        GOODS_CYCLE,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublic != null" >
+        #{ispublic,jdbcType=DECIMAL},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="countryname != null" >
+        #{countryname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCycle != null" >
+        #{goodsCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimGoods" >
+    update LAO_ESIM_GOODS
+    <set >
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null" >
+        GOODS_PRICE = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPic != null" >
+        GOODS_PIC = #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublic != null" >
+        ISPUBLIC = #{ispublic,jdbcType=DECIMAL},
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="countryname != null" >
+        COUNTRYNAME = #{countryname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCycle != null" >
+        GOODS_CYCLE = #{goodsCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimGoods" >
+    update LAO_ESIM_GOODS
+    set GOODS_ID = #{goodsId,jdbcType=DECIMAL},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      GOODS_PRICE = #{goodsPrice,jdbcType=VARCHAR},
+      GOODS_PIC = #{goodsPic,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+      GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      ISPUBLIC = #{ispublic,jdbcType=DECIMAL},
+      COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      COUNTRYNAME = #{countryname,jdbcType=VARCHAR},
+      GOODS_CYCLE = #{goodsCycle,jdbcType=VARCHAR},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

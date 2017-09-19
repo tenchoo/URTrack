@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoExcpDefExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoExcpDef" >
+    <id column="EXCP_TYPE_CODE" property="excpTypeCode" jdbcType="DECIMAL" />
+    <result column="EXCP_NAME" property="excpName" jdbcType="VARCHAR" />
+    <result column="EXCP_DESC" property="excpDesc" jdbcType="VARCHAR" />
+    <result column="TRADE_TYPE_CODE" property="tradeTypeCode" jdbcType="DECIMAL" />
+    <result column="EXCP_TAG" property="excpTag" jdbcType="CHAR" />
+    <result column="EXCP_LEVEL" property="excpLevel" jdbcType="VARCHAR" />
+    <result column="DO_TAG" property="doTag" jdbcType="CHAR" />
+    <result column="DO_TYPE" property="doType" jdbcType="CHAR" />
+    <result column="DO_CLASS" property="doClass" jdbcType="VARCHAR" />
+    <result column="DO_FUNC" property="doFunc" jdbcType="VARCHAR" />
+    <result column="DO_TIMES" property="doTimes" jdbcType="DECIMAL" />
+    <result column="CALLBACK__CLASS" property="callbackClass" jdbcType="VARCHAR" />
+    <result column="CALLBACK_FUNC" property="callbackFunc" jdbcType="VARCHAR" />
+    <result column="NEXT_CODE" property="nextCode" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EXCP_TYPE_CODE, EXCP_NAME, EXCP_DESC, TRADE_TYPE_CODE, EXCP_TAG, EXCP_LEVEL, DO_TAG, 
+    DO_TYPE, DO_CLASS, DO_FUNC, DO_TIMES, CALLBACK__CLASS, CALLBACK_FUNC, NEXT_CODE, 
+    UPDATE_TIME, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_EXCP_DEF
+    where EXCP_TYPE_CODE = #{excpTypeCode,jdbcType=DECIMAL}
+  </select>
+</mapper>

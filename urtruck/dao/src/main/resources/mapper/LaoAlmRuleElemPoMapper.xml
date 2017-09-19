@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoAlmRuleElemPoMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoAlmRuleElemPo" >
+    <id column="RULE_TYPE_ID" property="ruleTypeId" jdbcType="DECIMAL" />
+    <id column="ELEMENT_ID" property="elementId" jdbcType="DECIMAL" />
+    <result column="DISPLAY_INDEX" property="displayIndex" jdbcType="DECIMAL" />
+    <result column="VALID_TAG" property="validTag" jdbcType="CHAR" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ELEM_GROUP" property="elemGroup" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RULE_TYPE_ID, ELEMENT_ID, DISPLAY_INDEX, VALID_TAG, CHANNEL_CUST_ID, REMARK, ELEM_GROUP
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ALM_RULE_ELEM
+    where RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL}
+      and ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_ALM_RULE_ELEM
+    where RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL}
+      and ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoAlmRuleElemPo" >
+    insert into LAO_ALM_RULE_ELEM (RULE_TYPE_ID, ELEMENT_ID, DISPLAY_INDEX, 
+      VALID_TAG, CHANNEL_CUST_ID, REMARK, 
+      ELEM_GROUP)
+    values (#{ruleTypeId,jdbcType=DECIMAL}, #{elementId,jdbcType=DECIMAL}, #{displayIndex,jdbcType=DECIMAL}, 
+      #{validTag,jdbcType=CHAR}, #{channelCustId,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{elemGroup,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoAlmRuleElemPo" >
+    insert into LAO_ALM_RULE_ELEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleTypeId != null" >
+        RULE_TYPE_ID,
+      </if>
+      <if test="elementId != null" >
+        ELEMENT_ID,
+      </if>
+      <if test="displayIndex != null" >
+        DISPLAY_INDEX,
+      </if>
+      <if test="validTag != null" >
+        VALID_TAG,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="elemGroup != null" >
+        ELEM_GROUP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleTypeId != null" >
+        #{ruleTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="elementId != null" >
+        #{elementId,jdbcType=DECIMAL},
+      </if>
+      <if test="displayIndex != null" >
+        #{displayIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="validTag != null" >
+        #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="elemGroup != null" >
+        #{elemGroup,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoAlmRuleElemPo" >
+    update LAO_ALM_RULE_ELEM
+    <set >
+      <if test="displayIndex != null" >
+        DISPLAY_INDEX = #{displayIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="validTag != null" >
+        VALID_TAG = #{validTag,jdbcType=CHAR},
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="elemGroup != null" >
+        ELEM_GROUP = #{elemGroup,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL}
+      and ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoAlmRuleElemPo" >
+    update LAO_ALM_RULE_ELEM
+    set DISPLAY_INDEX = #{displayIndex,jdbcType=DECIMAL},
+      VALID_TAG = #{validTag,jdbcType=CHAR},
+      CHANNEL_CUST_ID = #{channelCustId,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ELEM_GROUP = #{elemGroup,jdbcType=DECIMAL}
+    where RULE_TYPE_ID = #{ruleTypeId,jdbcType=DECIMAL}
+      and ELEMENT_ID = #{elementId,jdbcType=DECIMAL}
+  </update>
+</mapper>

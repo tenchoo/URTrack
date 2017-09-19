@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoInvoiceManageMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoInvoiceManage" >
+    <result column="INVOICE_ID" property="invoiceId" jdbcType="DECIMAL" />
+    <result column="CHANNEL_CUST_ID" property="channelCustId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="DECIMAL" />
+    <result column="INVOICE_RISE" property="invoiceRise" jdbcType="VARCHAR" />
+    <result column="INVOICE_NUMBER" property="invoiceNumber" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="INVOICE_STR1" property="invoiceStr1" jdbcType="VARCHAR" />
+    <result column="INVOICE_STR2" property="invoiceStr2" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.urt.po.LaoInvoiceManage" >
+    insert into LAO_INVOICE_MANAGE (INVOICE_ID, CHANNEL_CUST_ID, CUST_ID, 
+      INVOICE_RISE, INVOICE_NUMBER, CREATE_DATE, 
+      UPDATE_DATE, INVOICE_STR1, INVOICE_STR2
+      )
+    values (#{invoiceId,jdbcType=DECIMAL}, #{channelCustId,jdbcType=DECIMAL}, #{custId,jdbcType=DECIMAL}, 
+      #{invoiceRise,jdbcType=VARCHAR}, #{invoiceNumber,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{invoiceStr1,jdbcType=VARCHAR}, #{invoiceStr2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoInvoiceManage" >
+    insert into LAO_INVOICE_MANAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invoiceId != null" >
+        INVOICE_ID,
+      </if>
+      <if test="channelCustId != null" >
+        CHANNEL_CUST_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="invoiceRise != null" >
+        INVOICE_RISE,
+      </if>
+      <if test="invoiceNumber != null" >
+        INVOICE_NUMBER,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="invoiceStr1 != null" >
+        INVOICE_STR1,
+      </if>
+      <if test="invoiceStr2 != null" >
+        INVOICE_STR2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invoiceId != null" >
+        #{invoiceId,jdbcType=DECIMAL},
+      </if>
+      <if test="channelCustId != null" >
+        #{channelCustId,jdbcType=DECIMAL},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceRise != null" >
+        #{invoiceRise,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceStr1 != null" >
+        #{invoiceStr1,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceStr2 != null" >
+        #{invoiceStr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

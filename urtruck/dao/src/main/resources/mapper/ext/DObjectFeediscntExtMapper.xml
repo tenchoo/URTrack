@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.DObjectFeediscntExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.DObjectFeediscntExt" >
+    <id column="ATTR_ID" property="attrId" jdbcType="DECIMAL" />
+    <id column="ATTR_TYPE" property="attrType" jdbcType="CHAR" />
+    <id column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="OBJECT_NAME" property="objectName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <collection property="grpnetFeediscnt" resultMap="GrpnetFeediscnt" >
+    </collection>
+  </resultMap>
+  
+    <resultMap id="GrpnetFeediscnt" type="com.urt.po.GrpnetFeediscnt">
+    <id column="FEEDISCNT_ID" property="feediscntId" jdbcType="DECIMAL" />
+    <result column="OBJECT_ID" property="objectId" jdbcType="DECIMAL" />
+    <result column="COMPUTE_METHOD" property="computeMethod" jdbcType="DECIMAL" />
+    <result column="MIN_VALUE" property="minValue" jdbcType="VARCHAR" />
+    <result column="MAX_VALUE" property="maxValue" jdbcType="VARCHAR" />
+    <result column="DIVIED_CHILD_VALUE" property="diviedChildValue" jdbcType="VARCHAR" />
+    <result column="DIVIED_PARENT_VALUE" property="diviedParentValue" jdbcType="VARCHAR" />
+    <result column="DISCNT_FEE" property="discntFee" jdbcType="VARCHAR" />
+    <result column="BASE_FEE" property="baseFee" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+  	a.OBJECT_ID, 
+  	a.OBJECT_NAME, 
+  	a.ATTR_TYPE, 
+  	a.ATTR_ID, 
+  	a.REMARK,
+	b.FEEDISCNT_ID, 
+	b.OBJECT_ID, 
+	b.COMPUTE_METHOD, 
+	b.MIN_VALUE, 
+	b.MAX_VALUE, 
+	b.DIVIED_CHILD_VALUE, 
+    b.DIVIED_PARENT_VALUE, 
+    b.DISCNT_FEE, 
+    b.BASE_FEE, 
+    b.REMARK
+    from LAO_D_OBJECT a 
+    join LAO_GRPNET_FEEDISCNT b on a.OBJECT_ID = b.OBJECT_ID
+  </select>
+</mapper>

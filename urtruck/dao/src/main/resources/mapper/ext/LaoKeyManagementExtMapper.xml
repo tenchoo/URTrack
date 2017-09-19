@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.LaoKeyManagementExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoKeyManagement" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="AUTH_KEY" property="authKey" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="PARA_NAME1" property="paraName1" jdbcType="VARCHAR" />
+    <result column="PARA_NAME2" property="paraName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, AUTH_KEY, CUST_ID, UPDATE_DATE, PARA_NAME1, PARA_NAME2
+  </sql>
+  <select id="selectAppKeyByCustId" resultType="String" parameterType="String" >
+    select 
+    AUTH_KEY 
+    from LAO_KEY_MANAGEMENT
+    where CUST_ID = #{custId}
+  </select>
+</mapper>

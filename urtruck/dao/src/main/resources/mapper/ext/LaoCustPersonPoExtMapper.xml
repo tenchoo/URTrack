@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urt.mapper.LaoCustPersonPoExtMapper">
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoCustPersonPo">
+    <id column="CUST_ID" jdbcType="DECIMAL" property="custId" />
+    <result column="PSPT_TYPE_CODE" property="psptTypeCode" jdbcType="CHAR" />
+    <result column="PSPT_ID" property="psptId" jdbcType="VARCHAR" />
+    <result column="PSPT_END_DATE" property="psptEndDate" jdbcType="TIMESTAMP" />
+    <result column="PSPT_ADDR" property="psptAddr" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="BIRTHDAY_LUNAR" property="birthdayLunar" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY_FLAG" property="birthdayFlag" jdbcType="CHAR" />
+    <result column="POST_ADDRESS" property="postAddress" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="CHAR" />
+    <result column="POST_PERSON" property="postPerson" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FAX_NBR" property="faxNbr" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="NATIONALITY_CODE" property="nationalityCode" jdbcType="VARCHAR" />
+    <result column="LOCAL_NATIVE_CODE" property="localNativeCode" jdbcType="VARCHAR" />
+    <result column="GRADUATE_SCHOOL" property="graduateSchool" jdbcType="VARCHAR" />
+    <result column="SPECIALITY" property="speciality" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="VARCHAR" />
+    <result column="UPDATE_DEPART_ID" property="updateDepartId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RSRV_NUM1" property="rsrvNum1" jdbcType="DECIMAL" />
+    <result column="RSRV_STR1" property="rsrvStr1" jdbcType="VARCHAR" />
+    <result column="RSRV_DATE3" property="rsrvDate3" jdbcType="TIMESTAMP" />
+    <result column="RSRV_TAG3" property="rsrvTag3" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CUST_ID, PSPT_TYPE_CODE, PSPT_ID, PSPT_END_DATE, PSPT_ADDR, CUST_NAME, SEX, BIRTHDAY, 
+    BIRTHDAY_LUNAR, BIRTHDAY_FLAG, POST_ADDRESS, POST_CODE, POST_PERSON, PHONE, FAX_NBR, 
+    EMAIL, NATIONALITY_CODE, LOCAL_NATIVE_CODE, GRADUATE_SCHOOL, SPECIALITY, UPDATE_TIME, 
+    UPDATE_STAFF_ID, UPDATE_DEPART_ID, REMARK, RSRV_NUM1, RSRV_STR1, RSRV_DATE3, RSRV_TAG3
+  </sql>
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="map" >
+ 	select * from LAO_CUST_PERSON where 1=1 
+ 	<if test="params.param.custName != null and params.param.custName!=''" >
+		and  CUST_NAME like CONCAT(CONCAT('%', #{params.param.custName}), '%') 
+	</if>
+ 	<if test="params.param.custId != null and params.param.custId!=''" >
+		and  CUST_ID = #{params.param.custId}
+	</if>
+	 	ORDER BY UPDATE_TIME desc
+  </select>
+  
+   <select id="queryCustName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	select * from LAO_CUST_PERSON where 1=1
+     <if test="custName!=null">
+    AND CUST_NAME LIKE '%'||#{custName}||'%'
+      </if>
+  </select>
+  
+  
+  <select id="queryCustById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	select * from LAO_CUST_PERSON where 1=1
+     <if test="idNum!=null">
+    AND PSPT_ID LIKE '%'||#{idNum}||'%'
+      </if>
+  </select>
+  
+  
+   <select id="queryCustByIccid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ 	select a.* from LAO_CUST_PERSON  a,LAO_USER b where 1=1
+     <if test="iccId!=null">
+    AND b.ICCID LIKE '%'||#{iccId}||'%'
+      </if>
+  </select>
+</mapper>

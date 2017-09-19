@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.ext.BBillExtMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.BBill" >
+    <id column="BILL_ID" property="billId" jdbcType="DECIMAL" />
+    <result column="PARTITION_ID" property="partitionId" jdbcType="DECIMAL" />
+    <result column="ACCT_ID" property="acctId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="CYCLE_ID" property="cycleId" jdbcType="DECIMAL" />
+    <result column="USE_COUNT" property="useCount" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+    <result column="B_DISCNT" property="bDiscnt" jdbcType="DECIMAL" />
+    <result column="A_DISCNT" property="aDiscnt" jdbcType="DECIMAL" />
+    <result column="ADJUST_BEFORE" property="adjustBefore" jdbcType="DECIMAL" />
+    <result column="ADJUST_AFTER" property="adjustAfter" jdbcType="DECIMAL" />
+    <result column="CANPAY_TAG" property="canpayTag" jdbcType="CHAR" />
+    <result column="BILL_PAY_TAG" property="billPayTag" jdbcType="CHAR" />
+    <result column="RECV_TIME" property="recvTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_STAFF_ID" property="updateStaffId" jdbcType="CHAR" />
+    <result column="RSRV_INFO1" property="rsrvInfo1" jdbcType="VARCHAR" />
+    <result column="RSRV_INFO2" property="rsrvInfo2" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="QryForListMap" type="com.urt.po.BBillExt" extends="BaseResultMap">
+    <association property="dItemExt" javaType="com.urt.po.DItemExt">
+    <!-- <collection property="DItemExt" ofType="com.urt.po.DItemExt">  --> 
+		<id column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+		<result column="ITEM_DESC" property="itemDesc" jdbcType="VARCHAR" />
+		<result column="P_ITEM_ID" property="pItemId" jdbcType="DECIMAL" />		
+		<result column="START_CYCLE_ID" property="startCycleId" jdbcType="DECIMAL" />
+		<result column="END_CYCLE_ID" property="endCycleId" jdbcType="DECIMAL" />
+		<result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="P_ITEM_NAME" property="pItemName" jdbcType="VARCHAR" />
+    <!-- </collection> -->
+    </association>
+  </resultMap>
+  
+  <resultMap id="QryForListMapExt" type="com.urt.po.BBillExtPo" >
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="B_DISCNT" property="bDiscnt" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+	<result column="P_ITEM_ID" property="pItemId" jdbcType="DECIMAL" />		
+	<result column="P_ITEM_NAME" property="pItemName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="QryForListMap2" type="com.urt.po.BBillExt" >
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="FEE" property="fee" jdbcType="DECIMAL" />
+    <result column="B_DISCNT" property="bDiscnt" jdbcType="DECIMAL" />
+    <result column="SERIAL_NUMBER" property="serialNumber" jdbcType="VARCHAR" />
+    <association property="dItemExt" javaType="com.urt.po.DItemExt">
+        <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+		<result column="P_ITEM_NAME" property="pItemName" jdbcType="VARCHAR" />
+		<result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+    </association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BILL_ID, PARTITION_ID, ACCT_ID, USER_ID, SERIAL_NUMBER, ITEM_ID, CYCLE_ID, USE_COUNT, FEE, BALANCE, 
+    B_DISCNT, A_DISCNT, ADJUST_BEFORE, ADJUST_AFTER, CANPAY_TAG, BILL_PAY_TAG, RECV_TIME, 
+    UPDATE_TIME, UPDATE_STAFF_ID, RSRV_INFO1, RSRV_INFO2
+  </sql>
+  <select id="selectByCycleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from LAO_B_BILL
+    where CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  </select>
+  
+  <select id="selectBillItemByCycleId" resultMap="QryForListMap" parameterType="java.lang.Integer"> 
+  select A.BILL_ID, A.PARTITION_ID, A.ACCT_ID, A.USER_ID, A.SERIAL_NUMBER, A.ITEM_ID, 
+  A.CYCLE_ID, A.USE_COUNT,A.FEE, A.BALANCE, A.B_DISCNT, A.A_DISCNT, A.ADJUST_BEFORE, 
+  A.ADJUST_AFTER, A.CANPAY_TAG, A.BILL_PAY_TAG, A.RECV_TIME, A.UPDATE_TIME, A.UPDATE_STAFF_ID, 
+  A.RSRV_INFO1, A.RSRV_INFO2, D.ITEM_NAME, D.ITEM_DESC, D.P_ITEM_ID, D.START_CYCLE_ID,
+  D.END_CYCLE_ID, D.TAX_RATE, D.REMARK, D.P_ITEM_NAME
+  from LAO_B_BILL A, 
+  (select B.ITEM_ID, B.ITEM_NAME, B.ITEM_DESC, B.P_ITEM_ID, B.START_CYCLE_ID,
+  B.END_CYCLE_ID, B.TAX_RATE, B.REMARK, C.ITEM_NAME AS P_ITEM_NAME
+  from LAO_D_ITEM B, LAO_D_ITEM C
+  where B.P_ITEM_ID = C.ITEM_ID) D
+  where A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  AND A.ITEM_ID(+) = D.ITEM_ID
+  ORDER BY A.SERIAL_NUMBER ASC,D.P_ITEM_ID ASC,A.ITEM_ID ASC
+  </select>
+  <select id="selectBillItemByCycleIdByNumber" resultMap="QryForListMap" parameterType="java.util.Map"> 
+  select A.BILL_ID, A.PARTITION_ID, A.ACCT_ID, A.USER_ID, A.SERIAL_NUMBER, A.ITEM_ID, 
+  A.CYCLE_ID, A.USE_COUNT,A.FEE, A.BALANCE, A.B_DISCNT, A.A_DISCNT, A.ADJUST_BEFORE, 
+  A.ADJUST_AFTER, A.CANPAY_TAG, A.BILL_PAY_TAG, A.RECV_TIME, A.UPDATE_TIME, A.UPDATE_STAFF_ID, 
+  A.RSRV_INFO1, A.RSRV_INFO2, D.ITEM_NAME, D.ITEM_DESC, D.P_ITEM_ID, D.START_CYCLE_ID,
+  D.END_CYCLE_ID, D.TAX_RATE, D.REMARK, D.P_ITEM_NAME
+  from LAO_B_BILL A, 
+  (select B.ITEM_ID, B.ITEM_NAME, B.ITEM_DESC, B.P_ITEM_ID, B.START_CYCLE_ID,
+  B.END_CYCLE_ID, B.TAX_RATE, B.REMARK, C.ITEM_NAME AS P_ITEM_NAME
+  from LAO_D_ITEM B, LAO_D_ITEM C
+  where B.P_ITEM_ID = C.ITEM_ID) D
+  where A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  AND A.ITEM_ID(+) = D.ITEM_ID
+  AND A.SERIAL_NUMBER = #{number,jdbcType=VARCHAR}
+  ORDER BY A.SERIAL_NUMBER ASC
+  </select>
+  <select id="selectBillSumByUserCycleId" resultMap="QryForListMapExt" parameterType="java.lang.Integer"> 
+  select E.SERIAL_NUMBER,E.P_ITEM_ID,E.P_ITEM_NAME,sum(fee) FEE,sum(B_DISCNT) B_DISCNT
+    from 
+   (select A.BILL_ID, A.PARTITION_ID, A.ACCT_ID, A.USER_ID, A.SERIAL_NUMBER, A.ITEM_ID, 
+  A.CYCLE_ID, A.USE_COUNT,A.FEE, A.BALANCE, A.B_DISCNT, A.A_DISCNT, A.ADJUST_BEFORE, 
+  A.ADJUST_AFTER, A.CANPAY_TAG, A.BILL_PAY_TAG, A.RECV_TIME, A.UPDATE_TIME, A.UPDATE_STAFF_ID, 
+  A.RSRV_INFO1, A.RSRV_INFO2, D.ITEM_NAME, D.ITEM_DESC, D.P_ITEM_ID, D.START_CYCLE_ID,
+  D.END_CYCLE_ID, D.TAX_RATE, D.REMARK, D.P_ITEM_NAME
+  from LAO_B_BILL A, 
+  (select B.ITEM_ID, B.ITEM_NAME, B.ITEM_DESC, B.P_ITEM_ID, B.START_CYCLE_ID,
+  B.END_CYCLE_ID, B.TAX_RATE, B.REMARK, C.ITEM_NAME AS P_ITEM_NAME
+  from LAO_D_ITEM B, LAO_D_ITEM C
+  where B.P_ITEM_ID = C.ITEM_ID) D
+  where A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  AND A.ITEM_ID(+) = D.ITEM_ID ) E
+  GROUP BY E.SERIAL_NUMBER,E.P_ITEM_ID,E.P_ITEM_NAME
+  ORDER BY E.SERIAL_NUMBER, E.P_ITEM_ID ASC
+  </select>
+  <select id="selectBillSumByCycleIdAndNumber" resultMap="QryForListMapExt" parameterType="java.util.Map"> 
+  select E.SERIAL_NUMBER,E.P_ITEM_ID,E.P_ITEM_NAME,sum(fee) FEE,sum(B_DISCNT) B_DISCNT
+    from 
+   (select A.BILL_ID, A.PARTITION_ID, A.ACCT_ID, A.USER_ID, A.SERIAL_NUMBER, A.ITEM_ID, 
+  A.CYCLE_ID, A.USE_COUNT,A.FEE, A.BALANCE, A.B_DISCNT, A.A_DISCNT, A.ADJUST_BEFORE, 
+  A.ADJUST_AFTER, A.CANPAY_TAG, A.BILL_PAY_TAG, A.RECV_TIME, A.UPDATE_TIME, A.UPDATE_STAFF_ID, 
+  A.RSRV_INFO1, A.RSRV_INFO2, D.ITEM_NAME, D.ITEM_DESC, D.P_ITEM_ID, D.START_CYCLE_ID,
+  D.END_CYCLE_ID, D.TAX_RATE, D.REMARK, D.P_ITEM_NAME
+  from LAO_B_BILL A, 
+  (select B.ITEM_ID, B.ITEM_NAME, B.ITEM_DESC, B.P_ITEM_ID, B.START_CYCLE_ID,
+  B.END_CYCLE_ID, B.TAX_RATE, B.REMARK, C.ITEM_NAME AS P_ITEM_NAME
+  from LAO_D_ITEM B, LAO_D_ITEM C
+  where B.P_ITEM_ID = C.ITEM_ID) D
+  where A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  and A.SERIAL_NUMBER= #{number,jdbcType=VARCHAR}
+  AND A.ITEM_ID(+) = D.ITEM_ID ) E
+  GROUP BY E.SERIAL_NUMBER,E.P_ITEM_ID,E.P_ITEM_NAME
+  ORDER BY E.SERIAL_NUMBER, E.P_ITEM_ID ASC
+  </select>
+  
+  
+  
+  
+  <select id="selectBillSumByItemCycleId" resultMap="QryForListMap2" parameterType="java.lang.Integer"> 
+  select E.ITEM_ID,E.P_ITEM_NAME,E.ITEM_NAME,SUM(FEE) FEE,SUM(B_DISCNT) B_DISCNT,E.TAX_RATE
+  FROM
+  (select A.BILL_ID, A.PARTITION_ID, A.ACCT_ID, A.USER_ID, A.SERIAL_NUMBER, A.ITEM_ID, 
+  A.CYCLE_ID, A.USE_COUNT,A.FEE, A.BALANCE, A.B_DISCNT, A.A_DISCNT, A.ADJUST_BEFORE, 
+  A.ADJUST_AFTER, A.CANPAY_TAG, A.BILL_PAY_TAG, A.RECV_TIME, A.UPDATE_TIME, A.UPDATE_STAFF_ID, 
+  A.RSRV_INFO1, A.RSRV_INFO2, D.ITEM_NAME, D.ITEM_DESC, D.P_ITEM_ID, D.START_CYCLE_ID,
+  D.END_CYCLE_ID, D.TAX_RATE, D.REMARK, D.P_ITEM_NAME
+  from LAO_B_BILL A, 
+  (select B.ITEM_ID, B.ITEM_NAME, B.ITEM_DESC, B.P_ITEM_ID, B.START_CYCLE_ID,
+  B.END_CYCLE_ID, B.TAX_RATE, B.REMARK, C.ITEM_NAME AS P_ITEM_NAME
+  from LAO_D_ITEM B, LAO_D_ITEM C
+  where B.P_ITEM_ID = C.ITEM_ID) D
+  where A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL}
+  AND A.ITEM_ID(+) = D.ITEM_ID) E
+  GROUP BY E.ITEM_ID,E.ITEM_NAME,E.P_ITEM_NAME,E.TAX_RATE
+  ORDER BY E.ITEM_ID ASC 
+  </select>
+  <select id="selectSerialNumberByUserId" resultMap="BaseResultMap" >
+    SELECT DISTINCT SERIAL_NUMBER  
+    FROM LAO_B_BILL A 
+    WHERE A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL} 
+    AND NOT EXISTS(SELECT 1 
+    FROM LAO_USER B WHERE A.SERIAL_NUMBER = B.MSISDN AND B.REMOVE_TAG='0')
+  </select>
+  <update id="updateAllUserIdByCycleId" parameterType="java.lang.Integer" >
+    UPDATE LAO_B_BILL A SET A.USER_ID = 
+    (SELECT B.USER_ID FROM LAO_USER B 
+    WHERE A.SERIAL_NUMBER=B.MSISDN AND B.REMOVE_TAG='0' AND ROWNUM=1)
+    WHERE  A.CYCLE_ID = #{cycleId,jdbcType=DECIMAL} 
+    AND EXISTS(SELECT 1 
+    FROM LAO_USER B WHERE A.SERIAL_NUMBER=B.MSISDN AND B.REMOVE_TAG='0'and a.user_id != b.user_id)
+  </update>
+</mapper>

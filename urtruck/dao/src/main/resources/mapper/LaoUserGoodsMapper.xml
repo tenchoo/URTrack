@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoUserGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoUserGoods" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <id column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <id column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="BI_RULES_ID" property="biRulesId" jdbcType="DECIMAL" />
+    <result column="GOODS_RELEASE_ID" property="goodsReleaseId" jdbcType="DECIMAL" />
+    <result column="RELEASE_CYCLE" property="releaseCycle" jdbcType="VARCHAR" />
+    <result column="START_USE_DATE" property="startUseDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, GOODS_ID, START_DATE, END_DATE, UPDATE_DATE, BI_RULES_ID, GOODS_RELEASE_ID,RELEASE_CYCLE,START_USE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_USER_GOODS
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from LAO_USER_GOODS
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoUserGoods" >
+    insert into LAO_USER_GOODS (USER_ID, GOODS_ID, START_DATE, 
+      END_DATE, UPDATE_DATE, BI_RULES_ID, 
+      GOODS_RELEASE_ID,RELEASE_CYCLE,START_USE_DATE)
+    values (#{userId,jdbcType=DECIMAL}, #{goodsId,jdbcType=DECIMAL}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{biRulesId,jdbcType=DECIMAL}, 
+      #{goodsReleaseId,jdbcType=DECIMAL},#{releaseCycle,jdbcType=VARCHAR},#{startUseDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoUserGoods" >
+    insert into LAO_USER_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="biRulesId != null" >
+        BI_RULES_ID,
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID,
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE,
+      </if>
+      <if test="startUseDate != null" >
+        START_USE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biRulesId != null" >
+        #{biRulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseCycle != null" >
+        #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="startUseDate != null" >
+        #{startUseDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoUserGoods" >
+    update LAO_USER_GOODS
+    <set >
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="biRulesId != null" >
+        BI_RULES_ID = #{biRulesId,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsReleaseId != null" >
+        GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseCycle != null" >
+        RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="startUseDate != null" >
+        START_USE_DATE = #{startUseDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoUserGoods" >
+    update LAO_USER_GOODS
+    set END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      BI_RULES_ID = #{biRulesId,jdbcType=DECIMAL},
+      GOODS_RELEASE_ID = #{goodsReleaseId,jdbcType=DECIMAL},
+      RELEASE_CYCLE = #{releaseCycle,jdbcType=VARCHAR},
+      START_USE_DATE = #{startUseDate,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=DECIMAL}
+      and GOODS_ID = #{goodsId,jdbcType=DECIMAL}
+      and START_DATE = #{startDate,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

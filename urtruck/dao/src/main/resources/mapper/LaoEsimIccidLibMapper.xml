@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.urt.mapper.LaoEsimIccidLibMapper" >
+  <resultMap id="BaseResultMap" type="com.urt.po.LaoEsimIccidLib" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ICCID" property="iccid" jdbcType="VARCHAR" />
+    <result column="CARDSTATUS" property="cardstatus" jdbcType="VARCHAR" />
+    <result column="COUNTRY_ID" property="countryId" jdbcType="VARCHAR" />
+    <result column="INDATE" property="indate" jdbcType="TIMESTAMP" />
+    <result column="ICCIDCURENTSTATUS" property="iccidcurentstatus" jdbcType="DECIMAL" />
+    <result column="PARAM1" property="param1" jdbcType="VARCHAR" />
+    <result column="PARAM2" property="param2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ICCID, CARDSTATUS, COUNTRY_ID, INDATE, ICCIDCURENTSTATUS, PARAM1, PARAM2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from LAO_ESIM_ICCID_LIB
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from LAO_ESIM_ICCID_LIB
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.urt.po.LaoEsimIccidLib" >
+    insert into LAO_ESIM_ICCID_LIB (ID, ICCID, CARDSTATUS, 
+      COUNTRY_ID, INDATE, ICCIDCURENTSTATUS, 
+      PARAM1, PARAM2)
+    values (#{id,jdbcType=DECIMAL}, #{iccid,jdbcType=VARCHAR}, #{cardstatus,jdbcType=VARCHAR}, 
+      #{countryId,jdbcType=VARCHAR}, #{indate,jdbcType=TIMESTAMP}, #{iccidcurentstatus,jdbcType=DECIMAL}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.urt.po.LaoEsimIccidLib" >
+    insert into LAO_ESIM_ICCID_LIB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS,
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID,
+      </if>
+      <if test="indate != null" >
+        INDATE,
+      </if>
+      <if test="iccidcurentstatus != null" >
+        ICCIDCURENTSTATUS,
+      </if>
+      <if test="param1 != null" >
+        PARAM1,
+      </if>
+      <if test="param2 != null" >
+        PARAM2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardstatus != null" >
+        #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccidcurentstatus != null" >
+        #{iccidcurentstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.urt.po.LaoEsimIccidLib" >
+    update LAO_ESIM_ICCID_LIB
+    <set >
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardstatus != null" >
+        CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="countryId != null" >
+        COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      </if>
+      <if test="indate != null" >
+        INDATE = #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iccidcurentstatus != null" >
+        ICCIDCURENTSTATUS = #{iccidcurentstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="param1 != null" >
+        PARAM1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        PARAM2 = #{param2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.urt.po.LaoEsimIccidLib" >
+    update LAO_ESIM_ICCID_LIB
+    set ICCID = #{iccid,jdbcType=VARCHAR},
+      CARDSTATUS = #{cardstatus,jdbcType=VARCHAR},
+      COUNTRY_ID = #{countryId,jdbcType=VARCHAR},
+      INDATE = #{indate,jdbcType=TIMESTAMP},
+      ICCIDCURENTSTATUS = #{iccidcurentstatus,jdbcType=DECIMAL},
+      PARAM1 = #{param1,jdbcType=VARCHAR},
+      PARAM2 = #{param2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
