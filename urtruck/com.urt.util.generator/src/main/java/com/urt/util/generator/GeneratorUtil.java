@@ -1,4 +1,4 @@
-package com.urt.common.plugin;
+package com.urt.util.generator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,6 +9,12 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+/**
+ * 代码生成工具：
+ * 生成PO和Mapper的xml文件
+ * @author weiyt1
+ *
+ */
 public class GeneratorUtil {
 
 	public void generator() throws Exception {

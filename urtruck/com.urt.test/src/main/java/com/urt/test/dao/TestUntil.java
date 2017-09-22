@@ -1,4 +1,4 @@
-package com.urt.mybatis;
+package com.urt.test.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
