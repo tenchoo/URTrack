@@ -2,3 +2,8 @@
 /urtruck/dao/.project
 /urtruck/dao/.classpath
 /urtruck/.project
+/urtruck/com.urt.util.generator/.classpath
+/urtruck/com.urt.util.generator/.gitignore
+/urtruck/com.urt.util.generator/.project
+mapper
+po

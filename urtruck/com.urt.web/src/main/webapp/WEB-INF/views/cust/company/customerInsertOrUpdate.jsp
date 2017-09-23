@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ page import="com.lenovo.LAOAPI.dto.LaoSsAccountDto"%>
+<%@ page import="com.urt.dto.LaoSsAccountDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="zh_cn" scope="page"/>
