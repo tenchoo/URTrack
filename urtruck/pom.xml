@@ -778,15 +778,15 @@
 
 
 	<modules>
-		<module>sdk</module>
-		<module>service</module>
-		<module>redis</module>
-		<module>core</module>
-		<module>dao</module>
-		<module>web</module>
-		<module>msgproducer</module>
-		<module>storm</module>		
-		<module>page</module>
-		<module>cmpp</module>
+		<module>com.urt.sdk</module>
+		<module>com.urt.service</module>
+		<module>com.urt.redis</module>
+		<module>com.urt.core</module>
+		<module>com.urt.dao</module>
+		<module>com.urt.web</module>
+		<module>com.urt.msgproducer</module>
+		<module>com.urt.storm</module>		
+		<module>com.urt.page</module>
+		<module>com.urt.cmpp</module>
   </modules>
 </project>
